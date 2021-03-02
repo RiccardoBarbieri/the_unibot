@@ -1,14 +1,14 @@
-from abc import abstractmethod
 from selenium.webdriver.remote.webelement import WebElement
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import presence_of_element_located
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementClickInterceptedException, NoSuchElementException
 import time
 from math import ceil
 from pprint import pprint
+import json
 
 def dec(i: float):
     return i - int(i)
@@ -17,6 +17,16 @@ class CourseParser():
 
     url = 'https://www.unibo.it/it/didattica/corsi-di-studio'
     chrome_driver_path = '.\\chromedriver.exe'
+
+    name_error = 0 # TODO: delete
+    code_error = 0
+    campus_error = 0
+    international_error = 0
+    access_error = 0
+    lang_error = 0
+    curriculas_error = 0
+    site_error = 0
+    names = []
     
 
     count_of_rows = []
@@ -57,6 +67,9 @@ class CourseParser():
                     pass
                 self.driver.execute_script('window.scrollBy(0,250)')
             self.driver.execute_script('window.scrollBy(0,48)')
+        
+        self.parse_all_cards()
+        self.print_errors()
 
     
     def __count_tabs(self) -> None:
@@ -65,16 +78,18 @@ class CourseParser():
     
     
     def parse_all_cards(self) -> None:
+        temp = 0
         for i in self.cards_by_tabs.keys():
             self.parsed_cards_by_tabs[i] = []
             for j in self.cards_by_tabs[i]:
-                self.parsed_cards_by_tabs[i].append(self.parse_card(j))
+                temp += 1
+                self.parsed_cards_by_tabs[i].append(self.parse_card(j).copy())
+                print(temp)
 
     def get_parsed_cards(self) -> dict:
         return self.parsed_cards_by_tabs
 
-    @abstractmethod
-    def parse_card(web_element: WebElement) -> dict:
+    def parse_card(self, web_element: WebElement) -> dict:
         parsed = {}
         #nome corso string
         #codice corso int?string
@@ -84,27 +99,76 @@ class CourseParser():
         #lingua list of strings
         #curriculas list of strings
         #sito string
-        parsed['course_name'] = web_element.find_element_by_xpath('a/div[2]/div/h3').text.strip()
-        parsed['course_code'] = web_element.find_element_by_xpath('a/div[2]/div/span').text[-5:].strip()
-        parsed['campus'] = web_element.find_element_by_xpath('a/div[2]/div/p').text[6:].strip()
-        html = web_element.get_attribute('innerHTML')
-        parsed['international'] = (html.find('internazionale') != -1)
-        access = web_element.find_element_by_xpath('div[2]/p[1]').get_attribute('innerHTML').strip()
-        parsed['access'] = access[access.find(':') + 1:].strip()
-        langs = web_element.find_element_by_xpath('div[2]/p[3]').get_attribute('innerHTML')
-        langs = langs[langs.find(':') + 1:].strip()
-        parsed['languages'] = langs.split(',')
-        ul = web_element.find_element_by_xpath('div[2]/ul')
-        lis = ul.find_elements_by_xpath("./li")
-        curriculas = []
-        for i in lis:
-            curriculas.append(i.get_attribute('innerHTML').strip())
-        parsed['curriculas'] = curriculas
-        parsed['site'] = web_element.find_element_by_xpath('div[2]/p[5]/a').get_attribute('href')
+        try:
+            parsed['course_name'] = web_element.find_element_by_xpath('a/div[2]/div/h3').text.strip()
+        except NoSuchElementException:
+            self.name_error += 1
+        try:
+            parsed['course_code'] = web_element.find_element_by_xpath('a/div[2]/div/span').text[-5:].strip()
+        except NoSuchElementException:
+            self.code_error += 1
+        try:
+            parsed['campus'] = web_element.find_element_by_xpath('a/div[2]/div/p').text[6:].strip()
+        except NoSuchElementException:
+            self.campus_error += 1
+        try:
+            html = web_element.get_attribute('innerHTML')
+            parsed['international'] = (html.find('internazionale') != -1)
+        except NoSuchElementException:
+            self.international_error +=1
+        try:
+            access = web_element.find_element_by_xpath('div[2]/p[1]').get_attribute('innerHTML').strip()
+            parsed['access'] = access[access.find(':') + 1:].strip()
+        except NoSuchElementException:
+            self.access_error += 1
+        try:
+            langs = web_element.find_element_by_xpath('div[2]/p[3]').get_attribute('innerHTML')
+            langs = langs[langs.find(':') + 1:].strip()
+            parsed['languages'] = langs.split(',')
+        except NoSuchElementException:
+            self.lang_error += 1
+        try:
+            ul = web_element.find_element_by_xpath('div[2]/ul')
+            lis = ul.find_elements_by_xpath("./li")
+            curriculas = []
+            for i in lis:
+                curriculas.append(i.get_attribute('innerHTML').strip())
+            parsed['curriculas'] = curriculas
+        except NoSuchElementException:
+            self.curriculas_error += 1
+        try:
+            parsed['site'] = web_element.find_element_by_xpath('div[2]/p[5]/a').get_attribute('href')
+        except NoSuchElementException:
+            try:
+                parsed['site'] = web_element.find_element_by_xpath('div[2]/p[4]/a').get_attribute('href')
+            except NoSuchElementException:
+                try:
+                    parsed['site'] = web_element.find_element_by_xpath('div[2]/p[6]/a').get_attribute('href')
+                except NoSuchElementException:
+                    self.site_error += 1
+                    self.names.append(parsed['course_name'])
         return parsed
+    
+    def print_errors(self):
+        print('names = ' + str(self.name_error))
+        print('codes = ' + str(self.code_error))
+        print('campus = ' + str(self.campus_error))
+        print('international = ' + str(self.international_error))
+        print('access = ' + str(self.access_error))
+        print('lang = ' + str(self.lang_error))
+        print('curriculas = ' + str(self.curriculas_error))
+        print('site = ' + str(self.site_error))
+        print(self.names)
     
 
 a = CourseParser()
+
+with open('courses.json', 'w+') as f:
+    json.dump(a.get_parsed_cards(), f)
+
+print('fine')
+
+# pprint(a.get_parsed_cards())
 
 
 # # chrome_options.add_argument('--headless')
