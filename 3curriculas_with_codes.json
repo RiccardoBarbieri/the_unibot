@@ -1,0 +1,868 @@
+{
+    "https://corsi.unibo.it/magistrale/aegi": [
+        {
+            "label": "AMMINISTRAZIONE E CONTROLLO D\u2019IMPRESA",
+            "value": "A01-000"
+        },
+        {
+            "label": "GESTIONE D\u2019IMPRESA",
+            "value": "A02-000"
+        },
+        {
+            "label": "SERVICE MANAGEMENT",
+            "value": "A03-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/DirezioneAziendale": [
+        {
+            "label": "DIREZIONE AZIENDALE",
+            "value": "755-000"
+        },
+        {
+            "label": "INTERNATIONAL MANAGEMENT",
+            "value": "756-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/clet": [
+        {
+            "label": "Curriculum ECONOMIA DEL TURISMO",
+            "value": "000-000"
+        },
+        {
+            "label": "INTERNATIONAL TOURISM AND LEISURE INDUSTRIES",
+            "value": "A25-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/clei": [
+        {
+            "label": "Curriculum ECONOMIA DELL'IMPRESA",
+            "value": "000-000"
+        },
+        {
+            "label": "PERCORSO MANAGERIALE",
+            "value": "B69-000"
+        },
+        {
+            "label": "PERCORSO PROFESSIONALE",
+            "value": "B68-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/EconomiaCommercio": [
+        {
+            "label": "CURRICULUM ECONOMIA E COMMERCIO",
+            "value": "761-000"
+        },
+        {
+            "label": "ECONOMIA E MANAGEMENT",
+            "value": "A59-000"
+        },
+        {
+            "label": "MANAGEMENT",
+            "value": "A60-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/EconomiaDiritto": [
+        {
+            "label": "CURRICULUM LAW AND ECONOMICS OF INSURANCE AND FINANCE",
+            "value": "B08-000"
+        },
+        {
+            "label": "Curriculum ECONOMIA E DIRITTO",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/EconomiaManagement": [
+        {
+            "label": "CURRICULUM BUSINESS AND ADMINISTRATION",
+            "value": "509-000"
+        },
+        {
+            "label": "ECONOMIA E MANAGEMENT",
+            "value": "A59-000"
+        },
+        {
+            "label": "FOOD SYSTEM MANAGEMENT",
+            "value": "A61-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/EconomiaPoliticaEconomica": [
+        {
+            "label": "ECONOMIA E POLITICA ECONOMICA",
+            "value": "979-000"
+        },
+        {
+            "label": "HEALTH ECONOMICS & MANAGEMENT",
+            "value": "980-000"
+        },
+        {
+            "label": "HEALTH ECONOMICS, MANAGEMENT AND POLICY",
+            "value": "C01-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/euHealthEconomicsManagement": [
+        {
+            "label": "Curriculum HEALTH ECONOMICS AND MANAGEMENT / ECONOMIA SANITARIA E MANAGEMENT",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/ManagementMarketing": [
+        {
+            "label": "Curriculum MANAGEMENT E MARKETING",
+            "value": "000-000"
+        },
+        {
+            "label": "GESTIONE E INNOVAZIONE D\u2019IMPRESA",
+            "value": "B71-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/ScienzeFarmaceutiche": [
+        {
+            "label": "TECNICHE ERBORISTICHE",
+            "value": "775-000"
+        },
+        {
+            "label": "TOSSICOLOGIA AMBIENTALE",
+            "value": "777-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/ConsulenteLavoroRelazioniAziendali": [
+        {
+            "label": "Curriculum CONSULENTE DEL LAVORO E DELLE RELAZIONI AZIENDALI",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/GiuristaImpresa": [
+        {
+            "label": "AMMINISTRAZIONE E GOVERNO DEL TERRITORIO",
+            "value": "B16-000"
+        },
+        {
+            "label": "CONTRATTI E IMPRESA",
+            "value": "B09-000"
+        },
+        {
+            "label": "FOOD, SPORT E WELLNESS",
+            "value": "B18-000"
+        },
+        {
+            "label": "TRASPORTI, LOGISTICA E SISTEMI PORTUALI",
+            "value": "B17-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/AutomotiveEngineering": [
+        {
+            "label": "ADVANCED MOTORCYCLE ENGINEERING",
+            "value": "B02-000"
+        },
+        {
+            "label": "ADVANCED POWERTRAIN",
+            "value": "B01-000"
+        },
+        {
+            "label": "ADVANCED SPORTSCAR MANUFACTURING",
+            "value": "B03-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/AdvancedDesign": [
+        {
+            "label": "ADVANCED DESIGN DEI PRODOTTI",
+            "value": "B14-000"
+        },
+        {
+            "label": "ADVANCED DESIGN DEI SERVIZI",
+            "value": "B15-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/AerospaceEngineering": [
+        {
+            "label": "CURRICULUM AERONAUTICS",
+            "value": "B79-000"
+        },
+        {
+            "label": "CURRICULUM SPACE",
+            "value": "B80-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/IngegneriaBiomedica": [
+        {
+            "label": "BIOENGINEERING OF HUMAN MOVEMENT",
+            "value": "B89-000"
+        },
+        {
+            "label": "BIOMEDICAL ENGINEERING FOR NEUROSCIENCE",
+            "value": "B87-000"
+        },
+        {
+            "label": "INNOVATIVE TECHNOLOGIES IN DIAGNOSTICS AND THERAPY",
+            "value": "B88-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/CivilEngineering": [
+        {
+            "label": "CLIMATE CHANGE ADAPTATION",
+            "value": "B66-000"
+        },
+        {
+            "label": "INFRASTRUCTURE DESIGN IN RIVER BASINS",
+            "value": "A29-000"
+        },
+        {
+            "label": "OFFSHORE ENGINEERING",
+            "value": "A30-000"
+        },
+        {
+            "label": "STRUCTURAL ENGINEERING",
+            "value": "A28-000"
+        },
+        {
+            "label": "SUSTAINABLE MOBILITY IN URBAN AREAS",
+            "value": "I01-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/IngegneriaChimicaProcesso": [
+        {
+            "label": "INGEGNERIA ALIMENTARE",
+            "value": "760-000"
+        },
+        {
+            "label": "INGEGNERIA DI PROCESSO",
+            "value": "973-000"
+        },
+        {
+            "label": "SUSTAINABLE TECHNOLOGIES AND BIOTECHNOLOGIES FOR ENERGY AND MATERIALS",
+            "value": "598-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/civile": [
+        {
+            "label": "CURRICULUM: COSTRUZIONI PER L\u2019EDILIZIA E LE INFRASTRUTTURE",
+            "value": "957-000"
+        },
+        {
+            "label": "CURRICULUM: IDRAULICA E TERRITORIO",
+            "value": "958-000"
+        },
+        {
+            "label": "CURRICULUM: INFRASTRUTTURE VIARIE E TRASPORTI",
+            "value": "862-000"
+        },
+        {
+            "label": "CURRICULUM: STRUTTURE",
+            "value": "856-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/IngegneriaSistemiProcessiEdilizi": [
+        {
+            "label": "Curriculum INGEGNERIA DEI PROCESSI E DEI SISTEMI EDILIZI",
+            "value": "000-000"
+        },
+        {
+            "label": "GESTIONE DEL PROCESSO EDILIZIO NEL RECUPERO DI EDIFICI STORICI",
+            "value": "597-000"
+        },
+        {
+            "label": "HISTORIC BUILDINGS REHABILITATION",
+            "value": "640-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/IngegneriaAutomazione": [
+        {
+            "label": "AUTOMATION ENGINEERING",
+            "value": "740-000"
+        },
+        {
+            "label": "SISTEMI PER L'AUTOMAZIONE",
+            "value": "739-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/elettrica": [
+        {
+            "label": "ELECTRICAL ENGINEERING",
+            "value": "A27-000"
+        },
+        {
+            "label": "INGEGNERIA DELL\u2019ENERGIA ELETTRICA",
+            "value": "A26-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/IngegneriaScienzeInformatiche": [
+        {
+            "label": "Curriculum INGEGNERIA E SCIENZE INFORMATICHE",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/elettronica": [
+        {
+            "label": "ELECTRONIC TECHNOLOGIES FOR BIG-DATA AND INTERNET OF THINGS",
+            "value": "A76-000"
+        },
+        {
+            "label": "ELECTRONICS FOR INTELLIGENT SYSTEMS, BIG-DATA AND INTERNET OF THINGS",
+            "value": "B70-000"
+        },
+        {
+            "label": "INGEGNERIA ELETTRONICA",
+            "value": "A75-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/ElettronicaTelecomunicazioni": [
+        {
+            "label": "CURRICULUM: ELETTRONICA",
+            "value": "995-000"
+        },
+        {
+            "label": "CURRICULUM: TELECOMUNICAZIONI",
+            "value": "996-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/IngegneriaElettronicaTelecomunicazioniEnergia": [
+        {
+            "label": "CURRICULUM INFORMATION AND COMMUNICATION TECHNOLOGY FOR CLIMATE",
+            "value": "A97-000"
+        },
+        {
+            "label": "Curriculum INGEGNERIA ELETTRONICA E TELECOMUNICAZIONI PER L\u2019ENERGIA",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/IngegneriaEnergetica": [
+        {
+            "label": "APPLICAZIONI INDUSTRIALI E BIOMEDICALI DELL'ENERGIA",
+            "value": "B12-000"
+        },
+        {
+            "label": "FONTI ENERGETICHE TRADIZIONALI E RINNOVABILI",
+            "value": "B13-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/IngegneriaMeccanica-Bologna": [
+        {
+            "label": "BIOMECCANICA",
+            "value": "B81-000"
+        },
+        {
+            "label": "IMPIANTI INDUSTRIALI",
+            "value": "913-000"
+        },
+        {
+            "label": "MACCHINE A FLUIDO",
+            "value": "912-000"
+        },
+        {
+            "label": "MECCANICA DELL\u2019AUTOMAZIONE E ROBOTICA",
+            "value": "B82-000"
+        },
+        {
+            "label": "MOTOVEICOLO",
+            "value": "B83-000"
+        },
+        {
+            "label": "PROGETTAZIONE MECCANICA E MODELLAZIONE",
+            "value": "914-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/IngegneriAmbienteTerritorio": [
+        {
+            "label": "CLIMATE CHANGE ADAPTATION",
+            "value": "B66-000"
+        },
+        {
+            "label": "EARTH RESOURCES ENGINEERING",
+            "value": "976-000"
+        },
+        {
+            "label": "INGEGNERIA PER L'AMBIENTE E IL TERRITORIO",
+            "value": "975-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/OffshoreEngineering": [
+        {
+            "label": "ENVIRONMENTAL OFFSHORE ENGINEERING",
+            "value": "B30-000"
+        },
+        {
+            "label": "OFFSHORE ENERGY TECHNOLOGIES",
+            "value": "B29-000"
+        },
+        {
+            "label": "OFFSHORE STRUCTURES",
+            "value": "B31-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/LetteratureModerneComparatePostcoloniali": [
+        {
+            "label": "CURRICULUM WOMEN'S AND GENDER STUDIES - STUDI DI GENERE E DELLE DONNE (GEMMA)",
+            "value": "736-000"
+        },
+        {
+            "label": "Curriculum LETTERATURE MODERNE, COMPARATE E POSTCOLONIALI",
+            "value": "000-000"
+        },
+        {
+            "label": "LETTERATURE MODERNE, COMPARATE E POSTCOLONIALI",
+            "value": "946-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/SpecializedTranslation": [
+        {
+            "label": "Curriculum SPECIALIZED TRANSLATION",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/OrganizationalPsychology": [
+        {
+            "label": "Curriculum WORK, ORGANIZATIONAL AND PERSONNEL PSYCHOLOGY",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/AnalisiGestioneAmbiente": [
+        {
+            "label": "CURRICULUM CLIMATE-KIC",
+            "value": "A98-000"
+        },
+        {
+            "label": "CURRICULUM: WATER AND COASTAL MANAGEMENT",
+            "value": "968-000"
+        },
+        {
+            "label": "Curriculum ANALISI E GESTIONE DELL'AMBIENTE",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/Chimica": [
+        {
+            "label": "CURRICULUM A: METODOLOGIE DI SINTESI E CHIMICA BIO-ORGANICA",
+            "value": "707-000"
+        },
+        {
+            "label": "CURRICULUM B: METODOLOGIE DI ANALISI E CARATTERIZZAZIONE",
+            "value": "708-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/DidatticaComunicazioneScienzeNaturali": [
+        {
+            "label": "COMUNICAZIONE DELLE SCIENZE NEI MUSEI",
+            "value": "B94-000"
+        },
+        {
+            "label": "DIDATTICA DELLA COMUNICAZIONE SCIENTIFICA",
+            "value": "B96-000"
+        },
+        {
+            "label": "DIDATTICA DELLE SCIENZE DELLA NATURA",
+            "value": "B93-000"
+        },
+        {
+            "label": "DIDATTICA E SVILUPPO SOSTENIBILE",
+            "value": "B95-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/GeologiaTerritorio": [
+        {
+            "label": "CURRICULUM A: RISCHIO IDROGEOLOGICO E PROTEZIONE DELL'AMBIENTE",
+            "value": "B58-000"
+        },
+        {
+            "label": "CURRICULUM B: STRATIGRAFIA INTEGRATA PER LE GEORISORSE",
+            "value": "B59-000"
+        },
+        {
+            "label": "CURRICULUM C: RAW MATERIALS EXPLORATION AND SUSTAINABILITY",
+            "value": "B60-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/informatica": [
+        {
+            "label": "CURRICULUM A: TECNICHE DEL SOFTWARE",
+            "value": "A58-000"
+        },
+        {
+            "label": "CURRICULUM B: INFORMATICA PER IL MANAGEMENT",
+            "value": "991-000"
+        },
+        {
+            "label": "CURRICULUM C: SISTEMI E RETI",
+            "value": "992-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/LowCarbonTechnologiesChemistry": [
+        {
+            "label": "CURRICULUM CLIMATE-KIC",
+            "value": "A98-000"
+        },
+        {
+            "label": "Curriculum LOW CARBON TECHNOLOGIES AND SUSTAINABLE CHEMISTRY",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/matematica": [
+        {
+            "label": "CURRICULUM A: GENERALE E APPLICATIVO",
+            "value": "955-000"
+        },
+        {
+            "label": "CURRICULUM C: DIDATTICO",
+            "value": "839-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/Physics": [
+        {
+            "label": "APPLIED PHYSICS",
+            "value": "B25-000"
+        },
+        {
+            "label": "DIDATTICA E STORIA DELLA FISICA",
+            "value": "B26-000"
+        },
+        {
+            "label": "MATERIALS PHYSICS AND NANOSCIENCE",
+            "value": "A74-000"
+        },
+        {
+            "label": "NUCLEAR AND SUBNUCLEAR PHYSICS",
+            "value": "B24-000"
+        },
+        {
+            "label": "THEORETICAL PHYSICS",
+            "value": "B23-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/ScienzeGestioneNatura": [
+        {
+            "label": "GLOBAL CHANGE ECOLOGY AND SUSTAINABLE DEVELOPMENT GOALS",
+            "value": "B33-000"
+        },
+        {
+            "label": "SCIENZE E GESTIONE DELLA NATURA",
+            "value": "B32-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/ScienzeStatistiche": [
+        {
+            "label": "CURRICULUM BIO-DEMOGRAFICO",
+            "value": "722-000"
+        },
+        {
+            "label": "CURRICULUM ECONOMIA E IMPRESA",
+            "value": "721-000"
+        },
+        {
+            "label": "CURRICULUM STATS AND MATHS",
+            "value": "A32-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/PreciseSustainableAgriculture": [
+        {
+            "label": "ANIMAL PRODUCTION",
+            "value": "B91-000"
+        },
+        {
+            "label": "CROP PRODUCTION",
+            "value": "B90-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/ProgettazioneGestioneEcosistemi": [
+        {
+            "label": "ANALISI E MONITORAGGIO DEGLI ECOSISTEMI",
+            "value": "944-000"
+        },
+        {
+            "label": "PROGETTAZIONE E GESTIONE DEGLI SPAZI VERDI",
+            "value": "945-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/ScienzeTecnologieAgrarie": [
+        {
+            "label": "MEDICINA DELLE PIANTE",
+            "value": "943-000"
+        },
+        {
+            "label": "PRODUZIONI E BIOTECNOLOGIE VEGETALI",
+            "value": "A37-000"
+        },
+        {
+            "label": "TECNICO-ECONOMICO E GESTIONALE",
+            "value": "A38-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/verdepaesaggio": [
+        {
+            "label": "Curriculum VERDE ORNAMENTALE E TUTELA DEL PAESAGGIO",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/ComunicazionePubblicaImpresa": [
+        {
+            "label": "COMUNICAZIONE PUBBLICA E D'IMPRESA",
+            "value": "B75-000"
+        },
+        {
+            "label": "GIORNALISMO E MEDIA DIGITALI",
+            "value": "B76-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/InternationalCooperation": [
+        {
+            "label": "INTERNATIONAL COOPERATION ON INTERCULTURAL HERITAGE",
+            "value": "A95-000"
+        },
+        {
+            "label": "PROTECTION OF HUMAN RIGHTS AND INTERNATIONAL COOPERATION",
+            "value": "A94-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/InternationalRelations": [
+        {
+            "label": "CRIME, JUSTICE AND SECURITY",
+            "value": "B50-000"
+        },
+        {
+            "label": "EUROPEAN AFFAIRS",
+            "value": "B52-000"
+        },
+        {
+            "label": "FORECASTING, INNOVATION AND CHANGE",
+            "value": "B53-000"
+        },
+        {
+            "label": "INTERNATIONAL AFFAIRS",
+            "value": "B51-000"
+        },
+        {
+            "label": "INTERNATIONAL CRIMINOLOGY",
+            "value": "B54-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/PoliticaAmministrazioneOrganizzazione": [
+        {
+            "label": "POLITICS AND SOCIAL POLICY",
+            "value": "B44-000"
+        },
+        {
+            "label": "SCIENZA DELL\u2019AMMINISTRAZIONE",
+            "value": "B55-000"
+        },
+        {
+            "label": "TEORIA DELL'ORGANIZZAZIONE",
+            "value": "B56-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/ScienzeInternazionaliDiplomatiche": [
+        {
+            "label": "CURRICULUM DIPLOMATIC AND INTERNATIONAL SCIENCES",
+            "value": "B11-000"
+        },
+        {
+            "label": "CURRICULUM SCIENZE INTERNAZIONALI E DIPLOMATICHE",
+            "value": "B10-000"
+        },
+        {
+            "label": "Curriculum SCIENZE INTERNAZIONALI E DIPLOMATICHE",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/ScienzeInternazionaliDiplomatiche": [
+        {
+            "label": "POLITICA E GOVERNO NEL MONDO GLOBALE",
+            "value": "997-000"
+        },
+        {
+            "label": "POLITICA E SICUREZZA INTERNAZIONALE",
+            "value": "802-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/ScienzePoliticheSocialiInternazionali": [
+        {
+            "label": "COMUNICAZIONE",
+            "value": "538-000"
+        },
+        {
+            "label": "PERCORSO INTEGRATO UNIVERSIT\u00c0 E IMPRESA",
+            "value": "952-000"
+        },
+        {
+            "label": "RELAZIONI INTERNAZIONALI",
+            "value": "950-000"
+        },
+        {
+            "label": "SCIENZE DELL\u2019ORGANIZZAZIONE",
+            "value": "949-000"
+        },
+        {
+            "label": "SOCIOLOGIA",
+            "value": "951-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/StatisticaEconomiaImpresa": [
+        {
+            "label": "CURRICULUM MARKETING E RICERCHE DI MERCATO",
+            "value": "A35-000"
+        },
+        {
+            "label": "CURRICULUM METODI QUANTITATIVI PER LE DECISIONI ECONOMICHE",
+            "value": "A36-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/StatisticalSciences": [
+        {
+            "label": "DATA SCIENCE",
+            "value": "A91-000"
+        },
+        {
+            "label": "LIFE STATISTICS",
+            "value": "A92-000"
+        },
+        {
+            "label": "OFFICIAL STATISTICS",
+            "value": "A93-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/SociologiaServizioSociale": [
+        {
+            "label": "CURRICULUM SERVIZIO SOCIALE",
+            "value": "251-000"
+        },
+        {
+            "label": "CURRICULUM SOCIOLOGIA E RICERCA SOCIALE",
+            "value": "225-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/archeologia": [
+        {
+            "label": "APPLIED CRITICAL ARCHAEOLOGY AND HERITAGE",
+            "value": "B67-000"
+        },
+        {
+            "label": "Curriculum ARCHEOLOGIA E CULTURE DEL MONDO ANTICO",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/artivisive": [
+        {
+            "label": "AMAC - ARTS, MUSEOLOGY AND CURATORSHIP / ARTS, MUS\u00c9OLOGIE ET CURATORSHIP",
+            "value": "B43-000"
+        },
+        {
+            "label": "Curriculum ARTI VISIVE",
+            "value": "000-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/BeniArcheologiciArtisticiPaesaggio": [
+        {
+            "label": "PERCORSO ARCHEOLOGICO",
+            "value": "A83-000"
+        },
+        {
+            "label": "PERCORSO STORICO-ARTISTICO",
+            "value": "A84-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/DisciplineMusicaTeatro": [
+        {
+            "label": "CURRICULUM  DISCIPLINE DELLA MUSICA",
+            "value": "677-000"
+        },
+        {
+            "label": "CURRICULUM DISCIPLINE DEL TEATRO",
+            "value": "678-000"
+        }
+    ],
+    "https://corsi.unibo.it/2cycle/FashionStudies": [
+        {
+            "label": "CURRICULUM CULTURE OF FASHION",
+            "value": "B45-000"
+        },
+        {
+            "label": "CURRICULUM DESIGN FOR FASHION",
+            "value": "B47-000"
+        },
+        {
+            "label": "CURRICULUM STRATEGY IN FASHION MANAGEMENT",
+            "value": "B46-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/Filosofia": [
+        {
+            "label": "CURRICULUM FILOSOFIA: CONCETTI E CONTESTI",
+            "value": "A85-000"
+        },
+        {
+            "label": "CURRICULUM FILOSOFIA: CONTESTI E APPLICAZIONI",
+            "value": "A86-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/InformazioneCultureOrganizzazioneMedia": [
+        {
+            "label": "CULTURE DELL'INFORMAZIONE",
+            "value": "B73-000"
+        },
+        {
+            "label": "ORGANIZZAZIONE DEI MEDIA",
+            "value": "B74-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/ItalianisticaCultureLetterarieLinguistica": [
+        {
+            "label": "CULTURE LETTERARIE EUROPEE",
+            "value": "A88-000"
+        },
+        {
+            "label": "ITALIAN STUDIES",
+            "value": "A89-000"
+        },
+        {
+            "label": "ITALIANISTICA",
+            "value": "A87-000"
+        },
+        {
+            "label": "SCIENZE LINGUISTICHE",
+            "value": "A90-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/lettere": [
+        {
+            "label": "CURRICULUM CLASSICO",
+            "value": "906-000"
+        },
+        {
+            "label": "CURRICULUM CULTURE LETTERARIE EUROPEE",
+            "value": "953-000"
+        },
+        {
+            "label": "CURRICULUM MODERNO",
+            "value": "947-000"
+        }
+    ],
+    "https://corsi.unibo.it/magistrale/ScienzeStoricheOrientalistiche": [
+        {
+            "label": "CURRICULUM SCIENZE STORICHE",
+            "value": "893-000"
+        },
+        {
+            "label": "CURRICULUM STUDI ORIENTALI",
+            "value": "905-000"
+        },
+        {
+            "label": "GLOBAL CULTURES",
+            "value": "A55-000"
+        }
+    ],
+    "https://corsi.unibo.it/laurea/CultureMediterraneo": [
+        {
+            "label": "Curriculum SOCIET\u00c0 E CULTURE DEL MEDITERRANEO: ISTITUZIONI, SICUREZZA, AMBIENTE",
+            "value": "000-000"
+        },
+        {
+            "label": "POLITICA, DIRITTI, RISORSE",
+            "value": "B85-000"
+        },
+        {
+            "label": "SICUREZZA, LINGUAGGI, ISTITUZIONI",
+            "value": "B86-000"
+        },
+        {
+            "label": "STORIA, RELIGIONI, AMBIENTE",
+            "value": "B84-000"
+        }
+    ]
+}

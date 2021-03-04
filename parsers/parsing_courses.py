@@ -160,13 +160,14 @@ class CourseParser():
         print('site = ' + str(self.site_error))
         print(self.names)
     
+if __name__ == '__main__':
 
-a = CourseParser()
+    a = CourseParser()
 
-with open('courses.json', 'w+') as f:
-    json.dump(a.get_parsed_cards(), f)
+    with open('courses.json', 'w+') as f:
+        json.dump(a.get_parsed_cards(), f)
 
-print('fine')
+    print('fine')
 
 # pprint(a.get_parsed_cards())
 
