@@ -21,9 +21,9 @@ def start(update, context):
 def misc(update, context):
     if 'piedi' in update.message.text:
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
-    if 'registrazioni' in update.message.text:
+    if 'registr' in update.message.text:
         text = update.message.text
-        context.bot.send_message(chat_id = update.effective_chat.id, text = sub(text, 'registrazioni'))
+        context.bot.send_message(chat_id = update.effective_chat.id, text = sub(text, 'registr'))
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
 
 start_handler = CommandHandler('start', start)
