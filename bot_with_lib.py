@@ -15,7 +15,7 @@ def start(update, context):
 
 def echo(update, context):
     if 'piedi' in update.message.text:
-        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Piedi')
+        context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
 
 start_handler = CommandHandler('start', start)
 echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
