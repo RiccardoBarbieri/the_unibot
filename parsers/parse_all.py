@@ -4,6 +4,7 @@ from parsers.parsing_curricula_codes import create_curriculas_with_codes
 from parsers.joining_curriculas_courses import join
 from parsers.crafting_correct_links import correct_links
 from parsers.parsing_courses import CourseParser
+from parsers.exposing_course_code import expose_course_code
 import json
 
 
@@ -18,3 +19,5 @@ if __name__ == '__main__':
     create_curriculas_with_codes()
 
     join()
+
+    expose_course_code()

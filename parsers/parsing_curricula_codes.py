@@ -1,6 +1,7 @@
 import sys
 
 import json
+from json import JSONDecodeError
 import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
@@ -51,20 +52,23 @@ def create_curriculas_with_codes():
             print('Errore sul sito ' + i)
         else:
 
-            temp_not_parsed = r.text
+            try:
+                temp_not_parsed = json.loads(r.text)
+                temp_curriculas = []
+                for l in temp_not_parsed:
+                    temp = {}
+                    temp['label'] = l['label']
+                    temp['value'] = l['value']
+                    temp_curriculas.append(temp)
 
-            temp_curriculas = []
-            for l in temp_not_parsed:
-                temp = {}
-                temp['label'] = l['label']
-                temp['value'] = l['value']
-                temp_curriculas.append(temp)
+                if i[-1] == 'i':
+                    curriculas_by_site[i[:-15]] = temp_curriculas.copy()
+                elif i[-1] == 'e':
+                    curriculas_by_site[i[:-10]] = temp_curriculas.copy()
 
-            if i[-1] == 'i':
-                curriculas_by_site[i[:-15]] = temp_curriculas.copy()
-            elif i[-1] == 'e':
-                curriculas_by_site[i[:-10]] = temp_curriculas.copy()
-            
+            except JSONDecodeError:
+                print('Decoding error at ' + i)
+
         print(j)
 
     with open('curriculas_with_codes.json', 'w+') as f:

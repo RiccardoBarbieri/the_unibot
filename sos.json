@@ -1,67 +1,67 @@
 [
     {
-        "cod_modulo": "27993",
-        "cod_sdoppiamento": "27993",
-        "title": "ANALISI MATEMATICA T-2",
+        "cod_modulo": "28029",
+        "cod_sdoppiamento": "28029",
+        "title": "ELETTROTECNICA T",
         "periodo": null,
-        "extCode": "2020-000-348005--I",
+        "extCode": "2020-000-354281--I",
         "aule": [
             {
-                "des_indirizzo": "Piazza di Porta San Donato, 5 - Bologna",
-                "des_piano": "Piano Quarto",
-                "des_edificio": "AULA CREMONA",
+                "des_indirizzo": "Viale del Risorgimento 2 - Bologna",
+                "des_piano": "Piano Secondo",
+                "des_edificio": "AULA 6.2",
                 "raw": {
                     "abilitato": true,
-                    "capienzaEffettiva": 129,
+                    "capienzaEffettiva": 132,
                     "tipoAulaId": "5dc3ed7874895700123a9c61",
                     "unitaOrganizzativaId": "5dc3ed4f74895700123a8c8a",
                     "attivo": true,
-                    "dataCreazione": "2019-11-08T12:53:09.993Z",
+                    "dataCreazione": "2019-11-08T12:51:03.483Z",
                     "utenteModificaId": "5dc2de876904b9bd4c70a30b",
-                    "dataModifica": "2020-09-16T13:28:13.976Z",
+                    "dataModifica": "2020-09-16T13:29:01.226Z",
                     "bloccato": true,
-                    "metriQuadri": 107.52,
+                    "metriQuadri": 218.23000000000002,
                     "piano": {
-                        "codice": "229_WP04",
-                        "descrizione": "Piano Quarto"
+                        "codice": "331_WP02",
+                        "descrizione": "Piano Secondo"
                     },
-                    "numeroPostazioni": 277,
+                    "numeroPostazioni": 243,
                     "utenteCreazioneId": "5dc2de876904b9bd4c70a30b",
-                    "extCode": "229_WP04_002",
+                    "extCode": "331_WP02_234",
                     "edificio": {
                         "comune": "Bologna",
-                        "via": "Piazza di Porta San Donato, 5",
+                        "via": "Viale del Risorgimento 2",
                         "provincia": "Bologna",
-                        "codice": "229",
+                        "codice": "331",
                         "utenteCreazioneId": "5dc2de876904b9bd4c70a30b",
                         "attivo": true,
-                        "extCode": "229",
-                        "cap": "40126",
-                        "descrizione": "Edificio in Bo - p.zza di Porta San Donato 5",
-                        "plesso": "BO-229",
-                        "dataModifica": "2019-11-07T10:09:32.035Z",
-                        "dataCreazione": "2019-11-07T10:09:32.035Z",
-                        "metriQuadri": 8603.26,
+                        "extCode": "331",
+                        "cap": "40136",
+                        "descrizione": "Facolt\u00e0 di Ingegneria dell'Universit\u00e0 di Bologna",
+                        "plesso": "BO-331",
+                        "dataModifica": "2019-11-07T10:09:32.720Z",
+                        "dataCreazione": "2019-11-07T10:09:32.720Z",
+                        "metriQuadri": 29158.86,
                         "utenteModificaId": "5dc2de876904b9bd4c70a30b",
                         "clienteId": "5ad08435b6ca5357dbac609e",
-                        "_id": "5dc3ed5c74895700123a916c",
+                        "_id": "5dc3ed5c74895700123a91aa",
                         "geo": {
-                            "lat": 44.4982759,
-                            "lng": 11.3557804
+                            "lat": 44.4903628,
+                            "lng": 11.3289228
                         },
                         "bloccato": true
                     },
-                    "capienza": 200,
+                    "capienza": 250,
                     "mappaUrl": null,
                     "clienteId": "5ad08435b6ca5357dbac609e",
-                    "_id": "5dc56536b2285f0011f81aaf",
-                    "codice": "229_WP04_002",
+                    "_id": "5dc564b7b2285f0011f80c4b",
+                    "codice": "331_WP02_234",
                     "divisoreCapienza": 1,
                     "tipoAula": {
                         "codice": "AULA",
                         "descrizione": "AULA"
                     },
-                    "descrizione": "AULA CREMONA",
+                    "descrizione": "AULA 6.2",
                     "servizi": {
                         "climatizzazione": false,
                         "maxiSchermo": false,
@@ -71,140 +71,46 @@
                         "rete": false,
                         "webcam": false,
                         "conferenceCall": false,
-                        "lavagna": false,
+                        "lavagna": true,
                         "id": null,
-                        "wifi": false,
+                        "wifi": true,
                         "lavagnaLuminosa": false,
                         "aulaStudio": false,
                         "lim": false,
                         "documentCamera": false,
                         "didatticaADistanza": false,
                         "monitorTouch": false,
-                        "audio": false,
+                        "audio": true,
                         "postazionePcDocente": false,
                         "accessoDisabili": false,
-                        "proiettore": false
+                        "proiettore": true
                     },
                     "tolleranza": 0,
-                    "edificioId": "5dc3ed5c74895700123a916c",
-                    "pianoId": "5dc3ed6e74895700123a9919"
+                    "edificioId": "5dc3ed5c74895700123a91aa",
+                    "pianoId": "5dc3ed6574895700123a95e1"
                 },
-                "des_ubicazione": "Edificio in Bo - p.zza di Porta San Donato 5",
-                "des_risorsa": "AULA CREMONA"
+                "des_ubicazione": "Facolt\u00e0 di Ingegneria dell'Universit\u00e0 di Bologna",
+                "des_risorsa": "AULA 6.2"
             }
         ],
         "teledidattica": false,
-        "teams": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZWM4NTNmMDItMjQ0OC00OTIzLTllZWQtODMxMjg2YzExNzE0%40thread.v2/0?context=%7b%22Tid%22%3a%22e99647dc-1b08-454a-bf8c-699181b389ab%22%2c%22Oid%22%3a%22080683d2-51aa-4842-aa73-291a43203f71%22%7d",
+        "teams": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MDI1NzllMWUtYWM1Ny00Zjg5LTg0ZDAtZDY2ZDI2ODQwZjdm%40thread.v2/0?context=%7b%22Tid%22%3a%22e99647dc-1b08-454a-bf8c-699181b389ab%22%2c%22Oid%22%3a%22080683d2-51aa-4842-aa73-291a43203f71%22%7d",
         "note": "",
-        "start": "2021-03-01T09:00:00",
-        "docente": "Davide Guidetti",
-        "time": "09:00 - 12:00",
-        "end": "2021-03-01T12:00:00",
-        "cfu": 6,
-        "val_crediti": 6
-    },
-    {
-        "cod_modulo": "28011",
-        "cod_sdoppiamento": "28011",
-        "title": "RETI LOGICHE T",
-        "periodo": null,
-        "extCode": "2020-000-355888--I",
-        "aule": [
-            {
-                "des_indirizzo": "Piazza di Porta San Donato, 5 - Bologna",
-                "des_piano": "Piano Quarto",
-                "des_edificio": "AULA CREMONA",
-                "raw": {
-                    "abilitato": true,
-                    "capienzaEffettiva": 129,
-                    "tipoAulaId": "5dc3ed7874895700123a9c61",
-                    "unitaOrganizzativaId": "5dc3ed4f74895700123a8c8a",
-                    "attivo": true,
-                    "dataCreazione": "2019-11-08T12:53:09.993Z",
-                    "utenteModificaId": "5dc2de876904b9bd4c70a30b",
-                    "dataModifica": "2020-09-16T13:28:13.976Z",
-                    "bloccato": true,
-                    "metriQuadri": 107.52,
-                    "piano": {
-                        "codice": "229_WP04",
-                        "descrizione": "Piano Quarto"
-                    },
-                    "numeroPostazioni": 277,
-                    "utenteCreazioneId": "5dc2de876904b9bd4c70a30b",
-                    "extCode": "229_WP04_002",
-                    "edificio": {
-                        "comune": "Bologna",
-                        "via": "Piazza di Porta San Donato, 5",
-                        "provincia": "Bologna",
-                        "codice": "229",
-                        "utenteCreazioneId": "5dc2de876904b9bd4c70a30b",
-                        "attivo": true,
-                        "extCode": "229",
-                        "cap": "40126",
-                        "descrizione": "Edificio in Bo - p.zza di Porta San Donato 5",
-                        "plesso": "BO-229",
-                        "dataModifica": "2019-11-07T10:09:32.035Z",
-                        "dataCreazione": "2019-11-07T10:09:32.035Z",
-                        "metriQuadri": 8603.26,
-                        "utenteModificaId": "5dc2de876904b9bd4c70a30b",
-                        "clienteId": "5ad08435b6ca5357dbac609e",
-                        "_id": "5dc3ed5c74895700123a916c",
-                        "geo": {
-                            "lat": 44.4982759,
-                            "lng": 11.3557804
-                        },
-                        "bloccato": true
-                    },
-                    "capienza": 200,
-                    "mappaUrl": null,
-                    "clienteId": "5ad08435b6ca5357dbac609e",
-                    "_id": "5dc56536b2285f0011f81aaf",
-                    "codice": "229_WP04_002",
-                    "divisoreCapienza": 1,
-                    "tipoAula": {
-                        "codice": "AULA",
-                        "descrizione": "AULA"
-                    },
-                    "descrizione": "AULA CREMONA",
-                    "servizi": {
-                        "climatizzazione": false,
-                        "maxiSchermo": false,
-                        "banchiElettrificati": false,
-                        "aulaDiPregio": false,
-                        "puntoRistoro": false,
-                        "rete": false,
-                        "webcam": false,
-                        "conferenceCall": false,
-                        "lavagna": false,
-                        "id": null,
-                        "wifi": false,
-                        "lavagnaLuminosa": false,
-                        "aulaStudio": false,
-                        "lim": false,
-                        "documentCamera": false,
-                        "didatticaADistanza": false,
-                        "monitorTouch": false,
-                        "audio": false,
-                        "postazionePcDocente": false,
-                        "accessoDisabili": false,
-                        "proiettore": false
-                    },
-                    "tolleranza": 0,
-                    "edificioId": "5dc3ed5c74895700123a916c",
-                    "pianoId": "5dc3ed6e74895700123a9919"
-                },
-                "des_ubicazione": "Edificio in Bo - p.zza di Porta San Donato 5",
-                "des_risorsa": "AULA CREMONA"
-            }
-        ],
-        "teledidattica": false,
-        "teams": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_MzEwZDE4ZGUtNjFhNi00ZDI1LTk0M2MtOWExNjhiZmU3ZjFi%40thread.v2/0?context=%7b%22Tid%22%3a%22e99647dc-1b08-454a-bf8c-699181b389ab%22%2c%22Oid%22%3a%22080683d2-51aa-4842-aa73-291a43203f71%22%7d",
-        "note": "",
-        "start": "2021-03-01T12:00:00",
-        "docente": "Samuele Salti",
+        "start": "2021-03-05T12:00:00",
+        "docente": "Carlo Angelo Borghi",
         "time": "12:00 - 14:00",
-        "end": "2021-03-01T14:00:00",
+        "end": "2021-03-05T14:00:00",
         "cfu": 6,
         "val_crediti": 6
     }
 ]
+
+
+/*
+9:00 - 12:00
+FONDAMENTI DI TELECOMUNICAZIONI T
+CFU: 9
+Docente: Carlo Caini
+Luogo: AULA 6.2 Piano Secondo Facoltà di Ingegneria dell'Università di Bologna
+Teledidattica obbligatoria: False
+*/

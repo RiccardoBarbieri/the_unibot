@@ -24,7 +24,8 @@
                     "value": "A03-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/aegi"
+            "site": "https://corsi.unibo.it/magistrale/aegi",
+            "course_codec": "aegi"
         },
         {
             "course_name": "Business and economics",
@@ -35,7 +36,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/1cycle/CLaBE"
+            "site": "https://corsi.unibo.it/1cycle/CLaBE",
+            "course_codec": "CLaBE"
         },
         {
             "course_name": "Digital transformation management",
@@ -46,7 +48,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement"
+            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement",
+            "course_codec": "DigitalTransformationManagement"
         },
         {
             "course_name": "Direzione aziendale",
@@ -68,7 +71,8 @@
                     "value": "756-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/DirezioneAziendale"
+            "site": "https://corsi.unibo.it/magistrale/DirezioneAziendale",
+            "course_codec": "DirezioneAziendale"
         },
         {
             "course_name": "Economia aziendale",
@@ -79,7 +83,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/EconomiaAziendale"
+            "site": "https://corsi.unibo.it/laurea/EconomiaAziendale",
+            "course_codec": "EconomiaAziendale"
         },
         {
             "course_name": "Economia del turismo",
@@ -101,7 +106,8 @@
                     "value": "A25-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/clet"
+            "site": "https://corsi.unibo.it/laurea/clet",
+            "course_codec": "clet"
         },
         {
             "course_name": "Economia dell'impresa",
@@ -126,7 +132,8 @@
                     "value": "B68-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/clei"
+            "site": "https://corsi.unibo.it/laurea/clei",
+            "course_codec": "clei"
         },
         {
             "course_name": "Economia e commercio",
@@ -137,7 +144,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/EconomiaCommercio"
+            "site": "https://corsi.unibo.it/magistrale/EconomiaCommercio",
+            "course_codec": "EconomiaCommercio"
         },
         {
             "course_name": "Economia e commercio",
@@ -163,7 +171,8 @@
                     "value": "A60-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/EconomiaCommercio"
+            "site": "https://corsi.unibo.it/laurea/EconomiaCommercio",
+            "course_codec": "EconomiaCommercio"
         },
         {
             "course_name": "Economia e diritto",
@@ -185,7 +194,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/EconomiaDiritto"
+            "site": "https://corsi.unibo.it/magistrale/EconomiaDiritto",
+            "course_codec": "EconomiaDiritto"
         },
         {
             "course_name": "Economia e management",
@@ -211,7 +221,8 @@
                     "value": "A61-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/EconomiaManagement"
+            "site": "https://corsi.unibo.it/magistrale/EconomiaManagement",
+            "course_codec": "EconomiaManagement"
         },
         {
             "course_name": "Economia e politica economica",
@@ -237,7 +248,8 @@
                     "value": "C01-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/EconomiaPoliticaEconomica"
+            "site": "https://corsi.unibo.it/magistrale/EconomiaPoliticaEconomica",
+            "course_codec": "EconomiaPoliticaEconomica"
         },
         {
             "course_name": "Economia e professione",
@@ -248,7 +260,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/EconomiaProfessione"
+            "site": "https://corsi.unibo.it/magistrale/EconomiaProfessione",
+            "course_codec": "EconomiaProfessione"
         },
         {
             "course_name": "Economia, mercati e istituzioni",
@@ -259,7 +272,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/EconomiaMercatiIstituzioni"
+            "site": "https://corsi.unibo.it/laurea/EconomiaMercatiIstituzioni",
+            "course_codec": "EconomiaMercatiIstituzioni"
         },
         {
             "course_name": "Economics",
@@ -270,7 +284,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/lmec"
+            "site": "https://corsi.unibo.it/2cycle/lmec",
+            "course_codec": "lmec"
         },
         {
             "course_name": "Economics and finance",
@@ -281,7 +296,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/1cycle/EconomicsFinance"
+            "site": "https://corsi.unibo.it/1cycle/EconomicsFinance",
+            "course_codec": "EconomicsFinance"
         },
         {
             "course_name": "Economics, politics and social sciences",
@@ -292,7 +308,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/1cycle/EconomicsPoliticsSocialSciences"
+            "site": "https://corsi.unibo.it/1cycle/EconomicsPoliticsSocialSciences",
+            "course_codec": "EconomicsPoliticsSocialSciences"
         },
         {
             "course_name": "Finanza, intermediari e mercati",
@@ -303,7 +320,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/FinanzaIntermediariMercati"
+            "site": "https://corsi.unibo.it/magistrale/FinanzaIntermediariMercati",
+            "course_codec": "FinanzaIntermediariMercati"
         },
         {
             "course_name": "Health economics and management",
@@ -320,7 +338,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/euHealthEconomicsManagement"
+            "site": "https://corsi.unibo.it/2cycle/euHealthEconomicsManagement",
+            "course_codec": "euHealthEconomicsManagement"
         },
         {
             "course_name": "Innovation and organization of culture and the arts",
@@ -331,7 +350,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/gioca"
+            "site": "https://corsi.unibo.it/2cycle/gioca",
+            "course_codec": "gioca"
         },
         {
             "course_name": "Law, economics and governance",
@@ -342,7 +362,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/LawEconomicsGovernance"
+            "site": "https://corsi.unibo.it/2cycle/LawEconomicsGovernance",
+            "course_codec": "LawEconomicsGovernance"
         },
         {
             "course_name": "Management dell'economia sociale",
@@ -353,7 +374,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/EconomiaSociale"
+            "site": "https://corsi.unibo.it/magistrale/EconomiaSociale",
+            "course_codec": "EconomiaSociale"
         },
         {
             "course_name": "Management e marketing",
@@ -374,7 +396,8 @@
                     "value": "B71-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ManagementMarketing"
+            "site": "https://corsi.unibo.it/laurea/ManagementMarketing",
+            "course_codec": "ManagementMarketing"
         },
         {
             "course_name": "Resource economics and sustainable development",
@@ -385,7 +408,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/ResourceEconomicsSustainableDevelopment"
+            "site": "https://corsi.unibo.it/2cycle/ResourceEconomicsSustainableDevelopment",
+            "course_codec": "ResourceEconomicsSustainableDevelopment"
         },
         {
             "course_name": "Tourism economics and management",
@@ -396,7 +420,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/team"
+            "site": "https://corsi.unibo.it/2cycle/team",
+            "course_codec": "team"
         }
     ],
     "Farmacia e biotecnologie": [
@@ -409,7 +434,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/Bioinformatics"
+            "site": "https://corsi.unibo.it/2cycle/Bioinformatics",
+            "course_codec": "Bioinformatics"
         },
         {
             "course_name": "Biologia della salute",
@@ -420,7 +446,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/BiologiaSalute-Imola"
+            "site": "https://corsi.unibo.it/magistrale/BiologiaSalute-Imola",
+            "course_codec": "BiologiaSalute-Imola"
         },
         {
             "course_name": "Biologia della salute",
@@ -431,7 +458,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/BiologiaSalute"
+            "site": "https://corsi.unibo.it/magistrale/BiologiaSalute",
+            "course_codec": "BiologiaSalute"
         },
         {
             "course_name": "Biotecnologie",
@@ -442,7 +470,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Biotecnologie"
+            "site": "https://corsi.unibo.it/laurea/Biotecnologie",
+            "course_codec": "Biotecnologie"
         },
         {
             "course_name": "Biotecnologie molecolari e industriali",
@@ -453,7 +482,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/BiotecnologieMolecolarieIndustriali"
+            "site": "https://corsi.unibo.it/magistrale/BiotecnologieMolecolarieIndustriali",
+            "course_codec": "BiotecnologieMolecolarieIndustriali"
         },
         {
             "course_name": "Chimica e tecnologia farmaceutiche",
@@ -464,7 +494,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/CTF"
+            "site": "https://corsi.unibo.it/magistralecu/CTF",
+            "course_codec": "CTF"
         },
         {
             "course_name": "Farmacia",
@@ -475,7 +506,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/Farmacia-Bologna"
+            "site": "https://corsi.unibo.it/magistralecu/Farmacia-Bologna",
+            "course_codec": "Farmacia-Bologna"
         },
         {
             "course_name": "Genomics",
@@ -486,7 +518,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/1cycle/Genomics"
+            "site": "https://corsi.unibo.it/1cycle/Genomics",
+            "course_codec": "Genomics"
         },
         {
             "course_name": "Molecular and cell biology",
@@ -497,7 +530,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/magistrale/BiologiaMolecolareCellulare"
+            "site": "https://corsi.unibo.it/magistrale/BiologiaMolecolareCellulare",
+            "course_codec": "BiologiaMolecolareCellulare"
         },
         {
             "course_name": "Nutrizione umana, benessere e salute",
@@ -508,7 +542,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/NutrizioneBenessereSalute"
+            "site": "https://corsi.unibo.it/magistrale/NutrizioneBenessereSalute",
+            "course_codec": "NutrizioneBenessereSalute"
         },
         {
             "course_name": "Pharmaceutical biotechnology",
@@ -519,7 +554,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/magistrale/PharmaceuticalBiotechnology"
+            "site": "https://corsi.unibo.it/magistrale/PharmaceuticalBiotechnology",
+            "course_codec": "PharmaceuticalBiotechnology"
         },
         {
             "course_name": "Pharmacy",
@@ -530,7 +566,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/Pharmacy-Rimini"
+            "site": "https://corsi.unibo.it/magistralecu/Pharmacy-Rimini",
+            "course_codec": "Pharmacy-Rimini"
         },
         {
             "course_name": "Scienze farmaceutiche applicate",
@@ -551,7 +588,8 @@
                     "value": "777-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeFarmaceutiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeFarmaceutiche",
+            "course_codec": "ScienzeFarmaceutiche"
         }
     ],
     "Giurisprudenza": [
@@ -570,7 +608,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ConsulenteLavoroRelazioniAziendali"
+            "site": "https://corsi.unibo.it/laurea/ConsulenteLavoroRelazioniAziendali",
+            "course_codec": "ConsulenteLavoroRelazioniAziendali"
         },
         {
             "course_name": "Giurisprudenza",
@@ -581,7 +620,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/Giurisprudenza-Bologna"
+            "site": "https://corsi.unibo.it/magistralecu/Giurisprudenza-Bologna",
+            "course_codec": "Giurisprudenza-Bologna"
         },
         {
             "course_name": "Giurisprudenza",
@@ -592,7 +632,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/Giurisprudenza-Ravenna"
+            "site": "https://corsi.unibo.it/magistralecu/Giurisprudenza-Ravenna",
+            "course_codec": "Giurisprudenza-Ravenna"
         },
         {
             "course_name": "Giurista per le imprese e per la pubblica amministrazione",
@@ -621,7 +662,8 @@
                     "value": "B17-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/GiuristaImpresa"
+            "site": "https://corsi.unibo.it/laurea/GiuristaImpresa",
+            "course_codec": "GiuristaImpresa"
         },
         {
             "course_name": "Legal studies",
@@ -632,7 +674,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/legal-studies"
+            "site": "https://corsi.unibo.it/2cycle/legal-studies",
+            "course_codec": "legal-studies"
         }
     ],
     "Ingegneria e architettura": [
@@ -645,7 +688,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/AutomotiveElectronicEngineering"
+            "site": "https://corsi.unibo.it/2cycle/AutomotiveElectronicEngineering",
+            "course_codec": "AutomotiveElectronicEngineering"
         },
         {
             "course_name": "Advanced automotive engineering",
@@ -670,7 +714,8 @@
                     "value": "B03-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/AutomotiveEngineering"
+            "site": "https://corsi.unibo.it/2cycle/AutomotiveEngineering",
+            "course_codec": "AutomotiveEngineering"
         },
         {
             "course_name": "Advanced design",
@@ -691,7 +736,8 @@
                     "value": "B15-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/AdvancedDesign"
+            "site": "https://corsi.unibo.it/magistrale/AdvancedDesign",
+            "course_codec": "AdvancedDesign"
         },
         {
             "course_name": "Aerospace engineering",
@@ -712,7 +758,8 @@
                     "value": "B80-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/AerospaceEngineering"
+            "site": "https://corsi.unibo.it/2cycle/AerospaceEngineering",
+            "course_codec": "AerospaceEngineering"
         },
         {
             "course_name": "Architecture and creative practices for the city and landscape",
@@ -723,7 +770,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/ArchitectureCreativePractices"
+            "site": "https://corsi.unibo.it/2cycle/ArchitectureCreativePractices",
+            "course_codec": "ArchitectureCreativePractices"
         },
         {
             "course_name": "Architettura",
@@ -734,7 +782,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/architettura"
+            "site": "https://corsi.unibo.it/magistralecu/architettura",
+            "course_codec": "architettura"
         },
         {
             "course_name": "Architettura-ingegneria",
@@ -745,7 +794,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ArchitetturaIngegneria"
+            "site": "https://corsi.unibo.it/laurea/ArchitetturaIngegneria",
+            "course_codec": "ArchitetturaIngegneria"
         },
         {
             "course_name": "Artificial intelligence",
@@ -756,7 +806,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/artificial-intelligence"
+            "site": "https://corsi.unibo.it/2cycle/artificial-intelligence",
+            "course_codec": "artificial-intelligence"
         },
         {
             "course_name": "Automation engineering",
@@ -767,7 +818,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/AutomationEngineering"
+            "site": "https://corsi.unibo.it/2cycle/AutomationEngineering",
+            "course_codec": "AutomationEngineering"
         },
         {
             "course_name": "Biomedical engineering",
@@ -792,7 +844,8 @@
                     "value": "B88-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaBiomedica"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaBiomedica",
+            "course_codec": "IngegneriaBiomedica"
         },
         {
             "course_name": "Civil engineering",
@@ -825,7 +878,8 @@
                     "value": "I01-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/CivilEngineering"
+            "site": "https://corsi.unibo.it/2cycle/CivilEngineering",
+            "course_codec": "CivilEngineering"
         },
         {
             "course_name": "Design del prodotto industriale",
@@ -836,7 +890,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/DesignProdottoIndustriale"
+            "site": "https://corsi.unibo.it/laurea/DesignProdottoIndustriale",
+            "course_codec": "DesignProdottoIndustriale"
         },
         {
             "course_name": "Digital transformation management",
@@ -847,7 +902,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement"
+            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement",
+            "course_codec": "DigitalTransformationManagement"
         },
         {
             "course_name": "Electric vehicle engineering",
@@ -858,7 +914,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/ElectricVehicleEngineering"
+            "site": "https://corsi.unibo.it/2cycle/ElectricVehicleEngineering",
+            "course_codec": "ElectricVehicleEngineering"
         },
         {
             "course_name": "Ingegneria aerospaziale",
@@ -869,7 +926,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaAerospaziale"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaAerospaziale",
+            "course_codec": "IngegneriaAerospaziale"
         },
         {
             "course_name": "Ingegneria biomedica",
@@ -880,7 +938,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaBiomedica"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaBiomedica",
+            "course_codec": "IngegneriaBiomedica"
         },
         {
             "course_name": "Ingegneria chimica e biochimica",
@@ -891,7 +950,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaChimicaBiochimica"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaChimicaBiochimica",
+            "course_codec": "IngegneriaChimicaBiochimica"
         },
         {
             "course_name": "Ingegneria chimica e di processo",
@@ -917,7 +977,8 @@
                     "value": "598-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaChimicaProcesso"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaChimicaProcesso",
+            "course_codec": "IngegneriaChimicaProcesso"
         },
         {
             "course_name": "Ingegneria civile",
@@ -946,7 +1007,8 @@
                     "value": "856-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/civile"
+            "site": "https://corsi.unibo.it/magistrale/civile",
+            "course_codec": "civile"
         },
         {
             "course_name": "Ingegneria civile",
@@ -957,7 +1019,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaCivile"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaCivile",
+            "course_codec": "IngegneriaCivile"
         },
         {
             "course_name": "Ingegneria dei processi e dei sistemi edilizi",
@@ -983,7 +1046,8 @@
                     "value": "640-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaSistemiProcessiEdilizi"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaSistemiProcessiEdilizi",
+            "course_codec": "IngegneriaSistemiProcessiEdilizi"
         },
         {
             "course_name": "Ingegneria dell'automazione",
@@ -1004,7 +1068,8 @@
                     "value": "739-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaAutomazione"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaAutomazione",
+            "course_codec": "IngegneriaAutomazione"
         },
         {
             "course_name": "Ingegneria dell'energia elettrica",
@@ -1015,7 +1080,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/elettrica"
+            "site": "https://corsi.unibo.it/laurea/elettrica",
+            "course_codec": "elettrica"
         },
         {
             "course_name": "Ingegneria dell'energia elettrica",
@@ -1037,7 +1103,8 @@
                     "value": "A26-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/elettrica"
+            "site": "https://corsi.unibo.it/magistrale/elettrica",
+            "course_codec": "elettrica"
         },
         {
             "course_name": "Ingegneria e scienze informatiche",
@@ -1055,7 +1122,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaScienzeInformatiche"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaScienzeInformatiche",
+            "course_codec": "IngegneriaScienzeInformatiche"
         },
         {
             "course_name": "Ingegneria e scienze informatiche",
@@ -1066,7 +1134,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaScienzeInformatiche"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaScienzeInformatiche",
+            "course_codec": "IngegneriaScienzeInformatiche"
         },
         {
             "course_name": "Ingegneria edile",
@@ -1077,7 +1146,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaEdile"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaEdile",
+            "course_codec": "IngegneriaEdile"
         },
         {
             "course_name": "Ingegneria edile-architettura",
@@ -1089,7 +1159,8 @@
                 "Italiano",
                 " Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/ArchitectureEngineering"
+            "site": "https://corsi.unibo.it/2cycle/ArchitectureEngineering",
+            "course_codec": "ArchitectureEngineering"
         },
         {
             "course_name": "Ingegneria elettronica",
@@ -1115,7 +1186,8 @@
                     "value": "A75-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/elettronica"
+            "site": "https://corsi.unibo.it/magistrale/elettronica",
+            "course_codec": "elettronica"
         },
         {
             "course_name": "Ingegneria elettronica",
@@ -1126,7 +1198,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaElettronicaEnergiaInformazione"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaElettronicaEnergiaInformazione",
+            "course_codec": "IngegneriaElettronicaEnergiaInformazione"
         },
         {
             "course_name": "Ingegneria elettronica e telecomunicazioni",
@@ -1147,7 +1220,8 @@
                     "value": "996-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ElettronicaTelecomunicazioni"
+            "site": "https://corsi.unibo.it/laurea/ElettronicaTelecomunicazioni",
+            "course_codec": "ElettronicaTelecomunicazioni"
         },
         {
             "course_name": "Ingegneria elettronica e telecomunicazioni per l'energia",
@@ -1168,7 +1242,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaElettronicaTelecomunicazioniEnergia"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaElettronicaTelecomunicazioniEnergia",
+            "course_codec": "IngegneriaElettronicaTelecomunicazioniEnergia"
         },
         {
             "course_name": "Ingegneria energetica",
@@ -1189,7 +1264,8 @@
                     "value": "B13-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaEnergetica"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaEnergetica",
+            "course_codec": "IngegneriaEnergetica"
         },
         {
             "course_name": "Ingegneria energetica",
@@ -1200,7 +1276,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaEnergetica"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaEnergetica",
+            "course_codec": "IngegneriaEnergetica"
         },
         {
             "course_name": "Ingegneria gestionale",
@@ -1211,7 +1288,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaGestionale"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaGestionale",
+            "course_codec": "IngegneriaGestionale"
         },
         {
             "course_name": "Ingegneria gestionale",
@@ -1222,7 +1300,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaGestionale"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaGestionale",
+            "course_codec": "IngegneriaGestionale"
         },
         {
             "course_name": "Ingegneria informatica",
@@ -1233,7 +1312,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ingegneriainformatica"
+            "site": "https://corsi.unibo.it/magistrale/ingegneriainformatica",
+            "course_codec": "ingegneriainformatica"
         },
         {
             "course_name": "Ingegneria informatica",
@@ -1244,7 +1324,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaInformatica"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaInformatica",
+            "course_codec": "IngegneriaInformatica"
         },
         {
             "course_name": "Ingegneria meccanica",
@@ -1255,7 +1336,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaMeccanica-Bologna"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaMeccanica-Bologna",
+            "course_codec": "IngegneriaMeccanica-Bologna"
         },
         {
             "course_name": "Ingegneria meccanica",
@@ -1266,7 +1348,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaMeccanicaForli"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaMeccanicaForli",
+            "course_codec": "IngegneriaMeccanicaForli"
         },
         {
             "course_name": "Ingegneria meccanica",
@@ -1303,7 +1386,8 @@
                     "value": "914-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaMeccanica-Bologna"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaMeccanica-Bologna",
+            "course_codec": "IngegneriaMeccanica-Bologna"
         },
         {
             "course_name": "Ingegneria meccanica",
@@ -1314,7 +1398,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaMeccanica-Forli"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaMeccanica-Forli",
+            "course_codec": "IngegneriaMeccanica-Forli"
         },
         {
             "course_name": "Ingegneria per l'ambiente e il territorio",
@@ -1340,7 +1425,8 @@
                     "value": "975-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriAmbienteTerritorio"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriAmbienteTerritorio",
+            "course_codec": "IngegneriAmbienteTerritorio"
         },
         {
             "course_name": "Ingegneria per l'ambiente e il territorio",
@@ -1351,7 +1437,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriAmbienTerritorio"
+            "site": "https://corsi.unibo.it/laurea/IngegneriAmbienTerritorio",
+            "course_codec": "IngegneriAmbienTerritorio"
         },
         {
             "course_name": "Meccatronica",
@@ -1362,7 +1449,13 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/meccatronica"
+            "curriculas": [
+                "CENTRO DIDATTICO BOLOGNA",
+                "CENTRO DIDATTICO IMOLA",
+                "MECCATRONICA"
+            ],
+            "site": "https://corsi.unibo.it/laurea/meccatronica",
+            "course_codec": "meccatronica"
         },
         {
             "course_name": "Offshore engineering",
@@ -1387,7 +1480,8 @@
                     "value": "B31-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/OffshoreEngineering"
+            "site": "https://corsi.unibo.it/2cycle/OffshoreEngineering",
+            "course_codec": "OffshoreEngineering"
         },
         {
             "course_name": "Tecniche per l'edilizia e il territorio",
@@ -1398,7 +1492,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/TecnicheEdiliziaTerritorio"
+            "site": "https://corsi.unibo.it/laurea/TecnicheEdiliziaTerritorio",
+            "course_codec": "TecnicheEdiliziaTerritorio"
         },
         {
             "course_name": "Tecnologie dei sistemi informatici",
@@ -1409,7 +1504,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/TecnologieSistemiInformatici"
+            "site": "https://corsi.unibo.it/laurea/TecnologieSistemiInformatici",
+            "course_codec": "TecnologieSistemiInformatici"
         },
         {
             "course_name": "Telecommunications engineering",
@@ -1420,7 +1516,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/TelecommunicationsEngineering"
+            "site": "https://corsi.unibo.it/2cycle/TelecommunicationsEngineering",
+            "course_codec": "TelecommunicationsEngineering"
         }
     ],
     "Lingue e Letterature, Traduzione e Interpretazione": [
@@ -1433,7 +1530,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/Interpretazione"
+            "site": "https://corsi.unibo.it/magistrale/Interpretazione",
+            "course_codec": "Interpretazione"
         },
         {
             "course_name": "Language, society and communication",
@@ -1444,7 +1542,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/LanguageSocietyCommunication"
+            "site": "https://corsi.unibo.it/2cycle/LanguageSocietyCommunication",
+            "course_codec": "LanguageSocietyCommunication"
         },
         {
             "course_name": "Letterature moderne, comparate e postcoloniali",
@@ -1469,7 +1568,8 @@
                     "value": "946-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/LetteratureModerneComparatePostcoloniali"
+            "site": "https://corsi.unibo.it/magistrale/LetteratureModerneComparatePostcoloniali",
+            "course_codec": "LetteratureModerneComparatePostcoloniali"
         },
         {
             "course_name": "Lingua e cultura italiane per stranieri",
@@ -1480,7 +1580,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/LinguaCulturaItalianePerStranieri"
+            "site": "https://corsi.unibo.it/magistrale/LinguaCulturaItalianePerStranieri",
+            "course_codec": "LinguaCulturaItalianePerStranieri"
         },
         {
             "course_name": "Lingue e letterature straniere",
@@ -1491,7 +1592,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/LingueLetteratureStraniere"
+            "site": "https://corsi.unibo.it/laurea/LingueLetteratureStraniere",
+            "course_codec": "LingueLetteratureStraniere"
         },
         {
             "course_name": "Lingue, mercati e culture dell'Asia e dell'Africa mediterranea",
@@ -1502,7 +1604,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/LingueMercatiCultureAsia"
+            "site": "https://corsi.unibo.it/laurea/LingueMercatiCultureAsia",
+            "course_codec": "LingueMercatiCultureAsia"
         },
         {
             "course_name": "Mediazione linguistica interculturale",
@@ -1513,7 +1616,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/MediazioneLinguisticaInterculturale"
+            "site": "https://corsi.unibo.it/laurea/MediazioneLinguisticaInterculturale",
+            "course_codec": "MediazioneLinguisticaInterculturale"
         },
         {
             "course_name": "Specialized translation",
@@ -1530,7 +1634,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/SpecializedTranslation"
+            "site": "https://corsi.unibo.it/2cycle/SpecializedTranslation",
+            "course_codec": "SpecializedTranslation"
         }
     ],
     "Medicina e Chirurgia": [
@@ -1543,7 +1648,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Dietistica"
+            "site": "https://corsi.unibo.it/laurea/Dietistica",
+            "course_codec": "Dietistica"
         },
         {
             "course_name": "Educazione professionale (abilitante alla professione sanitaria di educatore professionale)",
@@ -1554,7 +1660,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/EducazioneProfessionale"
+            "site": "https://corsi.unibo.it/laurea/EducazioneProfessionale",
+            "course_codec": "EducazioneProfessionale"
         },
         {
             "course_name": "Fisioterapia (abilitante alla professione sanitaria di fisioterapista)",
@@ -1565,7 +1672,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/fisioterapia"
+            "site": "https://corsi.unibo.it/laurea/fisioterapia",
+            "course_codec": "fisioterapia"
         },
         {
             "course_name": "Igiene dentale (abilitante alla professione sanitaria di igienista dentale)",
@@ -1576,7 +1684,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IgieneDentale"
+            "site": "https://corsi.unibo.it/laurea/IgieneDentale",
+            "course_codec": "IgieneDentale"
         },
         {
             "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
@@ -1587,7 +1696,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Infermieristica"
+            "site": "https://corsi.unibo.it/laurea/Infermieristica",
+            "course_codec": "Infermieristica"
         },
         {
             "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
@@ -1598,7 +1708,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Infermieristica-Ravenna"
+            "site": "https://corsi.unibo.it/laurea/Infermieristica-Ravenna",
+            "course_codec": "Infermieristica-Ravenna"
         },
         {
             "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
@@ -1609,7 +1720,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Infermieristica-Rimini"
+            "site": "https://corsi.unibo.it/laurea/Infermieristica-Rimini",
+            "course_codec": "Infermieristica-Rimini"
         },
         {
             "course_name": "Logopedia (abilitante alla professione sanitaria di logopedista)",
@@ -1620,7 +1732,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Logopedia"
+            "site": "https://corsi.unibo.it/laurea/Logopedia",
+            "course_codec": "Logopedia"
         },
         {
             "course_name": "Medical biotechnology",
@@ -1631,7 +1744,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/magistrale/MedicalBiotechnology"
+            "site": "https://corsi.unibo.it/magistrale/MedicalBiotechnology",
+            "course_codec": "MedicalBiotechnology"
         },
         {
             "course_name": "Medicina e chirurgia",
@@ -1642,7 +1756,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia-Ravenna"
+            "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia-Ravenna",
+            "course_codec": "MedicinaChirurgia-Ravenna"
         },
         {
             "course_name": "Medicina e chirurgia",
@@ -1653,7 +1768,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia-Forli"
+            "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia-Forli",
+            "course_codec": "MedicinaChirurgia-Forli"
         },
         {
             "course_name": "Medicina e chirurgia",
@@ -1664,7 +1780,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia"
+            "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia",
+            "course_codec": "MedicinaChirurgia"
         },
         {
             "course_name": "Medicine and surgery",
@@ -1675,7 +1792,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/singlecycle/MedicineAndSurgery"
+            "site": "https://corsi.unibo.it/singlecycle/MedicineAndSurgery",
+            "course_codec": "MedicineAndSurgery"
         },
         {
             "course_name": "Odontoiatria e protesi dentaria",
@@ -1686,7 +1804,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/Odontoiatria"
+            "site": "https://corsi.unibo.it/magistralecu/Odontoiatria",
+            "course_codec": "Odontoiatria"
         },
         {
             "course_name": "Ostetricia (abilitante alla professione sanitaria di ostetrica",
@@ -1697,7 +1816,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ostetricia"
+            "site": "https://corsi.unibo.it/laurea/ostetricia",
+            "course_codec": "ostetricia"
         },
         {
             "course_name": "Podologia (abilitante alla professione sanitaria di podologo)",
@@ -1708,7 +1828,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Podologia"
+            "site": "https://corsi.unibo.it/laurea/Podologia",
+            "course_codec": "Podologia"
         },
         {
             "course_name": "Scienze delle professioni sanitarie della prevenzione",
@@ -1719,7 +1840,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzePrevenzione"
+            "site": "https://corsi.unibo.it/magistrale/ScienzePrevenzione",
+            "course_codec": "ScienzePrevenzione"
         },
         {
             "course_name": "Scienze infermieristiche e ostetriche",
@@ -1730,7 +1852,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeInfermieristicheOstetriche"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeInfermieristicheOstetriche",
+            "course_codec": "ScienzeInfermieristicheOstetriche"
         },
         {
             "course_name": "Tecniche della prevenzione nell'ambiente e nei luoghi di lavoro (abilitante alla professione sanitaria di tecnico della prevenzione nell'ambiente e nei luoghi di lavoro)",
@@ -1741,7 +1864,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/PrevenzioneAmbienteLavoro"
+            "site": "https://corsi.unibo.it/laurea/PrevenzioneAmbienteLavoro",
+            "course_codec": "PrevenzioneAmbienteLavoro"
         },
         {
             "course_name": "Tecniche di laboratorio biomedico (abilitante alla professione sanitaria di tecnico di laboratorio biomedico)",
@@ -1752,7 +1876,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/tlb-bologna"
+            "site": "https://corsi.unibo.it/laurea/tlb-bologna",
+            "course_codec": "tlb-bologna"
         },
         {
             "course_name": "Tecniche di neurofisiopatologia (abilitante alla professione sanitaria di tecnico di neurofisiopatologia)",
@@ -1763,7 +1888,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Neurofisiopatologia"
+            "site": "https://corsi.unibo.it/laurea/Neurofisiopatologia",
+            "course_codec": "Neurofisiopatologia"
         },
         {
             "course_name": "Tecniche di radiologia medica, per immagini e radioterapia (abilitante alla professione sanitaria di tecnico di radiologia medica)",
@@ -1774,7 +1900,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/TecnicheRadiologiaMedica"
+            "site": "https://corsi.unibo.it/laurea/TecnicheRadiologiaMedica",
+            "course_codec": "TecnicheRadiologiaMedica"
         },
         {
             "course_name": "Tecniche ortopediche (abilitante alla professione sanitaria di tecnico ortopedico)",
@@ -1785,7 +1912,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/TecnicheOrtopediche"
+            "site": "https://corsi.unibo.it/laurea/TecnicheOrtopediche",
+            "course_codec": "TecnicheOrtopediche"
         }
     ],
     "Medicina veterinaria": [
@@ -1798,7 +1926,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/acquacoltura"
+            "site": "https://corsi.unibo.it/laurea/acquacoltura",
+            "course_codec": "acquacoltura"
         },
         {
             "course_name": "Biotecnologie animali",
@@ -1809,7 +1938,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/BiotecnologieAnimali"
+            "site": "https://corsi.unibo.it/magistrale/BiotecnologieAnimali",
+            "course_codec": "BiotecnologieAnimali"
         },
         {
             "course_name": "Food animal metabolism and management in the circular economy",
@@ -1820,7 +1950,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/FoodAnimalMetabolismManagement"
+            "site": "https://corsi.unibo.it/2cycle/FoodAnimalMetabolismManagement",
+            "course_codec": "FoodAnimalMetabolismManagement"
         },
         {
             "course_name": "Medicina veterinaria",
@@ -1831,7 +1962,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/MedicinaVeterinaria"
+            "site": "https://corsi.unibo.it/magistralecu/MedicinaVeterinaria",
+            "course_codec": "MedicinaVeterinaria"
         },
         {
             "course_name": "Sicurezza e qualit\u00e0 delle produzioni animali",
@@ -1842,7 +1974,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ProduzioniAnimali"
+            "site": "https://corsi.unibo.it/magistrale/ProduzioniAnimali",
+            "course_codec": "ProduzioniAnimali"
         }
     ],
     "Psicologia": [
@@ -1855,7 +1988,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/Neuroscienze"
+            "site": "https://corsi.unibo.it/magistrale/Neuroscienze",
+            "course_codec": "Neuroscienze"
         },
         {
             "course_name": "Psicologia clinica",
@@ -1866,7 +2000,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/PsicologiaClinica"
+            "site": "https://corsi.unibo.it/magistrale/PsicologiaClinica",
+            "course_codec": "PsicologiaClinica"
         },
         {
             "course_name": "Psicologia cognitiva applicata",
@@ -1877,7 +2012,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/PsicologiaCognitivaApplicata"
+            "site": "https://corsi.unibo.it/magistrale/PsicologiaCognitivaApplicata",
+            "course_codec": "PsicologiaCognitivaApplicata"
         },
         {
             "course_name": "Psicologia scolastica e di comunit\u00e0",
@@ -1888,7 +2024,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/PsicologiaScolasticaComunita"
+            "site": "https://corsi.unibo.it/magistrale/PsicologiaScolasticaComunita",
+            "course_codec": "PsicologiaScolasticaComunita"
         },
         {
             "course_name": "Psychology of wellbeing and social inclusivity",
@@ -1899,7 +2036,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/PsychologyWellbeingInclusivity"
+            "site": "https://corsi.unibo.it/2cycle/PsychologyWellbeingInclusivity",
+            "course_codec": "PsychologyWellbeingInclusivity"
         },
         {
             "course_name": "Scienze e tecniche psicologiche",
@@ -1910,7 +2048,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeTecnichePsicologiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeTecnichePsicologiche",
+            "course_codec": "ScienzeTecnichePsicologiche"
         },
         {
             "course_name": "Work, organizational and personnel psychology",
@@ -1927,7 +2066,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/OrganizationalPsychology"
+            "site": "https://corsi.unibo.it/2cycle/OrganizationalPsychology",
+            "course_codec": "OrganizationalPsychology"
         }
     ],
     "Scienze": [
@@ -1940,7 +2080,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/AdvancedCosmeticSciences"
+            "site": "https://corsi.unibo.it/2cycle/AdvancedCosmeticSciences",
+            "course_codec": "AdvancedCosmeticSciences"
         },
         {
             "course_name": "Advanced methods in particle physics",
@@ -1951,7 +2092,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/ParticlePhysics"
+            "site": "https://corsi.unibo.it/2cycle/ParticlePhysics",
+            "course_codec": "ParticlePhysics"
         },
         {
             "course_name": "Advanced spectroscopy in chemistry",
@@ -1962,7 +2104,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/AdvancedSpectroscopyChemistry"
+            "site": "https://corsi.unibo.it/2cycle/AdvancedSpectroscopyChemistry",
+            "course_codec": "AdvancedSpectroscopyChemistry"
         },
         {
             "course_name": "Analisi e gestione dell'ambiente",
@@ -1987,7 +2130,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/AnalisiGestioneAmbiente"
+            "site": "https://corsi.unibo.it/magistrale/AnalisiGestioneAmbiente",
+            "course_codec": "AnalisiGestioneAmbiente"
         },
         {
             "course_name": "Artificial intelligence",
@@ -1998,7 +2142,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/artificial-intelligence"
+            "site": "https://corsi.unibo.it/2cycle/artificial-intelligence",
+            "course_codec": "artificial-intelligence"
         },
         {
             "course_name": "Astronomia",
@@ -2009,7 +2154,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/Astronomia"
+            "site": "https://corsi.unibo.it/laurea/Astronomia",
+            "course_codec": "Astronomia"
         },
         {
             "course_name": "Astrophysics and cosmology",
@@ -2020,7 +2166,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/magistrale/Astrofisica"
+            "site": "https://corsi.unibo.it/magistrale/Astrofisica",
+            "course_codec": "Astrofisica"
         },
         {
             "course_name": "Biodiversit\u00e0 ed evoluzione",
@@ -2031,7 +2178,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/evoluzione"
+            "site": "https://corsi.unibo.it/magistrale/evoluzione",
+            "course_codec": "evoluzione"
         },
         {
             "course_name": "Biologia marina",
@@ -2042,7 +2190,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/BiologiaMarina"
+            "site": "https://corsi.unibo.it/magistrale/BiologiaMarina",
+            "course_codec": "BiologiaMarina"
         },
         {
             "course_name": "Chemical innovation and regulation",
@@ -2053,7 +2202,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/ChemicaInnovationRegulation"
+            "site": "https://corsi.unibo.it/2cycle/ChemicaInnovationRegulation",
+            "course_codec": "ChemicaInnovationRegulation"
         },
         {
             "course_name": "Chimica",
@@ -2074,7 +2224,8 @@
                     "value": "708-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/Chimica"
+            "site": "https://corsi.unibo.it/magistrale/Chimica",
+            "course_codec": "Chimica"
         },
         {
             "course_name": "Chimica e chimica dei materiali",
@@ -2085,7 +2236,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/chimica"
+            "site": "https://corsi.unibo.it/laurea/chimica",
+            "course_codec": "chimica"
         },
         {
             "course_name": "Chimica e tecnologie per l'ambiente e per i materiali",
@@ -2096,7 +2248,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ChimicaAmbiente"
+            "site": "https://corsi.unibo.it/laurea/ChimicaAmbiente",
+            "course_codec": "ChimicaAmbiente"
         },
         {
             "course_name": "Chimica e tecnologie per l'ambiente e per i materiali",
@@ -2107,7 +2260,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ChimicaMateriali"
+            "site": "https://corsi.unibo.it/laurea/ChimicaMateriali",
+            "course_codec": "ChimicaMateriali"
         },
         {
             "course_name": "Chimica industriale",
@@ -2118,7 +2272,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ChimicaIndustriale"
+            "site": "https://corsi.unibo.it/magistrale/ChimicaIndustriale",
+            "course_codec": "ChimicaIndustriale"
         },
         {
             "course_name": "Chimica industriale",
@@ -2129,7 +2284,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ChimicaIndustriale"
+            "site": "https://corsi.unibo.it/laurea/ChimicaIndustriale",
+            "course_codec": "ChimicaIndustriale"
         },
         {
             "course_name": "Didattica e comunicazione delle scienze naturali",
@@ -2158,7 +2314,8 @@
                     "value": "B95-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/DidatticaComunicazioneScienzeNaturali"
+            "site": "https://corsi.unibo.it/magistrale/DidatticaComunicazioneScienzeNaturali",
+            "course_codec": "DidatticaComunicazioneScienzeNaturali"
         },
         {
             "course_name": "Digital transformation management",
@@ -2169,7 +2326,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement"
+            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement",
+            "course_codec": "DigitalTransformationManagement"
         },
         {
             "course_name": "Fisica",
@@ -2180,7 +2338,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/fisica"
+            "site": "https://corsi.unibo.it/laurea/fisica",
+            "course_codec": "fisica"
         },
         {
             "course_name": "Fisica del sistema Terra",
@@ -2191,7 +2350,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/FisicaSistemaTerra"
+            "site": "https://corsi.unibo.it/magistrale/FisicaSistemaTerra",
+            "course_codec": "FisicaSistemaTerra"
         },
         {
             "course_name": "Geologia e territorio",
@@ -2217,7 +2377,8 @@
                     "value": "B60-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/GeologiaTerritorio"
+            "site": "https://corsi.unibo.it/magistrale/GeologiaTerritorio",
+            "course_codec": "GeologiaTerritorio"
         },
         {
             "course_name": "Informatica",
@@ -2228,7 +2389,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/informatica"
+            "site": "https://corsi.unibo.it/laurea/informatica",
+            "course_codec": "informatica"
         },
         {
             "course_name": "Informatica",
@@ -2253,7 +2415,8 @@
                     "value": "992-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/informatica"
+            "site": "https://corsi.unibo.it/magistrale/informatica",
+            "course_codec": "informatica"
         },
         {
             "course_name": "Informatica per il management",
@@ -2264,7 +2427,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/InformaticaManagement"
+            "site": "https://corsi.unibo.it/laurea/InformaticaManagement",
+            "course_codec": "InformaticaManagement"
         },
         {
             "course_name": "Ingegneria e scienze informatiche",
@@ -2282,7 +2446,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/IngegneriaScienzeInformatiche"
+            "site": "https://corsi.unibo.it/magistrale/IngegneriaScienzeInformatiche",
+            "course_codec": "IngegneriaScienzeInformatiche"
         },
         {
             "course_name": "Ingegneria e scienze informatiche",
@@ -2293,7 +2458,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/IngegneriaScienzeInformatiche"
+            "site": "https://corsi.unibo.it/laurea/IngegneriaScienzeInformatiche",
+            "course_codec": "IngegneriaScienzeInformatiche"
         },
         {
             "course_name": "Low carbon technologies and sustainable chemistry",
@@ -2314,7 +2480,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/LowCarbonTechnologiesChemistry"
+            "site": "https://corsi.unibo.it/2cycle/LowCarbonTechnologiesChemistry",
+            "course_codec": "LowCarbonTechnologiesChemistry"
         },
         {
             "course_name": "Matematica",
@@ -2335,7 +2502,8 @@
                     "value": "839-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/matematica"
+            "site": "https://corsi.unibo.it/magistrale/matematica",
+            "course_codec": "matematica"
         },
         {
             "course_name": "Matematica",
@@ -2346,7 +2514,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/matematica"
+            "site": "https://corsi.unibo.it/laurea/matematica",
+            "course_codec": "matematica"
         },
         {
             "course_name": "Photochemistry and molecular materials",
@@ -2357,7 +2526,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/PhotochemistryMolecularMaterials"
+            "site": "https://corsi.unibo.it/2cycle/PhotochemistryMolecularMaterials",
+            "course_codec": "PhotochemistryMolecularMaterials"
         },
         {
             "course_name": "Physics",
@@ -2391,7 +2561,8 @@
                     "value": "B23-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/Physics"
+            "site": "https://corsi.unibo.it/2cycle/Physics",
+            "course_codec": "Physics"
         },
         {
             "course_name": "Science for the conservation - restoration of cultural heritage",
@@ -2402,7 +2573,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/ScienceForConservation"
+            "site": "https://corsi.unibo.it/2cycle/ScienceForConservation",
+            "course_codec": "ScienceForConservation"
         },
         {
             "course_name": "Scienze ambientali",
@@ -2413,7 +2585,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeAmbientali"
+            "site": "https://corsi.unibo.it/laurea/ScienzeAmbientali",
+            "course_codec": "ScienzeAmbientali"
         },
         {
             "course_name": "Scienze biologiche",
@@ -2424,7 +2597,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeBiologiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeBiologiche",
+            "course_codec": "ScienzeBiologiche"
         },
         {
             "course_name": "Scienze e gestione della natura",
@@ -2446,7 +2620,8 @@
                     "value": "B32-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeGestioneNatura"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeGestioneNatura",
+            "course_codec": "ScienzeGestioneNatura"
         },
         {
             "course_name": "Scienze geologiche",
@@ -2457,7 +2632,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeGeologiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeGeologiche",
+            "course_codec": "ScienzeGeologiche"
         },
         {
             "course_name": "Scienze naturali",
@@ -2468,7 +2644,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeNaturali"
+            "site": "https://corsi.unibo.it/laurea/ScienzeNaturali",
+            "course_codec": "ScienzeNaturali"
         },
         {
             "course_name": "Scienze statistiche",
@@ -2494,7 +2671,8 @@
                     "value": "A32-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeStatistiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeStatistiche",
+            "course_codec": "ScienzeStatistiche"
         }
     ],
     "Scienze agro-alimentari": [
@@ -2507,7 +2685,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/EconomiaMarketingAgroIndustriale"
+            "site": "https://corsi.unibo.it/laurea/EconomiaMarketingAgroIndustriale",
+            "course_codec": "EconomiaMarketingAgroIndustriale"
         },
         {
             "course_name": "Food safety and food risk management",
@@ -2518,7 +2697,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/food-safety-risk-management"
+            "site": "https://corsi.unibo.it/2cycle/food-safety-risk-management",
+            "course_codec": "food-safety-risk-management"
         },
         {
             "course_name": "International horticultural science",
@@ -2529,7 +2709,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/InternationalHorticulturalScience"
+            "site": "https://corsi.unibo.it/2cycle/InternationalHorticulturalScience",
+            "course_codec": "InternationalHorticulturalScience"
         },
         {
             "course_name": "Precise and sustainable agriculture",
@@ -2550,7 +2731,8 @@
                     "value": "B90-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/PreciseSustainableAgriculture"
+            "site": "https://corsi.unibo.it/2cycle/PreciseSustainableAgriculture",
+            "course_codec": "PreciseSustainableAgriculture"
         },
         {
             "course_name": "Produzioni animali",
@@ -2561,7 +2743,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ProduzioniAnimali"
+            "site": "https://corsi.unibo.it/laurea/ProduzioniAnimali",
+            "course_codec": "ProduzioniAnimali"
         },
         {
             "course_name": "Progettazione e gestione degli ecosistemi agro-territoriali, forestali e del paesaggio",
@@ -2582,7 +2765,8 @@
                     "value": "945-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/ProgettazioneGestioneEcosistemi"
+            "site": "https://corsi.unibo.it/magistrale/ProgettazioneGestioneEcosistemi",
+            "course_codec": "ProgettazioneGestioneEcosistemi"
         },
         {
             "course_name": "Scienze e cultura della gastronomia",
@@ -2593,7 +2777,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeCulturaGastronomia"
+            "site": "https://corsi.unibo.it/laurea/ScienzeCulturaGastronomia",
+            "course_codec": "ScienzeCulturaGastronomia"
         },
         {
             "course_name": "Scienze e tecnologie agrarie",
@@ -2618,7 +2803,8 @@
                     "value": "A38-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeTecnologieAgrarie"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeTecnologieAgrarie",
+            "course_codec": "ScienzeTecnologieAgrarie"
         },
         {
             "course_name": "Scienze e tecnologie alimentari",
@@ -2629,7 +2815,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeTecnologieAlimentari"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeTecnologieAlimentari",
+            "course_codec": "ScienzeTecnologieAlimentari"
         },
         {
             "course_name": "Scienze e tecnologie per il verde e il paesaggio",
@@ -2646,7 +2833,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/verdepaesaggio"
+            "site": "https://corsi.unibo.it/laurea/verdepaesaggio",
+            "course_codec": "verdepaesaggio"
         },
         {
             "course_name": "Tecnologie agrarie",
@@ -2657,7 +2845,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/TecnologieAgrarie"
+            "site": "https://corsi.unibo.it/laurea/TecnologieAgrarie",
+            "course_codec": "TecnologieAgrarie"
         },
         {
             "course_name": "Tecnologie alimentari",
@@ -2668,7 +2857,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/TecnologieAlimentari"
+            "site": "https://corsi.unibo.it/laurea/TecnologieAlimentari",
+            "course_codec": "TecnologieAlimentari"
         },
         {
             "course_name": "Tecnologie per il territorio e l'ambiente agro-forestale",
@@ -2679,7 +2869,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeTerritorioAmbiente"
+            "site": "https://corsi.unibo.it/laurea/ScienzeTerritorioAmbiente",
+            "course_codec": "ScienzeTerritorioAmbiente"
         },
         {
             "course_name": "Viticoltura ed enologia",
@@ -2690,7 +2881,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ViticolturaEnologia"
+            "site": "https://corsi.unibo.it/laurea/ViticolturaEnologia",
+            "course_codec": "ViticolturaEnologia"
         }
     ],
     "Scienze dell'educazione e della formazione": [
@@ -2703,7 +2895,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/EducatoreServiziInfanzia"
+            "site": "https://corsi.unibo.it/laurea/EducatoreServiziInfanzia",
+            "course_codec": "EducatoreServiziInfanzia"
         },
         {
             "course_name": "Educatore sociale e culturale",
@@ -2714,7 +2907,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/EducatoreSocialeCulturaleBologna"
+            "site": "https://corsi.unibo.it/laurea/EducatoreSocialeCulturaleBologna",
+            "course_codec": "EducatoreSocialeCulturaleBologna"
         },
         {
             "course_name": "Educatore sociale e culturale",
@@ -2725,7 +2919,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/EducatoreSocialeCulturale-Rimini"
+            "site": "https://corsi.unibo.it/laurea/EducatoreSocialeCulturale-Rimini",
+            "course_codec": "EducatoreSocialeCulturale-Rimini"
         },
         {
             "course_name": "Pedagogia",
@@ -2736,7 +2931,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/Pedagogia"
+            "site": "https://corsi.unibo.it/magistrale/Pedagogia",
+            "course_codec": "Pedagogia"
         },
         {
             "course_name": "Progettazione e gestione dell'intervento educativo nel disagio sociale",
@@ -2747,7 +2943,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/InterventoEducativoDisagioSociale"
+            "site": "https://corsi.unibo.it/magistrale/InterventoEducativoDisagioSociale",
+            "course_codec": "InterventoEducativoDisagioSociale"
         },
         {
             "course_name": "Progettazione e gestione dell'intervento educativo nel disagio sociale",
@@ -2758,7 +2955,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/InterventoEducativoDisagioSocialeRimini"
+            "site": "https://corsi.unibo.it/magistrale/InterventoEducativoDisagioSocialeRimini",
+            "course_codec": "InterventoEducativoDisagioSocialeRimini"
         },
         {
             "course_name": "Scienze dell'educazione permanente e della formazione continua",
@@ -2769,7 +2967,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeEducazionePermanente"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeEducazionePermanente",
+            "course_codec": "ScienzeEducazionePermanente"
         },
         {
             "course_name": "Scienze della formazione primaria",
@@ -2780,7 +2979,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/ScienzeFormazionePrimaria"
+            "site": "https://corsi.unibo.it/magistralecu/ScienzeFormazionePrimaria",
+            "course_codec": "ScienzeFormazionePrimaria"
         }
     ],
     "Scienze motorie": [
@@ -2793,7 +2993,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ManagementSport-Bologna"
+            "site": "https://corsi.unibo.it/magistrale/ManagementSport-Bologna",
+            "course_codec": "ManagementSport-Bologna"
         },
         {
             "course_name": "Scienze delle attivit\u00e0 motorie e sportive",
@@ -2804,7 +3005,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeMotorieSportive"
+            "site": "https://corsi.unibo.it/laurea/ScienzeMotorieSportive",
+            "course_codec": "ScienzeMotorieSportive"
         },
         {
             "course_name": "Scienze delle attivit\u00e0 motorie e sportive",
@@ -2815,7 +3017,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeMotorieSportive-Rimini"
+            "site": "https://corsi.unibo.it/laurea/ScienzeMotorieSportive-Rimini",
+            "course_codec": "ScienzeMotorieSportive-Rimini"
         },
         {
             "course_name": "Scienze e tecniche dell'attivit\u00e0 motoria preventiva e adattata",
@@ -2826,7 +3029,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/AttivitaMotoriaPreventivaAdattata-Rimini"
+            "site": "https://corsi.unibo.it/magistrale/AttivitaMotoriaPreventivaAdattata-Rimini",
+            "course_codec": "AttivitaMotoriaPreventivaAdattata-Rimini"
         },
         {
             "course_name": "Scienze e tecniche dell'attivit\u00e0 sportiva",
@@ -2837,7 +3041,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeTecnicheAttivitaSportiva"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeTecnicheAttivitaSportiva",
+            "course_codec": "ScienzeTecnicheAttivitaSportiva"
         },
         {
             "course_name": "Wellness, sport and health",
@@ -2848,7 +3053,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/WellnessSportHealth"
+            "site": "https://corsi.unibo.it/2cycle/WellnessSportHealth",
+            "course_codec": "WellnessSportHealth"
         }
     ],
     "Scienze politiche": [
@@ -2871,7 +3077,8 @@
                     "value": "B76-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/ComunicazionePubblicaImpresa"
+            "site": "https://corsi.unibo.it/magistrale/ComunicazionePubblicaImpresa",
+            "course_codec": "ComunicazionePubblicaImpresa"
         },
         {
             "course_name": "Economics, politics and social sciences",
@@ -2882,7 +3089,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/1cycle/EconomicsPoliticsSocialSciences"
+            "site": "https://corsi.unibo.it/1cycle/EconomicsPoliticsSocialSciences",
+            "course_codec": "EconomicsPoliticsSocialSciences"
         },
         {
             "course_name": "Interdisciplinary research and studies on eastern europe",
@@ -2893,7 +3101,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/mirees"
+            "site": "https://corsi.unibo.it/2cycle/mirees",
+            "course_codec": "mirees"
         },
         {
             "course_name": "International cooperation on human rights and intercultural heritage",
@@ -2914,7 +3123,8 @@
                     "value": "A94-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/InternationalCooperation"
+            "site": "https://corsi.unibo.it/2cycle/InternationalCooperation",
+            "course_codec": "InternationalCooperation"
         },
         {
             "course_name": "International politics and economics",
@@ -2925,7 +3135,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/InternationalPoliticsEconomics"
+            "site": "https://corsi.unibo.it/2cycle/InternationalPoliticsEconomics",
+            "course_codec": "InternationalPoliticsEconomics"
         },
         {
             "course_name": "International relations",
@@ -2958,7 +3169,8 @@
                     "value": "B54-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/InternationalRelations"
+            "site": "https://corsi.unibo.it/magistrale/InternationalRelations",
+            "course_codec": "InternationalRelations"
         },
         {
             "course_name": "Mass media e politica",
@@ -2969,7 +3181,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/MassMediaPolitica"
+            "site": "https://corsi.unibo.it/magistrale/MassMediaPolitica",
+            "course_codec": "MassMediaPolitica"
         },
         {
             "course_name": "Politica, amministrazione e organizzazione",
@@ -2995,7 +3208,8 @@
                     "value": "B56-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/PoliticaAmministrazioneOrganizzazione"
+            "site": "https://corsi.unibo.it/magistrale/PoliticaAmministrazioneOrganizzazione",
+            "course_codec": "PoliticaAmministrazioneOrganizzazione"
         },
         {
             "course_name": "Scienze internazionali e diplomatiche",
@@ -3021,7 +3235,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeInternazionaliDiplomatiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeInternazionaliDiplomatiche",
+            "course_codec": "ScienzeInternazionaliDiplomatiche"
         },
         {
             "course_name": "Scienze internazionali e diplomatiche",
@@ -3042,7 +3257,8 @@
                     "value": "802-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeInternazionaliDiplomatiche"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeInternazionaliDiplomatiche",
+            "course_codec": "ScienzeInternazionaliDiplomatiche"
         },
         {
             "course_name": "Scienze politiche, sociali e internazionali",
@@ -3075,7 +3291,8 @@
                     "value": "951-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzePoliticheSocialiInternazionali"
+            "site": "https://corsi.unibo.it/laurea/ScienzePoliticheSocialiInternazionali",
+            "course_codec": "ScienzePoliticheSocialiInternazionali"
         },
         {
             "course_name": "Sviluppo e cooperazione internazionale",
@@ -3086,7 +3303,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/SviluppoCooperazioneInternazionale"
+            "site": "https://corsi.unibo.it/laurea/SviluppoCooperazioneInternazionale",
+            "course_codec": "SviluppoCooperazioneInternazionale"
         },
         {
             "course_name": "Sviluppo locale e globale",
@@ -3097,7 +3315,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/SviluppoLocaleGlobale"
+            "site": "https://corsi.unibo.it/magistrale/SviluppoLocaleGlobale",
+            "course_codec": "SviluppoLocaleGlobale"
         }
     ],
     "Scienze Statistiche": [
@@ -3110,7 +3329,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement"
+            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement",
+            "course_codec": "DigitalTransformationManagement"
         },
         {
             "course_name": "Finanza, assicurazioni e impresa",
@@ -3121,7 +3341,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/FinanzaAssicurazioniImpresa"
+            "site": "https://corsi.unibo.it/laurea/FinanzaAssicurazioniImpresa",
+            "course_codec": "FinanzaAssicurazioniImpresa"
         },
         {
             "course_name": "Quantitative finance",
@@ -3132,7 +3353,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/Qfinance"
+            "site": "https://corsi.unibo.it/2cycle/Qfinance",
+            "course_codec": "Qfinance"
         },
         {
             "course_name": "Scienze statistiche",
@@ -3158,7 +3380,8 @@
                     "value": "A32-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeStatistiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeStatistiche",
+            "course_codec": "ScienzeStatistiche"
         },
         {
             "course_name": "Scienze statistiche, finanziarie e attuariali",
@@ -3169,7 +3392,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeStatisticheFinanziarieAttuariali"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeStatisticheFinanziarieAttuariali",
+            "course_codec": "ScienzeStatisticheFinanziarieAttuariali"
         },
         {
             "course_name": "Statistica, economia e impresa",
@@ -3191,7 +3415,8 @@
                     "value": "A36-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/StatisticaEconomiaImpresa"
+            "site": "https://corsi.unibo.it/magistrale/StatisticaEconomiaImpresa",
+            "course_codec": "StatisticaEconomiaImpresa"
         },
         {
             "course_name": "Statistical sciences",
@@ -3216,7 +3441,8 @@
                     "value": "A93-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/StatisticalSciences"
+            "site": "https://corsi.unibo.it/2cycle/StatisticalSciences",
+            "course_codec": "StatisticalSciences"
         },
         {
             "course_name": "Sviluppo e cooperazione internazionale",
@@ -3227,7 +3453,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/SviluppoCooperazioneInternazionale"
+            "site": "https://corsi.unibo.it/laurea/SviluppoCooperazioneInternazionale",
+            "course_codec": "SviluppoCooperazioneInternazionale"
         }
     ],
     "Sociologia": [
@@ -3240,7 +3467,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeCriminologiche"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeCriminologiche",
+            "course_codec": "ScienzeCriminologiche"
         },
         {
             "course_name": "Servizio sociale",
@@ -3251,7 +3479,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ServizioSociale"
+            "site": "https://corsi.unibo.it/laurea/ServizioSociale",
+            "course_codec": "ServizioSociale"
         },
         {
             "course_name": "Sociologia",
@@ -3262,7 +3491,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/SociologiaForli"
+            "site": "https://corsi.unibo.it/laurea/SociologiaForli",
+            "course_codec": "SociologiaForli"
         },
         {
             "course_name": "Sociologia e servizio sociale",
@@ -3283,7 +3513,8 @@
                     "value": "225-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/SociologiaServizioSociale"
+            "site": "https://corsi.unibo.it/magistrale/SociologiaServizioSociale",
+            "course_codec": "SociologiaServizioSociale"
         }
     ],
     "Studi umanistici": [
@@ -3296,7 +3527,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/AntropologiaCulturaleEtnologia"
+            "site": "https://corsi.unibo.it/magistrale/AntropologiaCulturaleEtnologia",
+            "course_codec": "AntropologiaCulturaleEtnologia"
         },
         {
             "course_name": "Antropologia, religioni, civilt\u00e0 orientali",
@@ -3307,7 +3539,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeAntropologiche"
+            "site": "https://corsi.unibo.it/laurea/ScienzeAntropologiche",
+            "course_codec": "ScienzeAntropologiche"
         },
         {
             "course_name": "Archeologia e culture del mondo antico",
@@ -3329,7 +3562,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/archeologia"
+            "site": "https://corsi.unibo.it/magistrale/archeologia",
+            "course_codec": "archeologia"
         },
         {
             "course_name": "Arti visive",
@@ -3352,7 +3586,8 @@
                     "value": "000-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/artivisive"
+            "site": "https://corsi.unibo.it/magistrale/artivisive",
+            "course_codec": "artivisive"
         },
         {
             "course_name": "Beni archeologici, artistici e del paesaggio: storia, tutela e valorizzazione",
@@ -3373,7 +3608,8 @@
                     "value": "A84-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/BeniArcheologiciArtisticiPaesaggio"
+            "site": "https://corsi.unibo.it/magistrale/BeniArcheologiciArtisticiPaesaggio",
+            "course_codec": "BeniArcheologiciArtisticiPaesaggio"
         },
         {
             "course_name": "Beni culturali",
@@ -3384,7 +3620,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/BeniCulturali"
+            "site": "https://corsi.unibo.it/laurea/BeniCulturali",
+            "course_codec": "BeniCulturali"
         },
         {
             "course_name": "Cinema, televisione e produzione multimediale",
@@ -3395,7 +3632,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/Cinema"
+            "site": "https://corsi.unibo.it/magistrale/Cinema",
+            "course_codec": "Cinema"
         },
         {
             "course_name": "Conservazione e restauro dei beni culturali (abilitante ai sensi del d. lgs n. 42",
@@ -3406,7 +3644,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistralecu/ConservazioneRestauroBeniculturali"
+            "site": "https://corsi.unibo.it/magistralecu/ConservazioneRestauroBeniculturali",
+            "course_codec": "ConservazioneRestauroBeniculturali"
         },
         {
             "course_name": "Culture e pratiche della moda",
@@ -3417,7 +3656,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/CulturePraticheModa"
+            "site": "https://corsi.unibo.it/laurea/CulturePraticheModa",
+            "course_codec": "CulturePraticheModa"
         },
         {
             "course_name": "Dams - discipline delle arti, della musica e dello spettacolo",
@@ -3428,7 +3668,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/DAMS"
+            "site": "https://corsi.unibo.it/laurea/DAMS",
+            "course_codec": "DAMS"
         },
         {
             "course_name": "Digital humanities and digital knowledge",
@@ -3439,7 +3680,8 @@
             "languages": [
                 "Inglese"
             ],
-            "site": "https://corsi.unibo.it/2cycle/DigitalHumanitiesKnowledge"
+            "site": "https://corsi.unibo.it/2cycle/DigitalHumanitiesKnowledge",
+            "course_codec": "DigitalHumanitiesKnowledge"
         },
         {
             "course_name": "Discipline della musica e del teatro",
@@ -3460,7 +3702,8 @@
                     "value": "678-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/DisciplineMusicaTeatro"
+            "site": "https://corsi.unibo.it/magistrale/DisciplineMusicaTeatro",
+            "course_codec": "DisciplineMusicaTeatro"
         },
         {
             "course_name": "Fashion studies",
@@ -3485,7 +3728,8 @@
                     "value": "B46-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/FashionStudies"
+            "site": "https://corsi.unibo.it/2cycle/FashionStudies",
+            "course_codec": "FashionStudies"
         },
         {
             "course_name": "Filologia, letteratura e tradizione classica",
@@ -3496,7 +3740,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/FilologiaClassica"
+            "site": "https://corsi.unibo.it/magistrale/FilologiaClassica",
+            "course_codec": "FilologiaClassica"
         },
         {
             "course_name": "Filosofia",
@@ -3517,7 +3762,8 @@
                     "value": "A86-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/Filosofia"
+            "site": "https://corsi.unibo.it/laurea/Filosofia",
+            "course_codec": "Filosofia"
         },
         {
             "course_name": "Geografia e processi territoriali",
@@ -3528,7 +3774,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/GeografiaProcessiTerritoriali"
+            "site": "https://corsi.unibo.it/magistrale/GeografiaProcessiTerritoriali",
+            "course_codec": "GeografiaProcessiTerritoriali"
         },
         {
             "course_name": "Informazione, culture e organizzazione dei media",
@@ -3549,7 +3796,8 @@
                     "value": "B74-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/InformazioneCultureOrganizzazioneMedia"
+            "site": "https://corsi.unibo.it/magistrale/InformazioneCultureOrganizzazioneMedia",
+            "course_codec": "InformazioneCultureOrganizzazioneMedia"
         },
         {
             "course_name": "International cooperation on human rights and intercultural heritage",
@@ -3570,7 +3818,8 @@
                     "value": "A94-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/2cycle/InternationalCooperation"
+            "site": "https://corsi.unibo.it/2cycle/InternationalCooperation",
+            "course_codec": "InternationalCooperation"
         },
         {
             "course_name": "Italianistica, culture letterarie europee, scienze linguistiche",
@@ -3600,7 +3849,8 @@
                     "value": "A90-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/ItalianisticaCultureLetterarieLinguistica"
+            "site": "https://corsi.unibo.it/magistrale/ItalianisticaCultureLetterarieLinguistica",
+            "course_codec": "ItalianisticaCultureLetterarieLinguistica"
         },
         {
             "course_name": "Lettere",
@@ -3625,7 +3875,8 @@
                     "value": "947-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/lettere"
+            "site": "https://corsi.unibo.it/laurea/lettere",
+            "course_codec": "lettere"
         },
         {
             "course_name": "Progettazione e gestione dei sistemi produttivi audiovisivi e performativi",
@@ -3636,7 +3887,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/SistemiProduttiviAudiovisiviPerformativi"
+            "site": "https://corsi.unibo.it/magistrale/SistemiProduttiviAudiovisiviPerformativi",
+            "course_codec": "SistemiProduttiviAudiovisiviPerformativi"
         },
         {
             "course_name": "Scienze del libro e del documento",
@@ -3647,7 +3899,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeLibro"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeLibro",
+            "course_codec": "ScienzeLibro"
         },
         {
             "course_name": "Scienze della comunicazione",
@@ -3658,7 +3911,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/ScienzeComunicazione"
+            "site": "https://corsi.unibo.it/laurea/ScienzeComunicazione",
+            "course_codec": "ScienzeComunicazione"
         },
         {
             "course_name": "Scienze filosofiche",
@@ -3669,7 +3923,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeFilosofiche"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeFilosofiche",
+            "course_codec": "ScienzeFilosofiche"
         },
         {
             "course_name": "Scienze storiche e orientalistiche",
@@ -3695,7 +3950,8 @@
                     "value": "A55-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/magistrale/ScienzeStoricheOrientalistiche"
+            "site": "https://corsi.unibo.it/magistrale/ScienzeStoricheOrientalistiche",
+            "course_codec": "ScienzeStoricheOrientalistiche"
         },
         {
             "course_name": "Semiotica",
@@ -3706,7 +3962,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/magistrale/semiotica"
+            "site": "https://corsi.unibo.it/magistrale/semiotica",
+            "course_codec": "semiotica"
         },
         {
             "course_name": "Societ\u00e0 e culture del Mediterraneo: istituzioni, sicurezza, ambiente",
@@ -3735,7 +3992,8 @@
                     "value": "B84-000"
                 }
             ],
-            "site": "https://corsi.unibo.it/laurea/CultureMediterraneo"
+            "site": "https://corsi.unibo.it/laurea/CultureMediterraneo",
+            "course_codec": "CultureMediterraneo"
         },
         {
             "course_name": "Storia",
@@ -3746,7 +4004,8 @@
             "languages": [
                 "Italiano"
             ],
-            "site": "https://corsi.unibo.it/laurea/storia"
+            "site": "https://corsi.unibo.it/laurea/storia",
+            "course_codec": "storia"
         }
     ]
 }
