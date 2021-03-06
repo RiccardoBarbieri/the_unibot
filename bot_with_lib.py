@@ -4,7 +4,7 @@ import logging
 
 def sub(string, substring):
     start = string.find(substring) + 1
-    end = len(substring) + start - 1
+    end = len(substring) + start
     ast = '*'*len(substring)
     return string[:start] + ast + string[end:]
 
@@ -21,7 +21,7 @@ def start(update, context):
 def misc(update, context):
     if 'piedi' in update.message.text:
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
-    if 'registr' in update.message.text:
+    if 'egistr' in update.message.text:
         text = update.message.text
         context.bot.send_message(chat_id = update.effective_chat.id, text = sub(text, 'registr'))
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
