@@ -29,7 +29,7 @@ def misc(update, context):
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
     if 'egistr' in update.message.text.lower():
         text = update.message.text
-        context.bot.send_message(chat_id = update.effective_chat.id, text = update.message.from_user.first_name + ': ' + sub(text, 'egistr'))
+        context.bot.send_message(chat_id = update.effective_chat.id, text = '@' + update.message.from_user.first_name + ': ' + sub(text, 'egistr'))
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
 
 def search_corso(update, context):
