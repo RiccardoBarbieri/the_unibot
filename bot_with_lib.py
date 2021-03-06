@@ -8,7 +8,9 @@ def sub(string, substring): #funzione che censura la substring
     ast = '*'*len(substring)
     return string[:start] + ast + string[end:]
 
-token = '1505488376:AAFHVl4kNUSrsTpV_Pve8MFT6RFmEJArAlk'
+with open('token.txt') as f:
+    token = f.readline()
+    
 
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher

@@ -55,7 +55,6 @@ class UniboAPI():
         
         return schedule
 
-'0593963663'
 
 
 
