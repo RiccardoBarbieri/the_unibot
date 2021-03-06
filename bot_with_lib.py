@@ -1,3 +1,6 @@
+import sys
+sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')#TODO: change this path when migrating to another platform
+from api import UniboAPI
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
 import logging
@@ -10,7 +13,7 @@ def sub(string, substring): #funzione che censura la substring
 
 with open('token.txt') as f:
     token = f.readline()
-    
+
 
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
@@ -21,7 +24,7 @@ def start(update, context):
     context.bot.send_message(chat_id = update.effective_chat.id, text = 'Test')
 
 def misc(update, context):
-    if 'piedi' in update.message.text:
+    if 'piedi' in update.message.text.lower():
         context.bot.send_message(chat_id = update.effective_chat.id, text = 'Qualcuno ha detto PIEDI????')
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
     if 'egistr' in update.message.text:
