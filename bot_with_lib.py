@@ -27,7 +27,7 @@ def misc(update, context):
     if 'piedi' in update.message.text.lower():
         context.bot.send_message(chat_id = update.effective_chat.id, text = 'Qualcuno ha detto PIEDI????')
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
-    if 'egistr' in update.message.text:
+    if 'egistr' in update.message.text.lower():
         text = update.message.text
         context.bot.send_message(chat_id = update.effective_chat.id, text = update.message.from_user.first_name + ': ' + sub(text, 'egistr'))
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
@@ -50,6 +50,9 @@ def autosend(update, context):
 def orario(update, context):
     pass
 
+def set_detail(update, context):
+    pass
+
 def bug(update, context):
     context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla repository del bot: ' + 'https://github.com/RiccardoBarbieri/t_bot')
 
@@ -61,6 +64,7 @@ set_anno_handler = CommandHandler('set_anno', set_anno)
 set_autosend_handler = CommandHandler('set_autosend', set_autosend)
 autosend_handler = CommandHandler('autosend', autosend)
 orario_handler = CommandHandler('orario', orario)
+set_detail_handler = CommandHandler('set_detail', set_detail)
 bug_report_handler = CommandHandler('bug_report', bug)
 
 dispatcher.add_handler(start_handler)
@@ -71,6 +75,7 @@ dispatcher.add_handler(set_anno_handler)
 dispatcher.add_handler(set_autosend_handler)
 dispatcher.add_handler(autosend_handler)
 dispatcher.add_handler(orario_handler)
+dispatcher.add_handler(set_detail)
 dispatcher.add_handler(bug_report_handler)
 
 updater.start_polling()
