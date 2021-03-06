@@ -2,8 +2,8 @@ from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
 import logging
 
-def sub(string, substring):
-    start = string.find(substring) + 1
+def sub(string, substring): #funzione che censura la substring
+    start = string.find(substring)
     end = len(substring) + start
     ast = '*'*len(substring)
     return string[:start] + ast + string[end:]
@@ -20,10 +20,11 @@ def start(update, context):
 
 def misc(update, context):
     if 'piedi' in update.message.text:
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Qualcuno ha detto PIEDI????')
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
     if 'egistr' in update.message.text:
         text = update.message.text
-        context.bot.send_message(chat_id = update.effective_chat.id, text = sub(text, 'egistr'))
+        context.bot.send_message(chat_id = update.effective_chat.id, text = update.message.from_user.first_name + ': ' + sub(text, 'egistr'))
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
 
 start_handler = CommandHandler('start', start)
