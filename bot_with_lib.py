@@ -27,10 +27,45 @@ def misc(update, context):
         context.bot.send_message(chat_id = update.effective_chat.id, text = update.message.from_user.first_name + ': ' + sub(text, 'egistr'))
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
 
+def search_corso(update, context):
+    pass
+
+def set_corso(update, context):
+    pass
+
+def set_anno(update, context):
+    pass
+
+def set_autosend(update, context):
+    pass
+
+def autosend(update, context):
+    pass
+
+def orario(update, context):
+    pass
+
+def bug(update, context):
+    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla repository del bot: ' + 'https://github.com/RiccardoBarbieri/t_bot')
+
 start_handler = CommandHandler('start', start)
 misc_handler = MessageHandler(Filters.text & (~Filters.command), misc)
+search_corso_handler = CommandHandler('search_corso', search_corso)
+set_corso_handler = CommandHandler('set_corso', set_corso)
+set_anno_handler = CommandHandler('set_anno', set_anno)
+set_autosend_handler = CommandHandler('set_autosend', set_autosend)
+autosend_handler = CommandHandler('autosend', autosend)
+orario_handler = CommandHandler('orario', orario)
+bug_report_handler = CommandHandler('bug_report', bug)
 
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(misc_handler)
+dispatcher.add_handler(search_corso_handler)
+dispatcher.add_handler(set_corso_handler)
+dispatcher.add_handler(set_anno_handler)
+dispatcher.add_handler(set_autosend_handler)
+dispatcher.add_handler(autosend_handler)
+dispatcher.add_handler(orario_handler)
+dispatcher.add_handler(bug_report_handler)
 
 updater.start_polling()
