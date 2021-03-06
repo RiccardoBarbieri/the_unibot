@@ -75,7 +75,7 @@ dispatcher.add_handler(set_anno_handler)
 dispatcher.add_handler(set_autosend_handler)
 dispatcher.add_handler(autosend_handler)
 dispatcher.add_handler(orario_handler)
-dispatcher.add_handler(set_detail)
+dispatcher.add_handler(set_detail_handler)
 dispatcher.add_handler(bug_report_handler)
 
 updater.start_polling()
