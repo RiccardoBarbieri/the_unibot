@@ -4,6 +4,7 @@ from api import UniboAPI
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
 import logging
+from pathlib import Path
 
 def sub(string, substring): #funzione che censura la substring
     start = string.find(substring)
@@ -11,9 +12,8 @@ def sub(string, substring): #funzione che censura la substring
     ast = '*'*len(substring)
     return string[:start] + ast + string[end:]
 
-with open('token.txt') as f:
+with open(Path('./bot/token.txt')) as f:
     token = f.readline()
-
 
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
@@ -33,25 +33,25 @@ def misc(update, context):
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
 
 def search_corso(update, context):
-    pass
+    pass # to implement
 
 def set_corso(update, context):
-    pass
+    pass # to implement
 
 def set_anno(update, context):
-    pass
+    pass # to implement
 
 def set_autosend(update, context):
-    pass
+    pass # to implement
 
 def autosend(update, context):
-    pass
+    pass # to implement
 
 def orario(update, context):
-    pass
+    pass # to implement
 
 def set_detail(update, context):
-    pass
+    pass # to implement
 
 def bug(update, context):
     context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla repository del bot: ' + 'https://github.com/RiccardoBarbieri/t_bot')
