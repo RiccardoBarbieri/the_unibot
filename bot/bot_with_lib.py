@@ -6,9 +6,11 @@ elif getpass.getuser() == 'grufoony':
     sys.path.append('/home/grufoony/bot-telegram')
 import os
 from api import UniboAPI
+from telegram.parsemode import ParseMode
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
 import logging
+import sqlalchemy as db
 from pathlib import Path
 
 def sub(string, substring): #funzione che censura la substring
@@ -59,7 +61,8 @@ def set_detail(update, context):
     pass # to implement
 
 def bug(update, context):
-    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla repository del bot: ' + 'https://github.com/RiccardoBarbieri/t_bot')
+    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot'\
+    .format(link = 'https://github.com/RiccardoBarbieri/t_bot'), parse_mode = ParseMode.HTML)
 
 start_handler = CommandHandler('start', start)
 misc_handler = MessageHandler(Filters.text & (~Filters.command), misc)
