@@ -1,5 +1,10 @@
 import sys
-sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')#TODO: change this path when migrating to another platform
+import getpass
+if getpass.getuser() == 'ricca':
+    sys.path.append('C:\\Users\\ricca\\Desktop\\telegram') #TODO: change this path when migrating to another platform
+elif getpass.getuser() == 'grufoony':
+    sys.path.append('/home/grufoony/bot-telegram')
+import os
 from api import UniboAPI
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
