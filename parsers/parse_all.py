@@ -1,5 +1,9 @@
 import sys
-sys.path.append('C:\\Users\\ricca\\Desktop\\telegram') #TODO: change this path when migrating to another platform
+import getpass
+if getpass.getuser() == 'ricca':
+    sys.path.append('C:\\Users\\ricca\\Desktop\\telegram') #TODO: change this path when migrating to another platform
+elif getpass.getuser() == 'grufoony':
+    sys.path.append('/home/grufoony/bot-telegram')
 from parsers.parsing_curricula_codes import create_curriculas_with_codes
 from parsers.joining_curriculas_courses import join
 from parsers.crafting_correct_links import correct_links
