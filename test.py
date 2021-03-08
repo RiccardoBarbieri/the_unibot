@@ -1,8 +1,3 @@
+import getpass
 
-
-a = {
-    'sos':'py'
-
-}
-
-print(a['ss'])
+print(getpass.getuser())
