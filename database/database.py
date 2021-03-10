@@ -29,7 +29,7 @@ class Database():
             val = (chat_id, user_id, course, year, detail, curricula)
             try:
                 cursor.execute('INSERT INTO data VALUES (?,?,?,?,?,?)', val)
-            except sqlite3.IntegrityError as e:
+            except sqlite3.IntegrityError:
                 print('Primary key duplicated, not inserting ' + str(val))
             connection.commit()
         
