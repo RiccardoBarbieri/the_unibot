@@ -4,14 +4,17 @@ if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram') #TODO: change this path when migrating to another platform
 elif getpass.getuser() == 'grufoony':
     sys.path.append('/home/grufoony/bot-telegram')
-import os
 from api import UniboAPI
 from telegram.parsemode import ParseMode
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
 import logging
-import sqlalchemy as db
 from pathlib import Path
+from database.database import Database
+from pathlib import Path
+
+
+db = Database(Path('./database/telegram.db'))
 
 def sub(string, substring): #funzione che censura la substring
     start = string.find(substring)
@@ -28,7 +31,9 @@ dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 def start(update, context):
-    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Test')
+    db.insert(update.effective_chat.id, update.effective_user.id)
+    context.bot.send_message(chat_id = update.effective_chat.id, text = str(db.query_all()))
+
 
 def misc(update, context):
     if 'piedi' in update.message.text.lower():
