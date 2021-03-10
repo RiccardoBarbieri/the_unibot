@@ -1,2 +1,3 @@
 *.txt
 chromedriver.exe
+/.vscode/
