@@ -3,7 +3,7 @@ import json
 
 def expose_course_code():
     
-    with open('4courses_curriculas.json') as f:
+    with open('courses_curriculas.json') as f:
         courses = json.load(f)
 
     for i in courses.keys():
@@ -16,4 +16,3 @@ def expose_course_code():
     with open('5courses_curriculas_codec.json', 'w+') as f:
         json.dump(courses, f)
 
-expose_course_code()
