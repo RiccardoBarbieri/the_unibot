@@ -42,7 +42,8 @@ def misc(update, context):
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
     if 'egistr' in update.message.text.lower():
         text = update.message.text
-        context.bot.send_message(chat_id = update.effective_chat.id, text = '@' + update.message.from_user.first_name + ': ' + sub(text, 'egistr'))
+        context.bot.send_message(chat_id = update.effective_chat.id, text = '<a href="tg://user?id={user_id}">@{username}</a>'\
+        .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
 
 def search_corso(update, context):
@@ -72,10 +73,12 @@ def bug(update, context):
 
 def wiki(update, context): #alpha state
     text = update.message.text
-    temp = text.find('/wiki ')
-    end = len('/wiki') + temp
-    print(text[end:])
-    info = wikipedia.summary(text[end:])
+    print(text[6:])
+    info = ''
+    try:
+        info = wikipedia.summary(text[6:])
+    except wikipedia.exceptions.DisambiguationError:
+        pass
     context.bot.send_message(chat_id = update.effective_chat.id, text = info)
 
 start_handler = CommandHandler('start', start)
