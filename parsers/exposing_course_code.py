@@ -16,4 +16,3 @@ def expose_course_code():
     with open('5courses_curriculas_codec.json', 'w+') as f:
         json.dump(courses, f)
 
-expose_course_code()
