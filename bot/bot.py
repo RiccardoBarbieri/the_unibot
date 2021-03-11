@@ -27,6 +27,8 @@ def sub(string, substring): #funzione che censura la substring
 with open(Path('./bot/token.txt')) as f:
     token = f.readline()
 
+wikipedia.set_lang('it')
+
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
 
@@ -49,8 +51,9 @@ def misc(update, context):
         .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
     if '/wiki' in last_mess.text:
-        info = wikipedia.summary(update.message.text)
-        context.bot.send_message(chat_id = update.effective_chat.id, text = info)
+        # info = wikipedia.summary(update.message.text)
+        # context.bot.send_message(chat_id = update.effective_chat.id, text = info)
+        wiki(update, context)
 
 def search_corso(update, context):
     pass # to implement
@@ -79,7 +82,8 @@ def bug(update, context):
 
 def wiki(update, context): #alpha state
     global last_mess
-    last_mess = update.message
+    if '/wiki' in update.message.text:
+        last_mess = update.message
     text = update.message.text
     info = ''
     try:
@@ -93,8 +97,8 @@ def wiki(update, context): #alpha state
             rows.append(temp)
         keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
         context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
-        #info = wikipedia.summary(telegram.ReplyMarkup.text)
-        #context.bot.send_message(chat_id = update.effective_chat.id, text = info)
+    except wikipedia.exceptions.PageError:
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Pagina non disponibile')
         
 
 start_handler = CommandHandler('start', start)
