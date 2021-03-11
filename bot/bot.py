@@ -1,6 +1,5 @@
 import sys
 import getpass
-import wikipedia
 if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram') #TODO: change this path when migrating to another platform
 elif getpass.getuser() == 'grufoony':
@@ -13,6 +12,8 @@ import logging
 from pathlib import Path
 from database.database import Database
 from pathlib import Path
+import wikipedia
+import telegram
 
 
 db = Database(Path('./database/telegram.db'))
@@ -28,6 +29,8 @@ with open(Path('./bot/token.txt')) as f:
 
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
+
+last_mess = None
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
@@ -45,6 +48,9 @@ def misc(update, context):
         context.bot.send_message(chat_id = update.effective_chat.id, text = '<a href="tg://user?id={user_id}">@{username}</a>'\
         .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
+    if '/wiki' in last_mess.text:
+        info = wikipedia.summary(update.message.text)
+        context.bot.send_message(chat_id = update.effective_chat.id, text = info)
 
 def search_corso(update, context):
     pass # to implement
@@ -72,14 +78,24 @@ def bug(update, context):
     .format(link = 'https://github.com/RiccardoBarbieri/t_bot'), parse_mode = ParseMode.HTML)
 
 def wiki(update, context): #alpha state
+    global last_mess
+    last_mess = update.message
     text = update.message.text
-    print(text[6:])
     info = ''
     try:
         info = wikipedia.summary(text[6:])
-    except wikipedia.exceptions.DisambiguationError:
-        pass
-    context.bot.send_message(chat_id = update.effective_chat.id, text = info)
+        context.bot.send_message(chat_id = update.effective_chat.id, text = info)
+    except wikipedia.exceptions.DisambiguationError as e:
+        rows = []
+        for i in e.options:
+            temp = []
+            temp.append(telegram.KeyboardButton(i))
+            rows.append(temp)
+        keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
+        #info = wikipedia.summary(telegram.ReplyMarkup.text)
+        #context.bot.send_message(chat_id = update.effective_chat.id, text = info)
+        
 
 start_handler = CommandHandler('start', start)
 misc_handler = MessageHandler(Filters.text & (~Filters.command), misc)
