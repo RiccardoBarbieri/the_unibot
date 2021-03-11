@@ -3,7 +3,7 @@
         {
             "course_name": "Amministrazione e gestione d'impresa",
             "course_code": "8842",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -30,7 +30,7 @@
         {
             "course_name": "Business and economics",
             "course_code": "8965",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -42,7 +42,7 @@
         {
             "course_name": "Digital transformation management",
             "course_code": "5815",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -54,7 +54,7 @@
         {
             "course_name": "Direzione aziendale",
             "course_code": "0897",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -77,7 +77,7 @@
         {
             "course_name": "Economia aziendale",
             "course_code": "8871",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -89,7 +89,7 @@
         {
             "course_name": "Economia del turismo",
             "course_code": "8847",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -112,7 +112,7 @@
         {
             "course_name": "Economia dell'impresa",
             "course_code": "8848",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -138,7 +138,7 @@
         {
             "course_name": "Economia e commercio",
             "course_code": "0905",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -150,7 +150,7 @@
         {
             "course_name": "Economia e commercio",
             "course_code": "9202",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -177,7 +177,7 @@
         {
             "course_name": "Economia e diritto",
             "course_code": "9221",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -200,7 +200,7 @@
         {
             "course_name": "Economia e management",
             "course_code": "9203",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -227,7 +227,7 @@
         {
             "course_name": "Economia e politica economica",
             "course_code": "8420",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -254,7 +254,7 @@
         {
             "course_name": "Economia e professione",
             "course_code": "0900",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -266,7 +266,7 @@
         {
             "course_name": "Economia, mercati e istituzioni",
             "course_code": "8038",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -278,7 +278,7 @@
         {
             "course_name": "Economics",
             "course_code": "8408",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -290,7 +290,7 @@
         {
             "course_name": "Economics and finance",
             "course_code": "8835",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -302,7 +302,7 @@
         {
             "course_name": "Economics, politics and social sciences",
             "course_code": "5819",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -314,7 +314,7 @@
         {
             "course_name": "Finanza, intermediari e mercati",
             "course_code": "0901",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -326,7 +326,7 @@
         {
             "course_name": "Health economics and management",
             "course_code": "8880",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -344,7 +344,7 @@
         {
             "course_name": "Innovation and organization of culture and the arts",
             "course_code": "0902",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -356,7 +356,7 @@
         {
             "course_name": "Law, economics and governance",
             "course_code": "5811",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -368,7 +368,7 @@
         {
             "course_name": "Management dell'economia sociale",
             "course_code": "8843",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -380,7 +380,7 @@
         {
             "course_name": "Management e marketing",
             "course_code": "8406",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -402,7 +402,7 @@
         {
             "course_name": "Resource economics and sustainable development",
             "course_code": "8839",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -414,7 +414,7 @@
         {
             "course_name": "Tourism economics and management",
             "course_code": "8609",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -428,7 +428,7 @@
         {
             "course_name": "Bioinformatics",
             "course_code": "8020",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -440,7 +440,7 @@
         {
             "course_name": "Biologia della salute",
             "course_code": "5729",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -452,7 +452,7 @@
         {
             "course_name": "Biologia della salute",
             "course_code": "9212",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -464,7 +464,7 @@
         {
             "course_name": "Biotecnologie",
             "course_code": "8005",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -476,7 +476,7 @@
         {
             "course_name": "Biotecnologie molecolari e industriali",
             "course_code": "9213",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -488,7 +488,7 @@
         {
             "course_name": "Chimica e tecnologia farmaceutiche",
             "course_code": "9262",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -500,7 +500,7 @@
         {
             "course_name": "Farmacia",
             "course_code": "9219",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -512,7 +512,7 @@
         {
             "course_name": "Genomics",
             "course_code": "9211",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -524,7 +524,7 @@
         {
             "course_name": "Molecular and cell biology",
             "course_code": "5825",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -534,21 +534,9 @@
             "course_codec": "BiologiaMolecolareCellulare"
         },
         {
-            "course_name": "Nutrizione umana, benessere e salute",
-            "course_code": "5812",
-            "campus": ": Rimini",
-            "international": false,
-            "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
-            "languages": [
-                "Italiano"
-            ],
-            "site": "https://corsi.unibo.it/magistrale/NutrizioneBenessereSalute",
-            "course_codec": "NutrizioneBenessereSalute"
-        },
-        {
             "course_name": "Pharmaceutical biotechnology",
             "course_code": "9068",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -560,7 +548,7 @@
         {
             "course_name": "Pharmacy",
             "course_code": "9078",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -572,7 +560,7 @@
         {
             "course_name": "Scienze farmaceutiche applicate",
             "course_code": "8518",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -596,7 +584,7 @@
         {
             "course_name": "Consulente del lavoro e delle relazioni aziendali",
             "course_code": "9230",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -614,7 +602,7 @@
         {
             "course_name": "Giurisprudenza",
             "course_code": "9232",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -626,7 +614,7 @@
         {
             "course_name": "Giurisprudenza",
             "course_code": "9233",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": true,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -638,7 +626,7 @@
         {
             "course_name": "Giurista per le imprese e per la pubblica amministrazione",
             "course_code": "9242",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -668,7 +656,7 @@
         {
             "course_name": "Legal studies",
             "course_code": "9062",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -682,7 +670,7 @@
         {
             "course_name": "Advanced automotive electronic engineering",
             "course_code": "9238",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -694,7 +682,7 @@
         {
             "course_name": "Advanced automotive engineering",
             "course_code": "9239",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -720,7 +708,7 @@
         {
             "course_name": "Advanced design",
             "course_code": "9256",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -742,7 +730,7 @@
         {
             "course_name": "Aerospace engineering",
             "course_code": "5723",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -764,7 +752,7 @@
         {
             "course_name": "Architecture and creative practices for the city and landscape",
             "course_code": "5809",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -776,7 +764,7 @@
         {
             "course_name": "Architettura",
             "course_code": "9265",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -788,7 +776,7 @@
         {
             "course_name": "Architettura-ingegneria",
             "course_code": "5695",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -800,7 +788,7 @@
         {
             "course_name": "Artificial intelligence",
             "course_code": "9063",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -812,7 +800,7 @@
         {
             "course_name": "Automation engineering",
             "course_code": "8891",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -824,7 +812,7 @@
         {
             "course_name": "Biomedical engineering",
             "course_code": "9266",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -850,7 +838,7 @@
         {
             "course_name": "Civil engineering",
             "course_code": "8895",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -884,7 +872,7 @@
         {
             "course_name": "Design del prodotto industriale",
             "course_code": "8182",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -896,7 +884,7 @@
         {
             "course_name": "Digital transformation management",
             "course_code": "5815",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -908,7 +896,7 @@
         {
             "course_name": "Electric vehicle engineering",
             "course_code": "5699",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -920,7 +908,7 @@
         {
             "course_name": "Ingegneria aerospaziale",
             "course_code": "9234",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -932,7 +920,7 @@
         {
             "course_name": "Ingegneria biomedica",
             "course_code": "9082",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -944,7 +932,7 @@
         {
             "course_name": "Ingegneria chimica e biochimica",
             "course_code": "8887",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -956,7 +944,7 @@
         {
             "course_name": "Ingegneria chimica e di processo",
             "course_code": "8896",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -983,7 +971,7 @@
         {
             "course_name": "Ingegneria civile",
             "course_code": "0930",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1013,7 +1001,7 @@
         {
             "course_name": "Ingegneria civile",
             "course_code": "8888",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1025,7 +1013,7 @@
         {
             "course_name": "Ingegneria dei processi e dei sistemi edilizi",
             "course_code": "8829",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1052,7 +1040,7 @@
         {
             "course_name": "Ingegneria dell'automazione",
             "course_code": "9217",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1074,7 +1062,7 @@
         {
             "course_name": "Ingegneria dell'energia elettrica",
             "course_code": "5822",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1086,7 +1074,7 @@
         {
             "course_name": "Ingegneria dell'energia elettrica",
             "course_code": "9066",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1109,7 +1097,7 @@
         {
             "course_name": "Ingegneria e scienze informatiche",
             "course_code": "8614",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1128,7 +1116,7 @@
         {
             "course_name": "Ingegneria e scienze informatiche",
             "course_code": "8615",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1140,7 +1128,7 @@
         {
             "course_name": "Ingegneria edile",
             "course_code": "9199",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1152,7 +1140,7 @@
         {
             "course_name": "Ingegneria edile-architettura",
             "course_code": "5697",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -1165,7 +1153,7 @@
         {
             "course_name": "Ingegneria elettronica",
             "course_code": "0934",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1192,7 +1180,7 @@
         {
             "course_name": "Ingegneria elettronica",
             "course_code": "5834",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1204,7 +1192,7 @@
         {
             "course_name": "Ingegneria elettronica e telecomunicazioni",
             "course_code": "9065",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1226,7 +1214,7 @@
         {
             "course_name": "Ingegneria elettronica e telecomunicazioni per l'energia",
             "course_code": "8770",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1248,7 +1236,7 @@
         {
             "course_name": "Ingegneria energetica",
             "course_code": "0924",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1270,7 +1258,7 @@
         {
             "course_name": "Ingegneria energetica",
             "course_code": "0935",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1282,7 +1270,7 @@
         {
             "course_name": "Ingegneria gestionale",
             "course_code": "0925",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1294,7 +1282,7 @@
         {
             "course_name": "Ingegneria gestionale",
             "course_code": "0936",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1306,7 +1294,7 @@
         {
             "course_name": "Ingegneria informatica",
             "course_code": "5826",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1318,7 +1306,7 @@
         {
             "course_name": "Ingegneria informatica",
             "course_code": "9254",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1330,7 +1318,7 @@
         {
             "course_name": "Ingegneria meccanica",
             "course_code": "0927",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1342,7 +1330,7 @@
         {
             "course_name": "Ingegneria meccanica",
             "course_code": "0949",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1354,7 +1342,7 @@
         {
             "course_name": "Ingegneria meccanica",
             "course_code": "5724",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1392,7 +1380,7 @@
         {
             "course_name": "Ingegneria meccanica",
             "course_code": "8771",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -1404,7 +1392,7 @@
         {
             "course_name": "Ingegneria per l'ambiente e il territorio",
             "course_code": "8894",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1431,7 +1419,7 @@
         {
             "course_name": "Ingegneria per l'ambiente e il territorio",
             "course_code": "9198",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1443,7 +1431,7 @@
         {
             "course_name": "Meccatronica",
             "course_code": "5818",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1460,7 +1448,7 @@
         {
             "course_name": "Offshore engineering",
             "course_code": "9249",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1486,7 +1474,7 @@
         {
             "course_name": "Tecniche per l'edilizia e il territorio",
             "course_code": "5817",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1498,7 +1486,7 @@
         {
             "course_name": "Tecnologie dei sistemi informatici",
             "course_code": "5816",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1510,7 +1498,7 @@
         {
             "course_name": "Telecommunications engineering",
             "course_code": "9205",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1524,7 +1512,7 @@
         {
             "course_name": "Interpretazione",
             "course_code": "8060",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -1536,7 +1524,7 @@
         {
             "course_name": "Language, society and communication",
             "course_code": "8874",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1548,7 +1536,7 @@
         {
             "course_name": "Letterature moderne, comparate e postcoloniali",
             "course_code": "0981",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1574,7 +1562,7 @@
         {
             "course_name": "Lingua e cultura italiane per stranieri",
             "course_code": "0983",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1586,7 +1574,7 @@
         {
             "course_name": "Lingue e letterature straniere",
             "course_code": "0979",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1598,7 +1586,7 @@
         {
             "course_name": "Lingue, mercati e culture dell'Asia e dell'Africa mediterranea",
             "course_code": "9264",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1610,7 +1598,7 @@
         {
             "course_name": "Mediazione linguistica interculturale",
             "course_code": "8059",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -1622,7 +1610,7 @@
         {
             "course_name": "Specialized translation",
             "course_code": "9174",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -1642,7 +1630,7 @@
         {
             "course_name": "Dietistica (abilitante alla professione sanitaria di dietista)",
             "course_code": "8470",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1654,7 +1642,7 @@
         {
             "course_name": "Educazione professionale (abilitante alla professione sanitaria di educatore professionale)",
             "course_code": "8477",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1666,7 +1654,7 @@
         {
             "course_name": "Fisioterapia (abilitante alla professione sanitaria di fisioterapista)",
             "course_code": "8476",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1678,7 +1666,7 @@
         {
             "course_name": "Igiene dentale (abilitante alla professione sanitaria di igienista dentale)",
             "course_code": "8481",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1690,7 +1678,7 @@
         {
             "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
             "course_code": "8473",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1702,7 +1690,7 @@
         {
             "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
             "course_code": "8474",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1714,7 +1702,7 @@
         {
             "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
             "course_code": "8475",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1726,7 +1714,7 @@
         {
             "course_name": "Logopedia (abilitante alla professione sanitaria di logopedista)",
             "course_code": "9080",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1738,7 +1726,7 @@
         {
             "course_name": "Medical biotechnology",
             "course_code": "9081",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1750,7 +1738,7 @@
         {
             "course_name": "Medicina e chirurgia",
             "course_code": "5708",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Numero programmato nazionale",
             "languages": [
@@ -1762,7 +1750,7 @@
         {
             "course_name": "Medicina e chirurgia",
             "course_code": "5709",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato nazionale",
             "languages": [
@@ -1774,7 +1762,7 @@
         {
             "course_name": "Medicina e chirurgia",
             "course_code": "8415",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale",
             "languages": [
@@ -1786,7 +1774,7 @@
         {
             "course_name": "Medicine and surgery",
             "course_code": "9210",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato nazionale",
             "languages": [
@@ -1798,7 +1786,7 @@
         {
             "course_name": "Odontoiatria e protesi dentaria",
             "course_code": "8204",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale",
             "languages": [
@@ -1810,7 +1798,7 @@
         {
             "course_name": "Ostetricia (abilitante alla professione sanitaria di ostetrica",
             "course_code": "9201",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1822,7 +1810,7 @@
         {
             "course_name": "Podologia (abilitante alla professione sanitaria di podologo)",
             "course_code": "8479",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1834,7 +1822,7 @@
         {
             "course_name": "Scienze delle professioni sanitarie della prevenzione",
             "course_code": "8878",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -1846,7 +1834,7 @@
         {
             "course_name": "Scienze infermieristiche e ostetriche",
             "course_code": "8488",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -1858,7 +1846,7 @@
         {
             "course_name": "Tecniche della prevenzione nell'ambiente e nei luoghi di lavoro (abilitante alla professione sanitaria di tecnico della prevenzione nell'ambiente e nei luoghi di lavoro)",
             "course_code": "8487",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1870,7 +1858,7 @@
         {
             "course_name": "Tecniche di laboratorio biomedico (abilitante alla professione sanitaria di tecnico di laboratorio biomedico)",
             "course_code": "8484",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1882,7 +1870,7 @@
         {
             "course_name": "Tecniche di neurofisiopatologia (abilitante alla professione sanitaria di tecnico di neurofisiopatologia)",
             "course_code": "8482",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1894,7 +1882,7 @@
         {
             "course_name": "Tecniche di radiologia medica, per immagini e radioterapia (abilitante alla professione sanitaria di tecnico di radiologia medica)",
             "course_code": "9079",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1906,7 +1894,7 @@
         {
             "course_name": "Tecniche ortopediche (abilitante alla professione sanitaria di tecnico ortopedico)",
             "course_code": "8483",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -1920,7 +1908,7 @@
         {
             "course_name": "Acquacoltura e igiene delle produzioni ittiche",
             "course_code": "8834",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Libero con verifica delle conoscenze",
             "languages": [
@@ -1932,7 +1920,7 @@
         {
             "course_name": "Biotecnologie animali",
             "course_code": "8522",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1944,7 +1932,7 @@
         {
             "course_name": "Food animal metabolism and management in the circular economy",
             "course_code": "5814",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica delle conoscenze",
             "languages": [
@@ -1956,7 +1944,7 @@
         {
             "course_name": "Medicina veterinaria",
             "course_code": "8617",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale",
             "languages": [
@@ -1968,7 +1956,7 @@
         {
             "course_name": "Sicurezza e qualit\u00e0 delle produzioni animali",
             "course_code": "5728",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1982,7 +1970,7 @@
         {
             "course_name": "Neuroscienze e riabilitazione neuropsicologica",
             "course_code": "0989",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -1994,7 +1982,7 @@
         {
             "course_name": "Psicologia clinica",
             "course_code": "0990",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -2006,7 +1994,7 @@
         {
             "course_name": "Psicologia cognitiva applicata",
             "course_code": "0991",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2018,7 +2006,7 @@
         {
             "course_name": "Psicologia scolastica e di comunit\u00e0",
             "course_code": "0993",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2030,7 +2018,7 @@
         {
             "course_name": "Psychology of wellbeing and social inclusivity",
             "course_code": "5700",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2042,7 +2030,7 @@
         {
             "course_name": "Scienze e tecniche psicologiche",
             "course_code": "8774",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2054,7 +2042,7 @@
         {
             "course_name": "Work, organizational and personnel psychology",
             "course_code": "5829",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2074,7 +2062,7 @@
         {
             "course_name": "Advanced cosmetic sciences",
             "course_code": "9225",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2086,7 +2074,7 @@
         {
             "course_name": "Advanced methods in particle physics",
             "course_code": "5810",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2098,7 +2086,7 @@
         {
             "course_name": "Advanced spectroscopy in chemistry",
             "course_code": "5706",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2110,7 +2098,7 @@
         {
             "course_name": "Analisi e gestione dell'ambiente",
             "course_code": "8418",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2136,7 +2124,7 @@
         {
             "course_name": "Artificial intelligence",
             "course_code": "9063",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2148,7 +2136,7 @@
         {
             "course_name": "Astronomia",
             "course_code": "8004",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2160,7 +2148,7 @@
         {
             "course_name": "Astrophysics and cosmology",
             "course_code": "5828",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2172,7 +2160,7 @@
         {
             "course_name": "Biodiversit\u00e0 ed evoluzione",
             "course_code": "5824",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2184,7 +2172,7 @@
         {
             "course_name": "Biologia marina",
             "course_code": "8857",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2196,7 +2184,7 @@
         {
             "course_name": "Chemical innovation and regulation",
             "course_code": "5701",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2208,7 +2196,7 @@
         {
             "course_name": "Chimica",
             "course_code": "9072",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2230,7 +2218,7 @@
         {
             "course_name": "Chimica e chimica dei materiali",
             "course_code": "8006",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2242,7 +2230,7 @@
         {
             "course_name": "Chimica e tecnologie per l'ambiente e per i materiali",
             "course_code": "8514",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2254,7 +2242,7 @@
         {
             "course_name": "Chimica e tecnologie per l'ambiente e per i materiali",
             "course_code": "8515",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2266,7 +2254,7 @@
         {
             "course_name": "Chimica industriale",
             "course_code": "0884",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2278,7 +2266,7 @@
         {
             "course_name": "Chimica industriale",
             "course_code": "8513",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2290,7 +2278,7 @@
         {
             "course_name": "Didattica e comunicazione delle scienze naturali",
             "course_code": "5704",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2320,7 +2308,7 @@
         {
             "course_name": "Digital transformation management",
             "course_code": "5815",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -2332,7 +2320,7 @@
         {
             "course_name": "Fisica",
             "course_code": "9244",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2344,7 +2332,7 @@
         {
             "course_name": "Fisica del sistema Terra",
             "course_code": "8626",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2356,7 +2344,7 @@
         {
             "course_name": "Geologia e territorio",
             "course_code": "9073",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2383,7 +2371,7 @@
         {
             "course_name": "Informatica",
             "course_code": "8009",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2395,7 +2383,7 @@
         {
             "course_name": "Informatica",
             "course_code": "8028",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2421,7 +2409,7 @@
         {
             "course_name": "Informatica per il management",
             "course_code": "8014",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2433,7 +2421,7 @@
         {
             "course_name": "Ingegneria e scienze informatiche",
             "course_code": "8614",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2452,7 +2440,7 @@
         {
             "course_name": "Ingegneria e scienze informatiche",
             "course_code": "8615",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2464,7 +2452,7 @@
         {
             "course_name": "Low carbon technologies and sustainable chemistry",
             "course_code": "9246",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2486,7 +2474,7 @@
         {
             "course_name": "Matematica",
             "course_code": "5827",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2508,7 +2496,7 @@
         {
             "course_name": "Matematica",
             "course_code": "8010",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2520,7 +2508,7 @@
         {
             "course_name": "Photochemistry and molecular materials",
             "course_code": "9074",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2532,7 +2520,7 @@
         {
             "course_name": "Physics",
             "course_code": "9245",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2567,7 +2555,7 @@
         {
             "course_name": "Science for the conservation - restoration of cultural heritage",
             "course_code": "8537",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2579,7 +2567,7 @@
         {
             "course_name": "Scienze ambientali",
             "course_code": "8011",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -2591,7 +2579,7 @@
         {
             "course_name": "Scienze biologiche",
             "course_code": "8012",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2603,7 +2591,7 @@
         {
             "course_name": "Scienze e gestione della natura",
             "course_code": "9257",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2626,7 +2614,7 @@
         {
             "course_name": "Scienze geologiche",
             "course_code": "8015",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -2638,7 +2626,7 @@
         {
             "course_name": "Scienze naturali",
             "course_code": "5823",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2650,7 +2638,7 @@
         {
             "course_name": "Scienze statistiche",
             "course_code": "8873",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -2679,7 +2667,7 @@
         {
             "course_name": "Economia e marketing nel sistema agro-industriale",
             "course_code": "5833",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -2691,7 +2679,7 @@
         {
             "course_name": "Food safety and food risk management",
             "course_code": "9140",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2703,7 +2691,7 @@
         {
             "course_name": "International horticultural science",
             "course_code": "8883",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2715,7 +2703,7 @@
         {
             "course_name": "Precise and sustainable agriculture",
             "course_code": "5705",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2737,7 +2725,7 @@
         {
             "course_name": "Produzioni animali",
             "course_code": "8882",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -2749,7 +2737,7 @@
         {
             "course_name": "Progettazione e gestione degli ecosistemi agro-territoriali, forestali e del paesaggio",
             "course_code": "8532",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2771,7 +2759,7 @@
         {
             "course_name": "Scienze e cultura della gastronomia",
             "course_code": "5808",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2783,7 +2771,7 @@
         {
             "course_name": "Scienze e tecnologie agrarie",
             "course_code": "9235",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2809,7 +2797,7 @@
         {
             "course_name": "Scienze e tecnologie alimentari",
             "course_code": "8531",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2821,7 +2809,7 @@
         {
             "course_name": "Scienze e tecnologie per il verde e il paesaggio",
             "course_code": "5830",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze",
             "languages": [
@@ -2839,7 +2827,7 @@
         {
             "course_name": "Tecnologie agrarie",
             "course_code": "5832",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -2851,7 +2839,7 @@
         {
             "course_name": "Tecnologie alimentari",
             "course_code": "8528",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2863,7 +2851,7 @@
         {
             "course_name": "Tecnologie per il territorio e l'ambiente agro-forestale",
             "course_code": "5831",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -2875,7 +2863,7 @@
         {
             "course_name": "Viticoltura ed enologia",
             "course_code": "8527",
-            "campus": ": Cesena",
+            "campus": "Cesena",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2889,7 +2877,7 @@
         {
             "course_name": "Educatore nei servizi per l'infanzia",
             "course_code": "9083",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2901,7 +2889,7 @@
         {
             "course_name": "Educatore sociale e culturale",
             "course_code": "5726",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2913,7 +2901,7 @@
         {
             "course_name": "Educatore sociale e culturale",
             "course_code": "5727",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -2925,7 +2913,7 @@
         {
             "course_name": "Pedagogia",
             "course_code": "9206",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -2937,7 +2925,7 @@
         {
             "course_name": "Progettazione e gestione dell'intervento educativo nel disagio sociale",
             "course_code": "9228",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -2949,7 +2937,7 @@
         {
             "course_name": "Progettazione e gestione dell'intervento educativo nel disagio sociale",
             "course_code": "9229",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -2961,7 +2949,7 @@
         {
             "course_name": "Scienze dell'educazione permanente e della formazione continua",
             "course_code": "8780",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -2973,7 +2961,7 @@
         {
             "course_name": "Scienze della formazione primaria",
             "course_code": "5711",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -2987,7 +2975,7 @@
         {
             "course_name": "Management delle attivit\u00e0 motorie e sportive",
             "course_code": "9214",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -2997,9 +2985,21 @@
             "course_codec": "ManagementSport-Bologna"
         },
         {
+            "course_name": "Nutrizione umana, benessere e salute",
+            "course_code": "5812",
+            "campus": "Rimini",
+            "international": false,
+            "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
+            "languages": [
+                "Italiano"
+            ],
+            "site": "https://corsi.unibo.it/magistrale/NutrizioneBenessereSalute",
+            "course_codec": "NutrizioneBenessereSalute"
+        },
+        {
             "course_name": "Scienze delle attivit\u00e0 motorie e sportive",
             "course_code": "8512",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3011,7 +3011,7 @@
         {
             "course_name": "Scienze delle attivit\u00e0 motorie e sportive",
             "course_code": "8766",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3023,7 +3023,7 @@
         {
             "course_name": "Scienze e tecniche dell'attivit\u00e0 motoria preventiva e adattata",
             "course_code": "9263",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3035,7 +3035,7 @@
         {
             "course_name": "Scienze e tecniche dell'attivit\u00e0 sportiva",
             "course_code": "9069",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3047,7 +3047,7 @@
         {
             "course_name": "Wellness, sport and health",
             "course_code": "5813",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3061,7 +3061,7 @@
         {
             "course_name": "Comunicazione giornalistica, pubblica e d'impresa",
             "course_code": "5703",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3083,7 +3083,7 @@
         {
             "course_name": "Economics, politics and social sciences",
             "course_code": "5819",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3095,7 +3095,7 @@
         {
             "course_name": "Interdisciplinary research and studies on eastern europe",
             "course_code": "8049",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3107,7 +3107,7 @@
         {
             "course_name": "International cooperation on human rights and intercultural heritage",
             "course_code": "9237",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3129,7 +3129,7 @@
         {
             "course_name": "International politics and economics",
             "course_code": "5702",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3141,7 +3141,7 @@
         {
             "course_name": "International relations",
             "course_code": "9084",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3175,7 +3175,7 @@
         {
             "course_name": "Mass media e politica",
             "course_code": "8051",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3187,7 +3187,7 @@
         {
             "course_name": "Politica, amministrazione e organizzazione",
             "course_code": "9085",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3214,7 +3214,7 @@
         {
             "course_name": "Scienze internazionali e diplomatiche",
             "course_code": "8048",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3241,7 +3241,7 @@
         {
             "course_name": "Scienze internazionali e diplomatiche",
             "course_code": "9247",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3263,7 +3263,7 @@
         {
             "course_name": "Scienze politiche, sociali e internazionali",
             "course_code": "8853",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3297,7 +3297,7 @@
         {
             "course_name": "Sviluppo e cooperazione internazionale",
             "course_code": "8890",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3309,7 +3309,7 @@
         {
             "course_name": "Sviluppo locale e globale",
             "course_code": "9200",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3321,21 +3321,9 @@
     ],
     "Scienze Statistiche": [
         {
-            "course_name": "Digital transformation management",
-            "course_code": "5815",
-            "campus": ": Cesena",
-            "international": true,
-            "access": "Numero programmato - prova di selezione",
-            "languages": [
-                "Inglese"
-            ],
-            "site": "https://corsi.unibo.it/2cycle/DigitalTransformationManagement",
-            "course_codec": "DigitalTransformationManagement"
-        },
-        {
             "course_name": "Finanza, assicurazioni e impresa",
             "course_code": "8872",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3347,7 +3335,7 @@
         {
             "course_name": "Quantitative finance",
             "course_code": "8854",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3359,7 +3347,7 @@
         {
             "course_name": "Scienze statistiche",
             "course_code": "8873",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - prova di selezione",
             "languages": [
@@ -3386,7 +3374,7 @@
         {
             "course_name": "Scienze statistiche, finanziarie e attuariali",
             "course_code": "8877",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3398,7 +3386,7 @@
         {
             "course_name": "Statistica, economia e impresa",
             "course_code": "8876",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3421,7 +3409,7 @@
         {
             "course_name": "Statistical sciences",
             "course_code": "9222",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3447,7 +3435,7 @@
         {
             "course_name": "Sviluppo e cooperazione internazionale",
             "course_code": "8890",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3461,7 +3449,7 @@
         {
             "course_name": "Scienze criminologiche per l'investigazione e la sicurezza",
             "course_code": "8491",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3473,7 +3461,7 @@
         {
             "course_name": "Servizio sociale",
             "course_code": "8040",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3485,7 +3473,7 @@
         {
             "course_name": "Sociologia",
             "course_code": "8495",
-            "campus": ": Forli",
+            "campus": "Forli",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3497,7 +3485,7 @@
         {
             "course_name": "Sociologia e servizio sociale",
             "course_code": "8786",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3521,7 +3509,7 @@
         {
             "course_name": "Antropologia culturale ed etnologia",
             "course_code": "0964",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3533,7 +3521,7 @@
         {
             "course_name": "Antropologia, religioni, civilt\u00e0 orientali",
             "course_code": "8493",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -3545,7 +3533,7 @@
         {
             "course_name": "Archeologia e culture del mondo antico",
             "course_code": "8855",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3568,7 +3556,7 @@
         {
             "course_name": "Arti visive",
             "course_code": "9071",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3592,7 +3580,7 @@
         {
             "course_name": "Beni archeologici, artistici e del paesaggio: storia, tutela e valorizzazione",
             "course_code": "9218",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3614,7 +3602,7 @@
         {
             "course_name": "Beni culturali",
             "course_code": "9076",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -3626,7 +3614,7 @@
         {
             "course_name": "Cinema, televisione e produzione multimediale",
             "course_code": "0966",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3638,7 +3626,7 @@
         {
             "course_name": "Conservazione e restauro dei beni culturali (abilitante ai sensi del d. lgs n. 42",
             "course_code": "8616",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Numero programmato nazionale - prova locale\u200b",
             "languages": [
@@ -3650,7 +3638,7 @@
         {
             "course_name": "Culture e pratiche della moda",
             "course_code": "9064",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3662,7 +3650,7 @@
         {
             "course_name": "Dams - discipline delle arti, della musica e dello spettacolo",
             "course_code": "5821",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3674,7 +3662,7 @@
         {
             "course_name": "Digital humanities and digital knowledge",
             "course_code": "9224",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3686,7 +3674,7 @@
         {
             "course_name": "Discipline della musica e del teatro",
             "course_code": "8837",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3708,7 +3696,7 @@
         {
             "course_name": "Fashion studies",
             "course_code": "9067",
-            "campus": ": Rimini",
+            "campus": "Rimini",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3734,7 +3722,7 @@
         {
             "course_name": "Filologia, letteratura e tradizione classica",
             "course_code": "9070",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3746,7 +3734,7 @@
         {
             "course_name": "Filosofia",
             "course_code": "9216",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -3768,7 +3756,7 @@
         {
             "course_name": "Geografia e processi territoriali",
             "course_code": "0971",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3780,7 +3768,7 @@
         {
             "course_name": "Informazione, culture e organizzazione dei media",
             "course_code": "5698",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3802,7 +3790,7 @@
         {
             "course_name": "International cooperation on human rights and intercultural heritage",
             "course_code": "9237",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3824,7 +3812,7 @@
         {
             "course_name": "Italianistica, culture letterarie europee, scienze linguistiche",
             "course_code": "9220",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3855,7 +3843,7 @@
         {
             "course_name": "Lettere",
             "course_code": "8850",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica delle conoscenze",
             "languages": [
@@ -3881,7 +3869,7 @@
         {
             "course_name": "Progettazione e gestione dei sistemi produttivi audiovisivi e performativi",
             "course_code": "5710",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3893,7 +3881,7 @@
         {
             "course_name": "Scienze del libro e del documento",
             "course_code": "9077",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3905,7 +3893,7 @@
         {
             "course_name": "Scienze della comunicazione",
             "course_code": "8885",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Numero programmato - TOLC\u200b",
             "languages": [
@@ -3917,7 +3905,7 @@
         {
             "course_name": "Scienze filosofiche",
             "course_code": "8773",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3929,7 +3917,7 @@
         {
             "course_name": "Scienze storiche e orientalistiche",
             "course_code": "8845",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3956,7 +3944,7 @@
         {
             "course_name": "Semiotica",
             "course_code": "8886",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": false,
             "access": "Libero con verifica dell\u2019adeguatezza della preparazione",
             "languages": [
@@ -3968,7 +3956,7 @@
         {
             "course_name": "Societ\u00e0 e culture del Mediterraneo: istituzioni, sicurezza, ambiente",
             "course_code": "5696",
-            "campus": ": Ravenna",
+            "campus": "Ravenna",
             "international": false,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
@@ -3998,7 +3986,7 @@
         {
             "course_name": "Storia",
             "course_code": "0962",
-            "campus": ": Bologna",
+            "campus": "Bologna",
             "international": true,
             "access": "Libero con verifica delle conoscenze - TOLC",
             "languages": [
