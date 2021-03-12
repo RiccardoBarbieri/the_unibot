@@ -27,7 +27,7 @@ def sub(string, substring): #funzione che censura la substring
 with open(Path('./bot/token.txt')) as f:
     token = f.readline()
 
-wiki_wiki = wikipediaapi.Wikipedia('en')
+wiki_wiki = wikipediaapi.Wikipedia('it')
 
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
@@ -80,23 +80,17 @@ def bug(update, context):
     context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot'\
     .format(link = 'https://github.com/RiccardoBarbieri/t_bot'), parse_mode = ParseMode.HTML)
 
-def wiki(update, context): #alpha state
+def wiki(update, context):
     global last_mess
     if '/wiki' in update.message.text:
         last_mess = update.message
     text = update.message.text
     wiki_page = None
     wiki_page = wiki_wiki.page(text[6:])
-    context.bot.send_message(chat_id = update.effective_chat.id, text = wiki_page.summary)
-    #    rows = []
-    #    for i in e.options:
-    #        temp = []
-    #        temp.append(telegram.KeyboardButton(i))
-    #        rows.append(temp)
-    #    keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
-    #    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
-    #except wikipedia.exceptions.PageError:
-    #    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Pagina non disponibile')
+    if wiki_page.exists():
+        context.bot.send_message(chat_id = update.effective_chat.id, text = wiki_page.summary)
+    else:
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Pagina non trovata.')
         
 
 start_handler = CommandHandler('start', start)
