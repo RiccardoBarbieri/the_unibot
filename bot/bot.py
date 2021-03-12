@@ -5,15 +5,14 @@ if getpass.getuser() == 'ricca':
 elif getpass.getuser() == 'grufoony':
     sys.path.append('/home/grufoony/bot-telegram')
 from api import UniboAPI
+from api import WikipediaAPI
+import telegram
 from telegram.parsemode import ParseMode
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
 import logging
 from pathlib import Path
 from database.database import Database
-from pathlib import Path
-import wikipediaapi
-import telegram
 
 
 db = Database(Path('./database/telegram.db'))
@@ -27,8 +26,8 @@ def sub(string, substring): #funzione che censura la substring
 with open(Path('./bot/token.txt')) as f:
     token = f.readline()
 
-wiki_wiki = wikipediaapi.Wikipedia('it')
-
+wiki_mess = None
+last_mess = None # stores message to check if it's equal to last one
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
 
@@ -40,6 +39,7 @@ def start(update, context):
 
 
 def misc(update, context):
+    global last_mess
     if 'piedi' in update.message.text.lower():
         context.bot.send_message(chat_id = update.effective_chat.id, text = 'Qualcuno ha detto PIEDI????')
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
@@ -48,6 +48,8 @@ def misc(update, context):
         context.bot.send_message(chat_id = update.effective_chat.id, text = '<a href="tg://user?id={user_id}">@{username}</a>'\
         .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
+    if wiki_mess is not None and '/wiki' in wiki_mess.text:
+        wiki(update, context)
 
 def search_corso(update, context):
     pass # to implement
@@ -75,15 +77,33 @@ def bug(update, context):
     .format(link = 'https://github.com/RiccardoBarbieri/t_bot'), parse_mode = ParseMode.HTML)
 
 def wiki(update, context):
-    global last_mess
+    global wiki_mess, last_mess
     if '/wiki' in update.message.text:
-        last_mess = update.message
-    text = update.message.text
-    wiki_page = wiki_wiki.page(text[6:])
-    if wiki_page.exists():
-        context.bot.send_message(chat_id = update.effective_chat.id, text = wiki_page.summary)
+        wiki_mess = update.message
+        text = update.message.text[6:]
     else:
-        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Pagina non trovata.')
+        text = update.message.text
+    results = WikipediaAPI.pages(text)
+    if last_mess is not None and last_mess.lower() == text.lower():
+        index = results['names'].index(text)
+        url = results['links'][index]
+        context.bot.send_message(chat_id = update.effective_chat.id, text = WikipediaAPI.summary(url))
+        wiki_mess = None
+        last_mess = None
+    else:
+        last_mess = text
+        if results['single']:
+            context.bot.send_message(chat_id = update.effective_chat.id, text = WikipediaAPI.summary(results['links']))
+            wiki_mess = None
+            last_mess = None
+        else:
+            rows = []
+            for i in results['names']:
+                temp = []
+                temp.append(telegram.KeyboardButton(i))
+                rows.append(temp)
+            keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
+            context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
         
 
 start_handler = CommandHandler('start', start)
