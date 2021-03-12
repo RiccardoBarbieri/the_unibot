@@ -47,7 +47,7 @@ def misc(update, context):
         text = update.message.text
         context.bot.send_message(chat_id = update.effective_chat.id, text = '<a href="tg://user?id={user_id}">@{username}</a>'\
         .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
-        context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id
+        context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
 
 def search_corso(update, context):
     pass # to implement
