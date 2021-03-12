@@ -32,8 +32,6 @@ wiki_wiki = wikipediaapi.Wikipedia('it')
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
 
-last_mess = None
-
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 def start(update, context):
@@ -49,11 +47,7 @@ def misc(update, context):
         text = update.message.text
         context.bot.send_message(chat_id = update.effective_chat.id, text = '<a href="tg://user?id={user_id}">@{username}</a>'\
         .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
-        context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
-    #if '/wiki' in last_mess.text:
-        # info = wikipedia.summary(update.message.text)
-        # context.bot.send_message(chat_id = update.effective_chat.id, text = info)
-     #   wiki(update, context)
+        context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id
 
 def search_corso(update, context):
     pass # to implement
@@ -85,7 +79,6 @@ def wiki(update, context):
     if '/wiki' in update.message.text:
         last_mess = update.message
     text = update.message.text
-    wiki_page = None
     wiki_page = wiki_wiki.page(text[6:])
     if wiki_page.exists():
         context.bot.send_message(chat_id = update.effective_chat.id, text = wiki_page.summary)
