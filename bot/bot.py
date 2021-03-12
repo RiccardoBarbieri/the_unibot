@@ -12,7 +12,7 @@ import logging
 from pathlib import Path
 from database.database import Database
 from pathlib import Path
-import wikipedia
+import wikipediaapi
 import telegram
 
 
@@ -27,7 +27,7 @@ def sub(string, substring): #funzione che censura la substring
 with open(Path('./bot/token.txt')) as f:
     token = f.readline()
 
-wikipedia.set_lang('it')
+wiki_wiki = wikipediaapi.Wikipedia('en')
 
 updater = Updater(token = token, use_context = True)
 dispatcher = updater.dispatcher
@@ -50,10 +50,10 @@ def misc(update, context):
         context.bot.send_message(chat_id = update.effective_chat.id, text = '<a href="tg://user?id={user_id}">@{username}</a>'\
         .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
         context.bot.delete_message(chat_id = update.effective_chat.id, message_id = update.message.message_id)
-    if '/wiki' in last_mess.text:
+    #if '/wiki' in last_mess.text:
         # info = wikipedia.summary(update.message.text)
         # context.bot.send_message(chat_id = update.effective_chat.id, text = info)
-        wiki(update, context)
+     #   wiki(update, context)
 
 def search_corso(update, context):
     pass # to implement
@@ -85,20 +85,20 @@ def wiki(update, context): #alpha state
     if '/wiki' in update.message.text:
         last_mess = update.message
     text = update.message.text
-    info = ''
-    try:
-        info = wikipedia.summary(text[6:])
-        context.bot.send_message(chat_id = update.effective_chat.id, text = info)
-    except wikipedia.exceptions.DisambiguationError as e:
-        rows = []
-        for i in e.options:
-            temp = []
-            temp.append(telegram.KeyboardButton(i))
-            rows.append(temp)
-        keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
-        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
-    except wikipedia.exceptions.PageError:
-        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Pagina non disponibile')
+    wiki_page = None
+    #try:
+    wiki_page = wiki_wiki.page(text[6:])
+    context.bot.send_message(chat_id = update.effective_chat.id, text = wiki_page.summary)
+    #except wikipedia.exceptions.DisambiguationError as e:
+    #    rows = []
+    #    for i in e.options:
+    #        temp = []
+    #        temp.append(telegram.KeyboardButton(i))
+    #        rows.append(temp)
+    #    keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
+    #    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
+    #except wikipedia.exceptions.PageError:
+    #    context.bot.send_message(chat_id = update.effective_chat.id, text = 'Pagina non disponibile')
         
 
 start_handler = CommandHandler('start', start)
