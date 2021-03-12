@@ -84,26 +84,52 @@ def wiki(update, context):
     else:
         text = update.message.text
     results = WikipediaAPI.pages(text)
-    if last_mess is not None and last_mess.lower() == text.lower():
-        index = results['names'].index(text)
-        url = results['links'][index]
-        context.bot.send_message(chat_id = update.effective_chat.id, text = WikipediaAPI.summary(url))
-        wiki_mess = None
-        last_mess = None
-    else:
-        last_mess = text
-        if results['single']:
-            context.bot.send_message(chat_id = update.effective_chat.id, text = WikipediaAPI.summary(results['links']))
+    if len(results['names']) != 0:
+        if last_mess is not None and last_mess.lower() == text.lower():
+            index = results['names'].index(text)
+            url = results['links'][index]
+            message = ''
+            try:
+                message = WikipediaAPI.summary(url)
+                context.bot.send_message(chat_id = update.effective_chat.id, text = message)
+            except telegram.error.BadRequest as e:
+                if str(e) == 'Message text is empty':
+                    message = 'Errore noto, verrà fixato in patch futura'
+                elif str(e) == 'Message is too long':
+                    message = message[:4095]
+            finally:
+                context.bot.send_message(chat_id = update.effective_chat.id, text = message)
+            # context.bot.send_message(chat_id = update.effective_chat.id, text = WikipediaAPI.summary(url))
             wiki_mess = None
             last_mess = None
         else:
-            rows = []
-            for i in results['names']:
-                temp = []
-                temp.append(telegram.KeyboardButton(i))
-                rows.append(temp)
-            keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
-            context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
+            last_mess = text
+            if results['single']:
+                message = ''
+                try:
+                    message = WikipediaAPI.summary(results['links'])
+                    context.bot.send_message(chat_id = update.effective_chat.id, text = message)
+                except telegram.error.BadRequest as e:
+                    if str(e) == 'Message text is empty':
+                        message = 'Errore noto, verrà fixato in patch futura'
+                    elif str(e) == 'Message is too long':
+                        message = message[:4095]
+                finally:
+                    context.bot.send_message(chat_id = update.effective_chat.id, text = message)
+                wiki_mess = None
+                last_mess = None
+            else:
+                rows = []
+                for i in results['names']:
+                    temp = []
+                    temp.append(telegram.KeyboardButton(i))
+                    rows.append(temp)
+                keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
+                context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona la pagina', reply_markup = keyboard)
+    else:
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Pagina non trovata')
+        wiki_mess = None
+        last_mess = None
         
 
 start_handler = CommandHandler('start', start)

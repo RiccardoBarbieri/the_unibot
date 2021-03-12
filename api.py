@@ -20,8 +20,9 @@ class WikipediaAPI():
 
         data = r.json()
 
-
-        if len(data[3]) > 1:
+        if len(data[3]) == 0:
+            return dict(names=data[1], links=data[3], single=False)
+        elif len(data[3]) > 1:
             return dict(names=data[1], links=data[3], single=False) # if False -> multiple links
         else:
             return dict(names=data[1][0], links=data[3][0], single=True) # if True -> single link
