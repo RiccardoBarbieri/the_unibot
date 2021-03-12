@@ -86,10 +86,8 @@ def wiki(update, context): #alpha state
         last_mess = update.message
     text = update.message.text
     wiki_page = None
-    #try:
     wiki_page = wiki_wiki.page(text[6:])
     context.bot.send_message(chat_id = update.effective_chat.id, text = wiki_page.summary)
-    #except wikipedia.exceptions.DisambiguationError as e:
     #    rows = []
     #    for i in e.options:
     #        temp = []
