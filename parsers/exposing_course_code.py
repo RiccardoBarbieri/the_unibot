@@ -13,6 +13,6 @@ def expose_course_code():
             temp_rev_site = temp_rev_site[:index]
             j['course_codec'] = temp_rev_site[::-1]
     
-    with open('5courses_curriculas_codec.json', 'w+') as f:
+    with open('courses_curriculas_codec.json', 'w+') as f:
         json.dump(courses, f)
 

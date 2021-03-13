@@ -1,5 +1,6 @@
 import sqlite3
 import json
+from pathlib import Path
 
 
 class Database():
@@ -44,14 +45,27 @@ class Database():
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             cursor.execute('SELECT * FROM data')
-
+            connection.commit()
             return cursor.fetchall()
     
-    def custom_query(self, query = ''):
+    def custom_query(self, query = '', data = None):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
-            cursor.execute(query)
+            if data is None:
+                cursor.execute(query)
+            else:
+                cursor.execute(query, data)
             connection.commit()
+            return cursor.fetchall()
+
+    def query_by_ids(self, chat_id, user_id):
+        with sqlite3.connect(self.path) as connection:
+            cursor = connection.cursor()
+            data = (chat_id, user_id)
+            query = 'SELECT * FROM data WHERE (chat_id, user_id) = (?, ?)'
+            cursor.execute(query, data)
+            connection.commit()
+            return cursor.fetchall()
 
     def delete_all(self):
         with sqlite3.connect(self.path) as connection:
@@ -65,3 +79,4 @@ class Database():
             dictionary = cursor.fetchall()
             with open('backup.json', 'w+') as f:
                 json.dump(dictionary, f)
+
