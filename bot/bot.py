@@ -91,15 +91,12 @@ def wiki(update, context):
             message = ''
             try:
                 message = WikipediaAPI.summary(url)
-                context.bot.send_message(chat_id = update.effective_chat.id, text = message)
             except telegram.error.BadRequest as e:
                 if str(e) == 'Message text is empty':
                     message = 'Errore noto, verrà fixato in patch futura'
                 elif str(e) == 'Message is too long':
                     message = message[:4095]
-            finally:
-                context.bot.send_message(chat_id = update.effective_chat.id, text = message)
-            # context.bot.send_message(chat_id = update.effective_chat.id, text = WikipediaAPI.summary(url))
+            context.bot.send_message(chat_id = update.effective_chat.id, text = message)
             wiki_mess = None
             last_mess = None
         else:
@@ -108,14 +105,12 @@ def wiki(update, context):
                 message = ''
                 try:
                     message = WikipediaAPI.summary(results['links'])
-                    context.bot.send_message(chat_id = update.effective_chat.id, text = message)
                 except telegram.error.BadRequest as e:
                     if str(e) == 'Message text is empty':
                         message = 'Errore noto, verrà fixato in patch futura'
                     elif str(e) == 'Message is too long':
                         message = message[:4095]
-                finally:
-                    context.bot.send_message(chat_id = update.effective_chat.id, text = message)
+                context.bot.send_message(chat_id = update.effective_chat.id, text = message)
                 wiki_mess = None
                 last_mess = None
             else:
