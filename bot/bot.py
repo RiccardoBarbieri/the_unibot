@@ -38,6 +38,15 @@ def get_course_type(url: str):
     parts = url.split('/')
     return parts[-2]
 
+def parse_params(params: list):
+    param_parsed = {'numeric':[], 'text':[]}
+    for i in params:
+        if i.isnumeric():
+            param_parsed['numeric'].append(int(i))
+        else:
+            param_parsed['text'].append(i)
+    return param_parsed
+
 with open(Path('./bot/token.txt')) as f:
     token = f.readline()
 
@@ -73,16 +82,14 @@ def misc(update, context):
     
 
 def set_corso(update, context):
-    message = '''Usa /set_corso [parole] per filtrare tra i corsi\n
-                 Usa /set_corso [numero] per cambiare pagina se non vedi il tuo corso\n
-                 Puoi anche specificare insieme pagina e filtri'''
+    message = '''Usa /set_corso [parole] per filtrare tra i corsi\nUsa /set_corso [numero] per cambiare pagina se non vedi il tuo corso\nPuoi anche specificare insieme pagina e filtri'''
     context.bot.send_message(chat_id = update.effective_chat.id, text = message)
     global last_command
     courses: dict = {}
     with open(Path('./resources/flat_courses.json')) as f:
         courses = json.load(f)
+    last_command = update.message
     if len(update.message.text.strip()) == 10:
-        last_command = update.message
 
         mess_len = 0
         for i in courses:
@@ -101,17 +108,49 @@ def set_corso(update, context):
                     break
             pages.append(rows)
         for i in range(1, page_num):
-            pages[i] = pages[i][1:] # removing first duplicates for each page
-        keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
-        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso', reply_markup = keyboard)
+            pages[i] = pages[i][1:] # removing first element (duplicate) for each page
+        keyboard = telegram.ReplyKeyboardMarkup(pages[0], one_time_keyboard = True)
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso, 1/{pages}'.format(pages = page_num), reply_markup = keyboard)
     else:
         params = update.message.text[10:].split()
-        rows = []
+        params_parsed = parse_params(params)
+        if len(params_parsed['numeric']) == 0:
+            page_param = 1
+        elif len(params_parsed['numeric']) == 1:
+            page_param = params_parsed['numeric'][0]
+        else:
+            pass # send message to notify too many numeric parameters passed
+        
+        if len(params_parsed['text']) == 0:
+            params_parsed['text'] = [' ']
+        
+        #TODO: filtra qui?
+        mess_len = 0
         for i in courses:
-            if string_contains(i['course_name'], params):
-                rows.append([telegram.KeyboardButton(i['course_name'] + ' [{type}]'.format(type = get_course_type(i['site'])))])    
-        keyboard = telegram.ReplyKeyboardMarkup(rows[:200], one_time_keyboard = True)
-        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso', reply_markup = keyboard)
+            mess_len += len(i['course_name'] + ' [{type}]'.format(type = get_course_type(i['site'])))
+        page_num = ceil(mess_len / 4096) #TODO: sposta conto pagine a dopo filtrazionamentazione
+        pages = []
+        last_course = 0
+        for i in range(page_num):
+            rows = []
+            length = 0
+            for j, k in zip(courses[last_course:], range(last_course, len(courses))):
+                if string_contains(j['course_name'], params_parsed['text']):
+                    rows.append([telegram.KeyboardButton(j['course_name'] + ' [{type}]'.format(type = j['course_code']))])
+                    length += len(j['course_name'] + ' [{type}]'.format(type = j['course_code']))
+                last_course = k
+                if length > 4095:
+                    break
+            pages.append(rows)
+        for i in range(1, page_num):
+            pages[i] = pages[i][1:] # removing first element (duplicate) for each page
+        if page_param > page_num:
+            page_param = page_num
+        if page_param <= 0:
+            page_param = 1
+        page_param -= 1
+        keyboard = telegram.ReplyKeyboardMarkup(pages[page_param], one_time_keyboard = True)
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso, {page_param}/{pages}'.format(pages = page_num, page_param = page_param + 1), reply_markup = keyboard)
 
 
 
