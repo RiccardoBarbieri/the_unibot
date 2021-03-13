@@ -96,7 +96,7 @@ def wiki(update, context):
                     message = 'Errore noto, verrà fixato in patch futura'
                 elif str(e) == 'Message is too long':
                     message = message[:4095]
-            context.bot.send_message(chat_id = update.effective_chat.id, text = message)
+            context.bot.send_message(chat_id = update.effective_chat.id, text = message, reply_markup = telegram.ReplyKeyboardRemove())
             wiki_mess = None
             last_mess = None
         else:
@@ -110,7 +110,7 @@ def wiki(update, context):
                         message = 'Errore noto, verrà fixato in patch futura'
                     elif str(e) == 'Message is too long':
                         message = message[:4095]
-                context.bot.send_message(chat_id = update.effective_chat.id, text = message)
+                context.bot.send_message(chat_id = update.effective_chat.id, text = message, reply_markup = telegram.ReplyKeyboardRemove())
                 wiki_mess = None
                 last_mess = None
             else:
