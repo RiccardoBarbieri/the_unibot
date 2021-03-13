@@ -171,6 +171,18 @@ def set_detail(update, context):
 
 def wiki(update, context):
     global last_command, last_mess
+    def temp_func(url_): #function defined for optimization
+        global last_mess, last_command
+        try:
+            message = WikipediaAPI.summary(url_)
+        except telegram.error.BadRequest as e:
+            if str(e) == 'Message text is empty':
+                message = 'Errore noto, verrà fixato in patch futura'
+            elif str(e) == 'Message is too long':
+                message = message[:4095]
+        context.bot.send_message(chat_id = update.effective_chat.id, text = message, reply_markup = telegram.ReplyKeyboardRemove())
+        last_command = None
+        last_mess = None
     if '/wiki' in update.message.text:
         last_command = update.message
         text = update.message.text[6:]
@@ -178,20 +190,6 @@ def wiki(update, context):
         text = update.message.text
     results = WikipediaAPI.pages(text)
     if len(results['names']) != 0:
-        url = ''
-        message = ''
-        def temp_func(url_):
-            global last_mess, last_command
-            try:
-                message = WikipediaAPI.summary(url_)
-            except telegram.error.BadRequest as e:
-                if str(e) == 'Message text is empty':
-                    message = 'Errore noto, verrà fixato in patch futura'
-                elif str(e) == 'Message is too long':
-                    message = message[:4095]
-            context.bot.send_message(chat_id = update.effective_chat.id, text = message, reply_markup = telegram.ReplyKeyboardRemove())
-            last_command = None
-            last_mess = None
         if last_mess is not None and last_mess.lower() == text.lower():
             index = results['names'].index(text)
             url = results['links'][index]
