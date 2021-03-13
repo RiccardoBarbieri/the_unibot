@@ -142,12 +142,12 @@ def wiki(update, context):
         text = update.message.text
     results = WikipediaAPI.pages(text)
     if len(results['names']) != 0:
-        if last_mess is not None and last_mess.lower() == text.lower():
-            index = results['names'].index(text)
-            url = results['links'][index]
-            message = ''
+        url = ''
+        message = ''
+        def temp_func(url_):
+            global last_mess, last_command
             try:
-                message = WikipediaAPI.summary(url)
+                message = WikipediaAPI.summary(url_)
             except telegram.error.BadRequest as e:
                 if str(e) == 'Message text is empty':
                     message = 'Errore noto, verrà fixato in patch futura'
@@ -156,20 +156,15 @@ def wiki(update, context):
             context.bot.send_message(chat_id = update.effective_chat.id, text = message, reply_markup = telegram.ReplyKeyboardRemove())
             last_command = None
             last_mess = None
+        if last_mess is not None and last_mess.lower() == text.lower():
+            index = results['names'].index(text)
+            url = results['links'][index]
+            temp_func(url)
         else:
             last_mess = text
             if results['single']:
-                message = ''
-                try:
-                    message = WikipediaAPI.summary(results['links'])
-                except telegram.error.BadRequest as e:
-                    if str(e) == 'Message text is empty':
-                        message = 'Errore noto, verrà fixato in patch futura'
-                    elif str(e) == 'Message is too long':
-                        message = message[:4095]
-                context.bot.send_message(chat_id = update.effective_chat.id, text = message, reply_markup = telegram.ReplyKeyboardRemove())
-                last_command = None
-                last_mess = None
+                url = results['links']
+                temp_func(url)
             else:
                 rows = []
                 for i in results['names']:
