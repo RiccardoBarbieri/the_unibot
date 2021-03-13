@@ -73,6 +73,10 @@ def misc(update, context):
     
 
 def set_corso(update, context):
+    message = '''Usa /set_corso [parole] per filtrare tra i corsi\n
+                 Usa /set_corso [numero] per cambiare pagina se non vedi il tuo corso\n
+                 Puoi anche specificare insieme pagina e filtri'''
+    context.bot.send_message(chat_id = update.effective_chat.id, text = message)
     global last_command
     courses: dict = {}
     with open(Path('./resources/flat_courses.json')) as f:
@@ -89,24 +93,17 @@ def set_corso(update, context):
         for i in range(page_num):
             rows = []
             length = 0
-            for j, k in zip(courses[last_course:], range(last_course, len(courses[last_course:]))):
-                rows.append([telegram.KeyboardButton(j['course_name'] + ' [{type}]'.format(type = get_course_type(j['site'])))])
-                length += len(j['course_name'] + ' [{type}]'.format(type = get_course_type(j['site'])))
+            for j, k in zip(courses[last_course:], range(last_course, len(courses))):
+                rows.append([telegram.KeyboardButton(j['course_name'] + ' [{type}]'.format(type = j['course_code']))])
+                length += len(j['course_name'] + ' [{type}]'.format(type = j['course_code']))
                 last_course = k
                 if length > 4095:
                     break
-            print(len(rows))
             pages.append(rows)
-        sos = 0
-        with open('temp.txt', 'w+') as f:
-
-            for i in pages:
-                for j in i:
-                    sos += 1
-                    f.write(j[0].text + '\n')
-            print(sos)
-        # keyboard = telegram.ReplyKeyboardMarkup(rows[:200], one_time_keyboard = True)
-        # context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso', reply_markup = keyboard)
+        for i in range(1, page_num):
+            pages[i] = pages[i][1:] # removing first duplicates for each page
+        keyboard = telegram.ReplyKeyboardMarkup(rows, one_time_keyboard = True)
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso', reply_markup = keyboard)
     else:
         params = update.message.text[10:].split()
         rows = []
