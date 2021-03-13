@@ -9,6 +9,7 @@ from parsers.joining_curriculas_courses import join
 from parsers.crafting_correct_links import correct_links
 from parsers.parsing_courses import CourseParser
 from parsers.exposing_course_code import expose_course_code
+from parsers.flatten import flatten_courses
 import json
 
 
@@ -25,3 +26,5 @@ if __name__ == '__main__':
     join()
 
     expose_course_code()
+
+    flatten_courses()
