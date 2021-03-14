@@ -77,7 +77,7 @@ class Database():
             cursor = connection.cursor()
             cursor.execute('SELECT * FROM data')
             dictionary = cursor.fetchall()
-            with open('backup.json', 'w+') as f:
+            with open('./database/backup.json', 'w+') as f:
                 json.dump(dictionary, f)
 
 if __name__ == '__main__':
