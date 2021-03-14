@@ -39,6 +39,6 @@ if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram') #TODO: change this path when migrating to another platform
 elif getpass.getuser() == 'grufoony':
     sys.path.append('/home/grufoony/bot-telegram')
-from api import WikipediaAPI
+from api.wikipedia import WikipediaAPI
 
 print(WikipediaAPI.summary('Adolf_Hitler_50th_birthday'))
