@@ -78,9 +78,20 @@ def misc(update, context):
     if last_command is not None and '/set_corso' in last_command.text:
         chat_id = last_command.chat.id
         user_id = last_command.from_user.id
+        course_name = update.message.text.split('[')[0].strip()
+        course_code = update.message.text.split('[')[1][:-1].strip()
+        found = {}
+        with open(Path('./resources/flat_courses.json')) as f: # change with sql query when courses ar in tables
+            courses = json.load(f)
+        for i in courses:
+            if i['course_code'] == course_code:
+                found = i
+        message = 'Corso selezionato: {course_name} ({link})'.format(course_name = course_name, link = found['site'])
+        context.bot.send_message(chat_id = chat_id, text = message, reply_markup = telegram.ReplyKeyboardRemove())
         db.insert(chat_id, user_id)
-        db.update(chat_id, user_id, course = last_command.text)
-        print(db.query_all())
+        db.update(chat_id, user_id, course = course_code)
+        db.backup()
+        print('Updated user {user_id} with course {course_code}'.format(course_code = course_code, user_id = user_id))
     
 
 def set_corso(update, context):
@@ -91,14 +102,8 @@ def set_corso(update, context):
     with open(Path('./resources/flat_courses.json')) as f:
         courses = json.load(f)
     last_command = update.message
-    if len(update.message.text.strip()) == 10:
 
-        mess_len = 0
-        for i in courses:
-            mess_len += len(i['course_name'] + ' [{type}]'.format(type = get_course_type(i['site'])))
-        page_num = ceil(mess_len / 4096)
-
-        # pages creation
+    def pages_creation(courses, page_num):
         pages = []
         last_course = 0
         for i in range(page_num):
@@ -113,8 +118,19 @@ def set_corso(update, context):
             pages.append(rows)
         for i in range(1, page_num):
             pages[i] = pages[i][1:] # removing first element (duplicate) for each page
-        keyboard = telegram.ReplyKeyboardMarkup(pages[0], one_time_keyboard = True)
-        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso, 1/{pages}'.format(pages = page_num), reply_markup = keyboard)
+        return pages
+    pages = []
+
+    page_param = 0
+    if len(update.message.text.strip()) == 10:
+
+        mess_len = 0
+        for i in courses:
+            mess_len += len(i['course_name'] + ' [{type}]'.format(type = get_course_type(i['site'])))
+        page_num = ceil(mess_len / 4096)
+        
+        pages = pages_creation(courses, page_num)
+
     else:
         params = update.message.text[10:].split()
         params_parsed = parse_params(params)
@@ -148,28 +164,16 @@ def set_corso(update, context):
             page_param = page_num
         if page_param <= 0:
             page_param = 1
-        
-        # pages creation
-        pages = []
-        last_course = 0
-        for i in range(page_num):
-            rows = []
-            length = 0
-            for j, k in zip(courses_filtered[last_course:], range(last_course, len(courses_filtered))):
-                rows.append([telegram.KeyboardButton(j['course_name'] + ' [{type}]'.format(type = j['course_code']))])
-                length += len(j['course_name'] + ' [{type}]'.format(type = j['course_code']))
-                last_course = k
-                if length > 4095:
-                    break
-            pages.append(rows)
-        for i in range(1, page_num):
-            pages[i] = pages[i][1:] # removing first element (duplicate) for each page
-
         page_param -= 1
+
+        # pages creation
+        pages = pages_creation(courses_filtered, page_num)
+
+    if pages: # if pages is not empty
         keyboard = telegram.ReplyKeyboardMarkup(pages[page_param], one_time_keyboard = True)
         context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso, {page_param}/{pages}'.format(pages = page_num, page_param = page_param + 1), reply_markup = keyboard)
-
-
+    else:
+        context.bot.send_message(chat_id = update.effective_chat.id, text = 'Nessun corso trovato')
 
 def set_anno(update, context):
     pass # to implement
