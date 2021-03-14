@@ -214,7 +214,7 @@ def wiki(update, context):
 
 def bug(update, context):
     context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot'\
-    .format(link = 'https://github.com/RiccardoBarbieri/t_bot'), parse_mode = ParseMode.HTML)
+    .format(link = 'https://github.com/RiccardoBarbieri/t_bot/issues'), parse_mode = ParseMode.HTML)
         
 
 start_handler = CommandHandler('start', start)
