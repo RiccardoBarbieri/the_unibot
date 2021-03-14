@@ -80,3 +80,7 @@ class Database():
             with open('backup.json', 'w+') as f:
                 json.dump(dictionary, f)
 
+if __name__ == '__main__':
+    db = Database(Path('./database/telegram.db'))
+
+    print(db.query_all())
