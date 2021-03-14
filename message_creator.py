@@ -4,7 +4,7 @@ if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram') #TODO: change this path when migrating to another platform
 elif getpass.getuser() == 'grufoony':
     sys.path.append('/home/grufoony/bot-telegram')
-from api import UniboAPI
+from api.unibo import UniboAPI
 
 class MessageCreator():
 
@@ -19,6 +19,19 @@ class MessageCreator():
     # @staticmethod
     # def get_lv3_messages(corso, anno, date_start, date_end, curricula = '000-000'):
     #     schedule = UniboAPI.get_orario(corso, anno, date_start, date_end, curricula)
+
+    @staticmethod
+    def get_message(schedule, lvl):
+        message = ''
+        
+        if (lvl == 1):
+            message = '{time}\n{course_name}'.format(course_name = schedule['title'], time = schedule['time'])
+        elif (lvl == 2):
+            message = '{time}\n{course_name}\nLuogo: {location}\n<a href="{teams}">Link lezione</a>'.format(time = schedule['time'], course_name = schedule['title'], location = schedule['location'], teams = schedule['teams'])
+        elif (lvl == 3):
+            message = '{time}\n{course_name}\nCFU: {cfu}\nDocente: {teacher}\nLuogo: {location}\nTeledidattica obbligatoria: {dad}\n<a href="{teams}">Link lezione</a>'\
+            .format(time = schedule['time'], course_name = schedule['title'], location = schedule['location'], cfu = schedule['cfu'], teacher = schedule['docente'], dad = schedule['teledidattica'], teams = schedule['teams'])
+        return message
 
     @staticmethod
     def get_lv1_message(corso, anno, date_exact, curricula = '000-000'):
