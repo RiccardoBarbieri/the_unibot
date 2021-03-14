@@ -62,11 +62,13 @@ def start(update, context):
 
 
 def misc(update, context):
-    global last_mess
+    global last_command
     if 'piedi' in update.message.text.lower():
+        last_command = None
         context.bot.send_message(chat_id = update.effective_chat.id, text = 'Qualcuno ha detto PIEDI????')
         context.bot.send_photo(chat_id = update.effective_chat.id, photo = 'https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
     if 'egistr' in update.message.text.lower():
+        last_command = None
         text = update.message.text
         context.bot.send_message(chat_id = update.effective_chat.id, text = '<a href="tg://user?id={user_id}">@{username}</a>'\
         .format(user_id = update.effective_user.id, username = update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode = ParseMode.HTML)
@@ -78,11 +80,11 @@ def misc(update, context):
         user_id = last_command.from_user.id
         db.insert(chat_id, user_id)
         db.update(chat_id, user_id, course = last_command.text)
-        print(db.query_all)
+        print(db.query_all())
     
 
 def set_corso(update, context):
-    message = '''Usa /set_corso [parole] per filtrare tra i corsi\nUsa /set_corso [numero] per cambiare pagina se non vedi il tuo corso\nPuoi anche specificare insieme pagina e filtri'''
+    message = '''Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report)'''
     context.bot.send_message(chat_id = update.effective_chat.id, text = message)
     global last_command
     courses: dict = {}
@@ -95,6 +97,8 @@ def set_corso(update, context):
         for i in courses:
             mess_len += len(i['course_name'] + ' [{type}]'.format(type = get_course_type(i['site'])))
         page_num = ceil(mess_len / 4096)
+
+        # pages creation
         pages = []
         last_course = 0
         for i in range(page_num):
@@ -114,40 +118,53 @@ def set_corso(update, context):
     else:
         params = update.message.text[10:].split()
         params_parsed = parse_params(params)
+
+        # foolproofing numeric parameters
         if len(params_parsed['numeric']) == 0:
             page_param = 1
         elif len(params_parsed['numeric']) == 1:
             page_param = params_parsed['numeric'][0]
         else:
-            pass # send message to notify too many numeric parameters passed
-        
+            pass # TODO: send message to notify too many numeric parameters passed
+
+        # foolproofing text parameters
         if len(params_parsed['text']) == 0:
             params_parsed['text'] = [' ']
-        
-        #TODO: filtra qui?
-        mess_len = 0
+
+        # filtering courses
+        courses_filtered = []
         for i in courses:
+            if string_contains(i['course_name'], params_parsed['text']):
+                courses_filtered.append(i)
+
+        # pages number creation
+        mess_len = 0
+        for i in courses_filtered:
             mess_len += len(i['course_name'] + ' [{type}]'.format(type = get_course_type(i['site'])))
-        page_num = ceil(mess_len / 4096) #TODO: sposta conto pagine a dopo filtrazionamentazione
+        page_num = ceil(mess_len / 4096)
+        
+        # adapting page_param
+        if page_param > page_num:
+            page_param = page_num
+        if page_param <= 0:
+            page_param = 1
+        
+        # pages creation
         pages = []
         last_course = 0
         for i in range(page_num):
             rows = []
             length = 0
-            for j, k in zip(courses[last_course:], range(last_course, len(courses))):
-                if string_contains(j['course_name'], params_parsed['text']):
-                    rows.append([telegram.KeyboardButton(j['course_name'] + ' [{type}]'.format(type = j['course_code']))])
-                    length += len(j['course_name'] + ' [{type}]'.format(type = j['course_code']))
+            for j, k in zip(courses_filtered[last_course:], range(last_course, len(courses_filtered))):
+                rows.append([telegram.KeyboardButton(j['course_name'] + ' [{type}]'.format(type = j['course_code']))])
+                length += len(j['course_name'] + ' [{type}]'.format(type = j['course_code']))
                 last_course = k
                 if length > 4095:
                     break
             pages.append(rows)
         for i in range(1, page_num):
             pages[i] = pages[i][1:] # removing first element (duplicate) for each page
-        if page_param > page_num:
-            page_param = page_num
-        if page_param <= 0:
-            page_param = 1
+
         page_param -= 1
         keyboard = telegram.ReplyKeyboardMarkup(pages[page_param], one_time_keyboard = True)
         context.bot.send_message(chat_id = update.effective_chat.id, text = 'Seleziona il corso, {page_param}/{pages}'.format(pages = page_num, page_param = page_param + 1), reply_markup = keyboard)
@@ -173,6 +190,7 @@ def wiki(update, context):
     global last_command, last_mess
     def temp_func(url_): #function defined for optimization
         global last_mess, last_command
+
         try:
             message = WikipediaAPI.summary(url_)
         except telegram.error.BadRequest as e:
@@ -213,6 +231,8 @@ def wiki(update, context):
         last_mess = None
 
 def bug(update, context):
+    global last_command
+    last_command = update.message
     context.bot.send_message(chat_id = update.effective_chat.id, text = 'Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot'\
     .format(link = 'https://github.com/RiccardoBarbieri/t_bot'), parse_mode = ParseMode.HTML)
         
