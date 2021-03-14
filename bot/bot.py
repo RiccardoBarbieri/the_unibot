@@ -120,10 +120,10 @@ def misc(update, context):
         for i in courses:
             if i['course_code'] == course_code:
                 found = i
-        message = 'Corso selezionato: {course_name} ({link})'.format(
+        message = 'Corso selezionato: <a href="{link}">{course_name}</a>.'.format(
             course_name=course_name, link=found['site'])
         context.bot.send_message(
-            chat_id=chat_id, text=message, reply_markup=telegram.ReplyKeyboardRemove())
+            chat_id=chat_id, text=message, reply_markup=telegram.ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         db.insert(chat_id, user_id)
         db.update(chat_id, user_id, course=course_code)
         db.backup()
@@ -132,7 +132,7 @@ def misc(update, context):
 
 
 def set_corso(update, context):
-    message = '''Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report)'''
+    message = '''Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'''
     context.bot.send_message(chat_id=update.effective_chat.id, text=message)
     global last_command
     courses: dict = {}
@@ -182,7 +182,7 @@ def set_corso(update, context):
             page_param = params['numeric'][0]
             if len(params['numeric']) > 1:
                 context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo')
+                    chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo.')
 
         # foolproofing text parameters
         if len(params['text']) == 0:
@@ -214,11 +214,11 @@ def set_corso(update, context):
     if pages:  # if pages is not empty
         keyboard = telegram.ReplyKeyboardMarkup(
             pages[page_param], one_time_keyboard=True)
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}'.format(
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
             pages=page_num, page_param=page_param + 1), reply_markup=keyboard)
     else:
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Nessun corso trovato')
+            chat_id=update.effective_chat.id, text='Nessun corso trovato.')
 
 
 def set_curricula(update, context):
@@ -238,11 +238,11 @@ def set_anno(update, context):
             db.insert(chat_id, user_id)
             db.update(chat_id, user_id, year=params['numeric'][0])
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text='Impostato anno a {year}'.format(year=params['numeric'][0]))
+                                     text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
             print(db.query_by_ids(chat_id, user_id))
     else:
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Troppi parametri')
+            chat_id=update.effective_chat.id, text='Troppi parametri.')
 
 
 def set_detail(update, context):
@@ -258,11 +258,11 @@ def set_detail(update, context):
             db.insert(chat_id, user_id)
             db.update(chat_id, user_id, detail=params['numeric'][0])
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text='Impostato dettaglio a {year}'.format(year=params['numeric'][0]))
+                                     text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
             print(db.query_by_ids(chat_id, user_id))
     else:
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Troppi parametri')
+            chat_id=update.effective_chat.id, text='Troppi parametri.')
 
 
 def orario(update, context):
@@ -288,13 +288,13 @@ def orario(update, context):
             messages.append(MessageCreator.get_message(i, result[0]['detail']))
         if len(messages) == 0:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Oggi non c\'è lezione')
+                chat_id=update.effective_chat.id, text='Nessuna lezione.')
         for i in messages:
             context.bot.send_message(chat_id=update.effective_chat.id, text=i,
                                      parse_mode=ParseMode.HTML, disable_web_page_preview=True)
     else:
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Parametri non corretti')
+            chat_id=update.effective_chat.id, text='Parametri non corretti.')
 
 
 def set_autosend(update, context):
@@ -350,7 +350,7 @@ def wiki(update, context):
                     chat_id=update.effective_chat.id, text='Seleziona la pagina', reply_markup=keyboard)
     else:
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Pagina non trovata')
+            chat_id=update.effective_chat.id, text='Pagina non trovata.')
         last_command = None
         last_mess = None
 
@@ -358,7 +358,7 @@ def wiki(update, context):
 def bug(update, context):
     global last_command
     last_command = update.message
-    context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot'
+    context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot.'
                              .format(link='https://github.com/RiccardoBarbieri/t_bot/issues'), parse_mode=ParseMode.HTML)
 
 
