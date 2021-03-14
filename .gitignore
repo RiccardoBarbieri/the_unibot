@@ -1,3 +1,4 @@
 *.txt
 chromedriver.exe
 /.vscode/
+/DB Browser for SQLite/
