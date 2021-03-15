@@ -74,8 +74,13 @@ def parse_date(date: str):
     return year + '-' + month + '-' + day
 
 
-with open(Path('./bot/token.txt')) as f:
-    token = f.readline()
+if sys.argv[1] == 'test':
+    with open(Path('./bot/test.txt')) as f:
+        token = f.readline()
+elif sys.argv[1] == 'launch':
+    with open(Path('./bot/token.txt')) as f:
+        token = f.readline()
+    
 
 last_command = None
 last_mess = None  # stores message to check if it's equal to last one
