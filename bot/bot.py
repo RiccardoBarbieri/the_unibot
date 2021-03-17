@@ -97,7 +97,7 @@ logging.basicConfig(
 def start(update, context):
     db.insert(update.effective_chat.id, update.effective_user.id)
     context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                             .format(link='https://github.com/RiccardoBarbieri/t_bot/issues'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                             .format(link='https://github.com/RiccardoBarbieri/t_bot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
 
 def misc(update, context):

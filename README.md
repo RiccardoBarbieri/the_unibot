@@ -1,4 +1,6 @@
-# @the_unibot
+# The Unibot
+Telegram @the_unibot
+
 Il bot creato per l'università di Bologna. Di seguito una guida in cui ne sono spiegati i principali comandi.
 
 ## Impostare corso e anno
@@ -7,6 +9,7 @@ Per impostare il corso è sufficiente utilizzare il comando:
     /set_corso [nome_corso]
     
 Verrà visualizzata una lista dei corsi trovati inerenti al nome inserito. Una volta premuto il bottone corrispondente al corso desiderato verrà inviato un messaggio di conferma contenente il link alla pagina web del corso.
+
 Analogamente per impostare l'anno basta utilizzare il comando:
 
     /set_anno [num]
@@ -19,9 +22,9 @@ Per ricevere gli orari è possibile settare in primis il livello di dettaglio ch
     /set_detail [num]
 
 I livelli di dettaglio implementati sono:
-* 1 - orario + nome corso;
-* 2 - orario + nome corso + luogo + link alla lezione;
-* 3 - orario + nome corso + CFU + docente + luogo + teledidattica obbligatoria + link alla lezione;
+1) orario + nome corso;
+2) orario + nome corso + luogo + link alla lezione;
+3) orario + nome corso + CFU + docente + luogo + teledidattica obbligatoria + link alla lezione;
 
 N.B.: il dettaglio di default è il 2.
 
