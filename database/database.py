@@ -19,7 +19,7 @@ class Database():
                             user_id INTEGER,
                             course INTEGER,
                             year INTEGER CHECK (year >= 1 AND year <= 5) DEFAULT 1,
-                            detail INTEGER CHECK (detail >= 1 AND detail <= 3) DEFAULT 1,
+                            detail INTEGER CHECK (detail >= 1 AND detail <= 3) DEFAULT 2,
                             curricula TEXT DEFAULT "000-000",
                             PRIMARY KEY (chat_id, user_id)
                             ) WITHOUT ROWID;''')
