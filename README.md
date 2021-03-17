@@ -19,9 +19,10 @@ Per ricevere gli orari è possibile settare in primis il livello di dettaglio ch
     /set_detail [num]
 
 I livelli di dettaglio implementati sono:
-* 1) orario + nome corso;
-* 2) orario + nome corso + luogo + link alla lezione;
-* 3) orario + nome corso + CFU + docente + luogo + teledidattica obbligatoria + link alla lezione;
+* 1 - orario + nome corso;
+* 2 - orario + nome corso + luogo + link alla lezione;
+* 3 - orario + nome corso + CFU + docente + luogo + teledidattica obbligatoria + link alla lezione;
+
 N.B.: il dettaglio di default è il 2.
 
 Una volta impostato il livello di dettaglio è possibile richiedere l'orario di un giorno con il comando:
