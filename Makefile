@@ -1,4 +1,4 @@
 launch:
 	python3 ./bot/bot.py "launch"
-test:
+-B test:
 	python3 ./bot/bot.py "test"
