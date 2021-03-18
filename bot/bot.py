@@ -78,9 +78,11 @@ def parse_date(date: str):
 if sys.argv[1] == 'test':
     with open(Path('./bot/test.txt')) as f:
         token = f.readline()
+        which_bot = 'orari_unibo_bot'
 elif sys.argv[1] == 'launch':
     with open(Path('./bot/token.txt')) as f:
         token = f.readline()
+        which_bot = 'the_unibot'
     
 
 last_command = None
@@ -330,9 +332,9 @@ def wiki(update, context):
                                  text=message, reply_markup=telegram.ReplyKeyboardRemove())
         last_command = None
         last_mess = None
-    if '/wiki@the_unibot' in update.message.text:
+    if '/wiki@{bot}'.format(bot = which_bot) in update.message.text:
         last_command = update.message
-        text = update.message.text[17:]
+        text = update.message.text[len('/wiki@' + which_bot):]
         print(text)
     elif '/wiki' in update.message.text:
         last_command = update.message
