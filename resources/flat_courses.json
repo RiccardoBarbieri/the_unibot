@@ -1422,23 +1422,6 @@
         "course_codec": "IngegneriAmbienTerritorio"
     },
     {
-        "course_name": "Meccatronica",
-        "course_code": "5818",
-        "campus": "Bologna",
-        "international": false,
-        "access": "Numero programmato - TOLC\u200b",
-        "languages": [
-            "Italiano"
-        ],
-        "curriculas": [
-            "CENTRO DIDATTICO BOLOGNA",
-            "CENTRO DIDATTICO IMOLA",
-            "MECCATRONICA"
-        ],
-        "site": "https://corsi.unibo.it/laurea/meccatronica",
-        "course_codec": "meccatronica"
-    },
-    {
         "course_name": "Offshore engineering",
         "course_code": "9249",
         "campus": "Ravenna",
