@@ -59,7 +59,10 @@ def parse(params: list):
 
 
 def parse_params(command: str, message: str):
-    params = message[len(command):].split()
+    if '@{bot}'.format(bot = which_bot) in message:
+        params = message[len(command + '@{bot}'.format(bot = which_bot)):].split()
+    else:
+        params = message[len(command):].split()
     return parse(params)
 
 
@@ -291,7 +294,6 @@ def orario(update, context):
         date = parse_date(params['text'][0])
         result = db.query_by_ids(
             update.effective_chat.id, update.effective_user.id)
-        print(result)
         with open(Path('./resources/flat_courses.json')) as f:
             courses = json.load(f)
         for i in courses:
@@ -329,13 +331,15 @@ def wiki(update, context):
 
         try:
             message = WikipediaAPI.summary(url_)
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                 text=message, reply_markup=telegram.ReplyKeyboardRemove())
         except telegram.error.BadRequest as e:
             if str(e) == 'Message text is empty':
                 message = 'Errore noto, verrà fixato in patch futura'
             elif str(e) == 'Message is too long':
                 message = message[:4095]
-        context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text=message, reply_markup=telegram.ReplyKeyboardRemove())
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                    text=message, reply_markup=telegram.ReplyKeyboardRemove())
         last_command = None
         last_mess = None
     if '/wiki@{bot}'.format(bot = which_bot) in update.message.text:
