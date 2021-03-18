@@ -21,6 +21,7 @@ if __name__ == '__main__':
             try:
                 cursor.execute('INSERT INTO courses VALUES (?,?,?,?,?,?,?)', course_data)
             except sqlite3.IntegrityError as e:
+                pass
                 print('{msg}, not inserting '.format(msg = str(e)) + str(course_data))
             if 'curriculas' in i.keys():
                 curriculas = i['curriculas']
@@ -29,6 +30,7 @@ if __name__ == '__main__':
                     try:
                         cursor.execute('INSERT INTO curriculas VALUES (?,?,?)', curricula_data)
                     except sqlite3.IntegrityError as e:
-                        print('{msg}, not inserting '.format(msg = str(e)) + str(curricula_data))
+                        pass
+                        # print('{msg}, not inserting '.format(msg = str(e)) + str(curricula_data))
                     
             
