@@ -1,3 +1,4 @@
+.PHONY: launch test
 launch:
 	python3 ./bot/bot.py "launch"
 test:
