@@ -23,6 +23,23 @@ class Database():
                             curricula TEXT DEFAULT "000-000",
                             PRIMARY KEY (chat_id, user_id)
                             ) WITHOUT ROWID;''')
+            cursor.execute('''CREATE TABLE IF NOT EXISTS courses (
+                            course_name TEXT,
+                            course_code INTEGER,
+                            campus TEXT,
+                            international INTEGER,
+                            access TEXT,
+                            site TEXT,
+                            course_codec TEXT,
+                            PRIMARY KEY (course_code)
+                            ) WITHOUT ROWID;''')
+            cursor.execute('''CREATE TABLE IF NOT EXISTS curriculas (
+                            course_code INTEGER,
+                            label TEXT,
+                            code TEXT,
+                            PRIMARY KEY (label),
+                            FOREIGN KEY (course_code) REFERENCES data(course_code)
+                            ) WITHOUT ROWID;''')
     
     def insert(self, chat_id, user_id, course = '', year = 1, detail = 1, curricula = '000-000'):
         with sqlite3.connect(self.path) as connection:
@@ -73,7 +90,7 @@ class Database():
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             data = (chat_id, user_id)
-            query = 'SELECT * FROM data WHERE (chat_id, user_id) = (?, ?)'
+            query = 'SELECT * FROM data WHERE (chat_id, user_id) = (?,?)'
             cursor.execute(query, data)
             connection.commit()
             result = []
