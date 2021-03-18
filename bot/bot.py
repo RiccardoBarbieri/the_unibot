@@ -59,7 +59,10 @@ def parse(params: list):
 
 
 def parse_params(command: str, message: str):
-    params = message[len(command):].split()
+    if '@{bot}'.format(bot = which_bot) in message:
+        params = message[len(command + '@{bot}'.format(bot = which_bot)):].split()
+    else:
+        params = message[len(command):].split()
     return parse(params)
 
 
@@ -285,7 +288,6 @@ def orario(update, context):
         date = parse_date(params['text'][0])
         result = db.query_by_ids(
             update.effective_chat.id, update.effective_user.id)
-        print(result)
         with open(Path('./resources/flat_courses.json')) as f:
             courses = json.load(f)
         for i in courses:
