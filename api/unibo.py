@@ -53,12 +53,15 @@ class UniboAPI():
 
 
         final_schedule = []
+        pprint(schedule)
         for i in schedule:
 
             try:
                 location = '{aula} {piano}, {ubicazione}'.format(aula = i['aule'][0]['des_risorsa'], piano = i['aule'][0]['des_piano'], ubicazione = i['aule'][0]['des_ubicazione'])
             except KeyError:
                 location = 'Non disponibile'
+            except IndexError:
+                location = 'Lezione solo online'
 
             delete = ['note', 'end', 'val_crediti', 'aule', 'cod_sdoppiamento', 'extCode', 'periodo']
             
