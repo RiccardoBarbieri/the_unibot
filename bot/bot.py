@@ -335,7 +335,6 @@ def wiki(update, context):
     if '/wiki@{bot}'.format(bot = which_bot) in update.message.text:
         last_command = update.message
         text = update.message.text[len('/wiki@' + which_bot):]
-        print(text)
     elif '/wiki' in update.message.text:
         last_command = update.message
         text = update.message.text[6:]
