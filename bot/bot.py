@@ -141,11 +141,12 @@ def misc(update, context):
             course_name=course_name, link=found['site'])
         context.bot.send_message(
             chat_id=chat_id, text=message, reply_markup=telegram.ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-        db.insert('data', chat_id, user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
-        db.update('data', chat_id, user_id, course=course_code)
+        db.insert('data', chat_id = chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
+        db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, course=course_code)
         db.backup('data')
         print('Updated user {user_id} with course {course_code}'.format(
             course_code=course_code, user_id=user_id))
+    last_command = None
 
 
 def set_corso(update, context):
@@ -234,7 +235,7 @@ def set_corso(update, context):
         keyboard = telegram.ReplyKeyboardMarkup(
             pages[page_param], one_time_keyboard=True, selective=True)
         context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
-            pages=page_num, page_param=page_param + 1), reply_markup=keyboard)
+            pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
     else:
         context.bot.send_message(
             chat_id=update.effective_chat.id, text='Nessun corso trovato.')
@@ -254,8 +255,8 @@ def set_anno(update, context):
         if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
             chat_id = last_command.chat.id
             user_id = last_command.from_user.id
-            db.insert('data', chat_id, user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
-            db.update('data', chat_id, user_id, year=params['numeric'][0])
+            db.insert('data', chat_id = chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
+            db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, year=params['numeric'][0])
             context.bot.send_message(chat_id=update.effective_chat.id,
                                      text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
             print(db.query_by_ids(chat_id, user_id))
@@ -274,8 +275,8 @@ def set_detail(update, context):
         if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
             chat_id = last_command.chat.id
             user_id = last_command.from_user.id
-            db.insert('data', chat_id, user_id)
-            db.update('data', chat_id, user_id, detail=params['numeric'][0])
+            db.insert('data', chat_id=chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
+            db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, detail=params['numeric'][0])
             context.bot.send_message(chat_id=update.effective_chat.id,
                                      text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
             print(db.query_by_ids(chat_id, user_id))
@@ -368,9 +369,9 @@ def wiki(update, context):
                     temp.append(telegram.KeyboardButton(i))
                     rows.append(temp)
                 keyboard = telegram.ReplyKeyboardMarkup(
-                    rows, one_time_keyboard=True)
+                    rows, one_time_keyboard=True, selective = True)
                 context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Seleziona la pagina', reply_markup=keyboard)
+                    chat_id=update.effective_chat.id, text='Seleziona la pagina', reply_markup=keyboard, reply_to_message_id=update.message.message_id)
     else:
         context.bot.send_message(
             chat_id=update.effective_chat.id, text='Pagina non trovata.')

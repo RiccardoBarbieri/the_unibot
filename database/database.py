@@ -53,8 +53,6 @@ class Database():
 
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
-            print('INSERT INTO {table} {cols} VALUES {data}'.format(
-                    table=str(table), cols=str(cols).replace('\'', ''), data=str(data)))
             try:
                 cursor.execute('INSERT INTO {table} {cols} VALUES {data}'.format(
                     table=str(table), cols=str(cols).replace('\'', ''), data=str(data)))
@@ -81,8 +79,6 @@ class Database():
                 where_data = str(where_data)[:-2] + ')'
                 where_cols = str(where_cols)[:-2] + ')'
             
-            print('UPDATE {table} SET {cols} = {data} WHERE {where_cols} = {where_data}'.format(
-                    table=table, cols=str(cols).replace('\'', ''), data=str(data), where_cols=str(where_cols).replace('\'', ''), where_data=str(where_data)))
             try:
                 cursor.execute('UPDATE {table} SET {cols} = {data} WHERE {where_cols} = {where_data}'.format(
                     table=table, cols=str(cols).replace('\'', ''), data=str(data), where_cols=str(where_cols).replace('\'', ''), where_data=str(where_data)))
