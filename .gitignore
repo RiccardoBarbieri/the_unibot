@@ -3,3 +3,4 @@ chromedriver.exe
 /.vscode/
 *.pyc
 *.db
+/__pycache__/
