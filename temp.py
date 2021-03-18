@@ -1,10 +1,5 @@
-import json
 
-check = True
+b = ['1']
+a = tuple([i for i in b])
 
-if check:
-    print('a')
-    if not check:
-        break
-
-    print('b')
+print(str(a).replace('\'', ''))
