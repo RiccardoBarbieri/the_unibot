@@ -330,7 +330,11 @@ def wiki(update, context):
                                  text=message, reply_markup=telegram.ReplyKeyboardRemove())
         last_command = None
         last_mess = None
-    if '/wiki' in update.message.text:
+    if '/wiki@the_unibot' in update.message.text:
+        last_command = update.message
+        text = update.message.text[17:]
+        print(text)
+    elif '/wiki' in update.message.text:
         last_command = update.message
         text = update.message.text[6:]
     else:
