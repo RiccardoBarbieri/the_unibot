@@ -325,13 +325,15 @@ def wiki(update, context):
 
         try:
             message = WikipediaAPI.summary(url_)
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                 text=message, reply_markup=telegram.ReplyKeyboardRemove())
         except telegram.error.BadRequest as e:
             if str(e) == 'Message text is empty':
                 message = 'Errore noto, verrà fixato in patch futura'
             elif str(e) == 'Message is too long':
                 message = message[:4095]
-        context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text=message, reply_markup=telegram.ReplyKeyboardRemove())
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                    text=message, reply_markup=telegram.ReplyKeyboardRemove())
         last_command = None
         last_mess = None
     if '/wiki@{bot}'.format(bot = which_bot) in update.message.text:
