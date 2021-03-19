@@ -115,12 +115,14 @@ def misc(update, context):
             chat_id=update.effective_chat.id, text='Qualcuno ha detto PIEDI????')
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo='https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
+        last_command = None
     if 'egistr' in update.message.text.lower():
         text = update.message.text
         context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
                                  .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode=ParseMode.HTML)
         context.bot.delete_message(
             chat_id=update.effective_chat.id, message_id=update.message.message_id)
+        last_command = None
     if last_command is not None and '/wiki' in last_command.text:
         wiki(update, context)
     if last_command is not None and '/set_corso' in last_command.text:
@@ -143,7 +145,7 @@ def misc(update, context):
         db.backup('data')
         print('Updated user {user_id} with course {course_code}'.format(
             course_code=course_code, user_id=user_id))
-    last_command = None
+        last_command = None
 
 
 def set_corso(update, context):
