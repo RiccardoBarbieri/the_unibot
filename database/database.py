@@ -43,21 +43,22 @@ class Database():
                             PRIMARY KEY (label),
                             FOREIGN KEY (course_code) REFERENCES data(course_code) ON DELETE CASCADE
                             ) WITHOUT ROWID;''')
+            cursor.execute('''CREATE TABLE IF NOT EXISTS test (
+                            blobber BLOB,
+                            PRIMARY KEY (blobber)
+                            ) WITHOUT ROWID;''')
 
     def insert(self, table, **kwargs):
 
         data = tuple([kwargs[i] for i in kwargs])
         cols = tuple([i for i in kwargs])
 
-        if len(data) == 1:
-            data = str(data)[:-2] + ')'
-            cols = str(cols)[:-2] + ')'
+        query = 'INSERT INTO {table} '.format(table = table) + (str(cols).replace(',', '') if len(cols) == 1 else str(cols)) + ' VALUES (' + ('?, ' * len(cols))[:-2] + ')'
 
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             try:
-                cursor.execute('INSERT INTO {table} {cols} VALUES {data}'.format(
-                    table=str(table), cols=str(cols).replace('\'', ''), data=str(data)))
+                cursor.execute(query, data)
             except sqlite3.IntegrityError as e:
                 print('{msg}, not inserting {data}'.format(
                     msg=str(e), data=str(data)))
@@ -74,17 +75,18 @@ class Database():
             data = tuple([kwargs[i]
                           for i in kwargs if not ('primary_key' in i)])
             cols = tuple([i for i in kwargs if not ('primary_key' in i)])
+            
+            str_cols = (str(cols).replace(',', '') if len(cols) == 1 else str(cols))
+            str_data = ('?, ' * len(data))[:-2]
 
-            if len(data) == 1:
-                data = str(data)[:-2] + ')'
-                cols = str(cols)[:-2] + ')'
-            if len(where_data) == 1:
-                where_data = str(where_data)[:-2] + ')'
-                where_cols = str(where_cols)[:-2] + ')'
+            str_where_cols = (str(where_cols).replace(',', '') if len(where_cols) == 1 else str(where_cols))
+            str_where_data = ('?, ' * len(where_data))[:-2]
+
+            query = 'UPDATE {table} '.format(table = table) + 'SET ' + str_cols + ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
+            print(query)
 
             try:
-                cursor.execute('UPDATE {table} SET {cols} = {data} WHERE {where_cols} = {where_data}'.format(
-                    table=table, cols=str(cols).replace('\'', ''), data=str(data), where_cols=str(where_cols).replace('\'', ''), where_data=str(where_data)))
+                cursor.execute(query, data + cols)
             except sqlite3.IntegrityError as e:
                 print('{msg}, not inserting {data}'.format(
                     msg=str(e), data=str(data)))
@@ -102,6 +104,7 @@ class Database():
     def custom_query(self, query='', data=None):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
+            
             if data is None:
                 cursor.execute(query)
             else:
@@ -153,11 +156,13 @@ class Database():
 
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
-    db.restore_backup('data')
+    
+    db.insert('test', blobber = 'sos')
+    print(db.custom_query('SELECT * FROM test'))
+    db.update('test', primary_key_blobber = 'sos', blobber = 'ASD')
+    print(db.custom_query('SELECT * FROM test'))
 
-
-
-# blob = pickle.dumps(db)
-# # db.custom_query('INSERT INTO test VALUES (?)', (blob,))
-# db1 = pickle.loads(db.custom_query('SELECT * FROM test')[0][0])
-# print(type(db1.path))
+    # blob = pickle.dumps(db)
+    # db.custom_query('INSERT INTO test VALUES ({blobber})'.format(blobber = blob))
+    # db1 = pickle.loads(db.custom_query('SELECT * FROM test')[0][0])
+    # print(type(db1.path))
