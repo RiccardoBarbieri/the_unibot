@@ -97,14 +97,13 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 # TODO: change with sql query when courses ar in tables
 # TODO: gestici curricula non ancora imposta in orario!!!!
-# TODO: aggiungi backup a ogni aggiornamento
 # TODO: rifai a classe
-# TODO: tastiera solo per utente che richiede
 # TODO: controlla che risposta sia dell'utente che manda il comando
 
 
 def start(update, context):
     db.insert('data', chat_id = update.effective_chat.id, user_id = update.effective_user.id, course = 0, year = 1, detail = 2, curricula = '000-000')
+    db.backup('data')
     context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                              .format(link='https://github.com/RiccardoBarbieri/t_bot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
@@ -257,6 +256,7 @@ def set_anno(update, context):
             user_id = last_command.from_user.id
             db.insert('data', chat_id = chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
             db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, year=params['numeric'][0])
+            db.backup('data')
             context.bot.send_message(chat_id=update.effective_chat.id,
                                      text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
             print(db.query_by_ids(chat_id, user_id))
@@ -277,6 +277,7 @@ def set_detail(update, context):
             user_id = last_command.from_user.id
             db.insert('data', chat_id=chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
             db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, detail=params['numeric'][0])
+            db.backup('data')
             context.bot.send_message(chat_id=update.effective_chat.id,
                                      text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
             print(db.query_by_ids(chat_id, user_id))
