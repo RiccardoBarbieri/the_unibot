@@ -2,6 +2,7 @@ import sqlite3
 import json
 from pathlib import Path
 from pprint import pprint
+import pickle
 
 
 class Database():
@@ -22,6 +23,7 @@ class Database():
                             year INTEGER CHECK (year >= 1 AND year <= 5) DEFAULT 1,
                             detail INTEGER CHECK (detail >= 1 AND detail <= 3) DEFAULT 2,
                             curricula TEXT DEFAULT "000-000",
+                            last_command BLOB,
                             PRIMARY KEY (chat_id, user_id)
                             ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS courses (
@@ -66,8 +68,9 @@ class Database():
             cursor = connection.cursor()
             where_data = tuple([kwargs[i]
                                 for i in kwargs if ('primary_key' in i)])
-            where_cols = tuple([i.replace('primary_key_', '') for i in kwargs if ('primary_key' in i)])
-            
+            where_cols = tuple([i.replace('primary_key_', '')
+                                for i in kwargs if ('primary_key' in i)])
+
             data = tuple([kwargs[i]
                           for i in kwargs if not ('primary_key' in i)])
             cols = tuple([i for i in kwargs if not ('primary_key' in i)])
@@ -78,7 +81,7 @@ class Database():
             if len(where_data) == 1:
                 where_data = str(where_data)[:-2] + ')'
                 where_cols = str(where_cols)[:-2] + ')'
-            
+
             try:
                 cursor.execute('UPDATE {table} SET {cols} = {data} WHERE {where_cols} = {where_data}'.format(
                     table=table, cols=str(cols).replace('\'', ''), data=str(data), where_cols=str(where_cols).replace('\'', ''), where_data=str(where_data)))
@@ -86,10 +89,10 @@ class Database():
                 print('{msg}, not inserting {data}'.format(
                     msg=str(e), data=str(data)))
 
-    def query_all(self, table):
+    def query_all(self):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
-            cursor.execute('SELECT * FROM {table}'.format(table = table))
+            cursor.execute('SELECT * FROM data')
             result = []
             for i in cursor.fetchall():
                 result.append(dict(
@@ -120,25 +123,41 @@ class Database():
     def delete_all(self, table):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
-            cursor.execute('DELETE FROM {table} WHERE 1 = 1'.format(table = table))
+            cursor.execute(
+                'DELETE FROM {table} WHERE 1 = 1'.format(table=table))
 
     def backup(self, table):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
-            cursor.execute('SELECT * FROM {table}'.format(table = table))
+            cursor.execute('SELECT * FROM {table}'.format(table=table))
             data = cursor.fetchall()
-            with open('./database/backup_{table}.json'.format(table = table), 'w+') as f:
+            with open('./database/backup_{table}.json'.format(table=table), 'w+') as f:
                 json.dump(data, f)
 
     def restore_backup(self, table):
-        with open(Path('./database/backup_{table}.json'.format(table = table))) as f:
+        with open(Path('./database/backup_{table}.json'.format(table=table))) as f:
             data = json.load(f)
-        for i in data:
-            self.insert('data', chat_id=i[0], user_id=i[1],
-                        course=i[2], year=i[3], detail=i[4], curricula=i[5])
+        if table == 'data':
+            for i in data:
+                self.insert(table, chat_id=i[0], user_id=i[1],
+                            course=i[2], year=i[3], detail=i[4], curricula=i[5])
+        elif table == 'courses':
+            for i in data:
+                self.insert(table, course_name=str(i[0]), course_code=int(i[1]), campus=str(
+                    i[2]), international=int(i[3]), access=str(i[4]), site=str(i[5]), course_codec=str(i[6]))
+        elif table == 'curriculas':
+            for i in data:
+                self.insert(table, course_code=int(i[0]), label=str(i[1]),
+                            code=str(i[2]))
 
 
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
-    db.insert('data', chat_id = 1234, user_id = 1234, course = 9234, year = 2, curricula = '000-000', detail = 2)
-    print(db.query_all('data'))
+    db.restore_backup('data')
+
+
+
+# blob = pickle.dumps(db)
+# # db.custom_query('INSERT INTO test VALUES (?)', (blob,))
+# db1 = pickle.loads(db.custom_query('SELECT * FROM test')[0][0])
+# print(type(db1.path))

@@ -8,12 +8,16 @@ elif getpass.getuser() == 'riccardoob':
     sys.path.append('/home/riccardoob/telegram_bot')
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
+
 from api.unibo import UniboAPI
 from api.wikipedia import WikipediaAPI
+
 import telegram
+import telegram.ext
 from telegram.parsemode import ParseMode
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, MessageHandler, Filters
+
 import logging
 import json
 from pathlib import Path
@@ -77,7 +81,7 @@ def parse_date(date: str):
     month = date[3:5]
     return year + '-' + month + '-' + day
 
-
+# ! this will go in main
 if sys.argv[1] == 'test':
     with open(Path('./bot/test.txt')) as f:
         token = f.readline()
@@ -86,7 +90,7 @@ elif sys.argv[1] == 'launch':
     with open(Path('./bot/token.txt')) as f:
         token = f.readline()
         which_bot = 'the_unibot'
-    
+
 
 last_command = None
 last_mess = None  # stores message to check if it's equal to last one
@@ -95,10 +99,6 @@ dispatcher = updater.dispatcher
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-# TODO: change with sql query when courses ar in tables
-# TODO: gestici curricula non ancora imposta in orario!!!!
-# TODO: rifai a classe
-# TODO: controlla che risposta sia dell'utente che manda il comando
 
 
 def start(update, context):
