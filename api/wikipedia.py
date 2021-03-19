@@ -34,5 +34,9 @@ class WikipediaAPI():
         reverse_url = url[::-1]
         index = reverse_url.find('/')
         page_name = reverse_url[:index][::-1]
+        
+        # fix bug apostrophes
+        if '%27' in page_name:
+            page_name = page_name.replace('%27', '\'')
 
         return wiki.page(page_name).summary

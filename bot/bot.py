@@ -336,8 +336,6 @@ def wiki(update, context):
             context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=message, reply_markup=telegram.ReplyKeyboardRemove())
         except telegram.error.BadRequest as e:
-            if str(e) == 'Message text is empty':
-                message = 'Errore noto, verrà fixato in patch futura'
             elif str(e) == 'Message is too long':
                 message = message[:4095]
             context.bot.send_message(chat_id=update.effective_chat.id,
