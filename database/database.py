@@ -127,11 +127,11 @@ class Database():
             cursor = connection.cursor()
             cursor.execute('SELECT * FROM {table}'.format(table = table))
             data = cursor.fetchall()
-            with open('./database/backup.json', 'w+') as f:
+            with open('./database/backup_{table}.json'.format(table = table), 'w+') as f:
                 json.dump(data, f)
 
-    def restore_backup(self):
-        with open(Path('./database/backup.json')) as f:
+    def restore_backup(self, table):
+        with open(Path('./database/backup_{table}.json'.format(table = table))) as f:
             data = json.load(f)
         for i in data:
             self.insert('data', chat_id=i[0], user_id=i[1],
