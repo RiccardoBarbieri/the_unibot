@@ -60,7 +60,7 @@ def parse(params: list):
 
 def parse_params(command: str, message: str):
     if '@{bot}'.format(bot = which_bot) in message:
-        params = message[len(command + '@{bot}'.format(bot = which_bot)):].split()
+        params = message[len(command + '@' + which_bot):].split()
     else:
         params = message[len(command):].split()
     return parse(params)
@@ -111,13 +111,11 @@ def start(update, context):
 def misc(update, context):
     global last_command
     if 'piedi' in update.message.text.lower():
-        last_command = None
         context.bot.send_message(
             chat_id=update.effective_chat.id, text='Qualcuno ha detto PIEDI????')
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo='https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
     if 'egistr' in update.message.text.lower():
-        last_command = None
         text = update.message.text
         context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
                                  .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode=ParseMode.HTML)
