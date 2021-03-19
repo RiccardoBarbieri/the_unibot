@@ -32,12 +32,6 @@ from pprint import pprint
 db = Database(Path('./database/telegram.db'))
 
 
-def sub(string, substring):  # funzione che censura la substring
-    start = string.find(substring)
-    end = len(substring) + start
-    ast = '*'*len(substring)
-    return string[:start] + ast + string[end:]
-
 
 def string_contains(string, params):
     check = True
@@ -117,9 +111,9 @@ def misc(update, context):
                                photo='https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
         last_command = None
     if 'egistr' in update.message.text.lower():
-        text = update.message.text
+        text = update.message.text.replace('egistr', '******')
         context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
-                                 .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + sub(text, 'egistr'), parse_mode=ParseMode.HTML)
+                                 .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
         context.bot.delete_message(
             chat_id=update.effective_chat.id, message_id=update.message.message_id)
         last_command = None
@@ -336,7 +330,7 @@ def wiki(update, context):
             context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=message, reply_markup=telegram.ReplyKeyboardRemove())
         except telegram.error.BadRequest as e:
-            elif str(e) == 'Message is too long':
+            if str(e) == 'Message is too long':
                 message = message[:4095]
             context.bot.send_message(chat_id=update.effective_chat.id,
                                     text=message, reply_markup=telegram.ReplyKeyboardRemove())
