@@ -401,11 +401,17 @@ class Bot():
                                 text=message, reply_markup=telegram.ReplyKeyboardRemove())
         except telegram.error.BadRequest as e:
             if str(e) == 'Message is too long':
-                message = message[:4095]
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                    text=message, reply_markup=telegram.ReplyKeyboardRemove())
+                                    text=__long_mess_fix(message), reply_markup=telegram.ReplyKeyboardRemove())
         self.db.query('data', key_chat_id = update.effective_chat.id, key_user_id = update.effective_user.id)[0]['last_command']
         self.last_mess = None
+
+    def __long_mess_fix(message: str):
+        message = message[:4095]
+        message = message[::-1]
+        message = message[message.find('.'):]
+        message = message[::-1]
+        return message
 
     def bug(self, update: telegram.Update, context: telegram.ext.CallbackContext):
         if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
