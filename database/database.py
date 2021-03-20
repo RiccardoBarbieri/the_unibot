@@ -1,8 +1,20 @@
+import sys
+import getpass
+if getpass.getuser() == 'ricca':
+    sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
+elif getpass.getuser() == 'grufoony':
+    sys.path.append('/home/grufoony/bot-telegram')
+elif getpass.getuser() == 'riccardoob':
+    sys.path.append('/home/riccardoob/telegram_bot')
+elif getpass.getuser() == 'pi':
+    sys.path.append('/home/pi/telegram-bot')
+
 import sqlite3
 import json
 from pathlib import Path
 from pprint import pprint
 import pickle
+from utils.utils import Utils
 
 
 class Database():
@@ -23,7 +35,6 @@ class Database():
                             year INTEGER CHECK (year >= 1 AND year <= 5) DEFAULT 1,
                             detail INTEGER CHECK (detail >= 1 AND detail <= 3) DEFAULT 2,
                             curricula TEXT DEFAULT "000-000",
-                            last_command BLOB,
                             PRIMARY KEY (chat_id, user_id)
                             ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS courses (
@@ -47,16 +58,25 @@ class Database():
                             blobber BLOB,
                             PRIMARY KEY (blobber)
                             ) WITHOUT ROWID;''')
+            cursor.execute('''CREATE TABLE IF NOT EXISTS last_command (
+                            text TEXT NOT NULL,
+                            chat_id INTEGER NOT NULL,
+                            user_id INTEGER NOT NULL,
+                            PRIMARY KEY (chat_id, user_id),
+                            FOREIGN KEY (chat_id, user_id) REFERENCES data(chat_id, user_id) ON DELETE CASCADE
+                            ) WITHOUT ROWID;''')
 
     def insert(self, table: str, **kwargs):
 
         data = tuple([kwargs[i] for i in kwargs])
         cols = tuple([i for i in kwargs])
 
-        str_cols = (str(cols).replace(',', '') if len(cols) == 1 else str(cols))
+        str_cols = (str(cols).replace(',', '')
+                    if len(cols) == 1 else str(cols))
         str_data = ('?, ' * len(cols))[:-2]
 
-        query = 'INSERT INTO {table} '.format(table = table) + str_cols + ' VALUES (' + str_data + ')'
+        query = 'INSERT INTO {table} '.format(
+            table=table) + str_cols + ' VALUES (' + str_data + ')'
 
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
@@ -78,14 +98,18 @@ class Database():
             data = tuple([kwargs[i]
                           for i in kwargs if not ('key_' in i)])
             cols = tuple([i for i in kwargs if not ('key_' in i)])
-            
-            str_cols = (str(cols).replace(',', '') if len(cols) == 1 else str(cols)).replace('\'', '')
+
+            str_cols = (str(cols).replace(',', '') if len(cols)
+                        == 1 else str(cols)).replace('\'', '')
             str_data = '(' + ('?, ' * len(data))[:-2].replace('\'', '') + ')'
 
-            str_where_cols = (str(where_cols).replace(',', '') if len(where_cols) == 1 else str(where_cols)).replace('\'', '')
-            str_where_data = '(' + ('?, ' * len(where_data))[:-2].replace('\'', '') + ')'
+            str_where_cols = (str(where_cols).replace(',', '') if len(
+                where_cols) == 1 else str(where_cols)).replace('\'', '')
+            str_where_data = '(' + ('?, ' * len(where_data)
+                                    )[:-2].replace('\'', '') + ')'
 
-            query = 'UPDATE {table} '.format(table = table) + 'SET ' + str_cols + ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
+            query = 'UPDATE {table} '.format(table=table) + 'SET ' + str_cols + \
+                ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
             try:
                 cursor.execute(query, data + where_data)
             except sqlite3.IntegrityError as e:
@@ -101,46 +125,92 @@ class Database():
             where_cols = tuple([i.replace('key_', '')
                                 for i in kwargs if ('key_' in i)])
 
-            str_where_cols = (str(where_cols).replace(',', '') if len(where_cols) == 1 else str(where_cols)).replace('\'', '')
+            str_where_cols = (str(where_cols).replace(',', '') if len(
+                where_cols) == 1 else str(where_cols)).replace('\'', '')
             str_where_data = ('?, ' * len(where_data))[:-2].replace('\'', '')
-
-            query = 'SELECT * FROM {table}'.format(table = table) + ' WHERE ' + str_where_cols + ' = (' + str_where_data + ')'
             
+
+            cursor.execute("PRAGMA table_info({table})".format(table = table))
+            cols = tuple([i[1] for i in cursor.fetchall()])
+
+            query = 'SELECT * FROM {table}'.format(
+                table=table) + ' WHERE ' + str_where_cols + ' = (' + str_where_data + ')'
+
             cursor.execute(query, where_data)
 
-            return self.__dict_creation(table, cursor.fetchall())
+            return self.__dict_creation(cols, cursor.fetchall())
 
-    def __dict_creation(self, table: str, fetchall: list) -> dict:
+    def __dict_creation(self, cols: tuple, fetchall: list) -> list:
         result = []
-        if table == 'data':    
-            for i in fetchall:
-                result.append(dict(
-                    chat_id=i[0], user_id=i[1], course=i[2], year=i[3], detail=i[4], curricula=i[5]))
-        elif table == 'courses':
-            for i in fetchall:
-                result.append(dict(course_name = i[0], course_code = i[1], campus = i[2], international = i[3], access = i[4], site = i[5], course_codec = i[6]))
-        elif table == 'curriculas':
-            for i in fetchall:
-                result.append(dict(course_code = i[0], label = i[1], code = i[2]))
-        elif table == 'test':
-            print(fetchall)
-            for i in fetchall:
-                result.append(dict(blobber = i[0]))
+        
+        for i in fetchall:
+            temp = {}
+            for col_name, val in zip(cols, i):
+                temp[col_name] = val
+            result.append(temp)
         return result
-
 
     def query_all(self, table: str) -> dict:
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
-            cursor.execute('SELECT * FROM {table}'.format(table = table))
+
+            cursor.execute("PRAGMA table_info({table})".format(table = table))
+            cols = tuple([i[1] for i in cursor.fetchall()])
+
+            cursor.execute('SELECT * FROM {table}'.format(table=table))
             
-            return self.__dict_creation(table, cursor.fetchall())
 
+            return self.__dict_creation(cols, cursor.fetchall())
 
-    def custom_query(self, query: str='', data: tuple=None) -> list:
+    # pass keys for where clause possibly first and as follows: col1_sel[1/2], col2_sel[1/2], col11 = col21, col12 = col22 ...
+    def query_join(self, table1, table2, *args, **kwargs):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
+
+            index = Utils.first_difference(table1, table2) + 1
+
+            join1_cols = tuple([i for i in kwargs])
+            join2_cols = tuple([kwargs[i] for i in kwargs])
+
+            cols_selection = tuple([i for i in args])
+
+            str_join1_cols = ''
+            for i in join1_cols:
+                str_join1_cols += table1[:index] + '.' + str(i) + ', '
+            str_join1_cols = '(' + (str_join1_cols[:-2]).replace('\'', '') + ')'
+
+            str_join2_cols = ''
+            for i in join2_cols:
+                str_join2_cols += table2[:index] + '.' + str(i) + ', '
+            str_join2_cols = '(' + (str_join2_cols[:-2]).replace('\'', '') + ')'
+
+            str_cols_selection = ''
+            for i in cols_selection:
+                if i.find('1') != -1:
+                    current_prefix = table1[:index]
+                elif i.find('2') != -1:
+                    current_prefix = table2[:index]
+                else:
+                    raise sqlite3.OperationalError('Column specification wrong')
+                str_cols_selection += current_prefix + '.' + str(i)[:-1] + ', '
+            str_cols_selection = str_cols_selection[:-2]
+
+            query = 'SELECT ' + str_cols_selection + ' FROM {table1} {t1in}, {table2} {t2in}'.format(
+                table1=table1, t1in=table1[:index], table2=table2, t2in=table2[:index]) + ' WHERE ' + str_join1_cols + ' = ' + str_join2_cols
             
+            cursor.execute(query)
+            
+            cols_parsed = []
+            for i in cols_selection:
+                cols_parsed.append(i[:-1])
+
+            return self.__dict_creation(cols_parsed, cursor.fetchall())
+
+
+    def custom_query(self, query: str = '', data: tuple = None) -> list:
+        with sqlite3.connect(self.path) as connection:
+            cursor = connection.cursor()
+
             if data is None:
                 cursor.execute(query)
             else:
@@ -193,11 +263,10 @@ class Database():
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
     
-
-    
-
+    pprint(db.query_all('data'))
 
 
+# pprint(db.query_join('courses', 'curriculas', 'course_code1', 'code2', course_code = 'course_code'))
 
 # blob = pickle.dumps(db)
 # db.insert('test', blobber = blob)
