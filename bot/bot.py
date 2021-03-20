@@ -292,7 +292,6 @@ def orario(update, context):
     last_command = update.message
     params = parse_params('/orario', update.message.text)
     date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
-    # format_string = '%m-%d-%Y'
     if len(params['numeric']) == 0 and len(params['text']) == 1 and (re.match(date_regex, params['text'][0]) or check_days(params['text'][0])):
         date = parse_date(params['text'][0])
         result = db.query_by_ids(
