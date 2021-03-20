@@ -11,6 +11,7 @@ elif getpass.getuser() == 'pi':
 
 from api.unibo import UniboAPI
 from api.wikipedia import WikipediaAPI
+from utils.utils import Utils
 
 import telegram
 import telegram.ext
@@ -27,140 +28,195 @@ import re
 from datetime import date
 from message_creator import MessageCreator
 from pprint import pprint
+import pickle
 
 
-db = Database(Path('./database/telegram.db'))
+class Bot():
 
+    # every time a message is sent this variable must be set to the message text (NOT OBJECT)
+    last_mess: str = None
 
+    # database instance
+    db: Database
 
-def string_contains(string, params):
-    check = True
-    for i in params:
-        if not (i in string.lower()):
-            check = False
-    return check
+    # contains the name of the bot
+    which_bot: str = None
 
+    def __init__(self, token, which_bot):
 
-def get_course_type(url: str):
-    parts = url.split('/')
-    return parts[-2]
+        self.which_bot = which_bot
 
+        updater = Updater(token=token, use_context=True)
+        dispatcher = updater.dispatcher
 
-def parse(params: list):
-    param_parsed = {'numeric': [], 'text': []}
-    for i in params:
-        if i.isnumeric():
-            param_parsed['numeric'].append(int(i))
+        logging.basicConfig(
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
+        self.db = Database(Path('./database/telegram.db'))
+
+        start_handler = CommandHandler('start', self.start)
+        misc_handler = MessageHandler(
+            Filters.text & (~Filters.command), self.misc)
+        set_corso_handler = CommandHandler('set_corso', self.set_corso)
+        set_curricula_handler = CommandHandler(
+            'set_curricula', self.set_curricula)
+        set_anno_handler = CommandHandler('set_anno', self.set_anno)
+        set_detail_handler = CommandHandler('set_detail', self.set_detail)
+        orario_handler = CommandHandler('orario', self.orario)
+        set_autosend_handler = CommandHandler(
+            'set_autosend', self.set_autosend)
+        autosend_handler = CommandHandler('autosend', self.autosend)
+        wiki_handler = CommandHandler('wiki', self.wiki)
+        bug_report_handler = CommandHandler('bug_report', self.bug)
+
+        dispatcher.add_handler(start_handler)
+        dispatcher.add_handler(misc_handler)
+        dispatcher.add_handler(set_corso_handler)
+        dispatcher.add_handler(set_curricula_handler)
+        dispatcher.add_handler(set_anno_handler)
+        dispatcher.add_handler(set_detail_handler)
+        dispatcher.add_handler(orario_handler)
+        dispatcher.add_handler(set_autosend_handler)
+        dispatcher.add_handler(autosend_handler)
+        dispatcher.add_handler(wiki_handler)
+        dispatcher.add_handler(bug_report_handler)
+
+        updater.start_polling()
+
+    def start(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+        self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                       course=0, year=1, detail=2, curricula='000-000')
+        self.db.backup('data')
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
+                                 .format(link='https://github.com/RiccardoBarbieri/t_bot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+
+    def misc(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+        
+
+        if len(self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course=0, year=1, detail=2, curricula='000-000')
+            self.db.insert('last_command', chat_id=update.effective_chat.id,
+                           user_id=update.effective_user.id, text='')
+
+        last_command = (None if self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)[0][
+            'text'] == '' else self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)[0])
+
+        if 'piedi' in update.message.text.lower():
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Qualcuno ha detto PIEDI????')
+            context.bot.send_photo(chat_id=update.effective_chat.id,
+                                   photo='https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
+        if 'egistr' in update.message.text.lower():
+            text = update.message.text.replace('egistr', '******')
+            context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
+                                     .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
+            context.bot.delete_message(
+                chat_id=update.effective_chat.id, message_id=update.message.message_id)
+        if last_command is not None and '/wiki' in last_command['text']:
+            self.wiki(update, context)
+        if last_command is not None and '/set_corso' in last_command['text']:
+            # getting ids from last_command sent
+            chat_id = last_command['chat_id']
+            user_id = last_command['user_id']
+            # getting name and code from the message from keyboard
+            course_name = update.message.text.split('[')[0].strip()
+            course_code = update.message.text.split('[')[1][:-1].strip()
+            if (chat_id, user_id) == (update.effective_chat.id, update.effective_user.id):
+                found = {}
+                with open(Path('./resources/flat_courses.json')) as f:
+                    courses = json.load(f)
+                for i in courses:
+                    if i['course_code'] == course_code:
+                        found = i
+                message = 'Corso selezionato: <a href="{link}">{course_name}</a>.'.format(
+                    course_name=course_name, link=found['site'])
+                context.bot.send_message(
+                    chat_id=chat_id, text=message, reply_markup=telegram.ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                   course=course_code, year=1, detail=2, curricula='000-000')
+                else:
+                    self.db.update('data', key_chat_id=chat_id,
+                                   key_user_id=user_id, course=course_code)
+                self.db.backup('data')
+                print('Updated user {user_id} with course {course_code}'.format(
+                    course_code=course_code, user_id=user_id))
+
+    def set_corso(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+        message = '''Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'''
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text=message)
+
+        courses = self.db.query_all('courses')
+
+        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course=0, year=1, detail=2, curricula='000-000')
+            self.db.insert('last_command', chat_id=update.effective_chat.id, user_id=update.effective_user.id, text = update.message.text)
         else:
-            param_parsed['text'].append(i)
-    return param_parsed
+            self.db.update('last_command', key_chat_id=update.effective_chat.id,
+                           key_user_id=update.effective_user.id, text = update.message.text)
 
+        page_param = 0
+        if len(update.message.text.strip()) == 10:
+            mess_len = 0
+            for i in self.db.query_all('courses'):
+                mess_len += len(i['course_name'] +
+                                ' [{type}]'.format(type=Utils.get_course_type(i['site'])))
+            page_num = ceil(mess_len / 4096)
 
-def parse_params(command: str, message: str):
-    if '@{bot}'.format(bot = which_bot) in message:
-        params = message[len(command + '@' + which_bot):].split()
-    else:
-        params = message[len(command):].split()
-    return parse(params)
+            pages = self.__pages_creation(courses, page_num)
+        else:
+            params = Utils.parse_params(
+                '/set_corso', update.message.text, self.which_bot)
 
+            # foolproofing numeric parameters
+            if len(params['numeric']) == 0:
+                page_param = 1
+            elif len(params['numeric']) >= 1:
+                page_param = params['numeric'][0]
+                if len(params['numeric']) > 1:
+                    context.bot.send_message(
+                        chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo.')
 
-def check_days(string: str):
-    days = ['oggi', 'domani', 'dopodomani']
-    return string in days
+            # foolproofing text parameters
+            if len(params['text']) == 0:
+                params['text'] = [' ']
 
+            # filtering courses
+            courses_filtered = []
+            for i in courses:
+                if Utils.string_contains(i['course_name'], params['text']):
+                    courses_filtered.append(i)
 
-def parse_date(date: str):
-    year = date[-4:]
-    day = date[:2]
-    month = date[3:5]
-    return year + '-' + month + '-' + day
+            # pages number creation
+            mess_len = 0
+            for i in courses_filtered:
+                mess_len += len(i['course_name'] +
+                                ' [{type}]'.format(type=Utils.get_course_type(i['site'])))
+            page_num = ceil(mess_len / 4096)
 
-def __long_mess_fix(message: str):
-    message = message[:4095]
-    message = message[::-1]
-    message = message[message.find('.'):]
-    message = message[::-1]
-    return message
+            # adapting page_param
+            if page_param > page_num:
+                page_param = page_num
+            if page_param <= 0:
+                page_param = 1
+            page_param -= 1
 
-# ! this will go in main
-if sys.argv[1] == 'test':
-    with open(Path('./bot/test.txt')) as f:
-        token = f.readline()
-        which_bot = 'orari_unibo_bot'
-elif sys.argv[1] == 'launch':
-    with open(Path('./bot/token.txt')) as f:
-        token = f.readline()
-        which_bot = 'the_unibot'
+            # pages creation
+            pages = self.__pages_creation(courses_filtered, page_num)
 
+        if pages:  # if pages is not empty
+            keyboard = telegram.ReplyKeyboardMarkup(
+                pages[page_param], one_time_keyboard=True, selective=True)
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
+                pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Nessun corso trovato.')
 
-last_command = None
-last_mess = None  # stores message to check if it's equal to last one
-updater = Updater(token=token, use_context=True)
-dispatcher = updater.dispatcher
-
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-
-
-def start(update, context):
-    db.insert('data', chat_id = update.effective_chat.id, user_id = update.effective_user.id, course = 0, year = 1, detail = 2, curricula = '000-000')
-    db.backup('data')
-    context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                             .format(link='https://github.com/RiccardoBarbieri/t_bot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-
-
-def misc(update, context):
-    global last_command
-    if 'piedi' in update.message.text.lower():
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Qualcuno ha detto PIEDI????')
-        context.bot.send_photo(chat_id=update.effective_chat.id,
-                               photo='https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
-        last_command = None
-    if 'egistr' in update.message.text.lower():
-        text = update.message.text.replace('egistr', '******')
-        context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
-                                 .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
-        context.bot.delete_message(
-            chat_id=update.effective_chat.id, message_id=update.message.message_id)
-        last_command = None
-    if last_command is not None and '/wiki' in last_command.text:
-        wiki(update, context)
-    if last_command is not None and '/set_corso' in last_command.text:
-        chat_id = last_command.chat.id
-        user_id = last_command.from_user.id
-        course_name = update.message.text.split('[')[0].strip()
-        course_code = update.message.text.split('[')[1][:-1].strip()
-        found = {}
-        with open(Path('./resources/flat_courses.json')) as f:
-            courses = json.load(f)
-        for i in courses:
-            if i['course_code'] == course_code:
-                found = i
-        message = 'Corso selezionato: <a href="{link}">{course_name}</a>.'.format(
-            course_name=course_name, link=found['site'])
-        context.bot.send_message(
-            chat_id=chat_id, text=message, reply_markup=telegram.ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-        db.insert('data', chat_id = chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
-        db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, course=course_code)
-        db.backup('data')
-        print('Updated user {user_id} with course {course_code}'.format(
-            course_code=course_code, user_id=user_id))
-        last_command = None
-
-
-def set_corso(update, context):
-    message = '''Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'''
-    context.bot.send_message(chat_id=update.effective_chat.id, text=message)
-    global last_command
-    courses: dict = {}
-    with open(Path('./resources/flat_courses.json')) as f:
-        courses = json.load(f)
-    last_command = update.message
-
-    
-
-    def pages_creation(courses, page_num):
+    def __pages_creation(self, courses: list, page_num: int):
         pages = []
         last_course = 0
         for i in range(page_num):
@@ -181,233 +237,232 @@ def set_corso(update, context):
         return pages
     pages = []
 
-    page_param = 0
-    if len(update.message.text.strip()) == 10:
+    def set_curricula(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+        pass  # to implement
 
-        mess_len = 0
-        for i in courses:
-            mess_len += len(i['course_name'] +
-                            ' [{type}]'.format(type=get_course_type(i['site'])))
-        page_num = ceil(mess_len / 4096)
+    def set_anno(self, update: telegram.Update, context: telegram.ext.CallbackContext):
 
-        pages = pages_creation(courses, page_num)
+        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course=0, year=1, detail=2, curricula='000-000')
+            self.db.insert('last_command', chat_id=update.effective_chat.id, user_id=update.effective_user.id, text = update.message.text)
+        else:
+            self.db.update('last_command', key_chat_id=update.effective_chat.id,
+                           key_user_id=update.effective_user.id, text = update.message.text)
 
-    else:
-        params = parse_params('/set_corso', update.message.text)
+        params = Utils.parse_params(
+            '/set_anno', update.message.text, self.which_bot)
 
-        # foolproofing numeric parameters
-        if len(params['numeric']) == 0:
-            page_param = 1
-        elif len(params['numeric']) >= 1:
-            page_param = params['numeric'][0]
-            if len(params['numeric']) > 1:
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo.')
+        if len(params['numeric']) == 1 and len(params['text']) == 0:
+            if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
+                chat_id = update.effective_chat.id
+                user_id = update.effective_user.id
+                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                   course=0, year=1, detail=2, curricula='000-000')
+                else:
+                    self.db.update('data', key_chat_id=update.effective_chat.id,
+                                   key_user_id=update.effective_user.id, year=params['numeric'][0])
+                self.db.backup('data')
+                context.bot.send_message(chat_id=update.effective_chat.id,
+                                         text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
+                print(self.db.query_by_ids(chat_id, user_id))
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Parametri errati.')
 
-        # foolproofing text parameters
-        if len(params['text']) == 0:
-            params['text'] = [' ']
+    def set_detail(self, update: telegram.Update, context: telegram.ext.CallbackContext):
 
-        # filtering courses
-        courses_filtered = []
-        for i in courses:
-            if string_contains(i['course_name'], params['text']):
-                courses_filtered.append(i)
+        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course=0, year=1, detail=2, curricula='000-000')
+            self.db.insert('last_command', chat_id=update.effective_chat.id, user_id=update.effective_user.id, text = update.message.text)
+        else:
+            self.db.update('last_command', key_chat_id=update.effective_chat.id,
+                           key_user_id=update.effective_user.id, text = update.message.text)
 
-        # pages number creation
-        mess_len = 0
-        for i in courses_filtered:
-            mess_len += len(i['course_name'] +
-                            ' [{type}]'.format(type=get_course_type(i['site'])))
-        page_num = ceil(mess_len / 4096)
+        params = Utils.parse_params(
+            '/set_detail', update.message.text, self.which_bot)
 
-        # adapting page_param
-        if page_param > page_num:
-            page_param = page_num
-        if page_param <= 0:
-            page_param = 1
-        page_param -= 1
+        if len(params['numeric']) == 1 and len(params['text']) == 0:
+            if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
+                chat_id = update.effective_chat.id
+                user_id = update.effective_user.id
+                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                   course=0, year=1, detail=2, curricula='000-000')
+                else:
+                    self.db.update('data', key_chat_id=update.effective_chat.id,
+                                   key_user_id=update.effective_user.id, detail=params['numeric'][0])
+                self.db.backup('data')
+                context.bot.send_message(chat_id=update.effective_chat.id,
+                                         text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
+                print(self.db.query_by_ids(chat_id, user_id))
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Parametri errati.')
 
-        # pages creation
-        pages = pages_creation(courses_filtered, page_num)
+    def orario(self, update: telegram.Update, context: telegram.ext.CallbackContext):
 
-    if pages:  # if pages is not empty
-        keyboard = telegram.ReplyKeyboardMarkup(
-            pages[page_param], one_time_keyboard=True, selective=True)
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
-            pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
-    else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Nessun corso trovato.')
+        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course=0, year=1, detail=2, curricula='000-000')
+            self.db.insert('last_command', chat_id=update.effective_chat.id, user_id=update.effective_user.id, text = update.message.text)
+        else:
+            self.db.update('last_command', key_chat_id=update.effective_chat.id,
+                           key_user_id=update.effective_user.id, text = update.message.text)
 
+        params = Utils.parse_params('/orario', update.message.text, self.which_bot)
 
-def set_curricula(update, context):
-    pass  # to implement
+        date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
 
+        if (len(params['numeric']) == 0 and len(params['text']) == 1) and (re.match(date_regex, params['text'][0])):
+            date = Utils.parse_date(params['text'][0])
+            print(date)
+            messages = self.__messages_creation(
+                date, update.effective_chat.id, update.effective_user.id)
 
-def set_anno(update, context):
-    global last_command
-    last_command = update.message
+            message_default = 'Non ci sono lezioni il {date}.'.format(
+                date=date)
 
-    params = parse_params('/set_anno', update.message.text)
+        elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
+            date = Utils.date_from_days(params['text'][0])
 
-    if len(params['numeric']) == 1 and len(params['text']) == 0:
-        if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
-            chat_id = last_command.chat.id
-            user_id = last_command.from_user.id
-            db.insert('data', chat_id = chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
-            db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, year=params['numeric'][0])
-            db.backup('data')
-            context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
-            print(db.query_by_ids(chat_id, user_id))
-    else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Troppi parametri.')
+            messages = self.__messages_creation(
+                date, update.effective_chat.id, update.effective_user.id)
 
+            message_default = 'Non ci sono lezioni il {date}.'.format(
+                date=date)
 
-def set_detail(update, context):
-    global last_command
-    last_command = update.message
+        else:
+            messages = []
+            message_default = 'Parametri non corretti.'
 
-    params = parse_params('/set_detail', update.message.text)
-
-    if len(params['numeric']) == 1 and len(params['text']) == 0:
-        if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
-            chat_id = last_command.chat.id
-            user_id = last_command.from_user.id
-            db.insert('data', chat_id=chat_id, user_id = user_id, course = 0, year = 1, detail = 2, curricula = '000-000')
-            db.update('data', primary_key_chat_id = chat_id, primary_key_user_id = user_id, detail=params['numeric'][0])
-            db.backup('data')
-            context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
-            print(db.query_by_ids(chat_id, user_id))
-    else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Troppi parametri.')
-
-
-def orario(update, context):
-    global last_command
-    last_command = update.message
-    params = parse_params('/orario', update.message.text)
-    date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
-    if len(params['numeric']) == 0 and len(params['text']) == 1 and (re.match(date_regex, params['text'][0]) or check_days(params['text'][0])):
-        date = parse_date(params['text'][0])
-        result = db.query_by_ids(
-            update.effective_chat.id, update.effective_user.id)
-        with open(Path('./resources/flat_courses.json')) as f:
-            courses = json.load(f)
-        for i in courses:
-            if i['course_code'] == str(result[0]['course']):
-                found = i
-        schedules = UniboAPI.get_orario(found['course_codec'], get_course_type(
-            found['site']), result[0]['year'], date, result[0]['curricula'])
-        messages = []
-        for i in schedules:
-            messages.append(MessageCreator.get_message(i, result[0]['detail']))
         if len(messages) == 0:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Nessuna lezione.')
+                chat_id=update.effective_chat.id, text=message_default)
         for i in messages:
             context.bot.send_message(chat_id=update.effective_chat.id, text=i,
                                      parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-    else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Parametri non corretti.')
 
+    def __messages_creation(self, date: str, chat_id: int, user_id: int):
+        
+        
+        result = self.db.query_by_ids(
+            chat_id, user_id)
 
-def set_autosend(update, context):
-    pass  # to implement
+        courses = self.db.query_all('courses')
+        for i in courses:
+            if str(i['course_code']) == str(result[0]['course']):
+                found = i
 
+        schedules = UniboAPI.get_orario(found['course_codec'], Utils.get_course_type(
+            found['site']), result[0]['year'], date, result[0]['curricula'])
 
-def autosend(update, context):
-    pass  # to implement
+        messages = []
+        for i in schedules:
+            messages.append(MessageCreator.get_message(i, result[0]['detail']))
 
+        return messages
 
-def wiki(update, context):
-    global last_command, last_mess
+    def set_autosend(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+        pass  # to implement
 
-    def temp_func(url_):  # function defined for optimization
-        global last_mess, last_command
+    def autosend(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+        pass  # to implement
+
+    def wiki(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+        
+        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course=0, year=1, detail=2, curricula='000-000')
+            self.db.insert('last_command', chat_id=update.effective_chat.id, user_id=update.effective_user.id, text = update.message.text)
+        else:
+            self.db.update('last_command', key_chat_id=update.effective_chat.id,
+                           key_user_id=update.effective_user.id, text = update.message.text)
+
+        if '/wiki@{bot}'.format(bot=self.which_bot) in update.message.text:
+            text = update.message.text[len('/wiki@' + self.which_bot):]
+        elif '/wiki' in update.message.text:
+            text = update.message.text[6:]
+        else:
+            text = update.message.text
+        
+        if self.last_mess is not None:
+            self.last_mess = self.last_mess.strip()
+
+        results = WikipediaAPI.pages(text)
+        if len(results['names']) != 0:
+            if self.last_mess is not None and self.last_mess.lower() == text.lower():
+                index = results['names'].index(text)
+                url = results['links'][index]
+                self.__temp_func(url, update, context)  
+            else:
+                self.last_mess = text
+                if results['single']:
+                    url = results['links']
+                    self.__temp_func(url, update, context)
+                else:
+                    rows = []
+                    for i in results['names']:
+                        temp = []
+                        temp.append(telegram.KeyboardButton(i))
+                        rows.append(temp)
+                    keyboard = telegram.ReplyKeyboardMarkup(
+                        rows, one_time_keyboard=True, selective=True)
+                    context.bot.send_message(
+                        chat_id=update.effective_chat.id, text='Seleziona la pagina', reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Pagina non trovata.')
+            # self.db.update('last_command', chat_id=update.effective_chat.id,
+            #                user_id=update.effective_user.id, text = '')
+            self.last_mess = None
+
+    # function defined for optimization
+    def __temp_func(self, url_: str, update: telegram.Update, context: telegram.ext.CallbackContext):
 
         try:
             message = WikipediaAPI.summary(url_)
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text=message, reply_markup=telegram.ReplyKeyboardRemove())
+                                     text=message, reply_markup=telegram.ReplyKeyboardRemove())
         except telegram.error.BadRequest as e:
             if str(e) == 'Message is too long':
                 context.bot.send_message(chat_id=update.effective_chat.id,
-                                    text=__long_mess_fix(message), reply_markup=telegram.ReplyKeyboardRemove())
-        last_command = None
-        last_mess = None
-    if '/wiki@{bot}'.format(bot = which_bot) in update.message.text:
-        last_command = update.message
-        text = update.message.text[len('/wiki@' + which_bot):]
-    elif '/wiki' in update.message.text:
-        last_command = update.message
-        text = update.message.text[6:]
-    else:
-        text = update.message.text
-    results = WikipediaAPI.pages(text)
-    if len(results['names']) != 0:
-        if last_mess is not None and last_mess.lower() == text.lower():
-            index = results['names'].index(text)
-            url = results['links'][index]
-            temp_func(url)
+                                         text=self.__long_mess_fix(message), reply_markup=telegram.ReplyKeyboardRemove())
+
+        self.last_mess = None
+
+    def __long_mess_fix(self, message: str):
+        message = message[:4095]
+        message = message[::-1]
+        message = message[message.find('.'):]
+        message = message[::-1]
+        return message
+
+    def bug(self, update: telegram.Update, context: telegram.ext.CallbackContext):
+
+        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course=0, year=1, detail=2, curricula='000-000')
+            self.db.insert('last_command', chat_id=update.effective_chat.id, user_id=update.effective_user.id, text = update.message.text)
         else:
-            last_mess = text
-            if results['single']:
-                url = results['links']
-                temp_func(url)
-            else:
-                rows = []
-                for i in results['names']:
-                    temp = []
-                    temp.append(telegram.KeyboardButton(i))
-                    rows.append(temp)
-                keyboard = telegram.ReplyKeyboardMarkup(
-                    rows, one_time_keyboard=True, selective = True)
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Seleziona la pagina', reply_markup=keyboard, reply_to_message_id=update.message.message_id)
-    else:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text='Pagina non trovata.')
-        last_command = None
-        last_mess = None
+            self.db.update('last_command', key_chat_id=update.effective_chat.id,
+                           key_user_id=update.effective_user.id, text = update.message.text)
+
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot.'
+                                 .format(link='https://github.com/RiccardoBarbieri/t_bot/issues'), parse_mode=ParseMode.HTML)
 
 
-def bug(update, context):
-    global last_command
-    last_command = update.message
-    context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot.'
-                             .format(link='https://github.com/RiccardoBarbieri/t_bot/issues'), parse_mode=ParseMode.HTML)
+if __name__ == '__main__':
 
+    if sys.argv[1] == 'test':
+        with open(Path('./bot/test.txt')) as f:
+            token = f.readline()
+            which_bot = 'orari_unibo_bot'
+    elif sys.argv[1] == 'launch':
+        with open(Path('./bot/token.txt')) as f:
+            token = f.readline()
+            which_bot = 'the_unibot'
 
-start_handler = CommandHandler('start', start)
-misc_handler = MessageHandler(Filters.text & (~Filters.command), misc)
-set_corso_handler = CommandHandler('set_corso', set_corso)
-set_curricula_handler = CommandHandler('set_curricula', set_curricula)
-set_anno_handler = CommandHandler('set_anno', set_anno)
-set_detail_handler = CommandHandler('set_detail', set_detail)
-orario_handler = CommandHandler('orario', orario)
-set_autosend_handler = CommandHandler('set_autosend', set_autosend)
-autosend_handler = CommandHandler('autosend', autosend)
-wiki_handler = CommandHandler('wiki', wiki)
-bug_report_handler = CommandHandler('bug_report', bug)
-
-
-dispatcher.add_handler(start_handler)
-dispatcher.add_handler(misc_handler)
-dispatcher.add_handler(set_corso_handler)
-dispatcher.add_handler(set_curricula_handler)
-dispatcher.add_handler(set_anno_handler)
-dispatcher.add_handler(set_detail_handler)
-dispatcher.add_handler(orario_handler)
-dispatcher.add_handler(set_autosend_handler)
-dispatcher.add_handler(autosend_handler)
-dispatcher.add_handler(wiki_handler)
-dispatcher.add_handler(bug_report_handler)
-
-
-updater.start_polling()
+    bot = Bot(token, which_bot)
