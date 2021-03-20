@@ -75,6 +75,13 @@ def parse_date(date: str):
     month = date[3:5]
     return year + '-' + month + '-' + day
 
+def __long_mess_fix(message: str):
+    message = message[:4095]
+    message = message[::-1]
+    message = message[message.find('.'):]
+    message = message[::-1]
+    return message
+
 # ! this will go in main
 if sys.argv[1] == 'test':
     with open(Path('./bot/test.txt')) as f:
@@ -331,9 +338,8 @@ def wiki(update, context):
                                  text=message, reply_markup=telegram.ReplyKeyboardRemove())
         except telegram.error.BadRequest as e:
             if str(e) == 'Message is too long':
-                message = message[:4095]
-            context.bot.send_message(chat_id=update.effective_chat.id,
-                                    text=message, reply_markup=telegram.ReplyKeyboardRemove())
+                context.bot.send_message(chat_id=update.effective_chat.id,
+                                    text=__long_mess_fix(message), reply_markup=telegram.ReplyKeyboardRemove())
         last_command = None
         last_mess = None
     if '/wiki@{bot}'.format(bot = which_bot) in update.message.text:
