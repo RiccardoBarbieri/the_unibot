@@ -1,1 +1,897 @@
-[]
+[
+    [
+        9256,
+        "ADVANCED DESIGN DEI PRODOTTI",
+        "B14-000"
+    ],
+    [
+        9256,
+        "ADVANCED DESIGN DEI SERVIZI",
+        "B15-000"
+    ],
+    [
+        9239,
+        "ADVANCED MOTORCYCLE ENGINEERING",
+        "B02-000"
+    ],
+    [
+        9239,
+        "ADVANCED POWERTRAIN",
+        "B01-000"
+    ],
+    [
+        9239,
+        "ADVANCED SPORTSCAR MANUFACTURING",
+        "B03-000"
+    ],
+    [
+        9071,
+        "AMAC - ARTS, MUSEOLOGY AND CURATORSHIP / ARTS, MUS\u00c9OLOGIE ET CURATORSHIP",
+        "B43-000"
+    ],
+    [
+        8842,
+        "AMMINISTRAZIONE E CONTROLLO D\u2019IMPRESA",
+        "A01-000"
+    ],
+    [
+        9242,
+        "AMMINISTRAZIONE E GOVERNO DEL TERRITORIO",
+        "B16-000"
+    ],
+    [
+        8532,
+        "ANALISI E MONITORAGGIO DEGLI ECOSISTEMI",
+        "944-000"
+    ],
+    [
+        5705,
+        "ANIMAL PRODUCTION",
+        "B91-000"
+    ],
+    [
+        924,
+        "APPLICAZIONI INDUSTRIALI E BIOMEDICALI DELL'ENERGIA",
+        "B12-000"
+    ],
+    [
+        8855,
+        "APPLIED CRITICAL ARCHAEOLOGY AND HERITAGE",
+        "B67-000"
+    ],
+    [
+        9245,
+        "APPLIED PHYSICS",
+        "B25-000"
+    ],
+    [
+        9217,
+        "AUTOMATION ENGINEERING",
+        "740-000"
+    ],
+    [
+        9266,
+        "BIOENGINEERING OF HUMAN MOVEMENT",
+        "B89-000"
+    ],
+    [
+        5724,
+        "BIOMECCANICA",
+        "B81-000"
+    ],
+    [
+        9266,
+        "BIOMEDICAL ENGINEERING FOR NEUROSCIENCE",
+        "B87-000"
+    ],
+    [
+        8895,
+        "CLIMATE CHANGE ADAPTATION",
+        "B66-000"
+    ],
+    [
+        8853,
+        "COMUNICAZIONE",
+        "538-000"
+    ],
+    [
+        5704,
+        "COMUNICAZIONE DELLE SCIENZE NEI MUSEI",
+        "B94-000"
+    ],
+    [
+        5703,
+        "COMUNICAZIONE PUBBLICA E D'IMPRESA",
+        "B75-000"
+    ],
+    [
+        9242,
+        "CONTRATTI E IMPRESA",
+        "B09-000"
+    ],
+    [
+        9084,
+        "CRIME, JUSTICE AND SECURITY",
+        "B50-000"
+    ],
+    [
+        5705,
+        "CROP PRODUCTION",
+        "B90-000"
+    ],
+    [
+        5698,
+        "CULTURE DELL'INFORMAZIONE",
+        "B73-000"
+    ],
+    [
+        9220,
+        "CULTURE LETTERARIE EUROPEE",
+        "A88-000"
+    ],
+    [
+        8837,
+        "CURRICULUM  DISCIPLINE DELLA MUSICA",
+        "677-000"
+    ],
+    [
+        5827,
+        "CURRICULUM A: GENERALE E APPLICATIVO",
+        "955-000"
+    ],
+    [
+        9072,
+        "CURRICULUM A: METODOLOGIE DI SINTESI E CHIMICA BIO-ORGANICA",
+        "707-000"
+    ],
+    [
+        9073,
+        "CURRICULUM A: RISCHIO IDROGEOLOGICO E PROTEZIONE DELL'AMBIENTE",
+        "B58-000"
+    ],
+    [
+        8028,
+        "CURRICULUM A: TECNICHE DEL SOFTWARE",
+        "A58-000"
+    ],
+    [
+        5723,
+        "CURRICULUM AERONAUTICS",
+        "B79-000"
+    ],
+    [
+        8028,
+        "CURRICULUM B: INFORMATICA PER IL MANAGEMENT",
+        "991-000"
+    ],
+    [
+        9072,
+        "CURRICULUM B: METODOLOGIE DI ANALISI E CARATTERIZZAZIONE",
+        "708-000"
+    ],
+    [
+        9073,
+        "CURRICULUM B: STRATIGRAFIA INTEGRATA PER LE GEORISORSE",
+        "B59-000"
+    ],
+    [
+        8873,
+        "CURRICULUM BIO-DEMOGRAFICO",
+        "722-000"
+    ],
+    [
+        9203,
+        "CURRICULUM BUSINESS AND ADMINISTRATION",
+        "509-000"
+    ],
+    [
+        5827,
+        "CURRICULUM C: DIDATTICO",
+        "839-000"
+    ],
+    [
+        9073,
+        "CURRICULUM C: RAW MATERIALS EXPLORATION AND SUSTAINABILITY",
+        "B60-000"
+    ],
+    [
+        8028,
+        "CURRICULUM C: SISTEMI E RETI",
+        "992-000"
+    ],
+    [
+        8850,
+        "CURRICULUM CLASSICO",
+        "906-000"
+    ],
+    [
+        8418,
+        "CURRICULUM CLIMATE-KIC",
+        "A98-000"
+    ],
+    [
+        8850,
+        "CURRICULUM CULTURE LETTERARIE EUROPEE",
+        "953-000"
+    ],
+    [
+        9067,
+        "CURRICULUM CULTURE OF FASHION",
+        "B45-000"
+    ],
+    [
+        9067,
+        "CURRICULUM DESIGN FOR FASHION",
+        "B47-000"
+    ],
+    [
+        8048,
+        "CURRICULUM DIPLOMATIC AND INTERNATIONAL SCIENCES",
+        "B11-000"
+    ],
+    [
+        8837,
+        "CURRICULUM DISCIPLINE DEL TEATRO",
+        "678-000"
+    ],
+    [
+        9202,
+        "CURRICULUM ECONOMIA E COMMERCIO",
+        "761-000"
+    ],
+    [
+        8873,
+        "CURRICULUM ECONOMIA E IMPRESA",
+        "721-000"
+    ],
+    [
+        9216,
+        "CURRICULUM FILOSOFIA: CONCETTI E CONTESTI",
+        "A85-000"
+    ],
+    [
+        9216,
+        "CURRICULUM FILOSOFIA: CONTESTI E APPLICAZIONI",
+        "A86-000"
+    ],
+    [
+        8770,
+        "CURRICULUM INFORMATION AND COMMUNICATION TECHNOLOGY FOR CLIMATE",
+        "A97-000"
+    ],
+    [
+        9221,
+        "CURRICULUM LAW AND ECONOMICS OF INSURANCE AND FINANCE",
+        "B08-000"
+    ],
+    [
+        8876,
+        "CURRICULUM MARKETING E RICERCHE DI MERCATO",
+        "A35-000"
+    ],
+    [
+        8876,
+        "CURRICULUM METODI QUANTITATIVI PER LE DECISIONI ECONOMICHE",
+        "A36-000"
+    ],
+    [
+        8850,
+        "CURRICULUM MODERNO",
+        "947-000"
+    ],
+    [
+        8048,
+        "CURRICULUM SCIENZE INTERNAZIONALI E DIPLOMATICHE",
+        "B10-000"
+    ],
+    [
+        8845,
+        "CURRICULUM SCIENZE STORICHE",
+        "893-000"
+    ],
+    [
+        8786,
+        "CURRICULUM SERVIZIO SOCIALE",
+        "251-000"
+    ],
+    [
+        8786,
+        "CURRICULUM SOCIOLOGIA E RICERCA SOCIALE",
+        "225-000"
+    ],
+    [
+        5723,
+        "CURRICULUM SPACE",
+        "B80-000"
+    ],
+    [
+        8873,
+        "CURRICULUM STATS AND MATHS",
+        "A32-000"
+    ],
+    [
+        9067,
+        "CURRICULUM STRATEGY IN FASHION MANAGEMENT",
+        "B46-000"
+    ],
+    [
+        8845,
+        "CURRICULUM STUDI ORIENTALI",
+        "905-000"
+    ],
+    [
+        981,
+        "CURRICULUM WOMEN'S AND GENDER STUDIES - STUDI DI GENERE E DELLE DONNE (GEMMA)",
+        "736-000"
+    ],
+    [
+        930,
+        "CURRICULUM: COSTRUZIONI PER L\u2019EDILIZIA E LE INFRASTRUTTURE",
+        "957-000"
+    ],
+    [
+        9065,
+        "CURRICULUM: ELETTRONICA",
+        "995-000"
+    ],
+    [
+        930,
+        "CURRICULUM: IDRAULICA E TERRITORIO",
+        "958-000"
+    ],
+    [
+        930,
+        "CURRICULUM: INFRASTRUTTURE VIARIE E TRASPORTI",
+        "862-000"
+    ],
+    [
+        930,
+        "CURRICULUM: STRUTTURE",
+        "856-000"
+    ],
+    [
+        9065,
+        "CURRICULUM: TELECOMUNICAZIONI",
+        "996-000"
+    ],
+    [
+        8418,
+        "CURRICULUM: WATER AND COASTAL MANAGEMENT",
+        "968-000"
+    ],
+    [
+        8418,
+        "Curriculum ANALISI E GESTIONE DELL'AMBIENTE",
+        "000-000"
+    ],
+    [
+        8855,
+        "Curriculum ARCHEOLOGIA E CULTURE DEL MONDO ANTICO",
+        "000-000"
+    ],
+    [
+        9071,
+        "Curriculum ARTI VISIVE",
+        "000-000"
+    ],
+    [
+        9230,
+        "Curriculum CONSULENTE DEL LAVORO E DELLE RELAZIONI AZIENDALI",
+        "000-000"
+    ],
+    [
+        8847,
+        "Curriculum ECONOMIA DEL TURISMO",
+        "000-000"
+    ],
+    [
+        8848,
+        "Curriculum ECONOMIA DELL'IMPRESA",
+        "000-000"
+    ],
+    [
+        9221,
+        "Curriculum ECONOMIA E DIRITTO",
+        "000-000"
+    ],
+    [
+        8880,
+        "Curriculum HEALTH ECONOMICS AND MANAGEMENT / ECONOMIA SANITARIA E MANAGEMENT",
+        "000-000"
+    ],
+    [
+        8829,
+        "Curriculum INGEGNERIA DEI PROCESSI E DEI SISTEMI EDILIZI",
+        "000-000"
+    ],
+    [
+        8614,
+        "Curriculum INGEGNERIA E SCIENZE INFORMATICHE",
+        "000-000"
+    ],
+    [
+        8770,
+        "Curriculum INGEGNERIA ELETTRONICA E TELECOMUNICAZIONI PER L\u2019ENERGIA",
+        "000-000"
+    ],
+    [
+        981,
+        "Curriculum LETTERATURE MODERNE, COMPARATE E POSTCOLONIALI",
+        "000-000"
+    ],
+    [
+        9246,
+        "Curriculum LOW CARBON TECHNOLOGIES AND SUSTAINABLE CHEMISTRY",
+        "000-000"
+    ],
+    [
+        8406,
+        "Curriculum MANAGEMENT E MARKETING",
+        "000-000"
+    ],
+    [
+        8048,
+        "Curriculum SCIENZE INTERNAZIONALI E DIPLOMATICHE",
+        "000-000"
+    ],
+    [
+        5696,
+        "Curriculum SOCIET\u00c0 E CULTURE DEL MEDITERRANEO: ISTITUZIONI, SICUREZZA, AMBIENTE",
+        "000-000"
+    ],
+    [
+        9174,
+        "Curriculum SPECIALIZED TRANSLATION",
+        "000-000"
+    ],
+    [
+        5830,
+        "Curriculum VERDE ORNAMENTALE E TUTELA DEL PAESAGGIO",
+        "000-000"
+    ],
+    [
+        5829,
+        "Curriculum WORK, ORGANIZATIONAL AND PERSONNEL PSYCHOLOGY",
+        "000-000"
+    ],
+    [
+        9222,
+        "DATA SCIENCE",
+        "A91-000"
+    ],
+    [
+        5704,
+        "DIDATTICA DELLA COMUNICAZIONE SCIENTIFICA",
+        "B96-000"
+    ],
+    [
+        5704,
+        "DIDATTICA DELLE SCIENZE DELLA NATURA",
+        "B93-000"
+    ],
+    [
+        9245,
+        "DIDATTICA E STORIA DELLA FISICA",
+        "B26-000"
+    ],
+    [
+        5704,
+        "DIDATTICA E SVILUPPO SOSTENIBILE",
+        "B95-000"
+    ],
+    [
+        897,
+        "DIREZIONE AZIENDALE",
+        "755-000"
+    ],
+    [
+        8894,
+        "EARTH RESOURCES ENGINEERING",
+        "976-000"
+    ],
+    [
+        9202,
+        "ECONOMIA E MANAGEMENT",
+        "A59-000"
+    ],
+    [
+        8420,
+        "ECONOMIA E POLITICA ECONOMICA",
+        "979-000"
+    ],
+    [
+        9066,
+        "ELECTRICAL ENGINEERING",
+        "A27-000"
+    ],
+    [
+        934,
+        "ELECTRONIC TECHNOLOGIES FOR BIG-DATA AND INTERNET OF THINGS",
+        "A76-000"
+    ],
+    [
+        934,
+        "ELECTRONICS FOR INTELLIGENT SYSTEMS, BIG-DATA AND INTERNET OF THINGS",
+        "B70-000"
+    ],
+    [
+        9249,
+        "ENVIRONMENTAL OFFSHORE ENGINEERING",
+        "B30-000"
+    ],
+    [
+        9084,
+        "EUROPEAN AFFAIRS",
+        "B52-000"
+    ],
+    [
+        924,
+        "FONTI ENERGETICHE TRADIZIONALI E RINNOVABILI",
+        "B13-000"
+    ],
+    [
+        9203,
+        "FOOD SYSTEM MANAGEMENT",
+        "A61-000"
+    ],
+    [
+        9242,
+        "FOOD, SPORT E WELLNESS",
+        "B18-000"
+    ],
+    [
+        9084,
+        "FORECASTING, INNOVATION AND CHANGE",
+        "B53-000"
+    ],
+    [
+        8829,
+        "GESTIONE DEL PROCESSO EDILIZIO NEL RECUPERO DI EDIFICI STORICI",
+        "597-000"
+    ],
+    [
+        8842,
+        "GESTIONE D\u2019IMPRESA",
+        "A02-000"
+    ],
+    [
+        8406,
+        "GESTIONE E INNOVAZIONE D\u2019IMPRESA",
+        "B71-000"
+    ],
+    [
+        5703,
+        "GIORNALISMO E MEDIA DIGITALI",
+        "B76-000"
+    ],
+    [
+        9257,
+        "GLOBAL CHANGE ECOLOGY AND SUSTAINABLE DEVELOPMENT GOALS",
+        "B33-000"
+    ],
+    [
+        8845,
+        "GLOBAL CULTURES",
+        "A55-000"
+    ],
+    [
+        8420,
+        "HEALTH ECONOMICS & MANAGEMENT",
+        "980-000"
+    ],
+    [
+        8420,
+        "HEALTH ECONOMICS, MANAGEMENT AND POLICY",
+        "C01-000"
+    ],
+    [
+        8829,
+        "HISTORIC BUILDINGS REHABILITATION",
+        "640-000"
+    ],
+    [
+        5724,
+        "IMPIANTI INDUSTRIALI",
+        "913-000"
+    ],
+    [
+        8895,
+        "INFRASTRUCTURE DESIGN IN RIVER BASINS",
+        "A29-000"
+    ],
+    [
+        8896,
+        "INGEGNERIA ALIMENTARE",
+        "760-000"
+    ],
+    [
+        9066,
+        "INGEGNERIA DELL\u2019ENERGIA ELETTRICA",
+        "A26-000"
+    ],
+    [
+        8896,
+        "INGEGNERIA DI PROCESSO",
+        "973-000"
+    ],
+    [
+        934,
+        "INGEGNERIA ELETTRONICA",
+        "A75-000"
+    ],
+    [
+        8894,
+        "INGEGNERIA PER L'AMBIENTE E IL TERRITORIO",
+        "975-000"
+    ],
+    [
+        9266,
+        "INNOVATIVE TECHNOLOGIES IN DIAGNOSTICS AND THERAPY",
+        "B88-000"
+    ],
+    [
+        9084,
+        "INTERNATIONAL AFFAIRS",
+        "B51-000"
+    ],
+    [
+        9237,
+        "INTERNATIONAL COOPERATION ON INTERCULTURAL HERITAGE",
+        "A95-000"
+    ],
+    [
+        9084,
+        "INTERNATIONAL CRIMINOLOGY",
+        "B54-000"
+    ],
+    [
+        897,
+        "INTERNATIONAL MANAGEMENT",
+        "756-000"
+    ],
+    [
+        8847,
+        "INTERNATIONAL TOURISM AND LEISURE INDUSTRIES",
+        "A25-000"
+    ],
+    [
+        9220,
+        "ITALIAN STUDIES",
+        "A89-000"
+    ],
+    [
+        9220,
+        "ITALIANISTICA",
+        "A87-000"
+    ],
+    [
+        981,
+        "LETTERATURE MODERNE, COMPARATE E POSTCOLONIALI",
+        "946-000"
+    ],
+    [
+        9222,
+        "LIFE STATISTICS",
+        "A92-000"
+    ],
+    [
+        5724,
+        "MACCHINE A FLUIDO",
+        "912-000"
+    ],
+    [
+        9202,
+        "MANAGEMENT",
+        "A60-000"
+    ],
+    [
+        9245,
+        "MATERIALS PHYSICS AND NANOSCIENCE",
+        "A74-000"
+    ],
+    [
+        5724,
+        "MECCANICA DELL\u2019AUTOMAZIONE E ROBOTICA",
+        "B82-000"
+    ],
+    [
+        9235,
+        "MEDICINA DELLE PIANTE",
+        "943-000"
+    ],
+    [
+        5724,
+        "MOTOVEICOLO",
+        "B83-000"
+    ],
+    [
+        9245,
+        "NUCLEAR AND SUBNUCLEAR PHYSICS",
+        "B24-000"
+    ],
+    [
+        9222,
+        "OFFICIAL STATISTICS",
+        "A93-000"
+    ],
+    [
+        9249,
+        "OFFSHORE ENERGY TECHNOLOGIES",
+        "B29-000"
+    ],
+    [
+        8895,
+        "OFFSHORE ENGINEERING",
+        "A30-000"
+    ],
+    [
+        9249,
+        "OFFSHORE STRUCTURES",
+        "B31-000"
+    ],
+    [
+        5698,
+        "ORGANIZZAZIONE DEI MEDIA",
+        "B74-000"
+    ],
+    [
+        9218,
+        "PERCORSO ARCHEOLOGICO",
+        "A83-000"
+    ],
+    [
+        8853,
+        "PERCORSO INTEGRATO UNIVERSIT\u00c0 E IMPRESA",
+        "952-000"
+    ],
+    [
+        8848,
+        "PERCORSO MANAGERIALE",
+        "B69-000"
+    ],
+    [
+        8848,
+        "PERCORSO PROFESSIONALE",
+        "B68-000"
+    ],
+    [
+        9218,
+        "PERCORSO STORICO-ARTISTICO",
+        "A84-000"
+    ],
+    [
+        9247,
+        "POLITICA E GOVERNO NEL MONDO GLOBALE",
+        "997-000"
+    ],
+    [
+        9247,
+        "POLITICA E SICUREZZA INTERNAZIONALE",
+        "802-000"
+    ],
+    [
+        5696,
+        "POLITICA, DIRITTI, RISORSE",
+        "B85-000"
+    ],
+    [
+        9085,
+        "POLITICS AND SOCIAL POLICY",
+        "B44-000"
+    ],
+    [
+        9235,
+        "PRODUZIONI E BIOTECNOLOGIE VEGETALI",
+        "A37-000"
+    ],
+    [
+        8532,
+        "PROGETTAZIONE E GESTIONE DEGLI SPAZI VERDI",
+        "945-000"
+    ],
+    [
+        5724,
+        "PROGETTAZIONE MECCANICA E MODELLAZIONE",
+        "914-000"
+    ],
+    [
+        9237,
+        "PROTECTION OF HUMAN RIGHTS AND INTERNATIONAL COOPERATION",
+        "A94-000"
+    ],
+    [
+        8853,
+        "RELAZIONI INTERNAZIONALI",
+        "950-000"
+    ],
+    [
+        9085,
+        "SCIENZA DELL\u2019AMMINISTRAZIONE",
+        "B55-000"
+    ],
+    [
+        8853,
+        "SCIENZE DELL\u2019ORGANIZZAZIONE",
+        "949-000"
+    ],
+    [
+        9257,
+        "SCIENZE E GESTIONE DELLA NATURA",
+        "B32-000"
+    ],
+    [
+        9220,
+        "SCIENZE LINGUISTICHE",
+        "A90-000"
+    ],
+    [
+        8842,
+        "SERVICE MANAGEMENT",
+        "A03-000"
+    ],
+    [
+        5696,
+        "SICUREZZA, LINGUAGGI, ISTITUZIONI",
+        "B86-000"
+    ],
+    [
+        9217,
+        "SISTEMI PER L'AUTOMAZIONE",
+        "739-000"
+    ],
+    [
+        8853,
+        "SOCIOLOGIA",
+        "951-000"
+    ],
+    [
+        5696,
+        "STORIA, RELIGIONI, AMBIENTE",
+        "B84-000"
+    ],
+    [
+        8895,
+        "STRUCTURAL ENGINEERING",
+        "A28-000"
+    ],
+    [
+        8895,
+        "SUSTAINABLE MOBILITY IN URBAN AREAS",
+        "I01-000"
+    ],
+    [
+        8896,
+        "SUSTAINABLE TECHNOLOGIES AND BIOTECHNOLOGIES FOR ENERGY AND MATERIALS",
+        "598-000"
+    ],
+    [
+        8518,
+        "TECNICHE ERBORISTICHE",
+        "775-000"
+    ],
+    [
+        9235,
+        "TECNICO-ECONOMICO E GESTIONALE",
+        "A38-000"
+    ],
+    [
+        9085,
+        "TEORIA DELL'ORGANIZZAZIONE",
+        "B56-000"
+    ],
+    [
+        9245,
+        "THEORETICAL PHYSICS",
+        "B23-000"
+    ],
+    [
+        8518,
+        "TOSSICOLOGIA AMBIENTALE",
+        "777-000"
+    ],
+    [
+        9242,
+        "TRASPORTI, LOGISTICA E SISTEMI PORTUALI",
+        "B17-000"
+    ]
+]
