@@ -48,12 +48,15 @@ class Database():
                             PRIMARY KEY (blobber)
                             ) WITHOUT ROWID;''')
 
-    def insert(self, table, **kwargs):
+    def insert(self, table: str, **kwargs):
 
         data = tuple([kwargs[i] for i in kwargs])
         cols = tuple([i for i in kwargs])
 
-        query = 'INSERT INTO {table} '.format(table = table) + (str(cols).replace(',', '') if len(cols) == 1 else str(cols)) + ' VALUES (' + ('?, ' * len(cols))[:-2] + ')'
+        str_cols = (str(cols).replace(',', '') if len(cols) == 1 else str(cols))
+        str_data = ('?, ' * len(cols))[:-2]
+
+        query = 'INSERT INTO {table} '.format(table = table) + str_cols + ' VALUES (' + str_data + ')'
 
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
@@ -63,45 +66,78 @@ class Database():
                 print('{msg}, not inserting {data}'.format(
                     msg=str(e), data=str(data)))
 
-    # pass primary key possibly first and as follows: primary_key_[key1] = val1, primary_key_[key2] = val2 ...
-    def update(self, table, **kwargs):
+    # pass keys for where clause possibly first and as follows: key_[key1] = val1, key_[key2] = val2 ...
+    def update(self, table: str, **kwargs):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             where_data = tuple([kwargs[i]
-                                for i in kwargs if ('primary_key' in i)])
-            where_cols = tuple([i.replace('primary_key_', '')
-                                for i in kwargs if ('primary_key' in i)])
+                                for i in kwargs if ('key_' in i)])
+            where_cols = tuple([i.replace('key_', '')
+                                for i in kwargs if ('key_' in i)])
 
             data = tuple([kwargs[i]
-                          for i in kwargs if not ('primary_key' in i)])
-            cols = tuple([i for i in kwargs if not ('primary_key' in i)])
+                          for i in kwargs if not ('key_' in i)])
+            cols = tuple([i for i in kwargs if not ('key_' in i)])
             
-            str_cols = (str(cols).replace(',', '') if len(cols) == 1 else str(cols))
-            str_data = ('?, ' * len(data))[:-2]
+            str_cols = (str(cols).replace(',', '') if len(cols) == 1 else str(cols)).replace('\'', '')
+            str_data = '(' + ('?, ' * len(data))[:-2].replace('\'', '') + ')'
 
-            str_where_cols = (str(where_cols).replace(',', '') if len(where_cols) == 1 else str(where_cols))
-            str_where_data = ('?, ' * len(where_data))[:-2]
+            str_where_cols = (str(where_cols).replace(',', '') if len(where_cols) == 1 else str(where_cols)).replace('\'', '')
+            str_where_data = '(' + ('?, ' * len(where_data))[:-2].replace('\'', '') + ')'
 
             query = 'UPDATE {table} '.format(table = table) + 'SET ' + str_cols + ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
-            print(query)
-
             try:
-                cursor.execute(query, data + cols)
+                cursor.execute(query, data + where_data)
             except sqlite3.IntegrityError as e:
                 print('{msg}, not inserting {data}'.format(
                     msg=str(e), data=str(data)))
 
-    def query_all(self):
+    # pass keys for where clause possibly first and as follows: key_[key1] = val1, key_[key2] = val2 ...
+    def query(self, table: str, **kwargs) -> dict:
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
-            cursor.execute('SELECT * FROM data')
-            result = []
-            for i in cursor.fetchall():
+            where_data = tuple([kwargs[i]
+                                for i in kwargs if ('key_' in i)])
+            where_cols = tuple([i.replace('key_', '')
+                                for i in kwargs if ('key_' in i)])
+
+            str_where_cols = (str(where_cols).replace(',', '') if len(where_cols) == 1 else str(where_cols)).replace('\'', '')
+            str_where_data = ('?, ' * len(where_data))[:-2].replace('\'', '')
+
+            query = 'SELECT * FROM {table}'.format(table = table) + ' WHERE ' + str_where_cols + ' = (' + str_where_data + ')'
+            
+            cursor.execute(query, where_data)
+
+            return self.__dict_creation(table, cursor.fetchall())
+
+    def __dict_creation(self, table: str, fetchall: list) -> dict:
+        result = []
+        if table == 'data':    
+            for i in fetchall:
                 result.append(dict(
                     chat_id=i[0], user_id=i[1], course=i[2], year=i[3], detail=i[4], curricula=i[5]))
-            return result
+        elif table == 'courses':
+            for i in fetchall:
+                result.append(dict(course_name = i[0], course_code = i[1], campus = i[2], international = i[3], access = i[4], site = i[5], course_codec = i[6]))
+        elif table == 'curriculas':
+            for i in fetchall:
+                result.append(dict(course_code = i[0], label = i[1], code = i[2]))
+        elif table == 'test':
+            print(fetchall)
+            for i in fetchall:
+                result.append(dict(blobber = i[0]))
+        return result
 
-    def custom_query(self, query='', data=None):
+
+    def query_all(self, table: str) -> dict:
+        with sqlite3.connect(self.path) as connection:
+            cursor = connection.cursor()
+            cursor.execute('SELECT * FROM {table}'.format(table = table))
+            
+            return self.__dict_creation(table, cursor.fetchall())
+
+
+    def custom_query(self, query: str='', data: tuple=None) -> list:
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             
@@ -111,7 +147,7 @@ class Database():
                 cursor.execute(query, data)
             return cursor.fetchall()
 
-    def query_by_ids(self, chat_id, user_id):
+    def query_by_ids(self, chat_id: int, user_id: int) -> list:
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             data = (chat_id, user_id)
@@ -123,13 +159,13 @@ class Database():
                     chat_id=i[0], user_id=i[1], course=i[2], year=i[3], detail=i[4], curricula=i[5]))
             return result
 
-    def delete_all(self, table):
+    def delete_all(self, table: str):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             cursor.execute(
                 'DELETE FROM {table} WHERE 1 = 1'.format(table=table))
 
-    def backup(self, table):
+    def backup(self, table: str):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
             cursor.execute('SELECT * FROM {table}'.format(table=table))
@@ -137,7 +173,7 @@ class Database():
             with open('./database/backup_{table}.json'.format(table=table), 'w+') as f:
                 json.dump(data, f)
 
-    def restore_backup(self, table):
+    def restore_backup(self, table: str):
         with open(Path('./database/backup_{table}.json'.format(table=table))) as f:
             data = json.load(f)
         if table == 'data':
@@ -157,12 +193,13 @@ class Database():
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
     
-    db.insert('test', blobber = 'sos')
-    print(db.custom_query('SELECT * FROM test'))
-    db.update('test', primary_key_blobber = 'sos', blobber = 'ASD')
-    print(db.custom_query('SELECT * FROM test'))
 
-    # blob = pickle.dumps(db)
-    # db.custom_query('INSERT INTO test VALUES ({blobber})'.format(blobber = blob))
-    # db1 = pickle.loads(db.custom_query('SELECT * FROM test')[0][0])
-    # print(type(db1.path))
+    
+
+
+
+
+# blob = pickle.dumps(db)
+# db.insert('test', blobber = blob)
+# db1 = pickle.loads(db.query_all('test')[2]['blobber'])
+# print(type(db1.path))
