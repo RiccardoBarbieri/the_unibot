@@ -75,7 +75,6 @@ def parse_date(date: str):
     month = date[3:5]
     return year + '-' + month + '-' + day
 
-# ! this will go in main
 if sys.argv[1] == 'test':
     with open(Path('./bot/test.txt')) as f:
         token = f.readline()
