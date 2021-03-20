@@ -382,14 +382,11 @@ class Bot():
                            key_user_id=update.effective_user.id, text = update.message.text)
 
         if '/wiki@{bot}'.format(bot=self.which_bot) in update.message.text:
-            text = update.message.text[len('/wiki@' + self.which_bot):]
+            text = update.message.text[(7 + len(self.which_bot)):]
         elif '/wiki' in update.message.text:
             text = update.message.text[6:]
         else:
             text = update.message.text
-        
-        if self.last_mess is not None:
-            self.last_mess = self.last_mess.strip()
 
         results = WikipediaAPI.pages(text)
         if len(results['names']) != 0:
