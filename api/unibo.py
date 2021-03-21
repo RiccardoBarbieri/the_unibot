@@ -53,7 +53,6 @@ class UniboAPI():
 
 
         final_schedule = []
-        pprint(schedule)
         for i in schedule:
 
             try:
