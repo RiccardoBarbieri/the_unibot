@@ -88,7 +88,7 @@ class Bot():
                        course=0, year=1, detail=2, curricula='000-000')
         self.db.backup('data')
         context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                                 .format(link='https://github.com/RiccardoBarbieri/t_bot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                                 .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     def misc(self, update: Update, context: CallbackContext):
 
@@ -410,7 +410,7 @@ class Bot():
                 found = i
 
         schedules = UniboAPI.get_orario(found['course_codec'], Utils.get_course_type(
-            found['site']), result[0]['year'], date, result[0]['curricula'])
+            found['site']), result[0]['year'], Utils.get_course_lang(found['site']), date)
 
         messages = []
         for i in schedules:
@@ -487,7 +487,7 @@ class Bot():
         self.__update_last_command(update, context)
 
         context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot.'
-                                 .format(link='https://github.com/RiccardoBarbieri/t_bot/issues'), parse_mode=ParseMode.HTML)
+                                 .format(link='https://github.com/RiccardoBarbieri/the_unibot/issues'), parse_mode=ParseMode.HTML)
 
     def __update_last_command(self, update: Update, context: CallbackContext):
         if len(self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)) == 0:

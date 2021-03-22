@@ -40,6 +40,14 @@ class Utils():
     def get_course_type(url: str):
         parts = url.split('/')
         return parts[-2]
+    
+    def get_course_lang(url: str):
+        parts = url.split('/')
+        if 'cycle' in url:
+            return 'timetable'
+        else:
+            return 'orario-lezioni'
+
 
     @staticmethod
     def string_contains(string, params):
