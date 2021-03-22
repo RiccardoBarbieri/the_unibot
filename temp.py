@@ -1,10 +1,11 @@
-from pathlib import Path
-import json
-from database.database import Database
-from pprint import pprint
-import datetime
+from telegram.message import Message
+from telegram import update
+from telegram.chat import Chat
+from datetime import datetime
+import pickle
 
+message = Message(1234, datetime.now(), Chat(1234, 'private'))
 
-a = datetime.datetime.now()
+pick = pickle.dumps(update.message)
 
-print(a)
+print(pick)
