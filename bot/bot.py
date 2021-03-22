@@ -507,7 +507,7 @@ if __name__ == '__main__':
             token = f.readline()
             which_bot = 'orari_unibo_bot'
     elif sys.argv[1] == 'launch':
-        with open(Path('./bot/token.txt')) as f:
+        with open(Path('./keys/token.txt')) as f:
             token = f.readline()
             which_bot = 'the_unibot'
 
