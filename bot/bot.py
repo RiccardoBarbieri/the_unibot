@@ -396,12 +396,6 @@ class Bot():
             text = update.message.text[6:]
         else:
             text = update.message.text
-<<<<<<< HEAD
-
-        if self.last_mess is not None:
-            self.last_mess = self.last_mess.strip()
-=======
->>>>>>> 7cde85a388c9a85a0f1ead68de6a61d68ddeba90
 
         results = WikipediaAPI.pages(text)
         if len(results['names']) != 0:
