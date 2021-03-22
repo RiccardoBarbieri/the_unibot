@@ -6,5 +6,5 @@ from pprint import pprint
 
 db = Database('./database/telegram.db')
 
-curriculas = db.query_all('curriculas')
-curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
+# db.update('data', key_chat_id = -535696384, key_user_id = 913871757, course = 9244)
+print(db.query_by_ids(-535696384, 913871757))

@@ -89,5 +89,5 @@ class Utils():
         weather = data['weather'][0]['main']
         temp_min = data['main']['temp_min']
         temp_max = data['main']['temp_max']
-        message = weather + '\nMin ' + str(temp_min) + ' - Max ' + str(temp_max)
+        message = datetime.now().date().strftime('%d-%m-%Y') + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + '°C - Max ' + str(temp_max) + '°C'
         return message
