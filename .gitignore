@@ -2,6 +2,5 @@
 chromedriver.exe
 /.vscode/
 *.pyc
-*.db
-/__pycache__/
 /database/*.db
+/database/backup*.json
