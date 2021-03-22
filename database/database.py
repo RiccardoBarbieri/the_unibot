@@ -204,7 +204,6 @@ class Database():
             cols_parsed = tuple()
             for i in cols_selection:
                 cols_parsed += tuple([i[:-1]])
-            print(cols_parsed)
 
             return self.__dict_creation(cols_parsed, cursor.fetchall())
 
