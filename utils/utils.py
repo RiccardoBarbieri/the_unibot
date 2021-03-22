@@ -54,7 +54,7 @@ class Utils():
         format_string = '%d-%m-%Y'
         today: date = datetime.now().date()
         if day == 'oggi':
-            new_date_str = today.strftime(format)
+            new_date_str = today.strftime(format_string)
         elif day == 'domani':
             tomorrow = today + timedelta(days = 1)
             new_date_str = tomorrow.strftime(format_string)
@@ -76,7 +76,7 @@ class Utils():
         with open(Path('./keys/weather.txt')) as f:
             api_key = f.readline()
         base_url = "https://api.openweathermap.org/data/2.5/weather?"
-        url = base_url+"appid="+api_key+"&q="+city
+        url = base_url+"&appid="+api_key+"&q="+city+'&units=metric'
         response = requests.get(url)
         weather = response.json()
         if weather['cod'] != 401:
@@ -89,5 +89,5 @@ class Utils():
         weather = data['weather'][0]['main']
         temp_min = data['main']['temp_min']
         temp_max = data['main']['temp_max']
-        message = weather + '\nMin ' + temp_min + ' - Max ' + temp_max
+        message = weather + '\nMin ' + str(temp_min) + ' - Max ' + str(temp_max)
         return message
