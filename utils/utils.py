@@ -1,6 +1,8 @@
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
+from pathlib import Path
+import request
 
 class Utils():
 
@@ -69,4 +71,23 @@ class Utils():
             string1 = string1[:len(string2)]
         return [i for i in range(len(string1)) if string1[i] != string2[i]][0]
 
-    
+    @staticmethod
+    def get_weather(city: str):
+        with open(Path('./keys/weather.txt')) as f:
+            api_key = f.readline()
+        base_url = "https://api.openweathermap.org/data/2.5/weather?"
+        url = base_url+"appid="+api_key+"&q="+city
+        response = request.get(url)
+        weather = response.json()
+        if weather['cod'] != 401:
+            return Utils.parse_weather(weather)
+        else:
+            return 'Meteo non disponibile'
+
+    @staticmethod
+    def parse_weather(data: dict):
+        weather = data['weather'][0]['main']
+        temp_min = data['main']['temp_min']
+        temp_max = data['main']['temp_max']
+        message = weather + '\nMin ' + temp_min + ' - Max ' + temp_max
+        return message
