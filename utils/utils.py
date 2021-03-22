@@ -77,7 +77,7 @@ class Utils():
             api_key = f.readline()
         base_url = "https://api.openweathermap.org/data/2.5/weather?"
         url = base_url+"appid="+api_key+"&q="+city
-        response = request.get(url)
+        response = requests.get(url)
         weather = response.json()
         if weather['cod'] != 401:
             return Utils.parse_weather(weather)
