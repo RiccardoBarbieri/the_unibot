@@ -361,8 +361,9 @@ class Bot():
 
         self.__update_last_command(update, context)
         course_code = self.db.query_by_ids(chat_id = update.effective_chat.id, user_id = update.effective_user.id)[0]['course']
-        city = self.db.query('courses', course_code = course_code)[0]['campus'].strip()
-        print(city)
+        city = self.db.query('courses', key_course_code = course_code)[0]['campus'].strip()
+        
+        context.bot.send_message(chat_id=update.effective_chat.id, text=Utils.get_weather(city))
 
         params = Utils.parse_params(
             '/orario', update.message.text, self.which_bot)
@@ -371,7 +372,7 @@ class Bot():
 
         if (len(params['numeric']) == 0 and len(params['text']) == 1) and (re.match(date_regex, params['text'][0])):
             date = Utils.parse_date(params['text'][0])
-            print(date)
+
             messages = self.__messages_creation(
                 date, update.effective_chat.id, update.effective_user.id)
 
