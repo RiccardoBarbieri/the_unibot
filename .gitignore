@@ -3,4 +3,4 @@ chromedriver.exe
 /.vscode/
 *.pyc
 /database/*.db
-/backup/backup*.json
+/database/backup*.json
