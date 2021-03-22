@@ -162,7 +162,8 @@ class Database():
 
             return self.__dict_creation(cols, cursor.fetchall())
 
-    # pass keys for where clause possibly first and as follows: col1_sel[1/2], col2_sel[1/2], col11 = col21, col12 = col22 ...
+    # pass columns to display as follows: col1[1/2], col2[1/2] ...
+    # pass keys for where clause as follows: col11 = col21, col12 = col22 ...
     def query_join(self, table1, table2, *args, **kwargs):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
@@ -200,9 +201,10 @@ class Database():
             
             cursor.execute(query)
             
-            cols_parsed = []
+            cols_parsed = tuple()
             for i in cols_selection:
-                cols_parsed.append(i[:-1])
+                cols_parsed += tuple([i[:-1]])
+            print(cols_parsed)
 
             return self.__dict_creation(cols_parsed, cursor.fetchall())
 
@@ -220,14 +222,15 @@ class Database():
     def query_by_ids(self, chat_id: int, user_id: int) -> list:
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
+            
+            cursor.execute("PRAGMA table_info({table})".format(table = 'data'))
+            cols = tuple([i[1] for i in cursor.fetchall()])
+
             data = (chat_id, user_id)
             query = 'SELECT * FROM data WHERE (chat_id, user_id) = (?,?)'
             cursor.execute(query, data)
-            result = []
-            for i in cursor.fetchall():
-                result.append(dict(
-                    chat_id=i[0], user_id=i[1], course=i[2], year=i[3], detail=i[4], curricula=i[5]))
-            return result
+                
+            return self.__dict_creation(cols, cursor.fetchall())
 
     def delete_all(self, table: str):
         with sqlite3.connect(self.path) as connection:
@@ -238,37 +241,29 @@ class Database():
     def backup(self, table: str):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
+
+            cursor.execute("PRAGMA table_info({table})".format(table = table))
+            cols = tuple([i[1] for i in cursor.fetchall()])
+
             cursor.execute('SELECT * FROM {table}'.format(table=table))
-            data = cursor.fetchall()
+            
+            dump = self.__dict_creation(cols, cursor.fetchall())
+
             with open('./database/backup_{table}.json'.format(table=table), 'w+') as f:
-                json.dump(data, f)
+                json.dump(dump, f)
 
     def restore_backup(self, table: str):
         with open(Path('./database/backup_{table}.json'.format(table=table))) as f:
             data = json.load(f)
-        if table == 'data':
-            for i in data:
-                self.insert(table, chat_id=i[0], user_id=i[1],
-                            course=i[2], year=i[3], detail=i[4], curricula=i[5])
-        elif table == 'courses':
-            for i in data:
-                self.insert(table, course_name=str(i[0]), course_code=int(i[1]), campus=str(
-                    i[2]), international=int(i[3]), access=str(i[4]), site=str(i[5]), course_codec=str(i[6]))
-        elif table == 'curriculas':
-            for i in data:
-                self.insert(table, course_code=int(i[0]), label=str(i[1]),
-                            code=str(i[2]))
+            
+        for i in data:
+            self.insert(table, **i)
 
 
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
     
-    pprint(db.query_all('data'))
-
+    
 
 # pprint(db.query_join('courses', 'curriculas', 'course_code1', 'code2', course_code = 'course_code'))
 
-# blob = pickle.dumps(db)
-# db.insert('test', blobber = blob)
-# db1 = pickle.loads(db.query_all('test')[2]['blobber'])
-# print(type(db1.path))
