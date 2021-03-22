@@ -360,6 +360,9 @@ class Bot():
     def orario(self, update: Update, context: CallbackContext):
 
         self.__update_last_command(update, context)
+        course_code = self.db.query_by_ids(chat_id = update.effective_chat.id, user_id = update.effective_user.id)[0]['course']
+        city = self.db.query('courses', course_code = course_code)[0]['campus'].strip()
+        print(city)
 
         params = Utils.parse_params(
             '/orario', update.message.text, self.which_bot)
