@@ -2,7 +2,7 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 from pathlib import Path
-import request
+import requests
 
 class Utils():
 
