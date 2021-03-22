@@ -135,7 +135,7 @@ class Database():
 
             query = 'SELECT * FROM {table}'.format(
                 table=table) + ' WHERE ' + str_where_cols + ' = (' + str_where_data + ')'
-
+            print(query)
             cursor.execute(query, where_data)
 
             return self.__dict_creation(cols, cursor.fetchall())
