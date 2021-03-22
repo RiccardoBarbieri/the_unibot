@@ -1,11 +1,10 @@
-from telegram.message import Message
-from telegram import update
-from telegram.chat import Chat
-from datetime import datetime
-import pickle
+from logging import exception
+import re
+from database.database import Database
+from utils.utils import Utils
+from pprint import pprint
 
-message = Message(1234, datetime.now(), Chat(1234, 'private'))
+db = Database('./database/telegram.db')
 
-pick = pickle.dumps(update.message)
-
-print(pick)
+curriculas = db.query_all('curriculas')
+curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
