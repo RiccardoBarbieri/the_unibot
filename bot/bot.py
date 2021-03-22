@@ -256,12 +256,12 @@ class Bot():
                            course=0, year=1, detail=2, curricula='000-000')
                            
         course_code = self.db.query_by_ids(
-            chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]['code']
+            chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]['course']
 
         if course_code != 0:
 
             all_curr = self.db.query_join(
-                'curriculas', 'course_code2', 'code1', 'label1', course_code='course_code')
+                'curriculas', 'courses', 'course_code2', 'code1', 'label1', course_code='course_code')
 
             curriculas_codes = []
             for i in all_curr:  # !change with second query when create temp method in database
