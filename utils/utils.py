@@ -63,4 +63,10 @@ class Utils():
     
     @staticmethod
     def first_difference(string1: str, string2: str):
+        if (len(string1) < len(string2)):
+            string2 = string2[:len(string1)]
+        else:
+            string1 = string1[:len(string2)]
         return [i for i in range(len(string1)) if string1[i] != string2[i]][0]
+
+    
