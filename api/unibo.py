@@ -36,13 +36,17 @@ class UniboAPI():
         return schedule
     
     @staticmethod
-    def get_orario(corso, type, anno, date_exact, curricula = '000-000'):
+    def get_orario(corso, type, anno, lang, date_exact, curricula = None):
 
-        url = f'https://corsi.unibo.it/{type}/{corso}/orario-lezioni/@@orario_reale_json?anno={anno}&start={date_exact}&end={date_exact}&curricula={curricula}'
+        if curricula is not None:
+            url = f'https://corsi.unibo.it/{type}/{corso}/{lang}/@@orario_reale_json?anno={anno}&start={date_exact}&end={date_exact}&curricula={curricula}'
+        else:
+            url = f'https://corsi.unibo.it/{type}/{corso}/{lang}/@@orario_reale_json?anno={anno}&start={date_exact}&end={date_exact}'
         r = requests.get(url)
+        print(url)
 
         if r.status_code != 200:
-            print('Request error')
+            print('Request error' + ' {url}'.format(url = url))
             return {}
         
         try:
