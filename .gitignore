@@ -4,3 +4,4 @@ chromedriver.exe
 *.pyc
 *.db
 /__pycache__/
+/database/*.db
