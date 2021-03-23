@@ -1,7 +1,10 @@
 # The Unibot
 Telegram @the_unibot
 
-Il bot creato per l'università di Bologna. Di seguito una guida in cui ne sono spiegati i principali comandi.
+Il bot creato per l'università di Bologna. Supporta il 94% dei corsi UniBO (231/244)
+
+
+Di seguito una guida in cui ne sono spiegati i principali comandi.
 
 ## Impostare corso e anno
 Per impostare il corso è sufficiente utilizzare il comando:
@@ -23,11 +26,11 @@ Per ricevere gli orari è possibile settare in primis il livello di dettaglio ch
     /set_detail num
 
 I livelli di dettaglio implementati sono:
-1) orario + nome corso;
-2) orario + nome corso + luogo + link all'aula virtuale;
-3) orario + nome corso + CFU + docente + luogo + teledidattica obbligatoria + link all'aula virtuale;
+1) orario + nome corso
+2) orario + nome corso + luogo + link all'aula virtuale
+3) orario + nome corso + CFU + docente + luogo + teledidattica obbligatoria + link all'aula virtuale
 
-N.B.: il livello di dettaglio di default è il 2.
+'$ N.B.': il livello di dettaglio di default è il 2.
 
 ### Ottenere l'orario di un giorno
 Una volta impostato il livello di dettaglio è possibile richiedere l'orario di un giorno con il comando:
@@ -35,6 +38,18 @@ Una volta impostato il livello di dettaglio è possibile richiedere l'orario di 
     /orario gg-mm-aaaa
 
 Specificando la data *rigorosamente* nel formato indicato.
+'$ N.B.': se l'orario viene richiesto nelle giornate *oggi* o *domani* verranno fornite anche informazioni meteo sulla città sede del corso.
+
+### Autosend
+Per impostare l'orario in cui si vuole ricevere l'orario quotidianamente:
+
+    /set_autosend hh-mm
+
+'$ N.B.': se l'orario inserito è inferiore alle 15:00 il bot manderà l'orario del giorno stesso, in caso contrario verrà mandato l'orario del giorno dopo.
+Inoltre per abilitare/disabilitare l'autosend è sufficiente lanciare il comando, funzionante come un bottone booleano:
+
+    /autosend
+
 
 ## Ricerca su Wikipedia
 Il bot possiede anche un comando per effettuare ricerche rapide su Wikipedia:
