@@ -16,5 +16,10 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS test(
                 PRIMARY KEY (col1)
                 )''')
 
+# data = (1,)
+# cursor.execute('INSERT INTO test VALUES (%s)', data)
 
 cursor.execute('SELECT * FROM test')
+print(cursor.fetchall())
+
+db.commit()
