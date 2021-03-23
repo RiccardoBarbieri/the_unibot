@@ -27,7 +27,7 @@ class Database():
         self.path = file_path
         self.create_table()
 
-        if Utils.ip_changed():
+        if Utils.ip_changed() and (getpass.getuser() == 'pi' or getpass.getuser() == 'riccardoob'): # ! change
             self.ip = requests.get('https://api.ipify.org').text
 
     def create_table(self):
