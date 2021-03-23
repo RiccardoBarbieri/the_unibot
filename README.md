@@ -46,7 +46,8 @@ Per impostare l'orario in cui si vuole ricevere l'orario quotidianamente:
     /set_autosend hh-mm
 
 **N.B.**: se l'orario inserito è inferiore alle 15:00 il bot manderà l'orario del giorno stesso, in caso contrario verrà mandato l'orario del giorno dopo.
-Inoltre per abilitare/disabilitare l'autosend è sufficiente lanciare il comando, funzionante come un bottone booleano:
+
+Per abilitare/disabilitare l'autosend è sufficiente lanciare il comando, funzionante come un bottone booleano:
 
     /autosend
 
