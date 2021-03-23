@@ -40,6 +40,8 @@ class Database():
                             year INTEGER CHECK (year >= 1 AND year <= 5) DEFAULT 1,
                             detail INTEGER CHECK (detail >= 1 AND detail <= 3) DEFAULT 2,
                             curricula TEXT DEFAULT "default",
+                            autosend_time TEXT DEFAULT "00:00",
+                            autosend INTEGER CHECK (autosend IN (0,1)) DEFAULT 0,
                             PRIMARY KEY (chat_id, user_id)
                             ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS courses (
@@ -113,8 +115,8 @@ class Database():
             str_where_data = '(' + ('?, ' * len(where_data)
                                     )[:-2].replace('\'', '') + ')'
 
-            query = 'UPDATE {table} '.format(table=table) + 'SET ' + str_cols + \
-                ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
+            query = 'UPDATE {table} '.format(table=table) + 'SET ' + str_cols +\
+            ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
             try:
                 cursor.execute(query, data + where_data)
             except sqlite3.IntegrityError as e:
@@ -202,14 +204,12 @@ class Database():
                 str_cols_selection += current_prefix + '.' + str(i)[:-1] + ', '
             str_cols_selection = str_cols_selection[:-2]
 
-
             query = 'SELECT ' + str_cols_selection + ' FROM {table1} {t1in}, {table2} {t2in}'.format(
                 table1=table1, t1in=table1[:index], table2=table2, t2in=table2[:index]) + ' WHERE ' + str_join1_cols + ' = ' + str_join2_cols
-            
+
             if len(val_conds.keys()) != 0:
                 val_cols = val_conds.keys()
                 val_vals = [val_conds[i] for i in val_conds.keys()]
-
 
                 str_val_cols = ''
                 for i in val_cols:
@@ -228,7 +228,8 @@ class Database():
                     str_val_vals += str(i) + ', '
                 str_val_vals = str_val_vals[:-2]
 
-                query += ' AND ' + '(' + str_val_cols + ')' + ' = ' + '(' + str_val_vals + ')'
+                query += ' AND ' + '(' + str_val_cols + ')' + \
+                    ' = ' + '(' + str_val_vals + ')'
 
             cursor.execute(query)
 
@@ -291,5 +292,3 @@ class Database():
 
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
-
-    print(db.query_join('courses', 'curriculas', {'course_code1':'9244'}, 'course_code1', 'code2', 'label2', course_code = 'course_code'))
