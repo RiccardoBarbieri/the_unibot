@@ -80,7 +80,7 @@ class Utils():
         return [i for i in range(len(string1)) if string1[i] != string2[i]][0]
 
     @staticmethod
-    def get_weather(city: str):
+    def get_weather(city: str, day: int):
         with open(Path('./keys/weather.txt')) as f:
             api_key = f.readline()
         base_url = "https://api.openweathermap.org/data/2.5/weather?"
@@ -88,14 +88,23 @@ class Utils():
         response = requests.get(url)
         weather = response.json()
         if weather['cod'] != 401:
-            return Utils.parse_weather(weather)
+            return Utils.parse_weather(weather, day)
         else:
             return 'Meteo non disponibile'
 
     @staticmethod
-    def parse_weather(data: dict):
+    def parse_weather(data: dict, day: int):
         weather = data['weather'][0]['main']
         temp_min = data['main']['temp_min']
         temp_max = data['main']['temp_max']
-        message = datetime.now().date().strftime('%d-%m-%Y') + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + '°C - Max ' + str(temp_max) + '°C'
+        today = datetime.now().date()
+        date = ''
+        if day == 0:
+            date = today.strftime('%d-%m-%Y').replace('-','/')  
+        elif day == 1:
+            tomorrow = today + timedelta(days = 1)
+            date = tomorrow.strftime('%d-%m-%Y').replace('-','/')
+        else:
+            return None # will never happen
+        message = date + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + '°C - Max ' + str(temp_max) + '°C'
         return message

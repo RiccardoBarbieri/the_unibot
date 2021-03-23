@@ -362,11 +362,14 @@ class Bot():
         self.__update_last_command(update, context)
         course_code = self.db.query_by_ids(chat_id = update.effective_chat.id, user_id = update.effective_user.id)[0]['course']
         city = self.db.query('courses', key_course_code = course_code)[0]['campus'].strip()
-        
-        context.bot.send_message(chat_id=update.effective_chat.id, text=Utils.get_weather(city))
 
         params = Utils.parse_params(
             '/orario', update.message.text, self.which_bot)
+
+        if 'oggi' in params['text']:
+            context.bot.send_message(chat_id=update.effective_chat.id, text=Utils.get_weather(city, 0))
+        elif 'domani' in params['text']:
+            context.bot.send_message(chat_id=update.effective_chat.id, text=Utils.get_weather(city, 1))
 
         date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
 
