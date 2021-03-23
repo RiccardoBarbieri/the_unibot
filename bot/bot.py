@@ -29,6 +29,11 @@ from math import ceil
 import re
 from pprint import pprint
 import pickle
+import threading
+
+SECONDS_IN_A_DAY = 86400
+
+SECONDS_TEST = 20
 
 
 class Bot():
@@ -41,6 +46,8 @@ class Bot():
 
     # contains the name of the bot
     which_bot: str = None
+
+    global_timer: threading.Timer
 
     def __init__(self, token, which_bot):
 
@@ -161,7 +168,7 @@ class Bot():
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
 
             self.db.update('data', key_chat_id=chat_id,
-                                   key_user_id=user_id, curricula=code)
+                           key_user_id=user_id, curricula=code)
 
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
@@ -434,23 +441,21 @@ class Bot():
                     chat_id=update.effective_chat.id, text=message_default)
             for i in messages:
                 context.bot.send_message(chat_id=update.effective_chat.id, text=i,
-                                        parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                                         parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
 
     def __messages_creation(self, date: str, chat_id: int, user_id: int):
 
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
             chat_id), 'user_id1': str(user_id)}, 'site2', 'course_codec2', course='course_code')[0]
 
-
         result = self.db.query_by_ids(
             chat_id, user_id)[0]
 
         schedules = UniboAPI.get_orario(found['course_codec'], Utils.get_course_type(
-            found['site']), result['year'], Utils.get_course_lang(found['site']), date, curricula = result['curricula'])
-
-        pprint(result)
+            found['site']), result['year'], Utils.get_course_lang(found['site']), date, curricula=result['curricula'])
 
         messages = []
         for i in schedules:
@@ -459,10 +464,92 @@ class Bot():
         return messages
 
     def set_autosend(self, update: Update, context: CallbackContext):
-        pass  # to implement
+        # ([A-Z0-9]){3}-([A-Z0-9]){3}
+        time_regex = '([0-1]?[0-9]|2[0-3]):[0-5][0-9]'
+
+        self.__update_last_command(update, context)
+
+        params = Utils.parse_params(
+            '/set_autosend', update.message.text, self.which_bot)
+
+        if (len(params['numeric']) == 0) and (len(params['text']) == 1) and bool(re.match(time_regex, params['text'][0])):
+            chat_id = update.effective_chat.id
+            user_id = update.effective_user.id
+
+            if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                               course='0', year=1, detail=2, curricula='default', autosend_time=time_regex)
+            else:
+                self.db.update('data', key_chat_id=update.effective_chat.id,
+                               key_user_id=update.effective_user.id, autosend_time=params['text'][0])
+
+            self.db.backup('data')
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                     text='Impostato orario autosend a {autosend}.'.format(autosend=params['text'][0]))
+            print(self.db.query_by_ids(chat_id, user_id))
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Parametri errati.')
+    # TODO: handle bot restart
 
     def autosend(self, update: Update, context: CallbackContext):
-        pass  # to implement
+        user = self.db.query_by_ids(
+            chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]
+        current = bool(user['autosend'])
+        time = user['autosend_time']
+        self.db.update('data', key_chat_id=update.effective_chat.id,
+                       key_user_id=update.effective_user.id, autosend=int(not current))
+
+        effective_day = 'oggi' if int(time[:2]) < 15 else 'domani'
+
+        init_seconds = Utils.get_seconds(time)
+        if not current:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Autosend attivato.')
+
+            timer = threading.Timer(init_seconds, self.__loop, args=[effective_day, update,
+                                                                     context])
+            timer.start()
+        else:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text='Autosend disattivato.')
+            self.global_timer.cancel()
+
+    def __orario_autosend(self, day: str, chat_id: int, user_id: int, context: CallbackContext):
+        date = Utils.date_from_days(day)
+
+        course_code = self.db.query_by_ids(
+            chat_id=chat_id, user_id=user_id)[0]['course']
+        city = self.db.query('courses', key_course_code=course_code)[
+            0]['campus'].strip()
+
+        messages = self.__messages_creation(
+            date, chat_id, user_id)
+
+        message_default = 'Non ci sono lezioni il {date}.'.format(
+            date=date)
+
+        if 'oggi' in day:
+            context.bot.send_message(
+                chat_id=chat_id, text=Utils.get_weather(city, 0))
+        elif 'domani' in day:
+            context.bot.send_message(
+                chat_id=chat_id, text=Utils.get_weather(city, 1))
+
+        if len(messages) == 0:
+            context.bot.send_message(
+                chat_id=chat_id, text=message_default)
+        for i in messages:
+            context.bot.send_message(chat_id=chat_id, text=i,
+                                     parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+
+    def __loop(self, day, update: Update, context: CallbackContext):
+        self.__orario_autosend(day, update.effective_chat.id,
+                               update.effective_user.id, context)
+
+        self.global_timer = threading.Timer(SECONDS_IN_A_DAY, self.__loop, [day, update,
+                                                                   context])
+        self.global_timer.start()
 
     def wiki(self, update: Update, context: CallbackContext):
 
