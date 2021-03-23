@@ -1,6 +1,7 @@
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
+from datetime import time
 from pathlib import Path
 import requests
 import getpass
@@ -123,3 +124,9 @@ class Utils():
                 f.write(new_ip)
 
         return not (new_ip == old_ip)
+
+    def get_seconds(then_str: str):
+        now: datetime = datetime.now()
+        then: datetime = datetime.strptime(then_str, '%H:%M')
+        return (then - now).seconds
+
