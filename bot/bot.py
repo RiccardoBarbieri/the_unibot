@@ -85,7 +85,7 @@ class Bot():
 
     def start(self, update: Update, context: CallbackContext):
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                       course=0, year=1, detail=2, curricula='000-000')
+                       course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
         context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                                  .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
@@ -117,45 +117,58 @@ class Bot():
             # getting name and code from the message from keyboard
             course_name = update.message.text.split('[')[0].strip()
             course_code = update.message.text.split('[')[1][:-1].strip()
-            if (chat_id, user_id) == (update.effective_chat.id, update.effective_user.id):
-                found = {}
-                with open(Path('./resources/flat_courses.json')) as f:
-                    courses = json.load(f)
-                for i in courses:
-                    if i['course_code'] == course_code:
-                        found = i
-                message = 'Corso selezionato: <a href="{link}">{course_name}</a>.'.format(
-                    course_name=course_name, link=found['site'])
-                context.bot.send_message(
-                    chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
-                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                   course=course_code, year=1, detail=2, curricula='000-000')
-                else:
-                    self.db.update('data', key_chat_id=chat_id,
-                                   key_user_id=user_id, course=course_code)
-                self.db.backup('data')
-                print('Updated user {user_id} with course {course_code}'.format(
-                    course_code=course_code, user_id=user_id))
-            if last_command is not None and '/set_curricula' in last_command['text']:
-                chat_id = last_command['chat_id']
-                user_id = last_command['user_id']
 
-                name = update.message.text.split('[')[0].strip()
-                code = update.message.text.split('[')[1][:-1].strip()
+            curriculas = self.db.query_join('courses', 'curriculas', {
+                                            'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
 
-                message = 'Curricula selezionato: {name} [{code}]'.format(
-                    name=name, code=code)
+            found = {}
+            with open(Path('./resources/flat_courses.json')) as f:
+                courses = json.load(f)
+            for i in courses:
+                if i['course_code'] == course_code:
+                    found = i
+            message = 'Corso selezionato: <a href="{link}">{course_name}</a>.'.format(
+                course_name=course_name, link=found['site'])
+            context.bot.send_message(
+                chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                               course=course_code, year=1, detail=2, curricula='default')
+            else:
+                self.db.update('data', key_chat_id=chat_id,
+                               key_user_id=user_id, course=course_code)
+            if len(curriculas) == 1:
+                self.db.update('data', key_chat_id=chat_id,
+                               key_user_id=user_id, curricula=curriculas[0]['code'])
+            elif len(curriculas) == 0:
+                self.db.update('data', key_chat_id=chat_id,
+                               key_user_id=user_id, curricula='000-000')
 
-                context.bot.send_message(
-                    chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
+            self.db.backup('data')
+            print('Updated user {user_id} with course {course_code}'.format(
+                course_code=course_code, user_id=user_id))
+        if last_command is not None and '/set_curricula' in last_command['text']:
+            chat_id = last_command['chat_id']
+            user_id = last_command['user_id']
 
-                self.db.backup('data')
-                print('Updated user {user_id} with curricula {code}'.format(
-                    code=code, user_id=user_id))
+            name = update.message.text.split('[')[0].strip()
+            code = update.message.text.split('[')[1][:-1].strip()
+
+            message = 'Curricula selezionato: {name} [{code}]'.format(
+                name=name, code=code)
+
+            context.bot.send_message(
+                chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
+
+            self.db.update('data', key_chat_id=chat_id,
+                                   key_user_id=user_id, curricula=code)
+
+            self.db.backup('data')
+            print('Updated user {user_id} with curricula {code}'.format(
+                code=code, user_id=user_id))
 
     def set_corso(self, update: Update, context: CallbackContext):
-        message = '''Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'''
+        message = 'Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'
         context.bot.send_message(
             chat_id=update.effective_chat.id, text=message)
 
@@ -163,8 +176,11 @@ class Bot():
 
         self.__update_last_command(update, context)
 
+        message_text = update.message.text.replace(
+            '@' + self.which_bot, '').strip()
+
         page_param = 0
-        if len(update.message.text.strip()) == 10:
+        if len(message_text) == 10:
             mess_len = 0
             for i in self.db.query_all('courses'):
                 mess_len += len(i['course_name'] +
@@ -240,7 +256,6 @@ class Bot():
             # removing first element (duplicate) for each page
             pages[i] = pages[i][1:]
         return pages
-    pages = []
 
     def set_curricula(self, update: Update, context: CallbackContext):
 
@@ -248,25 +263,32 @@ class Bot():
 
         self.__update_last_command(update, context)
 
-        params = Utils.parse_params(
-            '/set_curricula', update.message.text, self.which_bot)
-
-        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
-            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                           course=0, year=1, detail=2, curricula='000-000')
-                           
         course_code = self.db.query_by_ids(
             chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]['course']
 
-        if course_code != 0:
+        params = Utils.parse_params(
+            '/set_curricula', update.message.text, self.which_bot)
 
-            all_curr = self.db.query_join(
-                'curriculas', 'courses', 'course_code2', 'code1', 'label1', course_code='course_code')
+        curriculas_codes = self.db.query_join('courses', 'curriculas', {
+                                              'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
 
-            curriculas_codes = []
-            for i in all_curr:  # !change with second query when create temp method in database
-                if i['course_code'] == course_code:
-                    curriculas_codes.append(i)
+        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            if len(curriculas_codes) == 1:
+                self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                               course='0', year=1, detail=2, curricula=curriculas_codes['code'])
+            else:
+                self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                               course='0', year=1, detail=2, curricula='default')
+
+        if course_code != '0':
+
+            # all_curr = self.db.query_join(
+            #     'curriculas', 'courses', {}, 'course_code2', 'code1', 'label1', course_code='course_code')
+
+            # curriculas_codes = []
+            # for i in all_curr:  # !change with second query when create temp method in database
+            #     if i['course_code'] == course_code:
+            #         curriculas_codes.append(i)
 
             if (len(params['numeric']) == 0 and len(params['text']) == 1) and re.match(curricula_regex, params['text'][0]):
                 check_present = False
@@ -294,14 +316,19 @@ class Bot():
                 rows = []
                 for i in curriculas_codes:
                     temp = []
-                    temp.append(KeyboardButton('{label} [{code}]'.format(label=i['label'], code=i['code'])))
+                    temp.append(KeyboardButton('{label} [{code}]'.format(
+                        label=i['label'], code=i['code'])))
                     rows.append(temp)
 
                 keyboard = ReplyKeyboardMarkup(
                     rows, one_time_keyboard=True, selective=True)
 
-                context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il curricula:',
-                                         reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                if len(rows) != 0:
+                    context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il curricula:',
+                                             reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                else:
+                    context.bot.send_message(chat_id=update.effective_chat.id, text='Nessun curricula disponibile',
+                                             reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
         else:
             context.bot.send_message(
@@ -320,7 +347,7 @@ class Bot():
                 user_id = update.effective_user.id
                 if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                   course=0, year=1, detail=2, curricula='000-000')
+                                   course='0', year=1, detail=2, curricula='default')
                 else:
                     self.db.update('data', key_chat_id=update.effective_chat.id,
                                    key_user_id=update.effective_user.id, year=params['numeric'][0])
@@ -345,7 +372,7 @@ class Bot():
                 user_id = update.effective_user.id
                 if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                   course=0, year=1, detail=2, curricula='000-000')
+                                   course='0', year=1, detail=2, curricula='default')
                 else:
                     self.db.update('data', key_chat_id=update.effective_chat.id,
                                    key_user_id=update.effective_user.id, detail=params['numeric'][0])
@@ -360,64 +387,74 @@ class Bot():
     def orario(self, update: Update, context: CallbackContext):
 
         self.__update_last_command(update, context)
-        course_code = self.db.query_by_ids(chat_id = update.effective_chat.id, user_id = update.effective_user.id)[0]['course']
-        city = self.db.query('courses', key_course_code = course_code)[0]['campus'].strip()
+        user = self.db.query_by_ids(
+            chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]
+        course_code = user['course']
+        city = self.db.query('courses', key_course_code=course_code)[
+            0]['campus'].strip()
 
         params = Utils.parse_params(
             '/orario', update.message.text, self.which_bot)
 
         if 'oggi' in params['text']:
-            context.bot.send_message(chat_id=update.effective_chat.id, text=Utils.get_weather(city, 0))
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text=Utils.get_weather(city, 0))
         elif 'domani' in params['text']:
-            context.bot.send_message(chat_id=update.effective_chat.id, text=Utils.get_weather(city, 1))
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text=Utils.get_weather(city, 1))
 
         date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
 
-        if (len(params['numeric']) == 0 and len(params['text']) == 1) and (re.match(date_regex, params['text'][0])):
-            date = Utils.parse_date(params['text'][0])
+        if not ((user['course'] == '0') or (user['curricula'] == 'default')):
 
-            messages = self.__messages_creation(
-                date, update.effective_chat.id, update.effective_user.id)
+            if (len(params['numeric']) == 0 and len(params['text']) == 1) and (re.match(date_regex, params['text'][0])):
+                date = Utils.parse_date(params['text'][0])
 
-            message_default = 'Non ci sono lezioni il {date}.'.format(
-                date=date)
+                messages = self.__messages_creation(
+                    date, update.effective_chat.id, update.effective_user.id)
 
-        elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
-            date = Utils.date_from_days(params['text'][0])
+                message_default = 'Non ci sono lezioni il {date}.'.format(
+                    date=date)
 
-            messages = self.__messages_creation(
-                date, update.effective_chat.id, update.effective_user.id)
+            elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
+                date = Utils.date_from_days(params['text'][0])
 
-            message_default = 'Non ci sono lezioni il {date}.'.format(
-                date=date)
+                messages = self.__messages_creation(
+                    date, update.effective_chat.id, update.effective_user.id)
 
+                message_default = 'Non ci sono lezioni il {date}.'.format(
+                    date=date)
+
+            else:
+                messages = []
+                message_default = 'Parametri non corretti.'
+
+            if len(messages) == 0:
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=message_default)
+            for i in messages:
+                context.bot.send_message(chat_id=update.effective_chat.id, text=i,
+                                        parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         else:
-            messages = []
-            message_default = 'Parametri non corretti.'
-
-        if len(messages) == 0:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text=message_default)
-        for i in messages:
-            context.bot.send_message(chat_id=update.effective_chat.id, text=i,
-                                     parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
 
     def __messages_creation(self, date: str, chat_id: int, user_id: int):
 
-        result = self.db.query_by_ids(
-            chat_id, user_id)
+        found = self.db.query_join('data', 'courses', {'chat_id1': str(
+            chat_id), 'user_id1': str(user_id)}, 'site2', 'course_codec2', course='course_code')[0]
 
-        courses = self.db.query_all('courses')
-        for i in courses:
-            if str(i['course_code']) == str(result[0]['course']):
-                found = i
+
+        result = self.db.query_by_ids(
+            chat_id, user_id)[0]
 
         schedules = UniboAPI.get_orario(found['course_codec'], Utils.get_course_type(
-            found['site']), result[0]['year'], Utils.get_course_lang(found['site']), date)
+            found['site']), result['year'], Utils.get_course_lang(found['site']), date, curricula = result['curricula'])
+
+        pprint(result)
 
         messages = []
         for i in schedules:
-            messages.append(MessageCreator.get_message(i, result[0]['detail']))
+            messages.append(MessageCreator.get_message(i, result['detail']))
 
         return messages
 
@@ -495,7 +532,7 @@ class Bot():
     def __update_last_command(self, update: Update, context: CallbackContext):
         if len(self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)) == 0:
             self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                           course=0, year=1, detail=2, curricula='000-000')
+                           course='0', year=1, detail=2, curricula='default')
         if '/' in update.message.text:
             self.db.insert('last_command', chat_id=update.effective_chat.id,
                            user_id=update.effective_user.id, text=update.message.text)

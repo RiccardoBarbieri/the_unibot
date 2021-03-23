@@ -5,6 +5,7 @@ from pathlib import Path
 import requests
 import getpass
 
+
 class Utils():
 
     @staticmethod
@@ -21,7 +22,7 @@ class Utils():
 
     @staticmethod
     def parse_params(command: str, message: str, which_bot: str):
-        if '@{bot}'.format(bot = which_bot) in message:
+        if '@{bot}'.format(bot=which_bot) in message:
             params = message[len(command + '@' + which_bot):].split()
         else:
             params = message[len(command):].split()
@@ -41,14 +42,13 @@ class Utils():
     def get_course_type(url: str):
         parts = url.split('/')
         return parts[-2]
-    
+
+    @staticmethod
     def get_course_lang(url: str):
-        parts = url.split('/')
         if 'cycle' in url:
             return 'timetable'
         else:
             return 'orario-lezioni'
-
 
     @staticmethod
     def string_contains(string, params):
@@ -65,13 +65,13 @@ class Utils():
         if day == 'oggi':
             new_date_str = today.strftime(format_string)
         elif day == 'domani':
-            tomorrow = today + timedelta(days = 1)
+            tomorrow = today + timedelta(days=1)
             new_date_str = tomorrow.strftime(format_string)
         elif day == 'dopodomani':
-            tdat = today + timedelta(days = 2)
+            tdat = today + timedelta(days=2)
             new_date_str = tdat.strftime(format_string)
         return Utils.parse_date(new_date_str)
-    
+
     @staticmethod
     def first_difference(string1: str, string2: str):
         if (len(string1) < len(string2)):
@@ -101,15 +101,14 @@ class Utils():
         today = datetime.now().date()
         date = ''
         if day == 0:
-            date = today.strftime('%d-%m-%Y').replace('-','/')  
+            date = today.strftime('%d-%m-%Y').replace('-', '/')
         elif day == 1:
-            tomorrow = today + timedelta(days = 1)
-            date = tomorrow.strftime('%d-%m-%Y').replace('-','/')
+            tomorrow = today + timedelta(days=1)
+            date = tomorrow.strftime('%d-%m-%Y').replace('-', '/')
         else:
-            return None # will never happen
-        message = date + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + '°C - Max ' + str(temp_max) + '°C'
-        return message
-        message = datetime.now().date().strftime('%d-%m-%Y') + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + '°C - Max ' + str(temp_max) + '°C'
+            return None  # will never happen
+        message = date + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + \
+            '°C - Max ' + str(temp_max) + '°C'
         return message
 
     @staticmethod
@@ -122,5 +121,5 @@ class Utils():
         if new_ip != old_ip and (getpass.getuser() == 'pi' or getpass.getuser() == 'riccardoob'):
             with open(Path('./ip/myip.txt'), 'w+') as f:
                 f.write(new_ip)
-        
+
         return not (new_ip == old_ip)
