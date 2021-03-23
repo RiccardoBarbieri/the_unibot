@@ -4,3 +4,4 @@ chromedriver.exe
 *.pyc
 /database/*.db
 /database/backup*.json
+/ip/

@@ -3,6 +3,7 @@ from datetime import datetime
 from datetime import timedelta
 from pathlib import Path
 import requests
+import getpass
 
 class Utils():
 
@@ -99,3 +100,16 @@ class Utils():
         temp_max = data['main']['temp_max']
         message = datetime.now().date().strftime('%d-%m-%Y') + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + '°C - Max ' + str(temp_max) + '°C'
         return message
+
+    @staticmethod
+    def ip_changed():
+        new_ip = requests.get('https://api.ipify.org').text
+
+        with open(Path('./ip/myip.txt'), 'r') as f:
+            old_ip = f.readline()
+
+        if new_ip != old_ip and (getpass.getuser() == 'pi' or getpass.getuser() == 'riccardoob'):
+            with open(Path('./ip/myip.txt'), 'w+') as f:
+                f.write(new_ip)
+        
+        return not (new_ip == old_ip)
