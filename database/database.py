@@ -13,17 +13,22 @@ import sqlite3
 import json
 from pathlib import Path
 from pprint import pprint
-import pickle
 from utils.utils import Utils
+import requests
 
 
 class Database():
 
     path = None
+    
+    ip = ''
 
     def __init__(self, file_path):
         self.path = file_path
         self.create_table()
+
+        if Utils.ip_changed() and (getpass.getuser() == 'pi' or getpass.getuser() == 'riccardoob'): # ! change
+            self.ip = requests.get('https://api.ipify.org').text
 
     def create_table(self):
         with sqlite3.connect(self.path) as connection:

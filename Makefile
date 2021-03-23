@@ -1,4 +1,4 @@
-.PHONY: launch test
+.PHONY: launch test ip
 launch:
 	python3 ./bot/bot.py "launch"
 test:
