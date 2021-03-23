@@ -1,10 +1,20 @@
-from logging import exception
-import re
-from database.database import Database
-from utils.utils import Utils
-from pprint import pprint
+import mysql.connector
 
-db = Database('./database/telegram.db')
 
-# db.update('data', key_chat_id = -535696384, key_user_id = 913871757, course = 9244)
-print(db.query_by_ids(-535696384, 913871757))
+db = mysql.connector.connect(
+    host = '82.58.25.219',
+    user = 'root',
+    password = 'riccardo00'
+)
+
+cursor = db.cursor()
+
+cursor.execute('USE telegram')
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS test(
+                col1 INTEGER,
+                PRIMARY KEY (col1)
+                )''')
+
+
+cursor.execute('SELECT * FROM test')
