@@ -1,41 +1,19 @@
-import mysql.connector
-from mysql.connector.connection import CursorBase
-from mysql.connector.errors import IntegrityError
-import requests
-import getpass
-
-ip = requests.get('https://api.ipify.org').text
+import pprint
+import json
+from pathlib import Path
+from database.database import Database
 
 
-connection = mysql.connector.connect(
-    host = ip,
-    user = 'root',
-    password = 'riccardo00'
-)
+# with open(Path('./flat_courses_curriculas.json'), 'r') as f:
+#     courses = json.load(f)
 
-cursor: CursorBase = connection.cursor()
+# for i in courses:
+#     if (len(i['curriculas']) in (0,1)):
+#         print(i['site'])
 
-cursor.execute('USE telegram')
+db = Database(Path('./database/telegram.db'))
 
-cursor.execute('''CREATE TABLE IF NOT EXISTS test(
-                col1 INTEGER,
-                PRIMARY KEY (col1)
-                )''')
-
-data = (2,)
-try:
-    cursor.execute('INSERT INTO test VALUES (%s);', data)
-except IntegrityError as e:
-    print('{msg}, not inserting {data}'.format(
-                    msg=str(e), data=str(data)))
-connection.commit()
-
-cursor.execute('SELECT * FROM test')
-
-print(cursor.fetchall())
-
-# cursor.execute("SHOW COLUMNS FROM test;")
-# cols = tuple([i[0] for i in cursor.fetchall()])
-
-# print(cols)
-connection.close()
+print(db.query_join('courses', 'curriculas', {'course_code1':'9244'}, 'course_code1', 'code2', course_code = 'course_code'))
+# print(db.custom_query('SELECT COUNT(*) FROM courses'))
+# db.delete_all('courses')
+# db.delete_all('curriculas')

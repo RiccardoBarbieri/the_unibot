@@ -43,7 +43,6 @@ class UniboAPI():
         else:
             url = f'https://corsi.unibo.it/{type}/{corso}/{lang}/@@orario_reale_json?anno={anno}&start={date_exact}&end={date_exact}'
         r = requests.get(url)
-        print(url)
 
         if r.status_code != 200:
             print('Request error' + ' {url}'.format(url = url))
