@@ -22,4 +22,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS test(
 cursor.execute('SELECT * FROM test')
 print(cursor.fetchall())
 
+# cursor.execute("SHOW COLUMNS FROM test;")
+# cols = tuple([i[0] for i in cursor.fetchall()])
+
+# print(cols)
 db.commit()
