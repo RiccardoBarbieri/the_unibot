@@ -87,6 +87,7 @@ class Utils():
             api_key = f.readline()
         base_url = "https://api.openweathermap.org/data/2.5/weather?"
         url = base_url+"&appid="+api_key+"&q="+city+'&units=metric'
+        print(url)
         response = requests.get(url)
         weather = response.json()
         if weather['cod'] != 401:
@@ -108,7 +109,7 @@ class Utils():
             date = tomorrow.strftime('%d-%m-%Y').replace('-', '/')
         else:
             return None  # will never happen
-        message = date + '\nWheather: ' + weather.lower() + '\nMin ' + str(temp_min) + \
+        message = date + '\nWeather: ' + weather.lower() + '\nMin ' + str(temp_min) + \
             '°C - Max ' + str(temp_max) + '°C'
         return message
 
@@ -125,6 +126,7 @@ class Utils():
 
         return not (new_ip == old_ip)
 
+    @staticmethod
     def get_seconds(then_str: str):
         now: datetime = datetime.now()
         then: datetime = datetime.strptime(then_str, '%H:%M')
