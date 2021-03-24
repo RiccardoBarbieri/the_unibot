@@ -16,6 +16,7 @@ from api.wikipedia import WikipediaAPI
 from utils.utils import Utils
 from utils.message_creator import MessageCreator
 from database.database import Database
+from utils.weather import Weather
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Chat, User
 from telegram.error import BadRequest
@@ -298,14 +299,6 @@ class Bot():
 
         if course_code != '0':
 
-            # all_curr = self.db.query_join(
-            #     'curriculas', 'courses', {}, 'course_code2', 'code1', 'label1', course_code='course_code')
-
-            # curriculas_codes = []
-            # for i in all_curr:  # !change with second query when create temp method in database
-            #     if i['course_code'] == course_code:
-            #         curriculas_codes.append(i)
-
             if (len(params['numeric']) == 0 and len(params['text']) == 1) and re.match(curricula_regex, params['text'][0]):
                 check_present = False
                 for i in curriculas_codes:
@@ -412,12 +405,15 @@ class Bot():
         params = Utils.parse_params(
             '/orario', update.message.text, self.which_bot)
 
+        if (len(params['numeric']) == 0 and len(params['text']) == 0):
+            params['text'].append('oggi')
+
         if 'oggi' in params['text']:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text=Utils.get_weather(city, 0))
+                chat_id=update.effective_chat.id, text=Weather.get_weather(city, 0))
         elif 'domani' in params['text']:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text=Utils.get_weather(city, 1))
+                chat_id=update.effective_chat.id, text=Weather.get_weather(city, 1))
 
         date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
 
