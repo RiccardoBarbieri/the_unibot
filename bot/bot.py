@@ -1,5 +1,7 @@
 import sys
 import getpass
+
+from telegram import message
 if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
 elif getpass.getuser() == 'grufoony':
@@ -15,7 +17,7 @@ from utils.utils import Utils
 from utils.message_creator import MessageCreator
 from database.database import Database
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Chat, User
 from telegram.error import BadRequest
 from telegram.update import Update
 from telegram.parsemode import ParseMode
@@ -30,6 +32,7 @@ import re
 from pprint import pprint
 import pickle
 import threading
+from datetime import datetime
 
 SECONDS_IN_A_DAY = 86400
 
@@ -60,6 +63,12 @@ class Bot():
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
         self.db = Database(Path('./database/telegram.db'))
+
+        temp_update: Update = None
+        temp_context: CallbackContext = None
+
+        temp_update = Update(1, message=Message(1, datetime.now(), Chat(chat_id, get_from_id_if_negative), User(user_id, 'qualsiasi', False)))
+        temp_context = CallbackContext(dispatcher)
 
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
