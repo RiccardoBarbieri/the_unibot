@@ -54,6 +54,7 @@ Per abilitare/disabilitare l'autosend è sufficiente lanciare il comando, funzio
 
     /autosend
 
+Verrà inviato un messaggio di conferma.
 
 ## Ricerca su Wikipedia
 Il bot possiede anche un comando per effettuare ricerche rapide su Wikipedia:
