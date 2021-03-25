@@ -126,13 +126,10 @@ class Utils():
         if new_ip != old_ip and (getpass.getuser() == 'pi' or getpass.getuser() == 'riccardoob'):
             with open(Path('./ip/myip.txt'), 'w+') as f:
                 f.write(new_ip)
-
-        return not (new_ip == old_ip)
+        return new_ip
 
     @staticmethod
     def get_seconds(then_str: str):
         now: datetime = datetime.now()
         then: datetime = datetime.strptime(then_str, '%H:%M')
         return (then - now).seconds
-
-print(Utils.get_weather('Bologna', 0))

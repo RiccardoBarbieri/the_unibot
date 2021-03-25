@@ -61,6 +61,8 @@ class Bot():
 
         self.db = Database(Path('./database/telegram.db'))
 
+        
+
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
             Filters.text & (~Filters.command), self.misc)
@@ -637,5 +639,6 @@ if __name__ == '__main__':
         with open(Path('./keys/token.txt')) as f:
             token = f.readline()
             which_bot = 'the_unibot'
+    
 
     bot = Bot(token, which_bot)
