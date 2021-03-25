@@ -412,6 +412,7 @@ class Bot():
         course_code = user['course']
         city = self.db.query('courses', key_course_code=course_code)[
             0]['campus'].strip()
+        
 
         params = Utils.parse_params(
             '/orario', update.message.text, self.which_bot)
