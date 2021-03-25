@@ -8,10 +8,11 @@ from typing import Any
 class Test():
 
     def __init__(self, attrs: dict):
-        self.__attrs = attrs
+        self.__dict__.update(attrs) # comment to use __getattr__
+        # self.__attrs = attrs # uncomment to use __getattr__
 
-    def __getattr__(self, name: str) -> Any:
-        return self.__attrs[name]
+    # def __getattr__(self, name: str) -> Any: # uncomment to use __getattr__
+    #     return self.__attrs[name] 
     
 
 a = Test({'chat_id':1234, 'user_id':4321, 'atosend_time':'23:23'})
