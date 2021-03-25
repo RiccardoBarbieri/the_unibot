@@ -415,9 +415,12 @@ class Bot():
 
         params = Utils.parse_params(
             '/orario', update.message.text, self.which_bot)
-
+        
         if (len(params['numeric']) == 0 and len(params['text']) == 0):
-            params['text'].append('oggi')
+            if datetime.datetime.now().hour < 15:
+                params['text'].append('oggi')
+            else:
+                params['text'].append('domani')
 
         if 'oggi' in params['text']:
             context.bot.send_message(
