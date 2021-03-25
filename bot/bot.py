@@ -1,7 +1,7 @@
 import sys
 import getpass
 
-from telegram import message
+from telegram import chat, message
 from telegram.ext.jobqueue import Job
 if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
@@ -32,9 +32,9 @@ from pathlib import Path
 from math import ceil
 import re
 from pprint import pprint
-import pickle
-import threading
-from datetime import datetime
+from datetime import datetime, timedelta
+from datetime import time
+from typing import Dict
 
 SECONDS_IN_A_DAY = 86400
 
@@ -60,7 +60,7 @@ class Bot():
 
         self.which_bot = which_bot
 
-        self.jobs = {}
+        self.jobs: Dict[str, Job] = {}
 
         updater = Updater(token=token, use_context=True)
         dispatcher = updater.dispatcher
@@ -73,13 +73,14 @@ class Bot():
         self.job_queue = updater.job_queue
 
         for i in self.db.query_all('data'):
-            time = i['autosend_time']
-            effective_day = 'oggi' if int(time[:2]) < 15 else 'domani'
+            scheduled_time_str = i['autosend_time']
+            effective_day = 'oggi' if int(
+                scheduled_time_str[:2]) < 15 else 'domani'
             chat_id = i['chat_id']
             user_id = i['user_id']
             if bool(i['autosend']):
-                self.job_queue.run_once(self.__callback_loop, Utils.get_seconds(time), context={
-                                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
 
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
@@ -479,7 +480,6 @@ class Bot():
         return messages
 
     def set_autosend(self, update: Update, context: CallbackContext):
-        # ([A-Z0-9]){3}-([A-Z0-9]){3}
         time_regex = '([0-1]?[0-9]|2[0-3]):[0-5][0-9]'
 
         self.__update_last_command(update, context)
@@ -493,14 +493,30 @@ class Bot():
 
             if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
                 self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                               course='0', year=1, detail=2, curricula='default', autosend_time=time_regex)
+                               course='0', year=1, detail=2, curricula='default', autosend_time=params['text'][0])
             else:
                 self.db.update('data', key_chat_id=update.effective_chat.id,
                                key_user_id=update.effective_user.id, autosend_time=params['text'][0])
 
             self.db.backup('data')
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text='Impostato orario autosend a {autosend}.'.format(autosend=params['text'][0]))
+                                     text='Impostato orario autosend a {time}.'.format(time=params['text'][0]))
+
+            effective_day = 'oggi' if int(
+                params['text'][0][:2]) < 15 else 'domani'
+            
+            scheduled_time_str = params['text'][0]
+
+            if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
+                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+            else:
+                self.jobs[str(chat_id) + '@' + str(user_id)].schedule_removal()
+                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+
             print(self.db.query_by_ids(chat_id, user_id))
         else:
             context.bot.send_message(
@@ -510,37 +526,34 @@ class Bot():
         user = self.db.query_by_ids(
             chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]
         current = bool(user['autosend'])
+        user_id = user['user_id']
+        chat_id = user['chat_id']
 
         self.db.update('data', key_chat_id=update.effective_chat.id,
                        key_user_id=update.effective_user.id, autosend=int(not current))
 
         effective_day = 'oggi' if int(
             user['autosend_time'][:2]) < 15 else 'domani'
+        
+        scheduled_time_str = user['autosend_time']
 
-        if not current:
-            if (str(user['chat_id']) + '@' + str(user['user_id'])) not in self.jobs.keys():
-                temp_job: Job = self.job_queue.run_repeating(self.__callback_loop, SECONDS_TEST, context={
-                    'day': effective_day, 'chat_id': user['chat_id'], 'user_id': user['user_id']})
-
-                self.jobs[str(user['chat_id']) + '@' +
-                          str(user['user_id'])] = temp_job
+        if not current:  # enabling autosend
+            if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
+                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
             else:
-                self.jobs[str(user['chat_id']) + '@' +
-                          str(user['user_id'])].enabled = True
+                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
 
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text='Autosend attivato.')
         else:
-            if (str(user['chat_id']) + '@' + str(user['user_id'])) not in self.jobs.keys():
-                temp_job: Job = self.job_queue.run_repeating(self.__callback_loop, SECONDS_TEST, context={
-                    'day': effective_day, 'chat_id': user['chat_id'], 'user_id': user['user_id']})
-                temp_job.enabled = False
-
-                self.jobs[str(user['chat_id']) + '@' +
-                          str(user['user_id'])] = temp_job
+            if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
+                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = False
             else:
-                self.jobs[str(user['chat_id']) + '@' +
-                          str(user['user_id'])].enabled = False
+                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = False
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text='Autosend disattivato.')
 
@@ -580,48 +593,31 @@ class Bot():
     def __callback_loop(self, context: CallbackContext):
         self.__orario_autosend(context)
         # TODO: generalizza
-        data = context.job.context
-        day = data['day']
-        chat_id = data['chat_id']
-        user_id = data['user_id']
+        # data = context.job.context
+        # day = data['day']
+        # chat_id = data['chat_id']
+        # user_id = data['user_id']
 
+        # user = self.db.query_by_ids(
+        #     chat_id=chat_id, user_id=user_id)[0]
+        # current = bool(user['autosend'])
 
-        user = self.db.query_by_ids(
-            chat_id=chat_id, user_id=user_id)[0]
-        current = bool(user['autosend'])
+        # self.db.update('data', key_chat_id=chat_id,
+        #                key_user_id=user_id, autosend=int(not current))
 
-        self.db.update('data', key_chat_id=chat_id,
-                       key_user_id=user_id, autosend=int(not current))
+        # effective_day = 'oggi' if int(
+        #     user['autosend_time'][:2]) < 15 else 'domani'
 
-        effective_day = 'oggi' if int(
-            user['autosend_time'][:2]) < 15 else 'domani'
-
-        if current:
-            if (str(user['chat_id']) + '@' + str(user['user_id'])) not in self.jobs.keys():
-                temp_job: Job = self.job_queue.run_repeating(self.__callback_loop, SECONDS_TEST, context={
-                    'day': effective_day, 'chat_id': user['chat_id'], 'user_id': user['user_id']})
-
-                self.jobs[str(user['chat_id']) + '@' +
-                          str(user['user_id'])] = temp_job
-            else:
-                self.jobs[str(user['chat_id']) + '@' +
-                          str(user['user_id'])].enabled = True
-
-            context.bot.send_message(
-                chat_id=chat_id, text='Autosend attivato.')
-        # else:
+        # if current:
         #     if (str(user['chat_id']) + '@' + str(user['user_id'])) not in self.jobs.keys():
-        #         temp_job: Job = self.job_queue.run_repeating(self.__callback_loop, SECONDS_TEST, context={
+        #         temp_job: Job = self.job_queue.run_repeating(self.__callback_loop, SECONDS_IN_A_DAY, context={
         #             'day': effective_day, 'chat_id': user['chat_id'], 'user_id': user['user_id']})
-        #         temp_job.enabled = False
 
         #         self.jobs[str(user['chat_id']) + '@' +
         #                   str(user['user_id'])] = temp_job
         #     else:
         #         self.jobs[str(user['chat_id']) + '@' +
-        #                   str(user['user_id'])].enabled = False
-        #     context.bot.send_message(
-        #         chat_id=chat_id, text='Autosend disattivato.')
+        #                   str(user['user_id'])].enabled = True
 
     def wiki(self, update: Update, context: CallbackContext):
 
