@@ -14,10 +14,10 @@ elif getpass.getuser() == 'pi':
 
 from api.unibo import UniboAPI
 from api.wikipedia import WikipediaAPI
+from api.weather import WeatherAPI
 from utils.utils import Utils
 from utils.message_creator import MessageCreator
 from database.database import Database
-from utils.weather import Weather
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Chat, User
 from telegram.error import BadRequest
@@ -420,10 +420,10 @@ class Bot():
 
         if 'oggi' in params['text']:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text=Weather.get_weather(city, 0))
+                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0))
         elif 'domani' in params['text']:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text=Weather.get_weather(city, 1))
+                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1))
 
         date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
 
@@ -565,10 +565,10 @@ class Bot():
 
         if 'oggi' in day:
             context.bot.send_message(
-                chat_id=chat_id, text=Weather.get_weather(city, 0))
+                chat_id=chat_id, text=WeatherAPI.get_weather(city, 0))
         elif 'domani' in day:
             context.bot.send_message(
-                chat_id=chat_id, text=Weather.get_weather(city, 1))
+                chat_id=chat_id, text=WeatherAPI.get_weather(city, 1))
 
         if len(messages) == 0:
             context.bot.send_message(

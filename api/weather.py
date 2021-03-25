@@ -2,7 +2,7 @@ import requests
 from datetime import datetime
 from pathlib import Path
 
-class Weather():
+class WeatherAPI():
     
     @staticmethod
     def get_weather(city: str, day: int):
