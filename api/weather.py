@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+from datetime import timedelta
 from pathlib import Path
 
 class WeatherAPI():
@@ -17,7 +18,7 @@ class WeatherAPI():
             weather_url = 'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={key}&units=metric&lang=it&exclude=minutely,hourly'.format(lat = lat, lon = lon, key = api_key)
             response = requests.get(weather_url)
             weather = response.json()
-            return Weather.parse_weather(day, weather)
+            return WeatherAPI.parse_weather(day, weather)
         else:
             return 'Meteo non disponibile'
 
