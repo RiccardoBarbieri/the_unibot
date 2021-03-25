@@ -417,7 +417,7 @@ class Bot():
             '/orario', update.message.text, self.which_bot)
         
         if (len(params['numeric']) == 0 and len(params['text']) == 0):
-            if datetime.datetime.now().hour < 15:
+            if datetime.now().hour < 15:
                 params['text'].append('oggi')
             else:
                 params['text'].append('domani')
