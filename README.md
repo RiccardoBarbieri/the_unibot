@@ -41,6 +41,8 @@ specificando la data *rigorosamente* nel formato indicato o scrivendo invece del
 
 **N.B.**: se l'orario viene richiesto nelle giornate *oggi* o *domani* verranno fornite anche informazioni meteo sulla città sede del corso.
 
+**N.B.**: se il comando viene lanciato senza fornire alcun parametro verrà interpretato come *oggi*
+
 ### Autosend
 Per impostare l'orario in cui si vuole ricevere l'orario quotidianamente:
 
