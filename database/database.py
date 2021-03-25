@@ -292,3 +292,5 @@ class Database():
 
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
+
+    pprint(db.query_all('data'))
