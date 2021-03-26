@@ -196,74 +196,78 @@ class Bot():
                 code=code, user_id=user_id))
 
     def set_corso(self, update: Update, context: CallbackContext):
-        message = 'Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'
-        context.bot.send_message(
-            chat_id=update.effective_chat.id, text=message)
-
-        courses = self.db.query_all('courses')
-
-        self.__update_last_command(update, context)
-
-        message_text = update.message.text.replace(
-            '@' + self.which_bot, '').strip()
-
-        page_param = 0
-        if len(message_text) == 10:
-            mess_len = 0
-            for i in self.db.query_all('courses'):
-                mess_len += len(i['course_name'] +
-                                ' [{type}]'.format(type=Utils.get_course_type(i['site'])))
-            page_num = ceil(mess_len / 4096)
-
-            pages = self.__pages_creation(courses, page_num)
-        else:
-            params = Utils.parse_params(
-                '/set_corso', update.message.text, self.which_bot)
-
-            # foolproofing numeric parameters
-            if len(params['numeric']) == 0:
-                page_param = 1
-            elif len(params['numeric']) >= 1:
-                page_param = params['numeric'][0]
-                if len(params['numeric']) > 1:
-                    context.bot.send_message(
-                        chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo.')
-
-            # foolproofing text parameters
-            if len(params['text']) == 0:
-                params['text'] = [' ']
-
-            # filtering courses
-            courses_filtered = []
-            for i in courses:
-                if Utils.string_contains(i['course_name'], params['text']):
-                    courses_filtered.append(i)
-
-            # pages number creation
-            mess_len = 0
-            for i in courses_filtered:
-                mess_len += len(i['course_name'] +
-                                ' [{type}]'.format(type=Utils.get_course_type(i['site'])))
-            page_num = ceil(mess_len / 4096)
-
-            # adapting page_param
-            if page_param > page_num:
-                page_param = page_num
-            if page_param <= 0:
-                page_param = 1
-            page_param -= 1
-
-            # pages creation
-            pages = self.__pages_creation(courses_filtered, page_num)
-
-        if pages:  # if pages is not empty
-            keyboard = ReplyKeyboardMarkup(
-                pages[page_param], one_time_keyboard=True, selective=True)
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
-                pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
-        else:
+        member = update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            message = 'Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Nessun corso trovato.')
+                chat_id=update.effective_chat.id, text=message)
+
+            courses = self.db.query_all('courses')
+
+            self.__update_last_command(update, context)
+
+            message_text = update.message.text.replace(
+                '@' + self.which_bot, '').strip()
+
+            page_param = 0
+            if len(message_text) == 10:
+                mess_len = 0
+                for i in self.db.query_all('courses'):
+                    mess_len += len(i['course_name'] +
+                                    ' [{type}]'.format(type=Utils.get_course_type(i['site'])))
+                page_num = ceil(mess_len / 4096)
+
+                pages = self.__pages_creation(courses, page_num)
+            else:
+                params = Utils.parse_params(
+                    '/set_corso', update.message.text, self.which_bot)
+
+                # foolproofing numeric parameters
+                if len(params['numeric']) == 0:
+                    page_param = 1
+                elif len(params['numeric']) >= 1:
+                    page_param = params['numeric'][0]
+                    if len(params['numeric']) > 1:
+                        context.bot.send_message(
+                            chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo.')
+
+                # foolproofing text parameters
+                if len(params['text']) == 0:
+                    params['text'] = [' ']
+
+                # filtering courses
+                courses_filtered = []
+                for i in courses:
+                    if Utils.string_contains(i['course_name'], params['text']):
+                        courses_filtered.append(i)
+
+                # pages number creation
+                mess_len = 0
+                for i in courses_filtered:
+                    mess_len += len(i['course_name'] +
+                                    ' [{type}]'.format(type=Utils.get_course_type(i['site'])))
+                page_num = ceil(mess_len / 4096)
+
+                # adapting page_param
+                if page_param > page_num:
+                    page_param = page_num
+                if page_param <= 0:
+                    page_param = 1
+                page_param -= 1
+
+                # pages creation
+                pages = self.__pages_creation(courses_filtered, page_num)
+
+            if pages:  # if pages is not empty
+                keyboard = ReplyKeyboardMarkup(
+                    pages[page_param], one_time_keyboard=True, selective=True)
+                context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
+                    pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+            else:
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text='Nessun corso trovato.')
+        else:
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
     def __pages_creation(self, courses: list, page_num: int):
         pages = []
@@ -286,123 +290,132 @@ class Bot():
         return pages
 
     def set_curricula(self, update: Update, context: CallbackContext):
+        member = update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
 
-        curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
+            self.__update_last_command(update, context)
 
-        self.__update_last_command(update, context)
+            course_code = self.db.query_by_ids(
+                chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]['course']
 
-        course_code = self.db.query_by_ids(
-            chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]['course']
+            params = Utils.parse_params(
+                '/set_curricula', update.message.text, self.which_bot)
 
-        params = Utils.parse_params(
-            '/set_curricula', update.message.text, self.which_bot)
+            curriculas_codes = self.db.query_join('courses', 'curriculas', {
+                                                'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
 
-        curriculas_codes = self.db.query_join('courses', 'curriculas', {
-                                              'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
+            if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                if len(curriculas_codes) == 1:
+                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                course='0', year=1, detail=2, curricula=curriculas_codes['code'])
+                else:
+                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                course='0', year=1, detail=2, curricula='default')
 
-        if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
-            if len(curriculas_codes) == 1:
-                self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                               course='0', year=1, detail=2, curricula=curriculas_codes['code'])
+            if course_code != '0':
+
+                if (len(params['numeric']) == 0 and len(params['text']) == 1) and re.match(curricula_regex, params['text'][0]):
+                    check_present = False
+                    for i in curriculas_codes:
+                        if params['text'][0] == i['code']:
+                            check_present = True
+                            name = i['label']
+
+                    if check_present:
+
+                        chat_id = update.effective_chat.id
+                        user_id = update.effective_user.id
+
+                        self.db.update('data', key_chat_id=chat_id,
+                                    key_user_id=user_id, curricula=params['text'][0])
+                        context.bot.send_message(chat_id=update.effective_chat.id,
+                                                text='Impostato curricula a {name} [{curr}].'.format(name=name, curr=params['text'][0]))
+                        print(self.db.query_by_ids(chat_id, user_id))
+
+                    else:
+                        context.bot.send_message(
+                            chat_id=update.effective_chat.id, text='Il curricula {curr} non è disponibile per il tuo corso.'.format(curr=params['text'][0]))
+
+                elif (len(params['numeric']) == 0 and len(params['text']) == 0):
+                    rows = []
+                    for i in curriculas_codes:
+                        temp = []
+                        temp.append(KeyboardButton('{label} [{code}]'.format(
+                            label=i['label'], code=i['code'])))
+                        rows.append(temp)
+
+                    keyboard = ReplyKeyboardMarkup(
+                        rows, one_time_keyboard=True, selective=True)
+
+                    if len(rows) != 0:
+                        context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il curricula:',
+                                                reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                    else:
+                        context.bot.send_message(chat_id=update.effective_chat.id, text='Nessun curricula disponibile',
+                                                reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+
             else:
-                self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                               course='0', year=1, detail=2, curricula='default')
-
-        if course_code != '0':
-
-            if (len(params['numeric']) == 0 and len(params['text']) == 1) and re.match(curricula_regex, params['text'][0]):
-                check_present = False
-                for i in curriculas_codes:
-                    if params['text'][0] == i['code']:
-                        check_present = True
-                        name = i['label']
-
-                if check_present:
-
-                    chat_id = update.effective_chat.id
-                    user_id = update.effective_user.id
-
-                    self.db.update('data', key_chat_id=chat_id,
-                                   key_user_id=user_id, curricula=params['text'][0])
-                    context.bot.send_message(chat_id=update.effective_chat.id,
-                                             text='Impostato curricula a {name} [{curr}].'.format(name=name, curr=params['text'][0]))
-                    print(self.db.query_by_ids(chat_id, user_id))
-
-                else:
-                    context.bot.send_message(
-                        chat_id=update.effective_chat.id, text='Il curricula {curr} non è disponibile per il tuo corso.'.format(curr=params['text'][0]))
-
-            elif (len(params['numeric']) == 0 and len(params['text']) == 0):
-                rows = []
-                for i in curriculas_codes:
-                    temp = []
-                    temp.append(KeyboardButton('{label} [{code}]'.format(
-                        label=i['label'], code=i['code'])))
-                    rows.append(temp)
-
-                keyboard = ReplyKeyboardMarkup(
-                    rows, one_time_keyboard=True, selective=True)
-
-                if len(rows) != 0:
-                    context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il curricula:',
-                                             reply_markup=keyboard, reply_to_message_id=update.message.message_id)
-                else:
-                    context.bot.send_message(chat_id=update.effective_chat.id, text='Nessun curricula disponibile',
-                                             reply_markup=keyboard, reply_to_message_id=update.message.message_id)
-
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text='Imposta prima il tuo corso.')
         else:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Imposta prima il tuo corso.')
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
     def set_anno(self, update: Update, context: CallbackContext):
+        member = update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            self.__update_last_command(update, context)
 
-        self.__update_last_command(update, context)
+            params = Utils.parse_params(
+                '/set_anno', update.message.text, self.which_bot)
 
-        params = Utils.parse_params(
-            '/set_anno', update.message.text, self.which_bot)
-
-        if len(params['numeric']) == 1 and len(params['text']) == 0:
-            if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
-                chat_id = update.effective_chat.id
-                user_id = update.effective_user.id
-                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
-                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                   course='0', year=1, detail=2, curricula='default')
-                else:
-                    self.db.update('data', key_chat_id=update.effective_chat.id,
-                                   key_user_id=update.effective_user.id, year=params['numeric'][0])
-                self.db.backup('data')
-                context.bot.send_message(chat_id=update.effective_chat.id,
-                                         text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
-                print(self.db.query_by_ids(chat_id, user_id))
+            if len(params['numeric']) == 1 and len(params['text']) == 0:
+                if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
+                    chat_id = update.effective_chat.id
+                    user_id = update.effective_user.id
+                    if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                        self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                    course='0', year=1, detail=2, curricula='default')
+                    else:
+                        self.db.update('data', key_chat_id=update.effective_chat.id,
+                                    key_user_id=update.effective_user.id, year=params['numeric'][0])
+                    self.db.backup('data')
+                    context.bot.send_message(chat_id=update.effective_chat.id,
+                                            text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
+                    print(self.db.query_by_ids(chat_id, user_id))
+            else:
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text='Parametri errati.')
         else:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Parametri errati.')
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
     def set_detail(self, update: Update, context: CallbackContext):
+        member = update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            self.__update_last_command(update, context)
 
-        self.__update_last_command(update, context)
+            params = Utils.parse_params(
+                '/set_detail', update.message.text, self.which_bot)
 
-        params = Utils.parse_params(
-            '/set_detail', update.message.text, self.which_bot)
-
-        if len(params['numeric']) == 1 and len(params['text']) == 0:
-            if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
-                chat_id = update.effective_chat.id
-                user_id = update.effective_user.id
-                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
-                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                   course='0', year=1, detail=2, curricula='default')
-                else:
-                    self.db.update('data', key_chat_id=update.effective_chat.id,
-                                   key_user_id=update.effective_user.id, detail=params['numeric'][0])
-                self.db.backup('data')
-                context.bot.send_message(chat_id=update.effective_chat.id,
-                                         text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
-                print(self.db.query_by_ids(chat_id, user_id))
+            if len(params['numeric']) == 1 and len(params['text']) == 0:
+                if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
+                    chat_id = update.effective_chat.id
+                    user_id = update.effective_user.id
+                    if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                        self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                    course='0', year=1, detail=2, curricula='default')
+                    else:
+                        self.db.update('data', key_chat_id=update.effective_chat.id,
+                                    key_user_id=update.effective_user.id, detail=params['numeric'][0])
+                    self.db.backup('data')
+                    context.bot.send_message(chat_id=update.effective_chat.id,
+                                            text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
+                    print(self.db.query_by_ids(chat_id, user_id))
+            else:
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text='Parametri errati.')
         else:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Parametri errati.')
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
     def orario(self, update: Update, context: CallbackContext):
 
@@ -486,80 +499,89 @@ class Bot():
     def set_autosend(self, update: Update, context: CallbackContext):
         time_regex = '([0-1]?[0-9]|2[0-3]):[0-5][0-9]'
 
-        self.__update_last_command(update, context)
-
-        params = Utils.parse_params(
-            '/set_autosend', update.message.text, self.which_bot)
-
-        if (len(params['numeric']) == 0) and (len(params['text']) == 1) and bool(re.match(time_regex, params['text'][0])):
-            chat_id = update.effective_chat.id
-            user_id = update.effective_user.id
-
-            if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
-                self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                               course='0', year=1, detail=2, curricula='default', autosend_time=params['text'][0])
-            else:
-                self.db.update('data', key_chat_id=update.effective_chat.id,
-                               key_user_id=update.effective_user.id, autosend_time=params['text'][0])
-
-            self.db.backup('data')
-            context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text='Impostato orario autosend a {time}.'.format(time=params['text'][0]))
-
-            effective_day = 'oggi' if int(
-                params['text'][0][:2]) < 15 else 'domani'
+        member = update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             
-            scheduled_time_str = params['text'][0]
+            self.__update_last_command(update, context)
 
-            if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
-                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
-                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+            params = Utils.parse_params(
+                '/set_autosend', update.message.text, self.which_bot)
+
+            if (len(params['numeric']) == 0) and (len(params['text']) == 1) and bool(re.match(time_regex, params['text'][0])):
+                chat_id = update.effective_chat.id
+                user_id = update.effective_user.id
+
+                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                    self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                                course='0', year=1, detail=2, curricula='default', autosend_time=params['text'][0])
+                else:
+                    self.db.update('data', key_chat_id=update.effective_chat.id,
+                                key_user_id=update.effective_user.id, autosend_time=params['text'][0])
+
+                self.db.backup('data')
+                context.bot.send_message(chat_id=update.effective_chat.id,
+                                        text='Impostato orario autosend a {time}.'.format(time=params['text'][0]))
+
+                effective_day = 'oggi' if int(
+                    params['text'][0][:2]) < 15 else 'domani'
+                
+                scheduled_time_str = params['text'][0]
+
+                if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
+                    self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+                else:
+                    self.jobs[str(chat_id) + '@' + str(user_id)].schedule_removal()
+                    self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+
+                print(self.db.query_by_ids(chat_id, user_id))
             else:
-                self.jobs[str(chat_id) + '@' + str(user_id)].schedule_removal()
-                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
-                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
-
-            print(self.db.query_by_ids(chat_id, user_id))
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text='Parametri errati.')
         else:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Parametri errati.')
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
     def autosend(self, update: Update, context: CallbackContext):
-        user = self.db.query_by_ids(
-            chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]
-        current = bool(user['autosend'])
-        user_id = user['user_id']
-        chat_id = user['chat_id']
+        member = update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            user = self.db.query_by_ids(
+                chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]
+            current = bool(user['autosend'])
+            user_id = user['user_id']
+            chat_id = user['chat_id']
 
-        self.db.update('data', key_chat_id=update.effective_chat.id,
-                       key_user_id=update.effective_user.id, autosend=int(not current))
+            self.db.update('data', key_chat_id=update.effective_chat.id,
+                        key_user_id=update.effective_user.id, autosend=int(not current))
 
-        effective_day = 'oggi' if int(
-            user['autosend_time'][:2]) < 15 else 'domani'
-        
-        scheduled_time_str = user['autosend_time']
+            effective_day = 'oggi' if int(
+                user['autosend_time'][:2]) < 15 else 'domani'
+            
+            scheduled_time_str = user['autosend_time']
 
-        if not current:  # enabling autosend
-            if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
-                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
-                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+            if not current:  # enabling autosend
+                if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
+                    self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+                else:
+                    self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
+
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text='Autosend attivato.')
             else:
-                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
-
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Autosend attivato.')
+                if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
+                    self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id) + '@' + str(user_id)].enabled = False
+                else:
+                    self.jobs[str(chat_id) + '@' + str(user_id)].enabled = False
+                context.bot.send_message(
+                    chat_id=update.effective_chat.id, text='Autosend disattivato.')
         else:
-            if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
-                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
-                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = False
-            else:
-                self.jobs[str(chat_id) + '@' + str(user_id)].enabled = False
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Autosend disattivato.')
+            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
     def __orario_autosend(self, context: CallbackContext):
         data = context.job.context
