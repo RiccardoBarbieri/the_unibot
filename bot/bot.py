@@ -77,10 +77,10 @@ class Bot():
             effective_day = 'oggi' if int(
                 scheduled_time_str[:2]) < 15 else 'domani'
             chat_id = i['chat_id']
-            user_id = i['user_id']
+            # user_id = i['user_id']
             if bool(i['autosend']):
-                self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                    'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
+                    'day': effective_day, 'chat_id': chat_id})
 
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
@@ -120,10 +120,13 @@ class Bot():
 
     def misc(self, update: Update, context: CallbackContext):
 
+
         self.__update_last_command(update, context)
 
-        last_command = (None if self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)[0][
-            'text'] == '' else self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)[0])
+        last_command = (None if self.db.query('last_command', key_chat_id=update.effective_chat.id)[0][
+            'text'] == '' else self.db.query('last_command', key_chat_id=update.effective_chat.id)[0])
+
+        
 
         if 'piedi' in update.message.text.lower():
             context.bot.send_message(
@@ -159,18 +162,15 @@ class Bot():
                 course_name=course_name, link=found['site'])
             context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
-            if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                 self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                                course=course_code, year=1, detail=2, curricula='default')
             else:
-                self.db.update('data', key_chat_id=chat_id,
-                               key_user_id=user_id, course=course_code)
+                self.db.update('data', key_chat_id=chat_id, course=course_code)
             if len(curriculas) == 1:
-                self.db.update('data', key_chat_id=chat_id,
-                               key_user_id=user_id, curricula=curriculas[0]['code'])
+                self.db.update('data', key_chat_id=chat_id, curricula=curriculas[0]['code'])
             elif len(curriculas) == 0:
-                self.db.update('data', key_chat_id=chat_id,
-                               key_user_id=user_id, curricula='000-000')
+                self.db.update('data', key_chat_id=chat_id, curricula='000-000')
 
             self.db.backup('data')
             print('Updated user {user_id} with course {course_code}'.format(
@@ -188,8 +188,7 @@ class Bot():
             context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
 
-            self.db.update('data', key_chat_id=chat_id,
-                           key_user_id=user_id, curricula=code)
+            self.db.update('data', key_chat_id=chat_id, curricula=code)
 
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
@@ -297,7 +296,7 @@ class Bot():
             self.__update_last_command(update, context)
 
             course_code = self.db.query_by_ids(
-                chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]['course']
+                chat_id=update.effective_chat.id)[0]['course']
 
             params = Utils.parse_params(
                 '/set_curricula', update.message.text, self.which_bot)
@@ -305,7 +304,7 @@ class Bot():
             curriculas_codes = self.db.query_join('courses', 'curriculas', {
                                                 'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
 
-            if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+            if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                 if len(curriculas_codes) == 1:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                                 course='0', year=1, detail=2, curricula=curriculas_codes['code'])
@@ -327,11 +326,10 @@ class Bot():
                         chat_id = update.effective_chat.id
                         user_id = update.effective_user.id
 
-                        self.db.update('data', key_chat_id=chat_id,
-                                    key_user_id=user_id, curricula=params['text'][0])
+                        self.db.update('data', key_chat_id=chat_id, curricula=params['text'][0])
                         context.bot.send_message(chat_id=update.effective_chat.id,
                                                 text='Impostato curricula a {name} [{curr}].'.format(name=name, curr=params['text'][0]))
-                        print(self.db.query_by_ids(chat_id, user_id))
+                        print(self.db.query_by_ids(chat_id))
 
                     else:
                         context.bot.send_message(
@@ -373,16 +371,15 @@ class Bot():
                 if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
                     chat_id = update.effective_chat.id
                     user_id = update.effective_user.id
-                    if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                    if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                                     course='0', year=1, detail=2, curricula='default')
                     else:
-                        self.db.update('data', key_chat_id=update.effective_chat.id,
-                                    key_user_id=update.effective_user.id, year=params['numeric'][0])
+                        self.db.update('data', key_chat_id=update.effective_chat.id, year=params['numeric'][0])
                     self.db.backup('data')
                     context.bot.send_message(chat_id=update.effective_chat.id,
                                             text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
-                    print(self.db.query_by_ids(chat_id, user_id))
+                    print(self.db.query_by_ids(chat_id))
             else:
                 context.bot.send_message(
                     chat_id=update.effective_chat.id, text='Parametri errati.')
@@ -401,16 +398,15 @@ class Bot():
                 if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
                     chat_id = update.effective_chat.id
                     user_id = update.effective_user.id
-                    if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                    if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                                     course='0', year=1, detail=2, curricula='default')
                     else:
-                        self.db.update('data', key_chat_id=update.effective_chat.id,
-                                    key_user_id=update.effective_user.id, detail=params['numeric'][0])
+                        self.db.update('data', key_chat_id=update.effective_chat.id, detail=params['numeric'][0])
                     self.db.backup('data')
                     context.bot.send_message(chat_id=update.effective_chat.id,
                                             text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
-                    print(self.db.query_by_ids(chat_id, user_id))
+                    print(self.db.query_by_ids(chat_id))
             else:
                 context.bot.send_message(
                     chat_id=update.effective_chat.id, text='Parametri errati.')
@@ -421,10 +417,12 @@ class Bot():
 
         self.__update_last_command(update, context)
         user = self.db.query_by_ids(
-            chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]
+            chat_id=update.effective_chat.id)[0]
         course_code = user['course']
         city = self.db.query('courses', key_course_code=course_code)[
             0]['campus'].strip()
+        
+        print(user)
         
 
         params = Utils.parse_params(
@@ -482,10 +480,10 @@ class Bot():
     def __messages_creation(self, date: str, chat_id: int, user_id: int):
 
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
-            chat_id), 'user_id1': str(user_id)}, 'site2', 'course_codec2', course='course_code')[0]
+            chat_id)}, 'site2', 'course_codec2', course='course_code')[0]
 
         result = self.db.query_by_ids(
-            chat_id, user_id)[0]
+            chat_id)[0]
 
         schedules = UniboAPI.get_orario(found['course_codec'], Utils.get_course_type(
             found['site']), result['year'], Utils.get_course_lang(found['site']), date, curricula=result['curricula'])
@@ -511,12 +509,11 @@ class Bot():
                 chat_id = update.effective_chat.id
                 user_id = update.effective_user.id
 
-                if len(self.db.query_by_ids(update.effective_chat.id, update.effective_user.id)) == 0:
+                if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                                 course='0', year=1, detail=2, curricula='default', autosend_time=params['text'][0])
                 else:
-                    self.db.update('data', key_chat_id=update.effective_chat.id,
-                                key_user_id=update.effective_user.id, autosend_time=params['text'][0])
+                    self.db.update('data', key_chat_id=update.effective_chat.id, autosend_time=params['text'][0])
 
                 self.db.backup('data')
                 context.bot.send_message(chat_id=update.effective_chat.id,
@@ -537,7 +534,7 @@ class Bot():
                         'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
                     self.jobs[str(chat_id) + '@' + str(user_id)].enabled = True
 
-                print(self.db.query_by_ids(chat_id, user_id))
+                print(self.db.query_by_ids(chat_id))
             else:
                 context.bot.send_message(
                     chat_id=update.effective_chat.id, text='Parametri errati.')
@@ -548,13 +545,12 @@ class Bot():
         member = update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             user = self.db.query_by_ids(
-                chat_id=update.effective_chat.id, user_id=update.effective_user.id)[0]
+                chat_id=update.effective_chat.id)[0]
             current = bool(user['autosend'])
             user_id = user['user_id']
             chat_id = user['chat_id']
 
-            self.db.update('data', key_chat_id=update.effective_chat.id,
-                        key_user_id=update.effective_user.id, autosend=int(not current))
+            self.db.update('data', key_chat_id=update.effective_chat.id, autosend=int(not current))
 
             effective_day = 'oggi' if int(
                 user['autosend_time'][:2]) < 15 else 'domani'
@@ -592,7 +588,7 @@ class Bot():
         date = Utils.date_from_days(day)
 
         course_code = self.db.query_by_ids(
-            chat_id=chat_id, user_id=user_id)[0]['course']
+            chat_id=chat_id)[0]['course']
         city = self.db.query('courses', key_course_code=course_code)[
             0]['campus'].strip()
 
@@ -618,32 +614,6 @@ class Bot():
 
     def __callback_loop(self, context: CallbackContext):
         self.__orario_autosend(context)
-        # TODO: generalizza
-        # data = context.job.context
-        # day = data['day']
-        # chat_id = data['chat_id']
-        # user_id = data['user_id']
-
-        # user = self.db.query_by_ids(
-        #     chat_id=chat_id, user_id=user_id)[0]
-        # current = bool(user['autosend'])
-
-        # self.db.update('data', key_chat_id=chat_id,
-        #                key_user_id=user_id, autosend=int(not current))
-
-        # effective_day = 'oggi' if int(
-        #     user['autosend_time'][:2]) < 15 else 'domani'
-
-        # if current:
-        #     if (str(user['chat_id']) + '@' + str(user['user_id'])) not in self.jobs.keys():
-        #         temp_job: Job = self.job_queue.run_repeating(self.__callback_loop, SECONDS_IN_A_DAY, context={
-        #             'day': effective_day, 'chat_id': user['chat_id'], 'user_id': user['user_id']})
-
-        #         self.jobs[str(user['chat_id']) + '@' +
-        #                   str(user['user_id'])] = temp_job
-        #     else:
-        #         self.jobs[str(user['chat_id']) + '@' +
-        #                   str(user['user_id'])].enabled = True
 
     def wiki(self, update: Update, context: CallbackContext):
 
@@ -711,14 +681,13 @@ class Bot():
                                  .format(link='https://github.com/RiccardoBarbieri/the_unibot/issues'), parse_mode=ParseMode.HTML)
 
     def __update_last_command(self, update: Update, context: CallbackContext):
-        if len(self.db.query('last_command', key_chat_id=update.effective_chat.id, key_user_id=update.effective_user.id)) == 0:
+        if len(self.db.query('last_command', key_chat_id=update.effective_chat.id)) == 0:
             self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                            course='0', year=1, detail=2, curricula='default')
         if '/' in update.message.text:
             self.db.insert('last_command', chat_id=update.effective_chat.id,
                            user_id=update.effective_user.id, text=update.message.text)
-            self.db.update('last_command', key_chat_id=update.effective_chat.id,
-                           key_user_id=update.effective_user.id, text=update.message.text)
+            self.db.update('last_command', key_chat_id=update.effective_chat.id, text=update.message.text)
 
 
 if __name__ == '__main__':
