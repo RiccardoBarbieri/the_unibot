@@ -18,3 +18,9 @@ class Test():
 a = Test({'chat_id':1234, 'user_id':4321, 'atosend_time':'23:23'})
 
 print(a.chat_id)
+
+-1001430472485, # gruppo amici greg
+-1001404621927, # testiamolo
+
+131125356 # io
+913871757 # greg

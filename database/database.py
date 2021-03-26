@@ -41,7 +41,7 @@ class Database():
                             curricula TEXT DEFAULT "default",
                             autosend_time TEXT DEFAULT "00:00",
                             autosend INTEGER CHECK (autosend IN (0,1)) DEFAULT 0,
-                            PRIMARY KEY (chat_id, user_id)
+                            PRIMARY KEY (chat_id)
                             ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS courses (
                             course_name TEXT NOT NULL,
@@ -68,8 +68,8 @@ class Database():
                             text TEXT NOT NULL,
                             chat_id INTEGER NOT NULL,
                             user_id INTEGER NOT NULL,
-                            PRIMARY KEY (chat_id, user_id),
-                            FOREIGN KEY (chat_id, user_id) REFERENCES data(chat_id, user_id) ON DELETE CASCADE
+                            PRIMARY KEY (chat_id),
+                            FOREIGN KEY (chat_id) REFERENCES data(chat_id) ON DELETE CASCADE
                             ) WITHOUT ROWID;''')
 
     def insert(self, table: str, **kwargs):
@@ -248,16 +248,16 @@ class Database():
                 cursor.execute(query, data)
             return cursor.fetchall()
 
-    def query_by_ids(self, chat_id: int, user_id: int) -> list:
+    def query_by_ids(self, chat_id: int) -> list:
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
 
             cursor.execute("PRAGMA table_info({table})".format(table='data'))
             cols = tuple([i[1] for i in cursor.fetchall()])
 
-            data = (chat_id, user_id)
-            query = 'SELECT * FROM data WHERE (chat_id, user_id) = (?,?)'
-            cursor.execute(query, data)
+
+            query = 'SELECT * FROM data WHERE chat_id = ' + str(chat_id)
+            cursor.execute(query)
 
             return self.__dict_creation(cols, cursor.fetchall())
 
