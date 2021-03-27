@@ -12,20 +12,21 @@ elif getpass.getuser() == 'pi':
 from pprint import pprint
 from typing import List, Dict
 
-from new_database.types_enum import TypesEnum
 from new_database.column import Column
-from new_database.type import Type
 from new_database.exceptions import ZeroColumns
+from new_database.foreign_key import ForeignKey
 
 class Table():
 
-    __name: str
+    __columns: List[Column] # contains a list of the columns of the table
 
-    __columns: List[Column]
+    __name: str # contains the name of the table
 
-    def __init__(self, name: str, columns: List[Column]):
+    __references: List[ForeignKey] # contains a list of ForeignKey describing what columns references which column
 
+    def __init__(self, name: str, columns: List[Column], references: List[ForeignKey] = None):
         self.__name = name
+
         self.__columns = columns
 
         if len(columns) == 0:
@@ -35,12 +36,14 @@ class Table():
 
         self.__dict__.update(col_dict)
 
+        self.__references = references
+
     
     def get_columns(self) -> List[str]:
         return self.__columns
+    
+    def get_name(self) -> str:
+        return self.__name
 
-cols = []
-names = ['user_id', 'chat_id']
-
-for i in names:
-    cols.append(Column(i, Type(TypesEnum.INT, 10)))
+    def get_references(self) -> List[ForeignKey]:
+        return self.__references
