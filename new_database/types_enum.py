@@ -8,8 +8,9 @@ elif getpass.getuser() == 'riccardoob':
     sys.path.append('/home/riccardoob/telegram_bot')
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
+
+
 from enum import Enum
-from typing import overload
 
 class TypesEnum(Enum):
     

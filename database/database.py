@@ -58,7 +58,7 @@ class Database():
                             label TEXT,
                             code TEXT NOT NULL,
                             PRIMARY KEY (label),
-                            FOREIGN KEY (course_code) REFERENCES data(course_code) ON DELETE CASCADE
+                            FOREIGN KEY (course_code) REFERENCES courses(course_code) ON DELETE CASCADE
                             ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS test (
                             blobber BLOB,
