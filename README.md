@@ -67,3 +67,5 @@ Ad ogni ricerca eseguita verrà fornita una lista di risultati attinenti tra i q
 
 ## Utility
 Data l'emergenza Covid e la migrazione online delle lezioni si potrebbe pensare che qualcuno le possa registrare **illegalmente**: il bot possiede (preventivamente) una censura automatica per le parole derivate da *registrazione*, particolarmente consigliata nei canali telegram.
+
+**N.B.**: le utility necessitano dei privilegi di amministratore per funzionare.
