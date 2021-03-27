@@ -25,3 +25,7 @@ class Type():
     
     def __str__(self) -> str:
         return (self.__type.value if self.__len == -1 else self.__type.value + '({len})'.format(len = self.__len))
+    
+    def __repr__(self) -> str:
+        string = str(self.__type)
+        return '<' + string + '>'
