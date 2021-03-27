@@ -133,7 +133,7 @@ class Bot():
                 chat_id=update.effective_chat.id, text='Qualcuno ha detto PIEDI????')
             context.bot.send_photo(chat_id=update.effective_chat.id,
                                    photo='https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
-        if 'egistr' in update.message.text.lower():
+        if 'egistr' in update.message.text.lower() and update.effective_chat.type != 'private':
             text = update.message.text.replace('egistr', '******')
             context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
                                      .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
