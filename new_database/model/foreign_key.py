@@ -1,3 +1,4 @@
+from __future__ import annotations
 import sys
 import getpass
 if getpass.getuser() == 'ricca':
@@ -9,8 +10,10 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-from new_database.column import Column
-from new_database.table import Table
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from new_database.model.column import Column
+    from new_database.model.table import Table
 
 
 class ForeignKey():
@@ -45,11 +48,11 @@ class ForeignKey():
 
     def __repr__(self) -> str:
         string = 'ForeignKey '
-        string += 'ON DELETE CASCADE, '
+        string += 'ON DELETE CASCADE, ' if self.__on_delete_cascade else ''
         string += '<from {from_col} {table}.{column}>'.format(from_col=self.__from_column.get_name(
-        ), table=self.__to_table, column=self.__to_column.get_name())
+        ), table=self.__to_table.get_name(), column=self.__to_column.get_name())
         return '<' + string + '>'
 
     def __str__(self) -> str:
-        string = 'FOREIGN KEY ({from_col}) REFERENCES {table}({column})'.format(from_col=self.__from_column, table=self.__to_table, column=self.__to_column)
+        string = 'FOREIGN KEY ({from_col}) REFERENCES {table}({column})'.format(from_col=self.__from_column.get_name(), table=self.__to_table.get_name(), column=self.__to_column.get_name())
         return string + (' ON DELETE CASCADE' if self.__on_delete_cascade else '')

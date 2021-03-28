@@ -1,3 +1,4 @@
+from __future__ import annotations
 import sys
 import getpass
 if getpass.getuser() == 'ricca':
@@ -9,8 +10,10 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
     
-    
-from new_database.types_enum import TypesEnum
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from new_database.model.types_enum import TypesEnum
 
 
 class Type():
@@ -29,3 +32,6 @@ class Type():
     def __repr__(self) -> str:
         string = str(self.__type)
         return '<' + string + '>'
+
+    def __eq__(self, o: object) -> bool:
+        return (self.__type == o.__type) and (self.__len == o.__len)

@@ -1,3 +1,4 @@
+from __future__ import annotations
 import sys
 import getpass
 if getpass.getuser() == 'ricca':
@@ -11,9 +12,10 @@ elif getpass.getuser() == 'pi':
 
 from typing import List
 
-
-from new_database.types_enum import TypesEnum
-from new_database.type import Type
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from new_database.model.type import Type
+    from new_database.model.types_enum import TypesEnum
 
 
 class Column():
@@ -53,9 +55,14 @@ class Column():
         string += '' if self.__nullable else ' NOT NULL, '
         return '<' + string[:-2] + '>'
 
+    def __eq__(self, o: object) -> bool:
+        return (self.__name == o.__name) and (self.__type == o.__type) and (self.__primary_key == o.__primary_key) and (self.__unique == o.__unique) and (self.__nullable == o.__nullable)
+
     def get_name(self) -> str:
         return self.__name
 
     def get_type(self) -> Type:
         return self.__type
-
+    
+    def is_primary_key(self) -> bool:
+        return self.__primary_key
