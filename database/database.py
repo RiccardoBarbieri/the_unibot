@@ -291,3 +291,5 @@ class Database():
 
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
+
+    db.custom_query('BACKUP DATABASE telegram TO DISK = \'C:\\Users\\ricca\\Desktop\'')
