@@ -20,26 +20,51 @@ if TYPE_CHECKING:
 
 class Select():
 
-    __from_tables: List[Column] # contains tables for from clause
+    __from_tables: List[Table] # contains tables for from clause
 
-    __select_clause: List[Column] # contains columns for select clause
+    __select_clause: Dict[Table, List[Column]] # contains columns for select clause
 
-    __where_clause: Dict[Column, Any] # contains a dictionary for the where clause
+    __where_clause: Dict[Table, Dict[Column, Any]] # contains a dictionary for the where clause
 
     def __init__(self, select_clause: Dict[Table, List[Column]] = None, from_tables: List[Table] = None, where_clause: Dict[Table, Dict[Column, Any]] = None):
-        self.__from_tables = from_tables
         self.__select_clause = select_clause
+        self.__from_tables = from_tables
         self.__where_clause = where_clause
  
         for table in self.__select_clause.keys(): # check if columns from select clause actually belong to the associated table
             for col in self.__select_clause[table]:
                 if not table.contains(col):
-                    raise NoSuchColumn('Column {col} does not belong to table {table} for select clause'.format(col = col.get_name(), table = table.get_name()))
+                    raise NoSuchColumn('Column {col} (for select clause) does not belong to table {table}'.format(col = col.get_name(), table = table.get_name()))
         
         for table in self.__where_clause.keys(): # check if columns from where clause actually belong to the associated table
             for col in self.__where_clause[table].keys():
                 if not table.contains(col):
-                    raise NoSuchColumn('Column {col} does not belong to table {table} for where clause'.format(col = col.get_name(), table = table.get_name()))
+                    raise NoSuchColumn('Column {col} (for where clause) does not belong to table {table}'.format(col = col.get_name(), table = table.get_name()))
+
+
+    def __str__(self) -> str:
+        string = 'SELECT '
+        if not self.__select_clause:
+            string += '* '
+        else:
+            for table in self.__select_clause.keys():
+                for col in self.__select_clause[table]:
+                    string += '{table}.{column}, '.format(table = table.get_name(), column = col.get_name())
+        string = string[:-2] + ' '
+        if self.__from_tables:
+            string += 'FROM '
+            for table in self.__from_tables:
+                string += table.get_name() + ', '
+        string = string[:-2] + ' '
+        if self.__where_clause:
+            string += 'WHERE '
+            for table in self.__where_clause.keys():
+                for col in self.__where_clause[table].keys():
+                    string += '{table}.{column} = {value}, '.format(table = table.get_name(), column = col.get_name(), value = self.__where_clause[table][col])
+        string = string[:-2]
+        return string
+
+
 
         
         

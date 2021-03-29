@@ -66,3 +66,6 @@ class Column():
     
     def is_primary_key(self) -> bool:
         return self.__primary_key
+    
+    def __hash__(self) -> int:
+        return hash((self.__name, self.__type, self.__primary_key, self.__unique, self.__nullable))

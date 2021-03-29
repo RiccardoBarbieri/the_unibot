@@ -35,3 +35,6 @@ class Type():
 
     def __eq__(self, o: object) -> bool:
         return (self.__type == o.__type) and (self.__len == o.__len)
+
+    def __hash__(self) -> int:
+        return hash((self.__type, self.__len))
