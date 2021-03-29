@@ -83,7 +83,8 @@ class Table():
         raise NoSuchColumn('Column {col} does not exists'.format(col = column_name))
 
 
-    # def __contains(self):
+    def contains(self, column: Column) -> bool:
+        return column in self.__columns
         
 
     def __repr__(self) -> str:
