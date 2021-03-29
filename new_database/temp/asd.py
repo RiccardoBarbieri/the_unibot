@@ -24,12 +24,14 @@ with connector.connect(**creds) as connection:
 
     cursor: CursorBase = connection.cursor()
 
-    cursor.execute('USE telegram')
+    cursor.execute('USE phpmyadmin;')
 
-    db.select().where
+    cursor.execute('show tables like "%";')
+
+    print(cursor.fetchall())
 
 
-    cursor.execute('CREATE TABLE IF NOT EXISTS test (\nid INT PRIMARY KEY\n)')
+    # cursor.execute('CREATE TABLE IF NOT EXISTS test (\nid INT PRIMARY KEY\n)')
     connection.commit()
 
 # data = (2,)
