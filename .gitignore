@@ -5,3 +5,4 @@ chromedriver.exe
 /database/*.db
 /database/backup*.json
 /ip/
+*.json
