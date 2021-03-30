@@ -24,6 +24,19 @@ class ZeroColumns(Exception):
         else:
             return ''
 
+class ZeroTables(Exception):
+    def __init__(self, *args):
+        if args:
+            self.message = args[0]
+        else:
+            self.message = None
+
+    def __str__(self):
+        if self.message:
+            return 'ZeroTables, {0} '.format(self.message)
+        else:
+            return ''
+
 class SyntaxError(Exception):
     def __init__(self, *args):
         if args:
