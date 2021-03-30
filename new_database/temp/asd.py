@@ -14,7 +14,7 @@ with open('./new_database/pass.txt', 'r') as f:
 
 
 creds = {
-    'host':ip,
+    'host':'riccardohost.ddns.net',
     'user':'root',
     'password':psw
 }
@@ -24,7 +24,7 @@ with connector.connect(**creds) as connection:
 
     cursor: CursorBase = connection.cursor()
 
-    cursor.execute('USE phpmyadmin;')
+    cursor.execute('USE telegram;')
 
     cursor.execute('show tables like "%";')
 

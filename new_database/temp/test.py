@@ -16,6 +16,7 @@ from new_database.model.column import Column
 from new_database.model.type import Type
 from new_database.model.types_enum import TypesEnum
 from new_database.statements.select import Select
+from new_database.statements.update import Update
 
 
 
@@ -35,6 +36,8 @@ last = Table('last', cols_last, references=foreigns)
 print(last)
 print(data)
 
+
+
 select_clause = {
     data: [Column('chat_id', Type(TypesEnum.INT), primary_key=True)],
     last: [Column('command', Type(TypesEnum.TEXT))]
@@ -43,9 +46,20 @@ select_clause = {
 from_clause = [data, last]
 
 where_clause = {
-    data: {Column('chat_id', Type(TypesEnum.INT), primary_key=True): '1234'}
+    data: {Column('chat_id', Type(TypesEnum.INT), primary_key=True): 1234}
 }
 
 select = Select(select_clause, from_clause, where_clause)
-
 print(select)
+
+set_clause = {
+    Column('chat_id', Type(TypesEnum.INT)): 123123
+}
+
+where_clause = {
+    Column('chat_id', Type(TypesEnum.INT)): 3214
+}
+
+update = Update(data, set_clause, where_clause)
+
+print(update)
