@@ -139,7 +139,7 @@ class Bot():
                                      .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
             context.bot.delete_message(
                 chat_id=update.effective_chat.id, message_id=update.message.message_id)
-        if last_command is not None and '/wiki' in last_command['text']:
+        if last_command is not None and '/wiki' in last_command['text'] and self.last_mess is not None:
             self.wiki(update, context)
         if last_command is not None and '/set_corso' in last_command['text']:
             # getting ids from last_command sent
@@ -681,7 +681,7 @@ class Bot():
                                  .format(link='https://github.com/RiccardoBarbieri/the_unibot/issues'), parse_mode=ParseMode.HTML)
 
     def __update_last_command(self, update: Update, context: CallbackContext):
-        if len(self.db.query('last_command', key_chat_id=update.effective_chat.id)) == 0:
+        if len(self.db.query('data', key_chat_id=update.effective_chat.id)) == 0:
             self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                            course='0', year=1, detail=2, curricula='default')
         if '/' in update.message.text:
