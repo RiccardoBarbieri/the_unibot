@@ -1,5 +1,4 @@
 from __future__ import annotations
-from new_database.exceptions import NoSuchColumn
 import sys
 import getpass
 if getpass.getuser() == 'ricca':
@@ -12,6 +11,8 @@ elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
 from typing import TYPE_CHECKING, List, Any, Dict
+
+from new_database.exceptions import NoSuchColumn, ZeroColumns, ZeroTables
 
 if TYPE_CHECKING:
     from new_database.model.column import Column
@@ -43,6 +44,10 @@ class Select():
 
 
     def __str__(self) -> str:
+        if not self.__select_clause.keys():
+            raise ZeroColumns('This query is not complete, specify SELECT clause arguments')
+        if not self.__from_tables:
+            raise ZeroTables('This query is not complete, specify FROM clause arguments')
         string = 'SELECT '
         if not self.__select_clause:
             string += '* '
@@ -60,19 +65,12 @@ class Select():
             string += 'WHERE '
             for table in self.__where_clause.keys():
                 for col in self.__where_clause[table].keys():
-                    string += '{table}.{column} = {value}, '.format(table = table.get_name(), column = col.get_name(), value = self.__where_clause[table][col])
-        string = string[:-2]
+                    if type(self.__where_clause[table][col]) is str:
+                        string += '{table}.{column} = "{value}", '.format(table = table.get_name(), column = col.get_name(), value = self.__where_clause[table][col])
+                    else:
+                        string += '{table}.{column} = {value}, '.format(table = table.get_name(), column = col.get_name(), value = self.__where_clause[table][col])
+            string = string[:-2]
         return string
-
-
-
-        
-        
-
-
-        
-
-
 
 
 # SELECT -> FROM -> WHERE
