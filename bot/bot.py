@@ -449,7 +449,7 @@ class Bot():
                 date = Utils.parse_date(params['text'][0])
 
                 messages = self.__messages_creation(
-                    date, update.effective_chat.id, update.effective_user.id)
+                    date, update.effective_chat.id)
 
                 message_default = 'Non ci sono lezioni il {date}.'.format(
                     date=date)
@@ -458,7 +458,7 @@ class Bot():
                 date = Utils.date_from_days(params['text'][0])
 
                 messages = self.__messages_creation(
-                    date, update.effective_chat.id, update.effective_user.id)
+                    date, update.effective_chat.id)
 
                 message_default = 'Non ci sono lezioni il {date}.'.format(
                     date=date)
@@ -477,7 +477,7 @@ class Bot():
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
 
-    def __messages_creation(self, date: str, chat_id: int, user_id: int):
+    def __messages_creation(self, date: str, chat_id: int):
 
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
             chat_id)}, 'site2', 'course_codec2', course='course_code')[0]
@@ -583,7 +583,6 @@ class Bot():
         data = context.job.context
         day = data['day']
         chat_id = data['chat_id']
-        user_id = data['user_id']
 
         date = Utils.date_from_days(day)
 
@@ -593,7 +592,7 @@ class Bot():
             0]['campus'].strip()
 
         messages = self.__messages_creation(
-            date, chat_id, user_id)
+            date, chat_id)
 
         message_default = 'Non ci sono lezioni il {date}.'.format(
             date=date)
