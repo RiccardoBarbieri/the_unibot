@@ -31,5 +31,7 @@ class Database():
         self.__credentials['user'] = user
         self.__credentials['password'] = password
 
+    
+
 
 

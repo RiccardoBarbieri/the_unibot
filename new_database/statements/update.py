@@ -10,9 +10,9 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-from typing import TYPE_CHECKING, List, Any, Dict
+from typing import TYPE_CHECKING, Any, Dict
 
-from new_database.exceptions import NoSuchColumn, ZeroTables, ZeroColumns
+from new_database.exceptions import ZeroTables, ZeroColumns
 
 if TYPE_CHECKING:
     from new_database.model.column import Column
