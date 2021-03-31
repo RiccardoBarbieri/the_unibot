@@ -14,6 +14,13 @@ class Utils():
         year = date[-4:]
         day = date[:2]
         month = date[3:5]
+        return day + '/' + month + '/' + year
+    
+    @staticmethod
+    def to_ISO8601(date: str) -> str:
+        year = date[-4:]
+        day = date[:2]
+        month = date[3:5]
         return year + '-' + month + '-' + day
 
     @staticmethod
