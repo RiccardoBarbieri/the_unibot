@@ -13,15 +13,6 @@ elif getpass.getuser() == 'pi':
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from new_database.model.table import Table
+    from new_database.statements.update import Update
 
 
-class DropTable():
-
-    __table: Table
-
-    def __init__(self, table: Table = None) -> None:
-        self.__table = table
-
-    def __str__(self) -> str:
-        return 'DROP TABLE {table}'.format(table = self.__table.get_name())

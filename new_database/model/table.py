@@ -53,13 +53,10 @@ class Table():
         if not check_primary:
             raise PrimaryKeyError('There should be at least one primary key in table {table}'.format(table = self.__name))
 
-        if self.__references:
-            check_references = False
+        if self.__references: # checking correct assignment of foreign keys
             for i in self.__references:
-                if (i.get_from_column() in self.__columns):
-                    check_references = True
-            if not check_references:
-                raise ForeignKeyError('A foreign key does not refer to an existent column')
+                if (i.get_from_column() not in self.__columns):
+                    raise ForeignKeyError('Foreign key {fkey} does not refer to an existent column'.format(fkey = repr(i)))
 
         col_dict: Dict[str, Column] = {i.get_name(): i for i in columns}
 
@@ -67,7 +64,7 @@ class Table():
 
         self.__if_not_exists = if_not_exists
 
-    def get_columns(self) -> List[str]:
+    def get_columns(self) -> List[Column]:
         return self.__columns
 
     def get_name(self) -> str:
