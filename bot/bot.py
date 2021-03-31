@@ -350,7 +350,7 @@ class Bot():
                         context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il curricula:',
                                                 reply_markup=keyboard, reply_to_message_id=update.message.message_id)
                     else:
-                        context.bot.send_message(chat_id=update.effective_chat.id, text='Nessun curricula disponibile',
+                        context.bot.send_message(chat_id=update.effective_chat.id, text='Nessun curricula disponibile.',
                                                 reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
             else:
@@ -441,7 +441,7 @@ class Bot():
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1))
 
-        date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[-]([0]?[1-9]|[1][0-2])[-]([0-9]{4}|[0-9]{2})$'
+        date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$'
 
         if not ((user['course'] == '0') or (user['curricula'] == 'default')):
 
@@ -460,8 +460,7 @@ class Bot():
                 messages = self.__messages_creation(
                     date, update.effective_chat.id)
 
-                message_default = 'Non ci sono lezioni il {date}.'.format(
-                    date=date)
+                message_default = 'Nessuna lezione.'
 
             else:
                 messages = []
@@ -478,7 +477,7 @@ class Bot():
                 chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
 
     def __messages_creation(self, date: str, chat_id: int):
-
+        date = Utils.to_ISO8601(date)
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
             chat_id)}, 'site2', 'course_codec2', course='course_code')[0]
 

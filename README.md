@@ -35,7 +35,7 @@ I livelli di dettaglio implementati sono:
 ### Ottenere l'orario di un giorno
 Una volta impostato il livello di dettaglio è possibile richiedere l'orario di un giorno con il comando:
 
-    /orario gg-mm-aaaa
+    /orario gg/mm/aaaa
 
 specificando la data *rigorosamente* nel formato indicato o scrivendo invece della data *oggi, domani o dopodomani*.
 
