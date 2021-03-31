@@ -21,3 +21,46 @@ from new_database.statements.drop_table import DropTable
 from new_database.statements.insert_into import InsertInto
 from new_database.statements.delete import Delete
 
+cols_data = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column('user_id', Type(
+    TypesEnum.INT)), Column('name', Type(TypesEnum.VARCHAR))]
+
+data = Table('data', cols_data, if_not_exists=True)
+
+cols_last = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column(
+    'command', Type(TypesEnum.TEXT))]
+
+foreigns = [ForeignKey(Column('chat_id', Type(TypesEnum.INT), primary_key=True), data, Column(
+    'chat_id', Type(TypesEnum.INT), primary_key=True))]
+
+last = Table('last', cols_last, references=foreigns)
+
+print(last)
+print(data)
+
+
+
+select_clause = {
+    data: [Column('chat_id', Type(TypesEnum.INT), primary_key=True)],
+    last: [Column('command', Type(TypesEnum.TEXT))]
+}
+
+from_clause = [data, last]
+
+where_clause = {
+    data: {Column('chat_id', Type(TypesEnum.INT), primary_key=True): 1234}
+}
+
+select = Select(select_clause, from_clause, where_clause)
+print(select)
+
+set_clause = {
+    Column('chat_id', Type(TypesEnum.INT)): 123123
+}
+
+where_clause = {
+    Column('chat_id', Type(TypesEnum.INT)): 3214
+}
+
+update = Update(data, set_clause, where_clause)
+
+print(update)
