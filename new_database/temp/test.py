@@ -9,7 +9,7 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-
+import sqlalchemy as db
 from new_database.model.table import Table
 from new_database.model.foreign_key import ForeignKey
 from new_database.model.column import Column
@@ -20,6 +20,9 @@ from new_database.statements.update import Update
 from new_database.statements.drop_table import DropTable
 from new_database.statements.insert_into import InsertInto
 from new_database.statements.delete import Delete
+from typing import AnyStr
+
+db.update().where()
 
 cols_data = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column('user_id', Type(
     TypesEnum.INT)), Column('name', Type(TypesEnum.VARCHAR))]
@@ -36,8 +39,6 @@ last = Table('last', cols_last, references=foreigns)
 
 print(last)
 print(data)
-
-
 
 select_clause = {
     data: [Column('chat_id', Type(TypesEnum.INT), primary_key=True)],
@@ -64,3 +65,4 @@ where_clause = {
 update = Update(data, set_clause, where_clause)
 
 print(update)
+
