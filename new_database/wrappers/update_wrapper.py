@@ -33,7 +33,7 @@ class UpdateWrapper():
     __where_clause_str: List[AnyStr]
 
 
-    def __init__(self, metadata, table_str: AnyStr = None, set_clause_str: List[AnyStr] = None, where_clause_str List[AnyStr] = None):
+    def __init__(self, metadata, table_str: AnyStr = None, set_clause_str: List[AnyStr] = None, where_clause_str: List[AnyStr] = None):
         self.__metadata = metadata
 
         self.__table_str = table_str
@@ -45,14 +45,14 @@ class UpdateWrapper():
     def __str__(self) -> str:
         return str(Update(self.__table, self.__set_clause, self.__where_clause))
 
-    def update(self, table: str) -> UpdateWrapper:
-        return UpdateWrapper(self.__metadata, table, self.__set_clause, self.__where_clause)
+    def update(self, table_str: str) -> UpdateWrapper:
+        return UpdateWrapper(self.__metadata, table_str, self.__set_clause_str, self.__where_clause_str)
 
-    def set(self, set_clause: List[AnyStr]) -> UpdateWrapper:
-        return UpdateWrapper(self.__metadata, self.__table, set_clause, self.__where_clause)
+    def set(self, set_clause_str: List[AnyStr]) -> UpdateWrapper:
+        return UpdateWrapper(self.__metadata, self.__table_str, set_clause_str, self.__where_clause_str)
 
-    def where(self, where_clause: List[AnyStr]) -> UpdateWrapper:
+    def where(self, where_clause_str: List[AnyStr]) -> UpdateWrapper:
         if not self.__set_clause:
             raise WrongClauseOrder('You have to specify the set clause before')
-        return UpdateWrapper(self.__metadata, self.__table, self.__set_clause, where_clause)
+        return UpdateWrapper(self.__metadata, self.__table_str, self.__set_clause_str, where_clause_str)
     
