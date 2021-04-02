@@ -9,7 +9,7 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-import sqlalchemy as db
+from typing import Dict
 from new_database.model.table import Table
 from new_database.model.foreign_key import ForeignKey
 from new_database.model.column import Column
@@ -21,13 +21,24 @@ from new_database.statements.drop_table import DropTable
 from new_database.statements.insert_into import InsertInto
 from new_database.statements.delete import Delete
 from typing import AnyStr
+from new_database.wrappers.select_wrapper import SelectWrapper
+from new_database.metadata import MetaData
 
-db.update().where()
+# db.update().where()
+
+metadata: Dict[AnyStr, MetaData] = {}
+
 
 cols_data = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column('user_id', Type(
     TypesEnum.INT)), Column('name', Type(TypesEnum.VARCHAR))]
 
 data = Table('data', cols_data, if_not_exists=True)
+
+cols_data_str = ['chat_id', 'user_id', 'name']
+metadata['data'] = {'table':data, 'columns':cols_data_str}
+
+
+
 
 cols_last = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column(
     'command', Type(TypesEnum.TEXT))]
@@ -37,8 +48,16 @@ foreigns = [ForeignKey(Column('chat_id', Type(TypesEnum.INT), primary_key=True),
 
 last = Table('last', cols_last, references=foreigns)
 
+cols_last_str = ['chat_id', 'command']
+metadata['last'] = {'table':last, 'columns':cols_last_str}
+
+
+
+
 print(last)
 print(data)
+
+
 
 select_clause = {
     data: [Column('chat_id', Type(TypesEnum.INT), primary_key=True)],
@@ -63,6 +82,8 @@ where_clause = {
 }
 
 update = Update(data, set_clause, where_clause)
-
 print(update)
 
+asd = SelectWrapper(metadata, ['data.chat_id', 'last.chat_id'], {'data.chat_id':1234, 'last.command':'asdasd'})
+
+print(asd)

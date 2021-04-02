@@ -10,7 +10,7 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-from typing import TYPE_CHECKING, List, Any
+from typing import TYPE_CHECKING, List, Any, Dict
 
 from new_database.exceptions import SyntaxError
 
@@ -24,9 +24,9 @@ class InsertInto():
 
     __columns: List[Column] # contains the columns that are specified next to the table, optional
 
-    __values: List[List[Any]] # contains the values 
+    __values: List[Dict[Column, Any]] # contains the values 
 
-    def __init__(self, table: Table = None, columns: List[Column] = None, values: List[List[Any]] = None):
+    def __init__(self, table: Table = None, columns: List[Column] = None, values: List[Dict[Column, Any]] = None):
         
         self.__table = table
 
@@ -37,12 +37,12 @@ class InsertInto():
         if columns: # checking that all values entries respect the number of culumns specified
             main = len(self.__columns)
             for i, j in zip(self.__values, range(len(self.__values))):
-                if main != len(i):
+                if main != len(i.keys()):
                     raise SyntaxError('Number of values provided at row {num} does not match the number of columns specified'.format(num = j))
         else: # checking that all the values entries have the same length
             main = len(self.__table.get_columns())
             for i, j in zip(self.__values, range(len(self.__values))):
-                if main != len(i):
+                if main != len(i.keys()):
                     raise SyntaxError('Number of values provided at row {num} does not match with the number of columns of the table'.format(num = j))
 
     def __str__(self) -> str:
