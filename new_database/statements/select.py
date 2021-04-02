@@ -10,7 +10,7 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-from typing import TYPE_CHECKING, List, Any, Dict
+from typing import AnyStr, TYPE_CHECKING, List, Any, Dict
 
 from new_database.exceptions import NoSuchColumn, ZeroColumns, ZeroTables
 
@@ -43,9 +43,9 @@ class Select():
                     raise NoSuchColumn('Column {col} (for where clause) does not belong to table {table}'.format(col = col.get_name(), table = table.get_name()))
 
 
-    def __str__(self) -> str:
-        if not self.__select_clause.keys():
-            raise ZeroColumns('This query is not complete, specify SELECT clause arguments')
+    def __str__(self) -> AnyStr:
+        # if not self.__select_clause.keys():
+        #     raise ZeroColumns('This query is not complete, specify SELECT clause arguments')
         if not self.__from_tables:
             raise ZeroTables('This query is not complete, specify FROM clause arguments')
         string = 'SELECT '
@@ -55,7 +55,7 @@ class Select():
             for table in self.__select_clause.keys():
                 for col in self.__select_clause[table]:
                     string += '{table}.{column}, '.format(table = table.get_name(), column = col.get_name())
-        string = string[:-2] + ' '
+            string = string[:-2] + ' '
         if self.__from_tables:
             string += 'FROM '
             for table in self.__from_tables:

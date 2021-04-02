@@ -77,7 +77,7 @@ class Table():
         for i in self.__columns:
             if i.get_name() == column_name:
                 return i
-        raise NoSuchColumn('Column {col} does not exists'.format(col = column_name))
+        raise NoSuchColumn('Column {col} for table {table} does not exists'.format(col = column_name, table = self.__name))
 
 
     def contains(self, column: Column) -> bool:
