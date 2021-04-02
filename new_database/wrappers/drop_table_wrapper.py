@@ -15,7 +15,8 @@ from typing import Dict, TYPE_CHECKING, AnyStr
 if TYPE_CHECKING:
     from new_database.model.table import Table
     from new_database.metadata import MetaData
-    from new_database.statements.drop_table import DropTable
+    from new_database.exceptions import NoSuchTable
+from new_database.statements.drop_table import DropTable
 
 
 class DropTableWrapper():
@@ -28,9 +29,14 @@ class DropTableWrapper():
 
     def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr = None):
         
+        self.__metadata = metadata
+
         self.__table_str = table_str
 
-        # parse bla bla bla
+        try:
+            self.__table = self.__metadata[self.__table_str]['table']
+        except KeyError:
+            raise NoSuchTable('Table {table} does not exists'.format(table = self.__table_str))
 
     def __str__(self) -> AnyStr:
         return str(DropTable(self.__table))
