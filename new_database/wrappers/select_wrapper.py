@@ -40,8 +40,6 @@ class SelectWrapper():
         self.__from_tables = []
         self.__select_clause = {}
         self.__where_clause = {}
-
-        # parse bla bla bla, tables are parse from select clause (list of str pf type table.column or only table if SELECT *)
         
         tables: List[AnyStr] = [] # extracting tables and columns from select clause
         columns: Dict[AnyStr, List[AnyStr]] = {}
@@ -89,7 +87,6 @@ class SelectWrapper():
                     parts = where.split('.')
                     if len(parts) == 2:
                         try:
-                            print(self.__metadata[parts[0]])
                             self.__where_clause[self.__metadata[parts[0]]['table']] = {self.__metadata[parts[0]]['table'].get_column(parts[1]): self.__where_clause_str[where]}
                         except KeyError:
                             raise NoSuchTable('Table {table} does not exists'.format(table=parts[0]))
@@ -102,9 +99,9 @@ class SelectWrapper():
             return str(Select(self.__select_clause, self.__from_tables, self.__where_clause))
 
     def select(self, select_clause_str: List[AnyStr]) -> SelectWrapper:
-        return SelectWrapper(select_clause_str, self.__where_clause_str)
+        return SelectWrapper(self.__metadata, select_clause_str, self.__where_clause_str)
 
-    def where(self, where_clause_str) -> SelectWrapper:
+    def where(self, where_clause_str: Dict[AnyStr, Any]) -> SelectWrapper:
         if not self.__select_clause_str:
             raise WrongClauseOrder('You have to specify the select clause before')
-        return SelectWrapper(self.__select_clause_str, where_clause_str)
+        return SelectWrapper(self.__metadata, self.__select_clause_str, where_clause_str)

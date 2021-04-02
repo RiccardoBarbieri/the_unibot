@@ -23,6 +23,8 @@ from new_database.statements.delete import Delete
 from typing import AnyStr
 from new_database.wrappers.select_wrapper import SelectWrapper
 from new_database.metadata import MetaData
+from new_database.wrappers.update_wrapper import UpdateWrapper
+from new_database.wrappers.drop_table_wrapper import DropTableWrapper
 
 # db.update().where()
 
@@ -84,6 +86,14 @@ where_clause = {
 update = Update(data, set_clause, where_clause)
 print(update)
 
-asd = SelectWrapper(metadata, ['data.chat_id', 'last.chat_id'], {'data.chat_id':1234, 'last.command':'asdasd'})
+sel_wrapper = SelectWrapper(metadata, ['data.chat_id', 'last.chat_id'], {'data.chat_id':1234, 'last.command':'asdasd'})
 
-print(asd)
+print(sel_wrapper)
+
+up_wrapper = UpdateWrapper(metadata, 'data', {'chat_id':1234, 'name':'pollo'}, {'user_id':1234, 'name':'tacchino'})
+
+print(up_wrapper)
+
+drop_wrapper = DropTableWrapper(metadata, 'data')
+
+print(drop_wrapper)
