@@ -18,7 +18,7 @@ class ZeroColumns(Exception):
         else:
             self.message = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.message:
             return '{0} '.format(self.message)
         else:
@@ -31,7 +31,7 @@ class ZeroTables(Exception):
         else:
             self.message = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.message:
             return '{0} '.format(self.message)
         else:
@@ -44,7 +44,7 @@ class SyntaxError(Exception):
         else:
             self.message = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.message:
             return '{0} '.format(self.message)
         else:
@@ -57,7 +57,7 @@ class PrimaryKeyError(Exception):
         else:
             self.message = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.message:
             return '{0} '.format(self.message)
         else:
@@ -70,7 +70,7 @@ class ForeignKeyError(Exception):
         else:
             self.message = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.message:
             return '{0} '.format(self.message)
         else:
@@ -83,7 +83,7 @@ class NoSuchColumn(Exception):
         else:
             self.message = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.message:
             return '{0} '.format(self.message)
         else:
@@ -96,7 +96,20 @@ class WrongClauseOrder(Exception):
         else:
             self.message = None
 
-    def __str__(self):
+    def __str__(self) -> str:
+        if self.message:
+            return '{0} '.format(self.message)
+        else:
+            return ''
+            
+class NoSuchTable(Exception):
+    def __init__(self, *args):
+        if args:
+            self.message = args[0]
+        else:
+            self.message = None
+
+    def __str__(self) -> str:
         if self.message:
             return '{0} '.format(self.message)
         else:

@@ -12,7 +12,7 @@ elif getpass.getuser() == 'pi':
 
 from typing import TYPE_CHECKING, Any, Dict
 
-from new_database.exceptions import NoSuchColumn, ZeroColumns, ZeroTables
+from new_database.exceptions import NoSuchColumn, ZeroColumns
 
 if TYPE_CHECKING:
     from new_database.model.column import Column

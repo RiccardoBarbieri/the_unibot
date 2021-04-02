@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
 class UpdateWrapper():
 
-    __metadata: MetaData
+    __metadata: Dict[AnyStr, MetaData]
 
     __table: Table
     __set_clause: Dict[Column, Any]
@@ -33,7 +33,7 @@ class UpdateWrapper():
     __where_clause_str: List[AnyStr]
 
 
-    def __init__(self, metadata, table_str: AnyStr = None, set_clause_str: List[AnyStr] = None, where_clause_str: List[AnyStr] = None):
+    def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr = None, set_clause_str: List[AnyStr] = None, where_clause_str: List[AnyStr] = None):
         self.__metadata = metadata
 
         self.__table_str = table_str
@@ -45,7 +45,7 @@ class UpdateWrapper():
     def __str__(self) -> str:
         return str(Update(self.__table, self.__set_clause, self.__where_clause))
 
-    def update(self, table_str: str) -> UpdateWrapper:
+    def update(self, table_str: AnyStr) -> UpdateWrapper:
         return UpdateWrapper(self.__metadata, table_str, self.__set_clause_str, self.__where_clause_str)
 
     def set(self, set_clause_str: List[AnyStr]) -> UpdateWrapper:

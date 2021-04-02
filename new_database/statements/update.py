@@ -10,7 +10,7 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-from typing import TYPE_CHECKING, Any, Dict
+from typing import TYPE_CHECKING, Any, Dict, AnyStr
 
 from new_database.exceptions import ZeroTables, ZeroColumns
 
@@ -42,7 +42,7 @@ class Update():
         #         if not table.contains(col):
         #             raise NoSuchColumn('Column {col} (for where clause) does not belong to table {table}'.format(col = col.get_name(), table = table.get_name()))
 
-    def __str__(self) -> str:
+    def __str__(self) -> AnyStr:
         if not self.__table:
             raise ZeroTables('This query is not complete, specify UPDATE clause arguments')
         if not self.__set_clause.keys():

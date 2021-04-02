@@ -14,6 +14,7 @@ from typing import List, TYPE_CHECKING, TypedDict, Dict, AnyStr
 
 if TYPE_CHECKING:
     from new_database.model.table import Table
+    from new_database.model.column import Column
 
 class MetaData(TypedDict, total = False):
     
