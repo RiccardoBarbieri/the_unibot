@@ -12,11 +12,13 @@ elif getpass.getuser() == 'pi':
 
 from typing import Any, Dict, TYPE_CHECKING, AnyStr
 
+from new_database.exceptions import NoSuchTable
+
 if TYPE_CHECKING:
     from new_database.model.table import Table
     from new_database.metadata import MetaData
     from new_database.model.column import Column
-    from new_database.statements.delete import Delete
+from new_database.statements.delete import Delete
 
 class DeleteWrapper():
 
@@ -35,7 +37,17 @@ class DeleteWrapper():
         self.__table_str = table_str
         self.__where_clause_str = where_clause_str
 
-        # parse bla bla bla
+        self.__where_clause = {}
+
+        try:
+            self.__table = self.__metadata[self.__table_str]['table']
+        except KeyError:
+            return NoSuchTable('Table {table} does not exists'.format(table = self.__table_str))
+        
+        if self.__where_clause_str:
+            for i in self.__where_clause_str.keys():
+                self.__where_clause[self.__table.get_column(i)] = self.__where_clause_str[i]
+        
 
     def __str__(self) -> str:
         return str(Delete(self.__table, self.__where_clause))

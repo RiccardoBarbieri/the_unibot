@@ -26,6 +26,10 @@ from new_database.metadata import MetaData
 from new_database.wrappers.update_wrapper import UpdateWrapper
 from new_database.wrappers.drop_table_wrapper import DropTableWrapper
 from new_database.wrappers.insert_into_wrapper import InsertIntoWrapper
+from new_database.wrappers.delete_wrapper import DeleteWrapper
+from pprint import pprint
+import json
+import pickle
 
 # db.update().where()
 
@@ -102,3 +106,7 @@ print(drop_wrapper)
 ins_wrapper = InsertIntoWrapper(metadata, 'data', columns_str=['chat_id', 'user_id'], values_str=[{'chat_id':1234, 'user_id':4321}])
 
 print(ins_wrapper)
+
+del_wrapper = DeleteWrapper(metadata, 'last', {'chat_id':1234, 'command':'asdaaaaaad'})
+
+print(del_wrapper)
