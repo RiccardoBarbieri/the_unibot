@@ -61,7 +61,6 @@ class InsertIntoWrapper():
                     val = i[col]
                     temp[col_obj] = val
                 self.__values.append(temp)
-        print(self.__values)
 
 
     def __str__(self) -> str:
