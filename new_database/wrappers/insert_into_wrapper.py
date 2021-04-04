@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from new_database.model.table import Table
     from new_database.metadata import MetaData
     from new_database.model.column import Column
-    from new_database.statements.insert_into import InsertInto
+from new_database.statements.insert_into import InsertInto
 
 class InsertIntoWrapper():
 
@@ -58,13 +58,10 @@ class InsertIntoWrapper():
                 temp = {}
                 for col in i.keys():
                     col_obj = self.__table.get_column(col)
-                    val = i['col']
+                    val = i[col]
                     temp[col_obj] = val
                 self.__values.append(temp)
-
-        
-        
-            
+        print(self.__values)
 
 
     def __str__(self) -> str:

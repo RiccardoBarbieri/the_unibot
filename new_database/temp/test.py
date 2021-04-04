@@ -25,6 +25,7 @@ from new_database.wrappers.select_wrapper import SelectWrapper
 from new_database.metadata import MetaData
 from new_database.wrappers.update_wrapper import UpdateWrapper
 from new_database.wrappers.drop_table_wrapper import DropTableWrapper
+from new_database.wrappers.insert_into_wrapper import InsertIntoWrapper
 
 # db.update().where()
 
@@ -97,3 +98,7 @@ print(up_wrapper)
 drop_wrapper = DropTableWrapper(metadata, 'data')
 
 print(drop_wrapper)
+
+ins_wrapper = InsertIntoWrapper(metadata, 'data', columns_str=['chat_id', 'user_id'], values_str=[{'chat_id':1234, 'user_id':4321}])
+
+print(ins_wrapper)
