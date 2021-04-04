@@ -55,11 +55,11 @@ class InsertInto():
         string += 'VALUES '
         for i in self.__values:
             string += '('
-            for j in i:
-                if type(j) is str:
-                    string += '"{val}", '.format(val = j)
+            for j in i.keys():
+                if type(i[j]) is str:
+                    string += '"{val}", '.format(val = i[j])
                 else:
-                    string += '{val}, '.format(val = j)
+                    string += '{val}, '.format(val = i[j])
             string = string[:-2] + '), '
         string = string[:-2]
         return string
