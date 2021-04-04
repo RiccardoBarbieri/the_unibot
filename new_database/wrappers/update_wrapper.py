@@ -43,8 +43,6 @@ class UpdateWrapper():
         self.__set_clause = {}
         self.__where_clause = {}
 
-        # parse strings using metadata to those structures
-
         try:
             self.__table = self.__metadata[self.__table_str]['table']
         except KeyError:

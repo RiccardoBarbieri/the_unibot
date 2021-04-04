@@ -12,6 +12,8 @@ elif getpass.getuser() == 'pi':
 
 from typing import TYPE_CHECKING, AnyStr, List, Dict, Any
 
+from new_database.exceptions import NoSuchTable
+
 if TYPE_CHECKING:
     from new_database.model.table import Table
     from new_database.metadata import MetaData
@@ -24,14 +26,14 @@ class InsertIntoWrapper():
 
     __table: Table
     __columns: List[Column]
-    __values: List[List[Any]]
+    __values: List[Dict[Column, Any]]
 
     __table_str: AnyStr
     __columns_str: List[AnyStr]
-    __values_str: List[Dict[AnyStr, Any]]
+    __values_str: List[Dict[AnyStr, Any]] 
 
 
-    def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr = None, columns_str: List[Column] = None, values_str: List[Dict[AnyStr, Any]] = None) -> None:
+    def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr = None, columns_str: List[AnyStr] = None, values_str: List[Dict[AnyStr, Any]] = None):
         
         self.__metadata = metadata
 
@@ -39,7 +41,30 @@ class InsertIntoWrapper():
         self.__columns_str = columns_str
         self.__values_str = values_str
 
-        #parse bla bla bla
+        self.__columns = []
+        self.__values = []
+
+        try:
+            self.__table = self.__metadata[self.__table_str]['table']
+        except KeyError:
+            raise NoSuchTable('Table {table} does not exists'.format(table = self.__table_str))
+        
+        if self.__columns_str:
+            for i in self.__columns_str:
+                self.__columns.append(self.__table.get_column(i))
+        
+        if self.__values_str:
+            for i in self.__values_str:
+                temp = {}
+                for col in i.keys():
+                    col_obj = self.__table.get_column(col)
+                    val = i['col']
+                    temp[col_obj] = val
+                self.__values.append(temp)
+
+        
+        
+            
 
 
     def __str__(self) -> str:
