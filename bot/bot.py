@@ -73,7 +73,7 @@ class Bot():
         self.job_queue = updater.job_queue
 
         for i in self.db.query_all('data'):
-            scheduled_time_str = i['autosend_time']
+            scheduled_time_str = Utils.idiot_time(i['autosend_time'])
             effective_day = 'oggi' if int(
                 scheduled_time_str[:2]) < 15 else 'domani'
             chat_id = i['chat_id']
@@ -508,20 +508,19 @@ class Bot():
                 chat_id = update.effective_chat.id
                 user_id = update.effective_user.id
 
+                scheduled_time_str = Utils.idiot_time(params['text'][0])
+
+                effective_day = 'oggi' if int(scheduled_time_str[:2]) < 15 else 'domani'
+
                 if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                course='0', year=1, detail=2, curricula='default', autosend_time=params['text'][0])
+                                course='0', year=1, detail=2, curricula='default', autosend_time=scheduled_time_str)
                 else:
-                    self.db.update('data', key_chat_id=update.effective_chat.id, autosend_time=params['text'][0])
+                    self.db.update('data', key_chat_id=update.effective_chat.id, autosend_time=scheduled_time_str)
 
                 self.db.backup('data')
                 context.bot.send_message(chat_id=update.effective_chat.id,
-                                        text='Impostato orario autosend a {time}.'.format(time=params['text'][0]))
-
-                effective_day = 'oggi' if int(
-                    params['text'][0][:2]) < 15 else 'domani'
-                
-                scheduled_time_str = params['text'][0]
+                                        text='Impostato orario autosend a {time}.'.format(time=scheduled_time_str))
 
                 if (str(chat_id) + '@' + str(user_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id) + '@' + str(user_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
