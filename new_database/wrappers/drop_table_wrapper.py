@@ -21,22 +21,20 @@ from new_database.statements.drop_table import DropTable
 
 class DropTableWrapper():
 
-    __metadata: Dict[AnyStr, MetaData]
+    __metadata: MetaData
 
     __table: Table
 
     __table_str: AnyStr
 
-    def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr = None):
+    def __init__(self, metadata: MetaData, table_str: AnyStr = None):
         
         self.__metadata = metadata
 
         self.__table_str = table_str
 
-        try:
-            self.__table = self.__metadata[self.__table_str]['table']
-        except KeyError:
-            raise NoSuchTable('Table {table} does not exists'.format(table = self.__table_str))
+    
+        self.__table = self.__metadata.get_table(self.__table_str)
 
     def __str__(self) -> AnyStr:
         return str(DropTable(self.__table))

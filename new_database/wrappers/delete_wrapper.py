@@ -22,7 +22,7 @@ from new_database.statements.delete import Delete
 
 class DeleteWrapper():
 
-    __metadata: Dict[AnyStr, MetaData]
+    __metadata: MetaData
 
     __table: Table
     __where_clause: Dict[Column, Any]
@@ -30,7 +30,7 @@ class DeleteWrapper():
     __table_str: AnyStr
     __where_clause_str: Dict[AnyStr, Any]
 
-    def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr, where_clause_str: Dict[AnyStr, Any]):
+    def __init__(self, metadata: MetaData, table_str: AnyStr, where_clause_str: Dict[AnyStr, Any]):
         
         self.__metadata = metadata
 
@@ -39,10 +39,8 @@ class DeleteWrapper():
 
         self.__where_clause = {}
 
-        try:
-            self.__table = self.__metadata[self.__table_str]['table']
-        except KeyError:
-            return NoSuchTable('Table {table} does not exists'.format(table = self.__table_str))
+    
+        self.__table = self.__metadata.get_table(self.__table_str)
         
         if self.__where_clause_str:
             for i in self.__where_clause_str.keys():

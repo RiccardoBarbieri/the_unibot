@@ -22,7 +22,7 @@ from new_database.statements.insert_into import InsertInto
 
 class InsertIntoWrapper():
 
-    __metadata: Dict[AnyStr, MetaData]
+    __metadata: MetaData
 
     __table: Table
     __columns: List[Column]
@@ -33,7 +33,7 @@ class InsertIntoWrapper():
     __values_str: List[Dict[AnyStr, Any]] 
 
 
-    def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr = None, columns_str: List[AnyStr] = None, values_str: List[Dict[AnyStr, Any]] = None):
+    def __init__(self, metadata: MetaData, table_str: AnyStr = None, columns_str: List[AnyStr] = None, values_str: List[Dict[AnyStr, Any]] = None):
         
         self.__metadata = metadata
 
@@ -45,7 +45,7 @@ class InsertIntoWrapper():
         self.__values = []
 
         try:
-            self.__table = self.__metadata[self.__table_str]['table']
+            self.__table = self.__metadata.get_table(self.__table_str)
         except KeyError:
             raise NoSuchTable('Table {table} does not exists'.format(table = self.__table_str))
         
