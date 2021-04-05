@@ -19,6 +19,9 @@ from new_database.metadata import MetaData
 from new_database.exceptions import DatabaseNotSelected, NoSuchDatabase
 
 from new_database.model.table import Table
+from new_database.model.column import Column
+from new_database.model.types_enum import TypesEnum
+from new_database.model.type import Type
 
 from new_database.wrappers.select_wrapper import SelectWrapper
 from new_database.wrappers.delete_wrapper import DeleteWrapper
@@ -30,19 +33,20 @@ from typing import Dict, Any, List
 
 from pathlib import Path
 
+metadata = MetaData()
 
 
 class Database():
 
     __credentials: Dict[str, str] = {} # dictionary ('host', 'user', 'password')
 
-    __metadata: MetaData # contains metadata for current session of database
+    # __metadata: MetaData # contains metadata for current session of database
 
     __connection: MySQLConnection
 
     __cursor: CursorBase
 
-    def __init__(self, host: str, user: str, password: str):
+    def __init__(self, host: str, user: str, password: str, metadata: MetaData):
 
         self.__credentials['host'] = host
         self.__credentials['user'] = user
@@ -50,14 +54,15 @@ class Database():
 
         self.__connection = connector.connect(**self.__credentials)
 
-        self.__metadata = MetaData()
+        self.__metadata = metadata
 
         self.__cursor = self.__connection.cursor()
 
     def select_database(self, database: str):
         try:
-            self.cursor.execute('USE DATABASE {database};'.format(database = database))
+            self.__cursor.execute('USE {database};'.format(database = database))
             self.__metadata.update_current_database(database)
+            self.__connection.commit()
         except ProgrammingError as e:
             if e.errno == 1049:
                 raise NoSuchDatabase('Database {db} not selected, try Database.get_databases() to print all available databases'.format(db = database))
@@ -71,30 +76,35 @@ class Database():
         return databases
 
     def create_table(self, table: Table):
+        self.__metadata.add_table(table)
+
         self.__cursor.execute(str(table))
 
-        self.__metadata.add_table(table)
         self.__connection.commit()
 
-    def select(self, select_clause: List[str]) -> SelectWrapper:
+    def select(self, select_clause: List[str]) -> SelectWrapper: # TODO: refactor to enable only select without execute
         return SelectWrapper(self.__metadata, select_clause_str=select_clause)
     
-    def execute(self, query: Any) -> List: # TODO: refactor creating a type query?
-        self.__cursor.execute(query)
+    def execute(self, query: SelectWrapper | DeleteWrapper) -> List: # TODO: refactor creating a type query? or maybe add a interface to wrapper that implements get_elements
+        self.__cursor.execute(str(query))
         if 'SELECT' in str(query): # using dict for select query, find other cases
-            result = self.__create_dictionary(self.__cursor.fetchall(), query.get_columns())
+            result = self.__create_dictionary(self.__cursor.fetchall(), query.get_elements())
         else:
             result = self.__cursor.fetchall()
         self.__connection.commit()
         return result
 
     
-    def __create_dictionary(self, fetchall: List[tuple], cols: List[str]) -> List:
+    def __create_dictionary(self, fetchall: List[tuple], elements: Dict[str, List[str]]) -> List:
         result = []
+        cols = []
+        for item in elements.items():
+            for col in item[1]:
+                cols.append(str(item[0]) + '.' + str(col))
         for i in fetchall:
             temp = {}
-            for col_name, val in zip(cols, i):
-                temp[col_name] = val
+            for col, val in zip(cols, i):
+                temp[col] = val
             result.append(temp)
         return result
         
@@ -103,8 +113,16 @@ with open(Path('./new_database/creds.txt')) as f:
     temp = f.readlines()
 
 
-db = Database(temp[0], 'root', temp[1])
-print(db.get_databases())
+db = Database(temp[0], 'root', temp[1], metadata)
 
+db.select_database('telegram')
+
+test = Table(metadata, 'test', Column('id', Type(TypesEnum.INT), primary_key=True), Column('value', Type(TypesEnum.VARCHAR, 255)))
+print(test)
+db.create_table(test)
+
+query = db.select(['test.id'])
+
+print(db.execute(query))
 #1046 no database select
 #1049 non existent database

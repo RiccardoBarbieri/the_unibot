@@ -9,3 +9,10 @@ elif getpass.getuser() == 'riccardoob':
     sys.path.append('/home/riccardoob/telegram_bot')
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
+
+a = {'last': ['chat_id'], 'data': ['user_id', 'chat_id']}
+
+print(a.items())
+
+for i in a.items():
+    print(i[0])
