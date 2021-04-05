@@ -24,8 +24,8 @@ class WeatherAPI():
 
     @staticmethod
     def parse_weather(day: int, weather: dict):
-        temp_min = weather['daily'][0]['temp']['min']
-        temp_max = weather['daily'][0]['temp']['max']
+        temp_min = int(weather['daily'][0]['temp']['min'])
+        temp_max = int(weather['daily'][0]['temp']['max'])
         description = weather['daily'][0]['weather'][0]['description']
         today = datetime.now().date()
         date = ''
