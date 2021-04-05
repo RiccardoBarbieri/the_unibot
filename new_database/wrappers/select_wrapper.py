@@ -54,6 +54,7 @@ class SelectWrapper():
                         columns[parts[0]].append(parts[1])
                     except KeyError:
                         columns[parts[0]] = []
+                        columns[parts[0]].append(parts[1])
                 else:
                     raise SyntaxError('Select clause must be strings like table or table.column')
             for table in tables:
@@ -61,8 +62,12 @@ class SelectWrapper():
                 if columns:
                     for col in columns[table]:
                         table_obj = self.__metadata.get_table(table)
-                        self.__select_clause[table_obj].append(table_obj.get_column(col))
-        
+                        try:
+                            self.__select_clause[table_obj].append(table_obj.get_column(col))
+                        except KeyError:
+                            self.__select_clause[table_obj] = []
+                            self.__select_clause[table_obj].append(table_obj.get_column(col))
+
         if self.__where_clause_str: # extracting where object from where string
             if len(self.__from_tables) == 1:
                 for where in self.__where_clause_str.keys():
@@ -83,8 +88,10 @@ class SelectWrapper():
         
         
     def __str__(self) -> str:
-        if (not self.__select_clause) or (not self.__where_clause):
+        if self.__select_clause:
             return str(Select(self.__select_clause, self.__from_tables, self.__where_clause))
+        else:
+            raise WrongClauseOrder('You must specify select clause first')
 
     def select(self, select_clause_str: List[AnyStr]) -> SelectWrapper:
         return SelectWrapper(self.__metadata, select_clause_str, self.__where_clause_str)

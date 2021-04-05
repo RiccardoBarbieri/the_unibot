@@ -8,30 +8,15 @@ from mysql.connector.errors import ProgrammingError
 
 
 
-with open('./new_database/pass.txt', 'r') as f:
-    psw = f.readline()
+with open('./new_database/creds.txt', 'r') as f:
+    creds = f.readlines()
 
 
 creds = {
-    'host':'riccardohost.ddns.net',
+    'host':creds[0],
     'user':'root',
-    'password':psw
+    'password':creds[1]
 }
-# with connector.connect(**creds) as connection:
-
-
-
-#     cursor: CursorBase = connection.cursor()
-
-#     cursor.execute('USE telegram;')
-
-#     cursor.execute('show tables like "%";')
-
-#     print(cursor.fetchall())
-
-
-#     # cursor.execute('CREATE TABLE IF NOT EXISTS test (\nid INT PRIMARY KEY\n)')
-#     connection.commit()
 
 class Test():
 
@@ -56,7 +41,7 @@ class Test():
     
     def getdbs(self):
         self.cursor.execute('SHOW DATABASES;')
-        return self.cursor.fetchall()
+        return type(self.cursor.fetchall())
 
 asd = Test(creds)
 
