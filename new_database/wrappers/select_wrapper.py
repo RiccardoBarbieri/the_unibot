@@ -31,6 +31,8 @@ class SelectWrapper():
     __select_clause_str: List[AnyStr]
     __where_clause_str: List[AnyStr]
 
+    __table_col_mix: Dict[AnyStr, List[AnyStr]]
+
     def __init__(self, metadata: MetaData, select_clause_str: List[AnyStr] = None, where_clause_str: Dict[AnyStr, Any] = None):
         self.__metadata = metadata
 
@@ -67,6 +69,8 @@ class SelectWrapper():
                         except KeyError:
                             self.__select_clause[table_obj] = []
                             self.__select_clause[table_obj].append(table_obj.get_column(col))
+        
+        self.__table_col_mix = columns
 
         if self.__where_clause_str: # extracting where object from where string
             if len(self.__from_tables) == 1:
@@ -85,7 +89,9 @@ class SelectWrapper():
                         self.__where_clause[self.__metadata.get_table(parts[0])] = {self.__metadata.get_table(parts[0]).get_column(parts[1]): self.__where_clause_str[where]}
                     else:
                         raise SyntaxError('Where clause must be identified as table.column if multiple tables are selected')
-        
+    
+    def get_elements(self) -> Dict[AnyStr, List[AnyStr]]:
+        return self.__table_col_mix
         
     def __str__(self) -> str:
         if self.__select_clause:
