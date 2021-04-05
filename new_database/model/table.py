@@ -127,8 +127,9 @@ class Table():
         return '<' + string + '>'
 
     def __str__(self) -> str:
-        string = 'CREATE TABLE {name} '.format(name = self.__name)
+        string = 'CREATE TABLE '
         string += 'IF NOT EXISTS ' if self.__if_not_exists else ''
+        string += '{name} '.format(name = self.__name)
         string += '('
         for i in self.__columns:
             string += str(i) + ', '

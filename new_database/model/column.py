@@ -42,6 +42,7 @@ class Column():
     def __str__(self) -> str:
         string = self.__name
         string += ' ' + str(self.__type)
+        string += ' PRIMARY KEY' if self.__primary_key else ''
         string += ' UNIQUE' if self.__unique else ''
         string += '' if self.__nullable else ' NOT NULL'
         return string
