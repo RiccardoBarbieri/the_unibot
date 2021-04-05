@@ -31,18 +31,15 @@ from pprint import pprint
 import json
 import pickle
 
-# db.update().where()
 
-metadata: Dict[AnyStr, MetaData] = {}
+metadata: MetaData = MetaData()
 
+cols_data = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column('user_id', Type(TypesEnum.INT)), Column('name', Type(TypesEnum.VARCHAR))]
 
-cols_data = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column('user_id', Type(
-    TypesEnum.INT)), Column('name', Type(TypesEnum.VARCHAR))]
-
-data = Table('data', cols_data, if_not_exists=True)
+data = Table(metadata, 'data', *cols_data, if_not_exists=True)
 
 cols_data_str = ['chat_id', 'user_id', 'name']
-metadata['data'] = {'table':data, 'columns':cols_data_str}
+metadata.add_table(data)
 
 
 
@@ -50,13 +47,14 @@ metadata['data'] = {'table':data, 'columns':cols_data_str}
 cols_last = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column(
     'command', Type(TypesEnum.TEXT))]
 
-foreigns = [ForeignKey(Column('chat_id', Type(TypesEnum.INT), primary_key=True), data, Column(
-    'chat_id', Type(TypesEnum.INT), primary_key=True))]
+foreigns = [ForeignKey('chat_id', 'data.chat_id')]
 
-last = Table('last', cols_last, references=foreigns)
+cols_for = cols_last + foreigns
+
+last = Table(metadata, 'last', *cols_for)
 
 cols_last_str = ['chat_id', 'command']
-metadata['last'] = {'table':last, 'columns':cols_last_str}
+metadata.add_table(last)
 
 
 

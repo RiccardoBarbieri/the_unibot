@@ -15,7 +15,6 @@ from typing import List
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from new_database.model.type import Type
-    from new_database.model.types_enum import TypesEnum
 
 
 class Column():
@@ -30,7 +29,7 @@ class Column():
 
     __nullable: bool  # False if this columns has not null restriction, default True
 
-    def __init__(self, name: str, type: Type, primary_key: bool=False, unique: bool=False, nullable: bool=True):
+    def __init__(self, name: str, type: Type, primary_key: bool = False, unique: bool = False, nullable: bool = True):
         self.__name = name
         self.__type = type
         self.__primary_key = primary_key
@@ -58,14 +57,17 @@ class Column():
     def __eq__(self, o: object) -> bool:
         return (self.__name == o.__name) and (self.__type == o.__type) and (self.__primary_key == o.__primary_key) and (self.__unique == o.__unique) and (self.__nullable == o.__nullable)
 
+    def is_compatible(self, column: Column):
+        return self.__type == column.__type
+
     def get_name(self) -> str:
         return self.__name
 
     def get_type(self) -> Type:
         return self.__type
-    
+
     def is_primary_key(self) -> bool:
         return self.__primary_key
-    
+
     def __hash__(self) -> int:
         return hash((self.__name, self.__type, self.__primary_key, self.__unique, self.__nullable))

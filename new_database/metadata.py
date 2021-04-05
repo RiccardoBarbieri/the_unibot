@@ -1,5 +1,4 @@
 from __future__ import annotations
-import pickle
 import sys
 import getpass
 if getpass.getuser() == 'ricca':
@@ -15,10 +14,11 @@ PATH_TO_BACKUP = './new_database/metadata_backup.dump'
 
 from typing import TYPE_CHECKING, Dict
 
-from new_database.exceptions import DuplicateTable, NoSuchTable
+from new_database.exceptions import NoSuchTable
 
 from pathlib import Path
 from os.path import isfile
+import pickle
 
 if TYPE_CHECKING:
     from new_database.model.table import Table
@@ -46,7 +46,8 @@ class MetaData():
         if table.get_name() not in self.__tables.keys():
             self.__tables[table.get_name()] = table
         else:
-            raise DuplicateTable('Table {table} already exists, use metadata.update_table if the table has changed')
+            print('MetaData: Table {table} already exists, updating the existing table'.format(table = table.get_name()))
+            self.update_table(table)
         self.__backup()
 
     def update_table(self, table: Table):

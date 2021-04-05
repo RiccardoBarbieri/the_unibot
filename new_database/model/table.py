@@ -14,10 +14,10 @@ elif getpass.getuser() == 'pi':
 from new_database.exceptions import ZeroColumns, PrimaryKeyError, ForeignKeyError, NoSuchColumn
 from typing import List, Dict, TYPE_CHECKING
 if TYPE_CHECKING:
-    from new_database.model.column import Column
     from new_database.model.foreign_key import ForeignKey
-    from new_database.model.type import Type
-    from new_database.model.types_enum import TypesEnum
+    from new_database.metadata import MetaData
+from new_database.model.column import Column
+from new_database.model.foreign_key import ForeignKey
 
 
 class Table():
@@ -35,15 +35,49 @@ class Table():
     # list of columns that are primary key
     __primary_key: List[Column] = []
 
-    def __init__(self, name: str, columns: List[Column], references: List[ForeignKey] = None, if_not_exists: bool = True):
+    __metadata: MetaData
+
+    def __init__(self, metadata: MetaData, name: str, *columns_and_foreign: List, if_not_exists: bool = True):
+#references: List[ForeignKey] = None,
+        self.__metadata = metadata
+
         self.__name = name
 
-        self.__columns = columns
+        self.__columns = []
 
-        self.__references = references
+        self.__references = []
 
-        if len(columns) == 0:
+        if len(columns_and_foreign) == 0:
             raise ZeroColumns('Number of columns must be more than zero')
+
+        for i in columns_and_foreign:
+            if type(i) is Column:
+                self.__columns.append(i)
+            elif type(i) is ForeignKey:
+                self.__references.append(i)
+            
+        temp_from_col: Column        
+        check_exists = False # checking that foreigns reference an existent column in this table and setting objects
+        for i in self.__references:
+            check_exists = False
+            for j in self.__columns:
+                if i.get_strings()[0] == j.get_name():
+                    check_exists = True
+                    temp_from_col = j
+            if not check_exists:
+                raise NoSuchColumn('Foreign key {fk} is invalid, column {col} is not a column of table {table}'.format(fk = repr(i), col = j.get_name(), table = self.get_name()))
+            else:
+                i.set_objects(from_column=temp_from_col)
+
+
+        temp_to_table_str: str # checking that foreigns reference an existing table and column
+        temp_to_col_str: str
+        for i in self.__references:
+            temp_to_col_str = i.get_strings()[2]
+            temp_to_table_str = i.get_strings()[1]
+            temp_to_table = self.__metadata.get_table(temp_to_table_str)
+            temp_to_col = temp_to_table.get_column(temp_to_col_str)
+            i.set_objects(to_table=temp_to_table, to_column=temp_to_col)
 
         check_primary = False # checking if there is at least one primary key
         for i in self.__columns:
@@ -58,7 +92,7 @@ class Table():
                 if (i.get_from_column() not in self.__columns):
                     raise ForeignKeyError('Foreign key {fkey} does not refer to an existent column'.format(fkey = repr(i)))
 
-        col_dict: Dict[str, Column] = {i.get_name(): i for i in columns}
+        col_dict: Dict[str, Column] = {i.get_name(): i for i in self.__columns}
 
         self.__dict__.update(col_dict)
 
