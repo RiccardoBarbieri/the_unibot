@@ -22,7 +22,7 @@ from new_database.statements.select import Select
 
 class SelectWrapper():
 
-    __metadata: Dict[AnyStr, MetaData]
+    __metadata: MetaData
 
     __select_clause: Dict[Table, List[Column]]
     __from_tables: List[Table]
@@ -31,7 +31,7 @@ class SelectWrapper():
     __select_clause_str: List[AnyStr]
     __where_clause_str: List[AnyStr]
 
-    def __init__(self, metadata: Dict[AnyStr, MetaData], select_clause_str: List[AnyStr] = None, where_clause_str: Dict[AnyStr, Any] = None):
+    def __init__(self, metadata: MetaData, select_clause_str: List[AnyStr] = None, where_clause_str: Dict[AnyStr, Any] = None):
         self.__metadata = metadata
 
         self.__select_clause_str = select_clause_str
@@ -57,13 +57,10 @@ class SelectWrapper():
                 else:
                     raise SyntaxError('Select clause must be strings like table or table.column')
             for table in tables:
-                try:
-                    self.__from_tables.append(self.__metadata[table]['table'])
-                except KeyError:
-                    raise NoSuchTable('Table {table} does not exists'.format(table = table))
+                self.__from_tables.append(self.__metadata.get_table(table))
                 if columns:
                     for col in columns[table]:
-                        table_obj = self.__metadata[table]['table']
+                        table_obj = self.__metadata.get_table(table)
                         self.__select_clause[table_obj].append(table_obj.get_column(col))
         
         if self.__where_clause_str: # extracting where object from where string
@@ -71,25 +68,16 @@ class SelectWrapper():
                 for where in self.__where_clause_str.keys():
                     parts = where.split('.')
                     if len(parts) == 1:
-                        try:
-                            self.__where_clause[self.__from_tables[0]] = {self.__metadata[tables[0]]['table'].get_column(parts[0]): self.__where_clause_str[where]}
-                        except KeyError:
-                            raise NoSuchTable('Table {table} does not exists'.format(table=parts[0]))                
+                        self.__where_clause[self.__from_tables[0]] = {self.__metadata.get_table(tables[0]).get_column(parts[0]): self.__where_clause_str[where]}
                     elif len(parts) == 2:
-                        try:
-                            self.__where_clause[self.__from_tables[0]] = {self.__metadata[tables[0]]['table'].get_column(parts[1]): self.__where_clause_str[where]}
-                        except KeyError:
-                            raise NoSuchTable('Table {table} does not exists'.format(table=parts[0]))
+                        self.__where_clause[self.__from_tables[0]] = {self.__metadata.get_table(tables[0]).get_column(parts[1]): self.__where_clause_str[where]}
                     else:
                         raise SyntaxError('Where clause must be identified as table.column')
             else:
                 for where in self.__where_clause_str.keys():
                     parts = where.split('.')
                     if len(parts) == 2:
-                        try:
-                            self.__where_clause[self.__metadata[parts[0]]['table']] = {self.__metadata[parts[0]]['table'].get_column(parts[1]): self.__where_clause_str[where]}
-                        except KeyError:
-                            raise NoSuchTable('Table {table} does not exists'.format(table=parts[0]))
+                        self.__where_clause[self.__metadata.get_table(parts[0])] = {self.__metadata.get_table(parts[0]).get_column(parts[1]): self.__where_clause_str[where]}
                     else:
                         raise SyntaxError('Where clause must be identified as table.column if multiple tables are selected')
         

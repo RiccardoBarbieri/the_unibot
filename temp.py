@@ -9,6 +9,13 @@ from mysql.connector.connection import CursorBase
 import requests
 
 
-dic = {}
+
+list1 = [1234, 4321]
+
+list2 = ['123']
+
+list1 += list2
+
+print(list1)
 
 

@@ -22,7 +22,7 @@ from new_database.statements.update import Update
 
 class UpdateWrapper():
 
-    __metadata: Dict[AnyStr, MetaData]
+    __metadata: MetaData
 
     __table: Table
     __set_clause: Dict[Column, Any]
@@ -33,7 +33,7 @@ class UpdateWrapper():
     __where_clause_str: Dict[AnyStr, Any]
 
 
-    def __init__(self, metadata: Dict[AnyStr, MetaData], table_str: AnyStr = None, set_clause_str: Dict[AnyStr, Any] = None, where_clause_str: Dict[AnyStr, Any] = None):
+    def __init__(self, metadata: MetaData, table_str: AnyStr = None, set_clause_str: Dict[AnyStr, Any] = None, where_clause_str: Dict[AnyStr, Any] = None):
         self.__metadata = metadata
 
         self.__table_str = table_str
@@ -44,7 +44,7 @@ class UpdateWrapper():
         self.__where_clause = {}
 
         try:
-            self.__table = self.__metadata[self.__table_str]['table']
+            self.__table = self.__metadata.get_table(self.__table_str)
         except KeyError:
             raise NoSuchTable('Table {table} does not exists'.format(table = self.__table_str))
 
