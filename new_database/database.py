@@ -65,7 +65,10 @@ class Database():
         return databases
 
     def create_table(self, table: Table):
-        
+        self.__cursor.execute(str(table))
+
+        self.__metadata.add_table(table)
+        self.__connection.commit()
 
 with open(Path('./new_database/creds.txt')) as f:
     temp = f.readlines()

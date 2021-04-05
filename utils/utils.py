@@ -5,7 +5,7 @@ from datetime import time
 from pathlib import Path
 import requests
 import getpass
-
+import re
 
 class Utils():
 
@@ -106,3 +106,10 @@ class Utils():
         now: datetime = datetime.now()
         then: datetime = datetime.strptime(then_str, '%H:%M')
         return (then - now).seconds
+
+    @staticmethod
+    def idiot_time(idiot_time: str) -> str:
+        if re.match('([0-1]?[0-9]|2[0-3]):[0-5][0-9]', idiot_time) and len(idiot_time) == 4:
+            return '0' + idiot_time
+        else:
+            return idiot_time
