@@ -16,10 +16,13 @@ from mysql.connector.errors import IntegrityError, ProgrammingError
 
 from new_database.metadata import MetaData
 from new_database.exceptions import DatabaseNotSelected, NoSuchDatabase
+from new_database.model.table import Table
 
 from typing import Dict
 
 from pathlib import Path
+
+from typing import List
 
 
 
@@ -60,6 +63,9 @@ class Database():
         for i in fetch:
             databases.append(i[0])
         return databases
+
+    def create_table(self, table: Table):
+        
 
 with open(Path('./new_database/creds.txt')) as f:
     temp = f.readlines()
