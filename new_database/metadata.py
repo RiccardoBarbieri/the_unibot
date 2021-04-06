@@ -10,8 +10,6 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-PATH_TO_BACKUP = './new_database/metadata_backup.dump'
-
 from typing import TYPE_CHECKING, Dict
 
 from new_database.exceptions import NoSuchTable
@@ -29,8 +27,8 @@ class MetaData():
 
     __current_database: str
 
-    def __init__(self):
-        if isfile(Path(PATH_TO_BACKUP)):
+    def __init__(self, backup_path: str):
+        if isfile(Path(backup_path)):
             self.__tables = self.__restore_backup()
         else:
             self.__tables = {}
@@ -65,9 +63,9 @@ class MetaData():
         return self.__current_database
 
     def __backup(self):
-        with open(Path(PATH_TO_BACKUP), 'wb+') as f:
+        with open(Path(backup_path), 'wb+') as f:
             pickle.dump(self.__tables, f)
 
     def __restore_backup(self):
-        with open(Path(PATH_TO_BACKUP), 'rb') as f:
+        with open(Path(backup_path), 'rb') as f:
             return pickle.load(f)
