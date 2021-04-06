@@ -29,18 +29,17 @@ from new_database.wrappers.update_wrapper import UpdateWrapper
 from new_database.wrappers.drop_table_wrapper import DropTableWrapper
 from new_database.wrappers.insert_into_wrapper import InsertIntoWrapper
 
-from typing import Dict, Any, List
+from typing import Dict, AnyStr, List
 
 from pathlib import Path
 
-metadata = MetaData()
 
 
 class Database():
 
     __credentials: Dict[str, str] = {} # dictionary ('host', 'user', 'password')
 
-    # __metadata: MetaData # contains metadata for current session of database
+    __metadata: MetaData # contains metadata for current session of database
 
     __connection: MySQLConnection
 
@@ -82,10 +81,18 @@ class Database():
 
         self.__connection.commit()
 
-    def select(self, select_clause: List[str]) -> SelectWrapper: # TODO: refactor to enable only select without execute
+    def select(self, select_clause: List[str]) -> SelectWrapper:
         return SelectWrapper(self.__metadata, select_clause_str=select_clause)
+
+    def update(self, table: str) -> UpdateWrapper:
+        return UpdateWrapper(self.__metadata, table_str=table)
+
+    def insert_into(self, table_str: AnyStr, columns_str: List[AnyStr] = None) -> InsertIntoWrapper:
+        return InsertIntoWrapper(table_str=table_str, columns_str=columns_str)
     
-    def execute(self, query: SelectWrapper | DeleteWrapper) -> List: # TODO: refactor creating a type query? or maybe add a interface to wrapper that implements get_elements
+    def 
+
+    def execute(self, query: SelectWrapper | AnyStr) -> List[Dict]:
         self.__cursor.execute(str(query))
         if 'SELECT' in str(query): # using dict for select query, find other cases
             result = self.__create_dictionary(self.__cursor.fetchall(), query.get_elements())
@@ -94,7 +101,6 @@ class Database():
         self.__connection.commit()
         return result
 
-    
     def __create_dictionary(self, fetchall: List[tuple], elements: Dict[str, List[str]]) -> List:
         result = []
         cols = []
@@ -108,6 +114,9 @@ class Database():
             result.append(temp)
         return result
         
+
+
+metadata = MetaData('./new_database/metadata_backup.dump')
 
 with open(Path('./new_database/creds.txt')) as f:
     temp = f.readlines()
@@ -124,5 +133,6 @@ db.create_table(test)
 query = db.select(['test.id'])
 
 print(db.execute(query))
+
 #1046 no database select
 #1049 non existent database
