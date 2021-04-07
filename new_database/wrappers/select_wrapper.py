@@ -48,10 +48,11 @@ class SelectWrapper():
         if self.__select_clause_str:
             for table_col in self.__select_clause_str:
                 parts = table_col.split('.')
-                if len(parts) == 1:
+                if (len(parts) == 1) and (tables.count(parts[0]) == 0):
                     tables.append(parts[0])
                 elif len(parts) == 2:
-                    tables.append(parts[0])
+                    if (tables.count(parts[0]) == 0):
+                        tables.append(parts[0])
                     try:
                         columns[parts[0]].append(parts[1])
                     except KeyError:
@@ -89,6 +90,10 @@ class SelectWrapper():
                         self.__where_clause[self.__metadata.get_table(parts[0])] = {self.__metadata.get_table(parts[0]).get_column(parts[1]): self.__where_clause_str[where]}
                     else:
                         raise SyntaxError('Where clause must be identified as table.column if multiple tables are selected')
+        
+        print(self.__from_tables)
+        print(self.__select_clause)
+        print(self.__where_clause)
     
     def get_elements(self) -> Dict[AnyStr, List[AnyStr]]:
         return self.__table_col_mix
@@ -99,8 +104,8 @@ class SelectWrapper():
         else:
             raise WrongClauseOrder('You must specify select clause first')
 
-    def select(self, select_clause_str: List[AnyStr]) -> SelectWrapper:
-        return SelectWrapper(self.__metadata, select_clause_str, self.__where_clause_str)
+    # def select(self, select_clause_str: List[AnyStr]) -> SelectWrapper:
+    #     return SelectWrapper(self.__metadata, select_clause_str, self.__where_clause_str)
 
     def where(self, where_clause_str: Dict[AnyStr, Any]) -> SelectWrapper:
         if not self.__select_clause_str:

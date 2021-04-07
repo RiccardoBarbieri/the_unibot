@@ -39,5 +39,5 @@ class DropTableWrapper():
     def __str__(self) -> AnyStr:
         return str(DropTable(self.__table))
 
-    def drop(self, table_str: AnyStr) -> DropTableWrapper:
-        return DropTableWrapper(self.__metadata, table_str)
+    # def drop(self, table_str: AnyStr) -> DropTableWrapper:
+    #     return DropTableWrapper(self.__metadata, table_str)
