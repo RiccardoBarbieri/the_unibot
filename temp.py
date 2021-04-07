@@ -16,3 +16,9 @@ print(a.items())
 
 for i in a.items():
     print(i[0])
+
+a = None
+
+b = 'None'
+
+print(str(a) == b)

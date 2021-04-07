@@ -87,16 +87,24 @@ class Database():
     def update(self, table: str) -> UpdateWrapper:
         return UpdateWrapper(self.__metadata, table_str=table)
 
-    def insert_into(self, table_str: AnyStr, columns_str: List[AnyStr] = None) -> InsertIntoWrapper:
-        return InsertIntoWrapper(table_str=table_str, columns_str=columns_str)
+    def insert_into(self, table: AnyStr, columns: List[AnyStr] = None) -> InsertIntoWrapper:
+        return InsertIntoWrapper(table_str=table, columns_str=columns)
     
-    def 
+    def drop_table(self, table: str) -> DropTableWrapper:
+        self.__metadata.remove_table(table)
+        return DropTableWrapper(self.__metadata, table)
+
+    def delete(self, table: str) -> DeleteWrapper:
+        return DeleteWrapper(self.__metadata, table)
 
     def execute(self, query: SelectWrapper | AnyStr) -> List[Dict]:
-        self.__cursor.execute(str(query))
         if 'SELECT' in str(query): # using dict for select query, find other cases
+            self.__cursor.execute(str(query))
             result = self.__create_dictionary(self.__cursor.fetchall(), query.get_elements())
+        elif 'ALTER' in str(query):
+            print('Feature not yet implemented')
         else:
+            self.__cursor.execute(str(query))
             result = self.__cursor.fetchall()
         self.__connection.commit()
         return result
@@ -116,23 +124,21 @@ class Database():
         
 
 
-metadata = MetaData('./new_database/metadata_backup.dump')
+metadata = MetaData('./new_database/metadata_telegram.dump')
 
 with open(Path('./new_database/creds.txt')) as f:
     temp = f.readlines()
-
 
 db = Database(temp[0], 'root', temp[1], metadata)
 
 db.select_database('telegram')
 
-test = Table(metadata, 'test', Column('id', Type(TypesEnum.INT), primary_key=True), Column('value', Type(TypesEnum.VARCHAR, 255)))
+test = Table(metadata, 'test', Column('id', Type(TypesEnum.INT), primary_key=True), Column('value', Type(TypesEnum.VARCHAR, 255), default='ASD'))
 print(test)
 db.create_table(test)
 
-query = db.select(['test.id'])
+query = db.select(['test.id', 'test.value'])
+print(query)
 
 print(db.execute(query))
 
-#1046 no database select
-#1049 non existent database

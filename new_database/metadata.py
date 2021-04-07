@@ -27,8 +27,11 @@ class MetaData():
 
     __current_database: str
 
+    __backup_path: str
+
     def __init__(self, backup_path: str):
-        if isfile(Path(backup_path)):
+        self.__backup_path = backup_path
+        if isfile(Path(self.__backup_path)):
             self.__tables = self.__restore_backup()
         else:
             self.__tables = {}
@@ -47,6 +50,13 @@ class MetaData():
             print('MetaData: Table {table} already exists, updating the existing table'.format(table = table.get_name()))
             self.update_table(table)
         self.__backup()
+    
+    def remove_table(self, table: str):
+        try:
+            self.__tables.pop(table)
+        except KeyError:
+            raise NoSuchTable('Table {table} does not exists'.format(table = table))
+        self.__backup()
 
     def update_table(self, table: Table):
         if table.get_name() in self.__tables.keys():
@@ -63,9 +73,9 @@ class MetaData():
         return self.__current_database
 
     def __backup(self):
-        with open(Path(backup_path), 'wb+') as f:
+        with open(Path(self.__backup_path), 'wb+') as f:
             pickle.dump(self.__tables, f)
 
     def __restore_backup(self):
-        with open(Path(backup_path), 'rb') as f:
+        with open(Path(self.__backup_path), 'rb') as f:
             return pickle.load(f)
