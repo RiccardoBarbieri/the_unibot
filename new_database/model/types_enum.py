@@ -15,6 +15,7 @@ from enum import Enum
 
 class TypesEnum(Enum):
     
+    
     # Numeric types
     TINYINT	= 'TINYINT' # A very small integer
     SMALLINT = 'SMALLINT' # A small integer

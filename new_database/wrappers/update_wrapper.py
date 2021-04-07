@@ -59,8 +59,8 @@ class UpdateWrapper():
     def __str__(self) -> str:
         return str(Update(self.__table, self.__set_clause, self.__where_clause))
 
-    def update(self, table_str: AnyStr) -> UpdateWrapper:
-        return UpdateWrapper(self.__metadata, table_str, self.__set_clause_str, self.__where_clause_str)
+    # def update(self, table_str: AnyStr) -> UpdateWrapper:
+    #     return UpdateWrapper(self.__metadata, table_str, self.__set_clause_str, self.__where_clause_str)
 
     def set(self, set_clause_str: Dict[AnyStr, Any]) -> UpdateWrapper:
         return UpdateWrapper(self.__metadata, self.__table_str, set_clause_str, self.__where_clause_str)

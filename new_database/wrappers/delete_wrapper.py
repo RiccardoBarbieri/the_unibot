@@ -50,8 +50,8 @@ class DeleteWrapper():
     def __str__(self) -> str:
         return str(Delete(self.__table, self.__where_clause))
 
-    def delete_from(self, table_str: AnyStr) -> DeleteWrapper:
-        return DeleteWrapper(self.__metadata, table_str, self.__where_clause_str)
+    # def delete_from(self, table_str: AnyStr) -> DeleteWrapper:
+    #     return DeleteWrapper(self.__metadata, table_str, self.__where_clause_str)
 
     def where(self, where_clause_str: Dict[AnyStr, Any]) -> DeleteWrapper:
         return DeleteWrapper(self.__metadata, self.__table_str, where_clause_str)

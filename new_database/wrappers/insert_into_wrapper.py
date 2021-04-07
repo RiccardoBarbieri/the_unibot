@@ -66,8 +66,8 @@ class InsertIntoWrapper():
     def __str__(self) -> str:
         return str(InsertInto(self.__table, self.__columns, self.__values))
 
-    def insert_into(self, table_str: AnyStr, columns_str: List[AnyStr]) -> InsertIntoWrapper:
-        return InsertIntoWrapper(self.__metadata, table_str, columns_str, self.__values_str)
+    # def insert_into(self, table_str: AnyStr, columns_str: List[AnyStr]) -> InsertIntoWrapper:
+    #     return InsertIntoWrapper(self.__metadata, table_str, columns_str, self.__values_str)
 
     def values(self, values_str: List[Dict[AnyStr, Any]]) -> InsertIntoWrapper:
         return InsertIntoWrapper(self.__metadata, self.__table_str, self.__columns_str, values_str)
