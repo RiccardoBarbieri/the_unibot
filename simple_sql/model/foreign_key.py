@@ -18,6 +18,38 @@ if TYPE_CHECKING:
 
 
 class ForeignKey():
+    """
+    Describes a foreign key, the string form of this object is the
+    string that declares a foreign key with MySQL compliant syntax.
+    The table of the referencing column is not passe because it is
+    handles inside the creation of the relative Table object.
+
+    Attributes
+    ----------
+    __from_column: Column
+        The column in the current table that references another column
+    __to_table: Table
+        The table to which the column in ``__to_column`` is bound
+    __to_column: Column
+        The column that is referenced by ``__from_column``
+    __from_column_str: str
+        The name of ``__from_column``
+    __to_table_str: str
+        The name of ``__to_table``
+    __to_column_str: str
+        The name of ``__to_column``
+    __on_delete_cascade: bool
+        It's True if the reference should cascade on delete
+
+    Parameters
+    ----------
+    from_column: str
+        String name of the column in the current table that references another column
+    to_column: str
+        String of type table.column, represent the column that is referenced by ``from_column``
+    on_delete_cascade: bool, default False
+        It's True if the reference should cascade on delete
+    """
 
     __from_column: Column  # contains the column object to which the column refers to
 
@@ -48,19 +80,57 @@ class ForeignKey():
 
         self.__on_delete_cascade = on_delete_cascade
 
-    def get_from_column(self) -> str:
+    def get_from_column(self) -> Column:
+        """
+        Returns
+        -------
+        Column
+            The referencing column.
+        """
         return self.__from_column
 
-    def get_column(self) -> str:
+    def get_column(self) -> Column:
+        """
+        Returns
+        -------
+        Column
+            The referenced column.
+        """
         return self.__to_column
 
-    def get_table(self) -> str:
+    def get_table(self) -> Table:
+        """
+        Returns
+        -------
+        Table
+            The table to which the referenced column belongs to.
+        """
         return self.__to_table
     
     def get_strings(self) -> List:
+        """
+        Returns
+        -------
+        List
+            A list containing the strings respectively of ``from_column``, ``to_table``
+            and ``to_column``.
+        """
         return [self.__from_column_str, self.__to_table_str, self.__to_column_str]
 
     def set_objects(self, from_column: Column = None, to_table: Table = None, to_column: Column = None):
+        """
+        Set the ``from_column``, ``to_table`` and ``to_column`` (all at once or one at a time),
+        it is used primarly by the ``Table`` object when parsing the strings.
+
+        Parameters
+        ----------
+        from_column: Column, optional
+            The object that will be assigned to the ``__from_column`` attribute
+        to_table: Table, optional
+            The object that will be assigned to the ``__to_table`` attribute
+        to_column: Column, optional
+            The object that will be assigned to the ``__to_column`` attribute
+        """
         if not self.__from_column:
             self.__from_column = from_column
         if not self.__to_table:
@@ -76,6 +146,14 @@ class ForeignKey():
         return '<' + string + '>'
 
     def __str__(self) -> str:
+        """
+        Creates the MySQL compliant string to declare the reference.
+
+        Returns
+        -------
+        str
+            MySQL compliant string declaration of the reference.
+        """
         string = 'FOREIGN KEY ({from_col}) REFERENCES {table}({column})'.format(
             from_col=self.__from_column_str, table=self.__to_table_str, column=self.__to_column_str)
         return string + (' ON DELETE CASCADE' if self.__on_delete_cascade else '')
