@@ -32,7 +32,7 @@ import json
 import pickle
 
 
-metadata: MetaData = MetaData()
+metadata: MetaData = MetaData('./bak.dump')
 
 cols_data = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column('user_id', Type(TypesEnum.INT)), Column('name', Type(TypesEnum.VARCHAR))]
 
