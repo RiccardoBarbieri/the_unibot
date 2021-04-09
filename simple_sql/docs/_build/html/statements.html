@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>simple_sql.statements package &mdash; simple-sql 0.0.1a documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="simple_sql.wrappers package" href="wrappers.html" />
+    <link rel="prev" title="simple_sql.database package" href="database.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> simple-sql
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">simple_sql.metadata package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#simple-sql-metadata">simple_sql.metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">simple_sql.model package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="model.html#simple-sql-model-column">simple_sql.model.column</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#simple-sql-model-foreign-key">simple_sql.model.foreign_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#simple-sql-model-table">simple_sql.model.table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#simple-sql-model-type">simple_sql.model.type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#simple-sql-model-types-enum">simple_sql.model.types_enum</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">simple_sql.database package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.html#simple-sql-database">simple_sql.database</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">simple_sql.statements package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#simple-sql-statements-delete">simple_sql.statements.delete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-sql-statements-drop-table">simple_sql.statements.drop_table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-sql-statements-insert-into">simple_sql.statements.insert_into</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-sql-statements-select">simple_sql.statements.select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-sql-statements-update">simple_sql.statements.update</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wrappers.html">simple_sql.wrappers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="wrappers.html#simple-sql-wrappers-delete-wrapper">simple_sql.wrappers.delete_wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrappers.html#simple-sql-wrappers-drop-table-wrapper">simple_sql.wrappers.drop_table_wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrappers.html#simple-sql-wrappers-insert-into-wrapper">simple_sql.wrappers.insert_into_wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrappers.html#simple-sql-wrappers-select-wrapper">simple_sql.wrappers.select_wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrappers.html#simple-sql-wrappers-update-wrapper">simple_sql.wrappers.update_wrapper</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">simple-sql</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>simple_sql.statements package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/statements.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="simple-sql-statements-package">
+<h1>simple_sql.statements package<a class="headerlink" href="#simple-sql-statements-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="simple-sql-statements-delete">
+<h2>simple_sql.statements.delete<a class="headerlink" href="#simple-sql-statements-delete" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="simple_sql.statements.delete.Delete">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.delete.</span></code><code class="sig-name descname"><span class="pre">Delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.delete.Delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="simple-sql-statements-drop-table">
+<h2>simple_sql.statements.drop_table<a class="headerlink" href="#simple-sql-statements-drop-table" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="simple_sql.statements.drop_table.DropTable">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.drop_table.</span></code><code class="sig-name descname"><span class="pre">DropTable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.drop_table.DropTable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="simple-sql-statements-insert-into">
+<h2>simple_sql.statements.insert_into<a class="headerlink" href="#simple-sql-statements-insert-into" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="simple_sql.statements.insert_into.InsertInto">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.insert_into.</span></code><code class="sig-name descname"><span class="pre">InsertInto</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.insert_into.InsertInto" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="simple-sql-statements-select">
+<h2>simple_sql.statements.select<a class="headerlink" href="#simple-sql-statements-select" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="simple_sql.statements.select.Select">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.select.</span></code><code class="sig-name descname"><span class="pre">Select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">select_clause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Table</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_tables</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Table</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Table</span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.select.Select" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="simple-sql-statements-update">
+<h2>simple_sql.statements.update<a class="headerlink" href="#simple-sql-statements-update" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="simple_sql.statements.update.Update">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.update.</span></code><code class="sig-name descname"><span class="pre">Update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_clause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.update.Update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="wrappers.html" class="btn btn-neutral float-right" title="simple_sql.wrappers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="database.html" class="btn btn-neutral float-left" title="simple_sql.database package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Riccardo Barbieri.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
