@@ -99,7 +99,7 @@ class Column():
         """
         string = self.__name
         string += ' ' + str(self.__type)
-        string += ' PRIMARY KEY' if self.__primary_key else ''
+        # string += ' PRIMARY KEY' if self.__primary_key else ''
         string += ' UNIQUE' if self.__unique else ''
         string += '' if self.__nullable else ' NOT NULL'
         string += ' ' + str(self.__constraint) if self.__constraint else ''

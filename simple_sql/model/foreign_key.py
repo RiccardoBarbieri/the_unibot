@@ -21,8 +21,8 @@ class ForeignKey():
     """
     Describes a foreign key, the string form of this object is the
     string that declares a foreign key with MySQL compliant syntax.
-    The table of the referencing column is not passe because it is
-    handles inside the creation of the relative Table object.
+    The table of the referencing column is not passed because it is
+    handled inside the creation of the relative Table object.
 
     Attributes
     ----------
@@ -49,6 +49,11 @@ class ForeignKey():
         String of type table.column, represent the column that is referenced by ``from_column``
     on_delete_cascade: bool, default False
         It's True if the reference should cascade on delete
+
+    Raise
+    -----
+    SyntaxError
+        If the to_column is not identified as table.column
     """
 
     __from_column: Column  # contains the column object to which the column refers to

@@ -19,8 +19,38 @@ if TYPE_CHECKING:
 from simple_sql.model.column import Column
 from simple_sql.model.foreign_key import ForeignKey
 
+# TODO: update primary key constraint creator
 
 class Table():
+    """
+    Describes a table, the string form of this object is the
+    string that declares a table with MySQL compliant syntax.
+    Columns, references and primary keys are created using the
+    string representation of the column and foreign key objects.
+    Inside checks to ensure foreign key compatibility are handled
+    here
+
+    Attributes
+    ----------
+    __columns: List[Column]
+        A list of the columns of this table as objects. 
+    __name: str
+        The name of the table.
+    __references: List[ForeignKey]
+        A list of the references of this table as objects
+    __if_not_exists: bool
+        True if the declaration should include IF NOT EXISTS clause
+    __primary_keys: List[Column]
+        A list of the columns that are primary keys
+    __metadata: MetaData
+        The ``MetaData`` object relative to this database
+
+    Parameters
+    ----------
+    metadata: MetaData
+    name: str
+    
+    """
 
     __columns: List[Column] = []  # contains a list of the columns of the table
 
@@ -33,12 +63,12 @@ class Table():
     __if_not_exists: bool
 
     # list of columns that are primary key
-    __primary_key: List[Column] = []
+    __primary_keys: List[Column] = []
 
     __metadata: MetaData
 
     def __init__(self, metadata: MetaData, name: str, *columns_and_foreign: List, if_not_exists: bool = True):
-#references: List[ForeignKey] = None,
+        
         self.__metadata = metadata
 
         self.__name = name
@@ -46,6 +76,8 @@ class Table():
         self.__columns = []
 
         self.__references = []
+
+        self.__primary_keys = []
 
         if len(columns_and_foreign) == 0:
             raise ZeroColumns('Number of columns must be more than zero')
@@ -82,10 +114,11 @@ class Table():
         check_primary = False # checking if there is at least one primary key
         for i in self.__columns:
             if i.is_primary_key():
-                self.__primary_key.append(i)
+                self.__primary_keys.append(i)
                 check_primary = True
         if not check_primary:
             raise PrimaryKeyError('There should be at least one primary key in table {table}'.format(table = self.__name))
+            
 
         if self.__references: # checking correct assignment of foreign keys
             for i in self.__references:
@@ -136,7 +169,13 @@ class Table():
         if self.__references:
             for i in self.__references:
                 string += str(i) + ', '
-        string = string[:-2] + ')'
+        string += 'PRIMARY KEY ('
+        if self.__primary_keys:
+            for i in self.__primary_keys:
+                string += i.get_name() + ', '
+            string = string[:-2] + '))'
+        else:
+            string = string[:-2] + ')'
         return string
 
 
