@@ -70,7 +70,7 @@ Data l'emergenza Covid e la migrazione online delle lezioni si potrebbe pensare 
 
 **N.B.**: le utility necessitano dei privilegi di amministratore per funzionare.
 
-### Simple_SQL [![Documentation Status](https://readthedocs.org/projects/the-unibot/badge/?version=latest)](https://the-unibot.readthedocs.io/en/latest/?badge=latest)
+#### Simple_SQL [![Documentation Status](https://readthedocs.org/projects/the-unibot/badge/?version=latest)](https://the-unibot.readthedocs.io/en/latest/?badge=latest)
 Questa repository include una semplice libreria utile alla gestione di un database MySQL direttamente da python. Il modulo simple-sql è ancora nella sua prima versione ma verrà migliorata in futuro. 
 
 Qui si può trovare la documentazione relativa a simple-sql (work in progress): [documentazione](https://the-unibot.readthedocs.io/en/latest/)
