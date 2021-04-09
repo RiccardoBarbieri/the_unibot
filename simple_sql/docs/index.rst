@@ -46,14 +46,12 @@ Welcome to simple-sql's documentation!
 .. autoclass:: simple_sql.wrappers.update_wrapper.UpdateWrapper
    :members:
    :private-members:
-.. autoclass:: simple_sql.database.Database
-   :members:
-   :private-members:
 
 
 .. toctree::
-   :maxdepth: 2
    :caption: Contents:
+
+   tocdoc
 
 
 
