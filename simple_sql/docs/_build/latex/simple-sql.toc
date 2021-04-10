@@ -1,0 +1,24 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}simple\_sql.metadata package}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}simple\_sql.metadata}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}simple\_sql.model package}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}simple\_sql.model.column}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}simple\_sql.model.foreign\_key}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}simple\_sql.model.table}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}simple\_sql.model.type}{8}{section.2.4}%
+\contentsline {section}{\numberline {2.5}simple\_sql.model.types\_enum}{8}{section.2.5}%
+\contentsline {chapter}{\numberline {3}simple\_sql.database package}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}simple\_sql.database}{9}{section.3.1}%
+\contentsline {chapter}{\numberline {4}simple\_sql.statements package}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}simple\_sql.statements.delete}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}simple\_sql.statements.drop\_table}{11}{section.4.2}%
+\contentsline {section}{\numberline {4.3}simple\_sql.statements.insert\_into}{11}{section.4.3}%
+\contentsline {section}{\numberline {4.4}simple\_sql.statements.select}{11}{section.4.4}%
+\contentsline {section}{\numberline {4.5}simple\_sql.statements.update}{11}{section.4.5}%
+\contentsline {chapter}{\numberline {5}simple\_sql.wrappers package}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}simple\_sql.wrappers.delete\_wrapper}{13}{section.5.1}%
+\contentsline {section}{\numberline {5.2}simple\_sql.wrappers.drop\_table\_wrapper}{13}{section.5.2}%
+\contentsline {section}{\numberline {5.3}simple\_sql.wrappers.insert\_into\_wrapper}{13}{section.5.3}%
+\contentsline {section}{\numberline {5.4}simple\_sql.wrappers.select\_wrapper}{14}{section.5.4}%
+\contentsline {section}{\numberline {5.5}simple\_sql.wrappers.update\_wrapper}{14}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Indices and tables}{15}{chapter.6}%
