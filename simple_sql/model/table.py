@@ -37,19 +37,35 @@ class Table():
     __name: str
         The name of the table.
     __references: List[ForeignKey]
-        A list of the references of this table as objects
+        A list of the references of this table as objects.
     __if_not_exists: bool
-        True if the declaration should include IF NOT EXISTS clause
+        True if the declaration should include IF NOT EXISTS clause.
     __primary_keys: List[Column]
-        A list of the columns that are primary keys
+        A list of the columns that are primary keys.
     __metadata: MetaData
-        The ``MetaData`` object relative to this database
+        The ``MetaData`` object relative to this database.
 
     Parameters
     ----------
     metadata: MetaData
+        The ``MetaData`` object relative to this database.
     name: str
+        The name of the table.
+    \*columns_and_foreign: List[Column or Foreign]
+        Contains columns and foreign keys of this table.
+    if_not_exists: bool, default True
+        True if the table should include IF NOT EXISTS clause.
     
+    Raises
+    ------
+    ZeroColumns
+        If no columns are provided to the constructor.
+    NoSuchColumn
+        If a foreign key is relative to a non-existent column.
+    PrimaryKeyError
+        If no columns are flagged as primary keys.
+    ForeignKeyError
+        If a foreign key is relative to a non-existent column.
     """
 
     __columns: List[Column] = []  # contains a list of the columns of the table
@@ -132,15 +148,51 @@ class Table():
         self.__if_not_exists = if_not_exists
 
     def get_columns(self) -> List[Column]:
+        """
+        Returns
+        -------
+        List[Column]
+            The columns of the table.
+        """
         return self.__columns
 
     def get_name(self) -> str:
+        """
+        Returns
+        -------
+        str
+            The name of the table.
+        """
         return self.__name
 
     def get_references(self) -> List[ForeignKey]:
+        """
+        Returns
+        -------
+        List[ForeignKey]
+            The foreign keys of the table.
+        """
         return self.__references
 
     def get_column(self, column_name: str) -> Column:
+        """
+        Search and obtain a column in this table given its name.
+
+        Parameters
+        ----------
+        column_name: str
+            The name of the column to search.
+        
+        Returns
+        -------
+        Column
+            The column named ``column_name``.
+
+        Raises
+        ------
+        NoSuchColumn
+            If there is no column named ``column_name``.
+        """
         for i in self.__columns:
             if i.get_name() == column_name:
                 return i
@@ -148,6 +200,19 @@ class Table():
 
 
     def contains(self, column: Column) -> bool:
+        """
+        Used to check that this table contains a certain column.
+
+        Parameters
+        ----------
+        column: Column
+            The column to search for.
+        
+        Returns
+        -------
+        bool
+            True if ``column`` is in this table
+        """
         return column in self.__columns
         
 
@@ -160,6 +225,14 @@ class Table():
         return '<' + string + '>'
 
     def __str__(self) -> str:
+        """
+        Creates the MySQL compliant string to declare the table.
+
+        Returns
+        -------
+        str
+            MySQL compliant string declaration of the table.
+        """
         string = 'CREATE TABLE '
         string += 'IF NOT EXISTS ' if self.__if_not_exists else ''
         string += '{name} '.format(name = self.__name)
