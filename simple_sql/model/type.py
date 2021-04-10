@@ -17,6 +17,26 @@ if TYPE_CHECKING:
 
 
 class Type():
+    """
+    Describes a MySQL type uaing a TypesEnum ad an integer for the length.
+    This class is used when declaring columns.
+
+    Attributes
+    ----------
+    __type: TypesEnum
+        The actual type of this ``Type`` instance
+    __len: int
+        The length of this type, the default value (-1) means that the length
+        won't be specified at declaration
+
+    Parameters
+    ----------
+    type: TypesEnum
+        The actual type of this ``Type`` instance
+    len: int, default -1
+        The length of this type, the default value (-1) means that the length
+        won't be specified at declaration
+    """
 
     __type: TypesEnum # contains a TypesEnum object
 
@@ -27,6 +47,14 @@ class Type():
         self.__len = len
     
     def __str__(self) -> str:
+        """
+        Creates the MySQL compliant string to declare the type.
+
+        Returns
+        -------
+        str
+            MySQL compliant string declaration of the type.
+        """
         return (self.__type.value if self.__len == -1 else self.__type.value + '({len})'.format(len = self.__len))
     
     def __repr__(self) -> str:

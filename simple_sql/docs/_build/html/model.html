@@ -750,7 +750,41 @@ here</p>
 <dl class="py class">
 <dt id="simple_sql.model.type.Type">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.model.type.</span></code><code class="sig-name descname"><span class="pre">Type</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">TypesEnum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.model.type.Type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Describes a MySQL type uaing a TypesEnum ad an integer for the length.
+This class is used when declaring columns.</p>
+<dl class="py attribute">
+<dt id="simple_sql.model.type.Type.__type">
+<code class="sig-name descname"><span class="pre">__type</span></code><a class="headerlink" href="#simple_sql.model.type.Type.__type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual type of this <code class="docutils literal notranslate"><span class="pre">Type</span></code> instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#simple_sql.model.types_enum.TypesEnum" title="simple_sql.model.types_enum.TypesEnum">TypesEnum</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.model.type.Type.__len">
+<code class="sig-name descname"><span class="pre">__len</span></code><a class="headerlink" href="#simple_sql.model.type.Type.__len" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of this type, the default value (-1) means that the length
+won’t be specified at declaration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference internal" href="#simple_sql.model.types_enum.TypesEnum" title="simple_sql.model.types_enum.TypesEnum"><em>TypesEnum</em></a>) – The actual type of this <code class="docutils literal notranslate"><span class="pre">Type</span></code> instance</p></li>
+<li><p><strong>len</strong> (<em>int</em><em>, </em><em>default -1</em>) – The length of this type, the default value (-1) means that the length
+won’t be specified at declaration</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-model-types-enum">
@@ -758,7 +792,65 @@ here</p>
 <dl class="py class">
 <dt id="simple_sql.model.types_enum.TypesEnum">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.model.types_enum.</span></code><code class="sig-name descname"><span class="pre">TypesEnum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.model.types_enum.TypesEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>An enumeration.</p>
+<dd><p>Enumerative object that contains all the possible types
+MySQL can offer. All the enumeratives are associated with
+a string that represents them in MySQL.</p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">Numeric</span> <span class="pre">types</span></code></dt>
+<dd><p>TINYINT</p>
+<p>SMALLINT</p>
+<p>MEDIUMINT</p>
+<p>INT</p>
+<p>BIGINT</p>
+<p>DECIMAL</p>
+<p>FLOAT</p>
+<p>DOUBLE</p>
+<p>BIT</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">String</span> <span class="pre">types</span></code></dt>
+<dd><p>CHAR</p>
+<p>VARCHAR</p>
+<p>BINARY</p>
+<p>VARBINARY</p>
+<p>TINYBLOB</p>
+<p>BLOB</p>
+<p>MEDIUMBLOB</p>
+<p>LONGBLOB</p>
+<p>TINYTEXT</p>
+<p>TEXT</p>
+<p>MEDIUMTEXT</p>
+<p>LONGTEXT</p>
+<p>ENUM</p>
+<p>SET</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">Date</span> <span class="pre">and</span> <span class="pre">time</span> <span class="pre">types</span></code></dt>
+<dd><p>DATE</p>
+<p>TIME</p>
+<p>DATETIME</p>
+<p>TIMESTAMP</p>
+<p>YEAR</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname"><span class="pre">Spatial</span> <span class="pre">data</span> <span class="pre">types</span></code></dt>
+<dd><p>GEOMETRY</p>
+<p>POINT</p>
+<p>LINESTRING</p>
+<p>POLYGON</p>
+<p>GEOMETRYCOLLECTION</p>
+<p>MULTILINESTRING</p>
+<p>MULTIPOINT</p>
+<p>MULTIPOLYGON</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>

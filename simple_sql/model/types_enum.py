@@ -14,7 +14,54 @@ elif getpass.getuser() == 'pi':
 from enum import Enum
 
 class TypesEnum(Enum):
-    
+    """
+    Enumerative object that contains all the possible types
+    MySQL can offer. All the enumeratives are associated with
+    a string that represents them in MySQL.
+
+    Attributes
+    ----------
+    Numeric types:
+        TINYINT\n
+        SMALLINT\n
+        MEDIUMINT\n
+        INT\n
+        BIGINT\n
+        DECIMAL\n
+        FLOAT\n
+        DOUBLE\n
+        BIT\n
+    String types:
+        CHAR\n
+        VARCHAR\n
+        BINARY\n
+        VARBINARY\n
+        TINYBLOB\n
+        BLOB\n
+        MEDIUMBLOB\n
+        LONGBLOB\n
+        TINYTEXT\n
+        TEXT\n
+        MEDIUMTEXT\n
+        LONGTEXT\n
+        ENUM\n
+        SET\n
+    Date and time types
+        DATE\n
+        TIME\n
+        DATETIME\n
+        TIMESTAMP\n
+        YEAR\n
+    Spatial data types
+        GEOMETRY\n
+        POINT\n
+        LINESTRING\n
+        POLYGON\n
+        GEOMETRYCOLLECTION\n
+        MULTILINESTRING\n
+        MULTIPOINT\n
+        MULTIPOLYGON\n
+    """
     
     # Numeric types
     TINYINT	= 'TINYINT' # A very small integer
@@ -55,8 +102,8 @@ class TypesEnum(Enum):
     POINT = 'POINT' # A point (a pair of X-Y coordinates)
     LINESTRING = 'LINESTRING' # A curve (one or more POINT values)
     POLYGON = 'POLYGON' # A polygon
-    GEOMETRYCOLLECTION = 'GEOMETRYCOLLECTION' # A collection of GEOMETRYvalues
-    MULTILINESTRING = 'MULTILINESTRING'	# A collection of LINESTRINGvalues
+    GEOMETRYCOLLECTION = 'GEOMETRYCOLLECTION' # A collection of GEOMETRY values
+    MULTILINESTRING = 'MULTILINESTRING'	# A collection of LINESTRING Values
     MULTIPOINT = 'MULTIPOINT' # A collection of POINTvalues
     MULTIPOLYGON = 'MULTIPOLYGON' # A collection of POLYGONvalues
 
