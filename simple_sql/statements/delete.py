@@ -24,7 +24,7 @@ class Delete():
     Its string form is the syntax needed to execute a DELETE statement
     according to the table and where_clause specified. All the parameters
     are optional to enable the user to specify one clause a time.
-    In the future all where clause will be modeled with a class.
+    In the future all where clauses will be modeled with a class.
 
     Parameters
     ----------

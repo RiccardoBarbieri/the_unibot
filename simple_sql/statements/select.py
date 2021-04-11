@@ -20,6 +20,32 @@ if TYPE_CHECKING:
 
 
 class Select():
+    """
+    This class represents a SELECT statement (MySQL compliant).
+    Its string form is the syntax needed to execute a SELECT statement
+    according to the table. All the parameters are optional to enable 
+    the user to specify one clause a time.
+    In the future all where clauses will be modeled with a class.
+
+    Parameters
+    ----------
+    select_clause: Dict[Table, List[Column]], optional  
+        The select clause for this select statement.
+    from_tables: List[Table], optional
+        The from clause for this select statement.
+    where_clause: Dict[Table, Dict[Column, Any]], optional
+        The where clause for this select statement.
+
+    Attributes
+    ----------
+    __select_clause: Dict[Table, List[Column]]
+        The select clause for this select statement.
+    __from_tables: List[Table]
+        The from clause for this select statement.
+    __where_clause: Dict[Table, Dict[Column, Any]]
+        The where clause for this select statement.
+    """
+
 
     __from_tables: List[Table] # contains tables for from clause
 
