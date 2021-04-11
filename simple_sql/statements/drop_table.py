@@ -17,6 +17,22 @@ if TYPE_CHECKING:
 
 
 class DropTable():
+    """
+    This class represents a DROP TABLE statement (MySQL compliant).
+    Its string form is the syntax needed to execute a DROP TABLE statement
+    according to the table. All the parameters are optional to enable 
+    the user to specify one clause a time.
+
+    Parameters
+    ----------
+    table: Table, optional
+        The table to drop.
+    
+    Attributes
+    ----------
+    __table: Table
+        The table to drop.
+    """
 
     __table: Table
 
@@ -24,4 +40,12 @@ class DropTable():
         self.__table = table
 
     def __str__(self) -> str:
+        """
+        Creates the MySQL compliant string to execute the drop statement.
+
+        Returns
+        -------
+        str
+            MySQL compliant string declaration of the drop statement.
+        """
         return 'DROP TABLE {table}'.format(table = self.__table.get_name())

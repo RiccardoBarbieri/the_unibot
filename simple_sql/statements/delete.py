@@ -19,6 +19,27 @@ if TYPE_CHECKING:
     from simple_sql.model.table import Table
 
 class Delete():
+    """
+    This class represents a DELETE statement (MySQL compliant).
+    Its string form is the syntax needed to execute a DELETE statement
+    according to the table and where_clause specified. All the parameters
+    are optional to enable the user to specify one clause a time.
+    In the future all where clause will be modeled with a class.
+
+    Parameters
+    ----------
+    table: Table, optional
+        The table to delete from.
+    where_clause: Dict[Column, Any], optional
+        The where clause.
+    
+    Attributes
+    ----------
+    __table: Table
+        The table to delete from.
+    __where_clause: Dict[Column, Any]
+        The where clause.
+    """
 
     __table: Table # table to delete from
 
@@ -29,6 +50,14 @@ class Delete():
         self.__where_clause = where_clause
 
     def __str__(self) -> str:
+        """
+        Creates the MySQL compliant string to execute the delete statement.
+
+        Returns
+        -------
+        str
+            MySQL compliant string declaration of the delete statement.
+        """
         string = 'DELETE FROM {table}'.format(table = self.__table.get_name())
         if self.__where_clause:
             string += ' WHERE '

@@ -19,6 +19,30 @@ if TYPE_CHECKING:
     from simple_sql.model.column import Column
 
 class InsertInto():
+    """
+    This class represents a INSERT INTO statement (MySQL compliant).
+    Its string form is the syntax needed to execute a INSERT INTO statement
+    according to the table. All the parameters are optional to enable 
+    the user to specify one clause a time.
+
+    Parameters
+    ----------
+    table: Table, optional
+        The table to insert into.
+    columns: List[Column], optional
+        To specify a list of columns if you want to insert values for certain columns
+    values: List[Dict[Column, Any]], optional
+        The values to insert into the table
+    
+    Attributes
+    ----------
+    __table: Table
+        The table to insert into.
+    __columns: List[Column]
+        To specify a list of columns if you want to insert values for certain columns
+    __values: List[Dict[Column, Any]]
+        The values to insert into the table
+    """
 
     __table: Table # table in which to insert new values
 
@@ -46,6 +70,14 @@ class InsertInto():
                     raise SyntaxError('Number of values provided at row {num} does not match with the number of columns of the table'.format(num = j))
 
     def __str__(self) -> str:
+        """
+        Creates the MySQL compliant string to execute the insert statement.
+
+        Returns
+        -------
+        str
+            MySQL compliant string declaration of the insert statement.
+        """
         string = 'INSERT INTO {table} '.format(table = self.__table.get_name())
         if self.__columns:
             string += '('
