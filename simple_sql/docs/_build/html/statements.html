@@ -192,7 +192,42 @@
 <dl class="py class">
 <dt id="simple_sql.statements.delete.Delete">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.delete.</span></code><code class="sig-name descname"><span class="pre">Delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.delete.Delete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class represents a DELETE statement (MySQL compliant).
+Its string form is the syntax needed to execute a DELETE statement
+according to the table and where_clause specified. All the parameters
+are optional to enable the user to specify one clause a time.
+In the future all where clause will be modeled with a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>, </em><em>optional</em>) – The table to delete from.</p></li>
+<li><p><strong>where_clause</strong> (<em>Dict</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column"><em>Column</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The where clause.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.statements.delete.Delete.__table">
+<code class="sig-name descname"><span class="pre">__table</span></code><a class="headerlink" href="#simple_sql.statements.delete.Delete.__table" title="Permalink to this definition">¶</a></dt>
+<dd><p>The table to delete from.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.statements.delete.Delete.__where_clause">
+<code class="sig-name descname"><span class="pre">__where_clause</span></code><a class="headerlink" href="#simple_sql.statements.delete.Delete.__where_clause" title="Permalink to this definition">¶</a></dt>
+<dd><p>The where clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[<a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column">Column</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-statements-drop-table">
@@ -200,7 +235,27 @@
 <dl class="py class">
 <dt id="simple_sql.statements.drop_table.DropTable">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.drop_table.</span></code><code class="sig-name descname"><span class="pre">DropTable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.drop_table.DropTable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class represents a DROP TABLE statement (MySQL compliant).
+Its string form is the syntax needed to execute a DROP TABLE statement
+according to the table. All the parameters are optional to enable
+the user to specify one clause a time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>, </em><em>optional</em>) – The table to drop.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.statements.drop_table.DropTable.__table">
+<code class="sig-name descname"><span class="pre">__table</span></code><a class="headerlink" href="#simple_sql.statements.drop_table.DropTable.__table" title="Permalink to this definition">¶</a></dt>
+<dd><p>The table to drop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-statements-insert-into">
@@ -208,7 +263,53 @@
 <dl class="py class">
 <dt id="simple_sql.statements.insert_into.InsertInto">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.statements.insert_into.</span></code><code class="sig-name descname"><span class="pre">InsertInto</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Column</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.statements.insert_into.InsertInto" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class represents a INSERT INTO statement (MySQL compliant).
+Its string form is the syntax needed to execute a INSERT INTO statement
+according to the table. All the parameters are optional to enable
+the user to specify one clause a time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>, </em><em>optional</em>) – The table to insert into.</p></li>
+<li><p><strong>columns</strong> (<em>List</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column"><em>Column</em></a><em>]</em><em>, </em><em>optional</em>) – To specify a list of columns if you want to insert values for certain columns</p></li>
+<li><p><strong>values</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column"><em>Column</em></a><em>, </em><em>Any</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The values to insert into the table</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.statements.insert_into.InsertInto.__table">
+<code class="sig-name descname"><span class="pre">__table</span></code><a class="headerlink" href="#simple_sql.statements.insert_into.InsertInto.__table" title="Permalink to this definition">¶</a></dt>
+<dd><p>The table to insert into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.statements.insert_into.InsertInto.__columns">
+<code class="sig-name descname"><span class="pre">__columns</span></code><a class="headerlink" href="#simple_sql.statements.insert_into.InsertInto.__columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>To specify a list of columns if you want to insert values for certain columns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column">Column</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.statements.insert_into.InsertInto.__values">
+<code class="sig-name descname"><span class="pre">__values</span></code><a class="headerlink" href="#simple_sql.statements.insert_into.InsertInto.__values" title="Permalink to this definition">¶</a></dt>
+<dd><p>The values to insert into the table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[Dict[<a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column">Column</a>, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-statements-select">
