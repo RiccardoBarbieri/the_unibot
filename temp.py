@@ -10,15 +10,27 @@ elif getpass.getuser() == 'riccardoob':
 elif getpass.getuser() == 'pi':
     sys.path.append('/home/pi/telegram-bot')
 
-a = {'last': ['chat_id'], 'data': ['user_id', 'chat_id']}
+class class1():
+    
+    def __init__(self, valore: int):
+        self.val = valore
+    
+    def __ge__(self, o: object):
+        
+    
+class class2():
+    
+    def __init__(self) -> None:
+        self.asd = '123'
+    
+    def __ge__(self, o: object):
+        if o.val == int(o.val):
+            return class1(124)
+        
+def func(class1: class1):
+    print(class1.val)
 
-print(a.items())
+c = class1(123)
+cc = class2()
 
-for i in a.items():
-    print(i[0])
-
-a = None
-
-b = 'None'
-
-print(str(a) == b)
+func(cc >= c)
