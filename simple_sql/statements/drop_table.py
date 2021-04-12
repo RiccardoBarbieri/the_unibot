@@ -41,11 +41,11 @@ class DropTable():
 
     def __str__(self) -> str:
         """
-        Creates the MySQL compliant string to execute the drop statement.
+        Creates the MySQL compliant string to execute the drop table statement.
 
         Returns
         -------
         str
-            MySQL compliant string declaration of the drop statement.
+            MySQL compliant string of the drop table statement execution.
         """
         return 'DROP TABLE {table}'.format(table = self.__table.get_name())

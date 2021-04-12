@@ -70,6 +70,14 @@ class Select():
 
 
     def __str__(self) -> AnyStr:
+        """
+        Creates the MySQL compliant string to execute the select statement.
+
+        Returns
+        -------
+        str
+            MySQL compliant string of the select statement execution.
+        """
         # if not self.__select_clause.keys():
         #     raise ZeroColumns('This query is not complete, specify SELECT clause arguments')
         if not self.__from_tables:
