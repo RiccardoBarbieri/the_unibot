@@ -20,12 +20,37 @@ if TYPE_CHECKING:
 
 
 class Update():
+    """
+    This class represents a UPDATE statement (MySQL compliant).
+    Its string form is the syntax needed to execute an UPDATE statement
+    according to the table. All the parameters are optional to enable 
+    the user to specify one clause a time.
+    In the future all where clauses will be modeled with a class.
+
+    Prameters
+    ---------
+    table: Table, optional
+        The table to update.
+    set_clause: Dict[Column, Any], optional
+        The set clause containg pairs of column and its value.
+    where_clause: Dict[Column, Any], optional
+        The where clause.
+
+    Attributes
+    ----------
+    __table: Table
+        The table to update.
+    __set_clause: Dict[Column, Any]
+        The set clause containg pairs of column and value.
+    __where_clause: Dict[Column, Any]
+        The where clause.
+    """
 
     __table: Table # contains the table on which to perform the update
 
-    __set_clause: Dict[Table, Dict[Column, Any]] # contains a dictionary of column:value to set
+    __set_clause: Dict[Column, Any] # contains a dictionary of column:value to set
 
-    __where_clause: Dict[Table, Dict[Column, Any]] # contains a dictionary for the where clause
+    __where_clause: Dict[Column, Any] # contains a dictionary for the where clause
 
     def __init__(self, table: Table = None, set_clause: Dict[Column, Any] = None, where_clause: Dict[Column, Any] = None):
         self.__table = table
@@ -43,6 +68,14 @@ class Update():
         #             raise NoSuchColumn('Column {col} (for where clause) does not belong to table {table}'.format(col = col.get_name(), table = table.get_name()))
 
     def __str__(self) -> AnyStr:
+        """
+        Creates the MySQL compliant string to execute the update statement.
+
+        Returns
+        -------
+        str
+            MySQL compliant string of the update statement execution.
+        """
         if not self.__table:
             raise ZeroTables('This query is not complete, specify UPDATE clause arguments')
         if not self.__set_clause.keys():

@@ -71,12 +71,12 @@ class InsertInto():
 
     def __str__(self) -> str:
         """
-        Creates the MySQL compliant string to execute the insert statement.
+        Creates the MySQL compliant string to execute the insert into statement.
 
         Returns
         -------
         str
-            MySQL compliant string declaration of the insert statement.
+            MySQL compliant string of the insert into statement execution.
         """
         string = 'INSERT INTO {table} '.format(table = self.__table.get_name())
         if self.__columns:
