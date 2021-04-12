@@ -90,10 +90,7 @@ class SelectWrapper():
                         self.__where_clause[self.__metadata.get_table(parts[0])] = {self.__metadata.get_table(parts[0]).get_column(parts[1]): self.__where_clause_str[where]}
                     else:
                         raise SyntaxError('Where clause must be identified as table.column if multiple tables are selected')
-        
-        print(self.__from_tables)
-        print(self.__select_clause)
-        print(self.__where_clause)
+    
     
     def get_elements(self) -> Dict[AnyStr, List[AnyStr]]:
         return self.__table_col_mix

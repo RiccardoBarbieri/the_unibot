@@ -56,7 +56,7 @@ class Delete():
         Returns
         -------
         str
-            MySQL compliant string declaration of the delete statement.
+            MySQL compliant string of the delete statement execution.
         """
         string = 'DELETE FROM {table}'.format(table = self.__table.get_name())
         if self.__where_clause:
