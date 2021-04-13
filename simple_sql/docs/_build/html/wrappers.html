@@ -191,7 +191,95 @@
 <dl class="py class">
 <dt id="simple_sql.wrappers.delete_wrapper.DeleteWrapper">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.wrappers.delete_wrapper.</span></code><code class="sig-name descname"><span class="pre">DeleteWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">MetaData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">AnyStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class uses the table name and the where clause as strings
+with the metadata object (handled by <code class="docutils literal notranslate"><span class="pre">Database</span></code>) to obtain
+the correct <code class="docutils literal notranslate"><span class="pre">Table</span></code> object and to create the where clause.
+Using the delete and where methods, <code class="docutils literal notranslate"><span class="pre">DeleteWrapper</span></code> instances will be
+created and returned to add clauses separately.
+In the future all where clauses will be modeled with a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata</strong> (<a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><em>MetaData</em></a><em>, </em><em>optional</em>) – The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p></li>
+<li><p><strong>table_str</strong> (<em>AnyStr</em><em>, </em><em>optional</em>) – The name of the table to delete from.</p></li>
+<li><p><strong>where_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The where clause to restrict which entries to delete.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.delete_wrapper.DeleteWrapper.__metadata">
+<code class="sig-name descname"><span class="pre">__metadata</span></code><a class="headerlink" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData">MetaData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.delete_wrapper.DeleteWrapper.__table">
+<code class="sig-name descname"><span class="pre">__table</span></code><a class="headerlink" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__table" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">Table</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.delete_wrapper.DeleteWrapper.__where_clause">
+<code class="sig-name descname"><span class="pre">__where_clause</span></code><a class="headerlink" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__where_clause" title="Permalink to this definition">¶</a></dt>
+<dd><p>The where clause generated from the string where clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[<a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column">Column</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.delete_wrapper.DeleteWrapper.__table_str">
+<code class="sig-name descname"><span class="pre">__table_str</span></code><a class="headerlink" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__table_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the table to delete from.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>AnyStr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.delete_wrapper.DeleteWrapper.__where_clause_str">
+<code class="sig-name descname"><span class="pre">__where_clause_str</span></code><a class="headerlink" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__where_clause_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The where clause to restrict which entries to delete.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[AnyStr, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.wrappers.delete_wrapper.DeleteWrapper.where">
+<code class="sig-name descname"><span class="pre">where</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">where_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper" title="simple_sql.wrappers.delete_wrapper.DeleteWrapper"><span class="pre">simple_sql.wrappers.delete_wrapper.DeleteWrapper</span></a><a class="headerlink" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper.where" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to specify the where clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>where_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em>) – The where clause to restrict which entries to delete.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">DeleteWrapper</span></code> instance with the same metadata and table
+name and the where_clause_str passed as parameter.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#simple_sql.wrappers.delete_wrapper.DeleteWrapper" title="simple_sql.wrappers.delete_wrapper.DeleteWrapper">DeleteWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-wrappers-drop-table-wrapper">
@@ -223,7 +311,139 @@
 <dl class="py class">
 <dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.wrappers.update_wrapper.</span></code><code class="sig-name descname"><span class="pre">UpdateWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">MetaData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">AnyStr</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class uses the table name, the set clause and where clause
+as strings with the metadata object (handled by <code class="docutils literal notranslate"><span class="pre">Database</span></code>) to obtain
+the correct <code class="docutils literal notranslate"><span class="pre">Table</span></code> object and to create the where and set clauses.
+Using the update, set and where methods, <code class="docutils literal notranslate"><span class="pre">UpdateWrapper</span></code> instances will be
+created and returned to add clauses separately.
+In the future all where clauses will be modeled with a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata</strong> (<a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><em>MetaData</em></a><em>, </em><em>optional</em>) – The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p></li>
+<li><p><strong>table_str</strong> (<em>AnyStr</em><em>, </em><em>optional</em>) – The name of the table to update.</p></li>
+<li><p><strong>set_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Str</em><em>]</em><em>, </em><em>optional</em>) – The set clause containing which column to update
+and with which value.</p></li>
+<li><p><strong>where_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Str</em><em>]</em><em>, </em><em>optional</em>) – The where clause to restrict which entries to updates.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.__metadata">
+<code class="sig-name descname"><span class="pre">__metadata</span></code><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.__metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData">MetaData</a>, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.__table">
+<code class="sig-name descname"><span class="pre">__table</span></code><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.__table" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">Table</span></code> object to update.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause">
+<code class="sig-name descname"><span class="pre">__set_clause</span></code><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set clause generated from the string set clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[AnyStr, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.__where_clause">
+<code class="sig-name descname"><span class="pre">__where_clause</span></code><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.__where_clause" title="Permalink to this definition">¶</a></dt>
+<dd><p>The where clause generated from the string where clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[AnyStr, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.__table_str">
+<code class="sig-name descname"><span class="pre">__table_str</span></code><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.__table_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the table to update.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>AnyStr, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause_str">
+<code class="sig-name descname"><span class="pre">__set_clause_str</span></code><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set clause containing which column to update
+and with which value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[AnyStr, Str], optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.__where_clause_str">
+<code class="sig-name descname"><span class="pre">__where_clause_str</span></code><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.__where_clause_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The where clause to restrict which entries to updates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[AnyStr, Str], optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.set">
+<code class="sig-name descname"><span class="pre">set</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper"><span class="pre">simple_sql.wrappers.update_wrapper.UpdateWrapper</span></a><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to specify the set clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>set_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em>) – The set clause containing which column to update
+and with which value.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">UpdateWrapper</span></code> instance with the same metadata, table
+name and where clause and the set_clause_str passed as parameter.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper">UpdateWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.where">
+<code class="sig-name descname"><span class="pre">where</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">where_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper"><span class="pre">simple_sql.wrappers.update_wrapper.UpdateWrapper</span></a><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.where" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to specify the where clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>where_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em>) – The where clause to restrict which entries to update.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">UpdateWrapper</span></code> instance with the same metadata, table
+name and set clause and the where_clause_str passed as parameter.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper">UpdateWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 </div>
