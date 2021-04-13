@@ -195,6 +195,7 @@
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -221,7 +222,13 @@
       <li><a href="model.html#simple_sql.model.type.Type.__len">__len (simple_sql.model.type.Type attribute)</a>
 </li>
       <li><a href="model.html#simple_sql.model.table.Table.__metadata">__metadata (simple_sql.model.table.Table attribute)</a>
+
+      <ul>
+        <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__metadata">(simple_sql.wrappers.delete_wrapper.DeleteWrapper attribute)</a>
 </li>
+        <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__metadata">(simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
+</li>
+      </ul></li>
       <li><a href="model.html#simple_sql.model.column.Column.__name">__name (simple_sql.model.column.Column attribute)</a>
 
       <ul>
@@ -238,12 +245,18 @@
 </li>
       <li><a href="model.html#simple_sql.model.table.Table.__references">__references (simple_sql.model.table.Table attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="statements.html#simple_sql.statements.select.Select.__select_clause">__select_clause (simple_sql.statements.select.Select attribute)</a>
 </li>
       <li><a href="statements.html#simple_sql.statements.update.Update.__set_clause">__set_clause (simple_sql.statements.update.Update attribute)</a>
+
+      <ul>
+        <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause">(simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
 </li>
+      </ul></li>
+      <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause_str">__set_clause_str (simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="statements.html#simple_sql.statements.delete.Delete.__table">__table (simple_sql.statements.delete.Delete attribute)</a>
 
       <ul>
@@ -252,6 +265,16 @@
         <li><a href="statements.html#simple_sql.statements.insert_into.InsertInto.__table">(simple_sql.statements.insert_into.InsertInto attribute)</a>
 </li>
         <li><a href="statements.html#simple_sql.statements.update.Update.__table">(simple_sql.statements.update.Update attribute)</a>
+</li>
+        <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__table">(simple_sql.wrappers.delete_wrapper.DeleteWrapper attribute)</a>
+</li>
+        <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__table">(simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__table_str">__table_str (simple_sql.wrappers.delete_wrapper.DeleteWrapper attribute)</a>
+
+      <ul>
+        <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__table_str">(simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
 </li>
       </ul></li>
       <li><a href="model.html#simple_sql.model.foreign_key.ForeignKey.__to_column">__to_column (simple_sql.model.foreign_key.ForeignKey attribute)</a>
@@ -278,6 +301,16 @@
         <li><a href="statements.html#simple_sql.statements.select.Select.__where_clause">(simple_sql.statements.select.Select attribute)</a>
 </li>
         <li><a href="statements.html#simple_sql.statements.update.Update.__where_clause">(simple_sql.statements.update.Update attribute)</a>
+</li>
+        <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__where_clause">(simple_sql.wrappers.delete_wrapper.DeleteWrapper attribute)</a>
+</li>
+        <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__where_clause">(simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__where_clause_str">__where_clause_str (simple_sql.wrappers.delete_wrapper.DeleteWrapper attribute)</a>
+
+      <ul>
+        <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__where_clause_str">(simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -390,9 +423,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="statements.html#simple_sql.statements.select.Select">Select (class in simple_sql.statements.select)</a>
 </li>
+      <li><a href="wrappers.html#simple_sql.wrappers.select_wrapper.SelectWrapper">SelectWrapper (class in simple_sql.wrappers.select_wrapper)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="wrappers.html#simple_sql.wrappers.select_wrapper.SelectWrapper">SelectWrapper (class in simple_sql.wrappers.select_wrapper)</a>
+      <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.set">set() (simple_sql.wrappers.update_wrapper.UpdateWrapper method)</a>
 </li>
       <li><a href="model.html#simple_sql.model.foreign_key.ForeignKey.set_objects">set_objects() (simple_sql.model.foreign_key.ForeignKey method)</a>
 </li>
@@ -422,6 +457,18 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper">UpdateWrapper (class in simple_sql.wrappers.update_wrapper)</a>
 </li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper.where">where() (simple_sql.wrappers.delete_wrapper.DeleteWrapper method)</a>
+
+      <ul>
+        <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.where">(simple_sql.wrappers.update_wrapper.UpdateWrapper method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 

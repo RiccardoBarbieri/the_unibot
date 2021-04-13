@@ -1,7 +1,5 @@
 import sys
 import getpass
-
-from telegram import chat, message
 from telegram.ext.jobqueue import Job
 if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
@@ -19,12 +17,11 @@ from utils.utils import Utils
 from utils.message_creator import MessageCreator
 from database.database import Database
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Chat, User
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 from telegram.error import BadRequest
 from telegram.update import Update
 from telegram.parsemode import ParseMode
 from telegram.ext import CommandHandler, MessageHandler, Filters, Updater, CallbackContext, JobQueue
-from telegram.message import Message
 
 import logging
 import json
@@ -33,7 +30,6 @@ from math import ceil
 import re
 from pprint import pprint
 from datetime import datetime, timedelta
-from datetime import time
 from typing import Dict
 
 SECONDS_IN_A_DAY = 86400
