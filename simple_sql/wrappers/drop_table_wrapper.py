@@ -20,6 +20,26 @@ from simple_sql.statements.drop_table import DropTable
 
 
 class DropTableWrapper():
+    """
+    This class uses the table name a string with the metadata object 
+    (handled by ``Database``) to obtain the correct ``Table`` object.
+
+    Parameters
+    ----------
+    metadata: MetaData
+        The ``MetaData`` instance of the database.
+    table_str: AnyStr, optional
+        The name of the table to update.
+
+    Attributes
+    ----------
+    __metadata: MetaData
+        The ``MetaData`` instance of the database.
+    __table: Table
+        The ``Table`` object to drop.
+    __table_str: AnyStr
+        The name of the table to update.
+    """
 
     __metadata: MetaData
 
