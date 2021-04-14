@@ -287,7 +287,50 @@ name and the where_clause_str passed as parameter.</p>
 <dl class="py class">
 <dt id="simple_sql.wrappers.drop_table_wrapper.DropTableWrapper">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.wrappers.drop_table_wrapper.</span></code><code class="sig-name descname"><span class="pre">DropTableWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">MetaData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">AnyStr</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class uses the table name a string with the metadata object
+(handled by <code class="docutils literal notranslate"><span class="pre">Database</span></code>) to obtain the correct <code class="docutils literal notranslate"><span class="pre">Table</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata</strong> (<a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><em>MetaData</em></a>) – The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p></li>
+<li><p><strong>table_str</strong> (<em>AnyStr</em><em>, </em><em>optional</em>) – The name of the table to update.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.drop_table_wrapper.DropTableWrapper.__metadata">
+<code class="sig-name descname"><span class="pre">__metadata</span></code><a class="headerlink" href="#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper.__metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData">MetaData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.drop_table_wrapper.DropTableWrapper.__table">
+<code class="sig-name descname"><span class="pre">__table</span></code><a class="headerlink" href="#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper.__table" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">Table</span></code> object to drop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.drop_table_wrapper.DropTableWrapper.__table_str">
+<code class="sig-name descname"><span class="pre">__table_str</span></code><a class="headerlink" href="#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper.__table_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the table to update.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>AnyStr</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-wrappers-insert-into-wrapper">
@@ -295,7 +338,125 @@ name and the where_clause_str passed as parameter.</p>
 <dl class="py class">
 <dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.wrappers.insert_into_wrapper.</span></code><code class="sig-name descname"><span class="pre">InsertIntoWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">MetaData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">AnyStr</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class uses the table name, the column list and values list
+as strings with the metadata object (handled by <code class="docutils literal notranslate"><span class="pre">Database</span></code>) to obtain
+the correct <code class="docutils literal notranslate"><span class="pre">Table</span></code> object and to create the column and values list as
+MySQL compliant clauses.
+Using the insert and values methods, <code class="docutils literal notranslate"><span class="pre">InsertIntoWrapper</span></code> instances will be
+created and returned to add clauses separately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata</strong> (<a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><em>MetaData</em></a>) – The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p></li>
+<li><p><strong>table_str</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>, </em><em>optional</em>) – The name of the table to insert into.</p></li>
+<li><p><strong>columns_str</strong> (<em>List</em><em>[</em><em>AnyStr</em><em>]</em><em>, </em><em>optional</em>) – The list of column names to that defines the set of columns
+to insert the values into.</p></li>
+<li><p><strong>values_str</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The list of pairs of column names and values to insert into the
+table.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__metadata">
+<code class="sig-name descname"><span class="pre">__metadata</span></code><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData">MetaData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__table">
+<code class="sig-name descname"><span class="pre">__table</span></code><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__table" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">Table</span></code> object to insert into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__columns">
+<code class="sig-name descname"><span class="pre">__columns</span></code><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of <code class="docutils literal notranslate"><span class="pre">Column</span></code> objects that defines the set of columns
+to insert the values into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column">Column</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__values">
+<code class="sig-name descname"><span class="pre">__values</span></code><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__values" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of pairs of <code class="docutils literal notranslate"><span class="pre">Column</span></code> objects and values to insert into the
+table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[Dict[<a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column">Column</a>, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__table_str">
+<code class="sig-name descname"><span class="pre">__table_str</span></code><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__table_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the table to insert into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__columns_str">
+<code class="sig-name descname"><span class="pre">__columns_str</span></code><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__columns_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of column names to that defines the set of columns
+to insert the values into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[AnyStr]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__values_str">
+<code class="sig-name descname"><span class="pre">__values_str</span></code><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__values_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of pairs of column names and values to insert into the
+table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[Dict[AnyStr, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.values">
+<code class="sig-name descname"><span class="pre">values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper" title="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper"><span class="pre">simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper</span></a><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to specify the values to insert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values_str</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – The list of pairs of column names and values to insert into the
+table.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">InsertIntoWrapper</span></code> instance with the same metadata, table
+name and columns and the values_str passed as parameter.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper" title="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper">InsertIntoWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-wrappers-select-wrapper">
