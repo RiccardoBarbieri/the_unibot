@@ -44,6 +44,12 @@ class Select():
         The from clause for this select statement.
     __where_clause: Dict[Table, Dict[Column, Any]]
         The where clause for this select statement.
+    
+    Raises
+    ------
+    NoSuchColumn
+        If a column used in either the where or the set clause does
+        not exists in the table.
     """
 
 
@@ -77,6 +83,11 @@ class Select():
         -------
         str
             MySQL compliant string of the select statement execution.
+        
+        Raises
+        ------
+        ZeroTables
+            If the tables for the FROM clause are not specified.
         """
         # if not self.__select_clause.keys():
         #     raise ZeroColumns('This query is not complete, specify SELECT clause arguments')
@@ -105,9 +116,3 @@ class Select():
                         string += '{table}.{column} = {value}, '.format(table = table.get_name(), column = col.get_name(), value = self.__where_clause[table][col])
             string = string[:-2]
         return string
-
-
-# SELECT -> FROM -> WHERE
-# UPDATE -> SET -> WHERE
-# DELETE FROM -> WHERE
-# INSERT INTO -> VALUES

@@ -118,6 +118,19 @@
 <li class="toctree-l2"><a class="reference internal" href="wrappers.html#simple-sql-wrappers-update-wrapper">simple_sql.wrappers.update_wrapper</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">simple_sql.exceptions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#simple-sql-exceptions">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id1">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id2">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id3">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id4">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id5">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id6">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id7">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id8">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id9">simple_sql.exceptions</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -192,7 +205,175 @@
 <dl class="py class">
 <dt id="simple_sql.metadata.MetaData">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.metadata.</span></code><code class="sig-name descname"><span class="pre">MetaData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backup_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.metadata.MetaData" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class is an object abstraction of the structure
+of the database, an instance of this class contains all
+the tables created by USING THIS MODULE, in the future
+a simple mirror functionality will be added to get tables
+already declared on the database.
+This instance also contains the name of the current
+selected database (for now the module only has database-related
+functionalities, not server-related like privileges).
+Every time a change is done on the database structure (new tables,
+altering actions on tables) the MetaData instance is backed up in
+a file (using python builtin pickle): its path is specified
+at the creation of the instance. If the backup already
+exists at the specified path then it is restored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>backup_path</strong> (<em>str</em>) – The path to the backup file.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.metadata.MetaData.__tables">
+<code class="sig-name descname"><span class="pre">__tables</span></code><a class="headerlink" href="#simple_sql.metadata.MetaData.__tables" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary that pairs a table object with its name.
+Contains all the tables created using <code class="docutils literal notranslate"><span class="pre">Database</span></code> or
+restore by a backup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[str, <a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.metadata.MetaData.__current_database">
+<code class="sig-name descname"><span class="pre">__current_database</span></code><a class="headerlink" href="#simple_sql.metadata.MetaData.__current_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the current selected database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.metadata.MetaData.__backup_path">
+<code class="sig-name descname"><span class="pre">__backup_path</span></code><a class="headerlink" href="#simple_sql.metadata.MetaData.__backup_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path of the file to backup to/from.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.__backup">
+<code class="sig-name descname"><span class="pre">__backup</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.metadata.MetaData.__backup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private method that dumps (using pickle) the current state
+of this <a class="reference internal" href="#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><code class="xref py py-class docutils literal notranslate"><span class="pre">simple_sql.metadata.MetaData</span></code></a> instance at the specified backup_path.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.__restore_backup">
+<code class="sig-name descname"><span class="pre">__restore_backup</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><span class="pre">simple_sql.metadata.MetaData</span></a><a class="headerlink" href="#simple_sql.metadata.MetaData.__restore_backup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private method used to load a backup of a <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance
+from the file at the backup_path of this instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The backed up metadata instace.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData">MetaData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.add_table">
+<code class="sig-name descname"><span class="pre">add_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.metadata.MetaData.add_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method used to add a table to this <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance.
+After adding the table the instance is backed up.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a>) – The table object to add.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.get_current_database">
+<code class="sig-name descname"><span class="pre">get_current_database</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#simple_sql.metadata.MetaData.get_current_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method used to know which is the current working
+database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The name of the database.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.get_table">
+<code class="sig-name descname"><span class="pre">get_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Table</span><a class="headerlink" href="#simple_sql.metadata.MetaData.get_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to obtain the <code class="docutils literal notranslate"><span class="pre">Table</span></code> object from table name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the table to search for.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.NoSuchTable" title="simple_sql.exceptions.NoSuchTable"><strong>NoSuchTable</strong></a> – If the table requested is not found.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The table that has the requested name.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table">Table</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.remove_table">
+<code class="sig-name descname"><span class="pre">remove_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.metadata.MetaData.remove_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method used to remove a table from this <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance.
+After removing the table the instance is backed up.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>str</em>) – The name of the table to remove.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.NoSuchTable" title="simple_sql.exceptions.NoSuchTable"><strong>NoSuchTable</strong></a> – If the table name passed does not exists in this
+    <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.update_current_database">
+<code class="sig-name descname"><span class="pre">update_current_database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.metadata.MetaData.update_current_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method used to update the current working database.
+The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance is backed up updating the
+database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>database</strong> (<em>str</em>) – The name of the new database to select.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.metadata.MetaData.update_table">
+<code class="sig-name descname"><span class="pre">update_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Table</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.metadata.MetaData.update_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method used to update a table already present in this
+<code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance. After updating the table the
+instance is backed up.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a>) – The new table object to replace the old one.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.NoSuchTable" title="simple_sql.exceptions.NoSuchTable"><strong>NoSuchTable</strong></a> – If the table object passed does not exists in this
+    <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 </div>

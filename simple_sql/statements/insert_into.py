@@ -42,6 +42,12 @@ class InsertInto():
         To specify a list of columns if you want to insert values for certain columns
     __values: List[Dict[Column, Any]]
         The values to insert into the table
+
+    Raises
+    ------
+    SyntaxError
+        If the length of value tuples is not valid (with the set of columns
+        specified or with the number of columns of the table).
     """
 
     __table: Table # table in which to insert new values
