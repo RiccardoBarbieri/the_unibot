@@ -57,6 +57,14 @@ class DropTableWrapper():
         self.__table = self.__metadata.get_table(self.__table_str)
 
     def __str__(self) -> AnyStr:
+        """
+        Calls the ``DropTable`` object string representation.
+
+        Returns
+        -------
+        str
+            MySQL compliant string of the drop table statement execution.
+        """
         return str(DropTable(self.__table))
 
     # def drop(self, table_str: AnyStr) -> DropTableWrapper:

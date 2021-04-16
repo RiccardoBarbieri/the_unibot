@@ -27,7 +27,7 @@ class Update():
     the user to specify one clause a time.
     In the future all where clauses will be modeled with a class.
 
-    Prameters
+    Parameters
     ---------
     table: Table, optional
         The table to update.
@@ -75,6 +75,13 @@ class Update():
         -------
         str
             MySQL compliant string of the update statement execution.
+
+        Raises
+        ------
+        ZeroTables
+            If the table for the UPDATE clause is not specified.
+        ZeroColumns
+            If the columns for the SET clause are not specified.
         """
         if not self.__table:
             raise ZeroTables('This query is not complete, specify UPDATE clause arguments')

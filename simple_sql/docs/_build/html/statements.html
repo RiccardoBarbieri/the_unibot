@@ -118,6 +118,19 @@
 <li class="toctree-l2"><a class="reference internal" href="wrappers.html#simple-sql-wrappers-update-wrapper">simple_sql.wrappers.update_wrapper</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">simple_sql.exceptions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#simple-sql-exceptions">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id1">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id2">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id3">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id4">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id5">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id6">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id7">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id8">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id9">simple_sql.exceptions</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -309,6 +322,12 @@ the user to specify one clause a time.</p>
 </dl>
 </dd></dl>
 
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.SyntaxError" title="simple_sql.exceptions.SyntaxError"><strong>SyntaxError</strong></a> – If the length of value tuples is not valid (with the set of columns
+    specified or with the number of columns of the table).</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -364,6 +383,12 @@ In the future all where clauses will be modeled with a class.</p>
 </dl>
 </dd></dl>
 
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.NoSuchColumn" title="simple_sql.exceptions.NoSuchColumn"><strong>NoSuchColumn</strong></a> – If a column used in either the where or the set clause does
+    not exists in the table.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -377,12 +402,13 @@ Its string form is the syntax needed to execute an UPDATE statement
 according to the table. All the parameters are optional to enable
 the user to specify one clause a time.
 In the future all where clauses will be modeled with a class.</p>
-<dl class="simple">
-<dt>table: Table, optional</dt><dd><p>The table to update.</p>
-</dd>
-<dt>set_clause: Dict[Column, Any], optional</dt><dd><p>The set clause containg pairs of column and its value.</p>
-</dd>
-<dt>where_clause: Dict[Column, Any], optional</dt><dd><p>The where clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>, </em><em>optional</em>) – The table to update.</p></li>
+<li><p><strong>set_clause</strong> (<em>Dict</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column"><em>Column</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The set clause containg pairs of column and its value.</p></li>
+<li><p><strong>where_clause</strong> (<em>Dict</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column"><em>Column</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The where clause.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py attribute">

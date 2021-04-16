@@ -59,6 +59,11 @@ class UpdateWrapper():
         and with which value.
     __where_clause_str: Dict[AnyStr, Str], optional
         The where clause to restrict which entries to updates.
+
+    Raises
+    ------
+    NoSuchTable
+        If the table specified does not exists.
     """
 
     __metadata: MetaData
@@ -141,6 +146,11 @@ class UpdateWrapper():
         UpdateWrapper
             A ``UpdateWrapper`` instance with the same metadata, table
             name and set clause and the where_clause_str passed as parameter.
+
+        Raises
+        ------
+        WrongClauseOrder
+            If the where clause is being specified before the set clause.
         """
         if not self.__set_clause:
             raise WrongClauseOrder('You have to specify the set clause before')

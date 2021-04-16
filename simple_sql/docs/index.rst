@@ -11,6 +11,7 @@ Welcome to simple-sql's documentation!
    database
    statements
    wrappers
+   exceptions
 
 
 
