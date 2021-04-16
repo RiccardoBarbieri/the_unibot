@@ -89,7 +89,8 @@ where_clause = {
 update = Update(data, set_clause, where_clause)
 print(update)
 
-sel_wrapper = SelectWrapper(metadata, ['data.chat_id', 'last.chat_id'], {'data.chat_id':1234, 'last.command':'asdasd'})
+sel_wrapper = SelectWrapper(metadata, ['data', 'last.chat_id'], {'data.chat_id':1234})
+
 
 print(sel_wrapper)
 

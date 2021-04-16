@@ -62,6 +62,11 @@ class InsertIntoWrapper():
     __values_str: List[Dict[AnyStr, Any]]
         The list of pairs of column names and values to insert into the
         table.
+
+    Raises
+    ------
+    NoSuchTable
+        If the table specified does not exist.
     """
 
     __metadata: MetaData

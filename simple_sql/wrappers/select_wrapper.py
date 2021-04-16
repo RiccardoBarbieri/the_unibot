@@ -21,6 +21,46 @@ if TYPE_CHECKING:
 from simple_sql.statements.select import Select
 
 class SelectWrapper():
+    """
+    This class uses the table name, the select clause and where clause
+    as strings with the metadata object (handled by ``Database``) to obtain
+    the correct ``Table`` object and to create the where and select clauses.
+    Using the select and where methods, ``SelectWrapper`` instances will be
+    created and returned to add clauses separately.
+    In the future all where clauses will be modeled with a class.
+
+    Parameters
+    ----------
+    metadata: MetaData
+        The ``MetaData`` instance of the database.
+    select_clause_str: List[AnyStr], optional
+        The select clause containing table.column values
+        or table values.
+    where_clause_str: Dict[AnyStr, Any], optional
+        The where clause.
+
+    __metadata: MetaData
+        The ``MetaData`` instance of the database.
+    __select_clause: Dict[Table, List[Column]]
+        The select clause as object.
+    __from_tables: List[Table]
+        The tables to select from as objects.
+    __where_clause: Dict[Table, Dict[Column, Any]]
+        The where clause as object.
+    __select_clause_str: List[AnyStr]
+        The select clause containing table.column values
+        or table values.
+    __where_clause_str: Dict[AnyStr, Any]
+        The where clause as string.
+    __table_col_mix: Dict[AnyStr, List[AnyStr]]
+        A dictionary of table and list of columns to select
+        from that table.
+
+    Raises
+    ------
+    SyntaxError
+        If the select or where clause does not respect specifications.
+    """
 
     __metadata: MetaData
 
@@ -50,6 +90,12 @@ class SelectWrapper():
                 parts = table_col.split('.')
                 if (len(parts) == 1) and (tables.count(parts[0]) == 0):
                     tables.append(parts[0])
+                    for i in self.__metadata.get_table(parts[0]).get_columns():
+                        try:
+                            columns[parts[0]].append(i.get_name())
+                        except KeyError:
+                            columns[parts[0]] = []
+                            columns[parts[0]].append(i.get_name())
                 elif len(parts) == 2:
                     if (tables.count(parts[0]) == 0):
                         tables.append(parts[0])
@@ -93,9 +139,32 @@ class SelectWrapper():
     
     
     def get_elements(self) -> Dict[AnyStr, List[AnyStr]]:
+        """
+        Function used in database to create the dictionary with correct
+        table and colum names for bettere accessibility.
+
+        Returns
+        -------
+        Dict[AnyStr, List[AnyStr]]
+            A dictionary that associates to a table name a list with the
+            relative column names.
+        """
         return self.__table_col_mix
         
     def __str__(self) -> str:
+        """
+        Calls the ``Select`` object string representation.
+
+        Returns
+        -------
+        str
+            MySQL compliant string of the select statement execution.
+        
+        Raises
+        ------
+        WrongClauseOrder
+            If the select clause is not yet specified.
+        """
         if self.__select_clause:
             return str(Select(self.__select_clause, self.__from_tables, self.__where_clause))
         else:
@@ -105,6 +174,26 @@ class SelectWrapper():
     #     return SelectWrapper(self.__metadata, select_clause_str, self.__where_clause_str)
 
     def where(self, where_clause_str: Dict[AnyStr, Any]) -> SelectWrapper:
+        """
+        Used to specify the where clause.
+
+        Parameters
+        ----------
+        where_clause_str: Dict[AnyStr, Any]
+            The pairs of column names and values for the where clause.
+        
+        Returns
+        -------
+        SelectWrapper
+            A ``SelectWrapper`` instance with the same metadata, table
+            name and select clause and the where_clause_str passed as parameter.
+        
+        Raises
+        ------
+        WrongClauseOrder
+            When the where clause is being specified before the select clause.
+        """
+
         if not self.__select_clause_str:
             raise WrongClauseOrder('You have to specify the select clause before')
         return SelectWrapper(self.__metadata, self.__select_clause_str, where_clause_str)

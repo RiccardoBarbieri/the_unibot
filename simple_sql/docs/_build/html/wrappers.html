@@ -38,6 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="simple_sql.exceptions package" href="exceptions.html" />
     <link rel="prev" title="simple_sql.statements package" href="statements.html" /> 
 </head>
 
@@ -115,6 +116,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#simple-sql-wrappers-insert-into-wrapper">simple_sql.wrappers.insert_into_wrapper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#simple-sql-wrappers-select-wrapper">simple_sql.wrappers.select_wrapper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#simple-sql-wrappers-update-wrapper">simple_sql.wrappers.update_wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">simple_sql.exceptions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#simple-sql-exceptions">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id1">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id2">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id3">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id4">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id5">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id6">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id7">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id8">simple_sql.exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#id9">simple_sql.exceptions</a></li>
 </ul>
 </li>
 </ul>
@@ -437,6 +451,11 @@ table.</p>
 </dl>
 </dd></dl>
 
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.NoSuchTable" title="simple_sql.exceptions.NoSuchTable"><strong>NoSuchTable</strong></a> – If the table specified does not exist.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.values">
 <code class="sig-name descname"><span class="pre">values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper" title="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper"><span class="pre">simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper</span></a><a class="headerlink" href="#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.values" title="Permalink to this definition">¶</a></dt>
@@ -464,7 +483,72 @@ name and columns and the values_str passed as parameter.</p>
 <dl class="py class">
 <dt id="simple_sql.wrappers.select_wrapper.SelectWrapper">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.wrappers.select_wrapper.</span></code><code class="sig-name descname"><span class="pre">SelectWrapper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">MetaData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.wrappers.select_wrapper.SelectWrapper" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This class uses the table name, the select clause and where clause
+as strings with the metadata object (handled by <code class="docutils literal notranslate"><span class="pre">Database</span></code>) to obtain
+the correct <code class="docutils literal notranslate"><span class="pre">Table</span></code> object and to create the where and select clauses.
+Using the select and where methods, <code class="docutils literal notranslate"><span class="pre">SelectWrapper</span></code> instances will be
+created and returned to add clauses separately.
+In the future all where clauses will be modeled with a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata</strong> (<a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><em>MetaData</em></a>) – The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p></li>
+<li><p><strong>select_clause_str</strong> (<em>List</em><em>[</em><em>AnyStr</em><em>]</em><em>, </em><em>optional</em>) – The select clause containing table.column values
+or table values.</p></li>
+<li><p><strong>where_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – The where clause.</p></li>
+<li><p><strong>__metadata</strong> (<a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><em>MetaData</em></a>) – The <code class="docutils literal notranslate"><span class="pre">MetaData</span></code> instance of the database.</p></li>
+<li><p><strong>__select_clause</strong> (<em>Dict</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>, </em><em>List</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column"><em>Column</em></a><em>]</em><em>]</em>) – The select clause as object.</p></li>
+<li><p><strong>__from_tables</strong> (<em>List</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>]</em>) – The tables to select from as objects.</p></li>
+<li><p><strong>__where_clause</strong> (<em>Dict</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a><em>, </em><em>Dict</em><em>[</em><a class="reference internal" href="model.html#simple_sql.model.column.Column" title="simple_sql.model.column.Column"><em>Column</em></a><em>, </em><em>Any</em><em>]</em><em>]</em>) – The where clause as object.</p></li>
+<li><p><strong>__select_clause_str</strong> (<em>List</em><em>[</em><em>AnyStr</em><em>]</em>) – The select clause containing table.column values
+or table values.</p></li>
+<li><p><strong>__where_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em>) – The where clause as string.</p></li>
+<li><p><strong>__table_col_mix</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>List</em><em>[</em><em>AnyStr</em><em>]</em><em>]</em>) – A dictionary of table and list of columns to select
+from that table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.SyntaxError" title="simple_sql.exceptions.SyntaxError"><strong>SyntaxError</strong></a> – If the select or where clause does not respect specifications.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="simple_sql.wrappers.select_wrapper.SelectWrapper.get_elements">
+<code class="sig-name descname"><span class="pre">get_elements</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#simple_sql.wrappers.select_wrapper.SelectWrapper.get_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function used in database to create the dictionary with correct
+table and colum names for bettere accessibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary that associates to a table name a list with the
+relative column names.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[AnyStr, List[AnyStr]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.wrappers.select_wrapper.SelectWrapper.where">
+<code class="sig-name descname"><span class="pre">where</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">where_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.wrappers.select_wrapper.SelectWrapper" title="simple_sql.wrappers.select_wrapper.SelectWrapper"><span class="pre">simple_sql.wrappers.select_wrapper.SelectWrapper</span></a><a class="headerlink" href="#simple_sql.wrappers.select_wrapper.SelectWrapper.where" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to specify the where clause.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>where_clause_str</strong> (<em>Dict</em><em>[</em><em>AnyStr</em><em>, </em><em>Any</em><em>]</em>) – The pairs of column names and values for the where clause.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">SelectWrapper</span></code> instance with the same metadata, table
+name and select clause and the where_clause_str passed as parameter.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#simple_sql.wrappers.select_wrapper.SelectWrapper" title="simple_sql.wrappers.select_wrapper.SelectWrapper">SelectWrapper</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.WrongClauseOrder" title="simple_sql.exceptions.WrongClauseOrder"><strong>WrongClauseOrder</strong></a> – When the where clause is being specified before the select clause.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="simple-sql-wrappers-update-wrapper">
@@ -567,6 +651,11 @@ and with which value.</p>
 </dl>
 </dd></dl>
 
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.NoSuchTable" title="simple_sql.exceptions.NoSuchTable"><strong>NoSuchTable</strong></a> – If the table specified does not exists.</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="simple_sql.wrappers.update_wrapper.UpdateWrapper.set">
 <code class="sig-name descname"><span class="pre">set</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">set_clause_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">AnyStr</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper"><span class="pre">simple_sql.wrappers.update_wrapper.UpdateWrapper</span></a><a class="headerlink" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper.set" title="Permalink to this definition">¶</a></dt>
@@ -601,6 +690,9 @@ name and set clause and the where_clause_str passed as parameter.</p>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper">UpdateWrapper</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.WrongClauseOrder" title="simple_sql.exceptions.WrongClauseOrder"><strong>WrongClauseOrder</strong></a> – If the where clause is being specified before the set clause.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -615,6 +707,7 @@ name and set clause and the where_clause_str passed as parameter.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="simple_sql.exceptions package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="statements.html" class="btn btn-neutral float-left" title="simple_sql.statements package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
