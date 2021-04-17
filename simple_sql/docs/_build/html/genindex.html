@@ -202,6 +202,7 @@
  | <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
@@ -234,9 +235,15 @@
       </ul></li>
       <li><a href="wrappers.html#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper.__columns_str">__columns_str (simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper attribute)</a>
 </li>
+      <li><a href="database.html#simple_sql.database.Database.__connection">__connection (simple_sql.database.Database attribute)</a>
+</li>
       <li><a href="model.html#simple_sql.model.column.Column.__constraint">__constraint (simple_sql.model.column.Column attribute)</a>
 </li>
+      <li><a href="database.html#simple_sql.database.Database.__credentials">__credentials (simple_sql.database.Database attribute)</a>
+</li>
       <li><a href="metadata.html#simple_sql.metadata.MetaData.__current_database">__current_database (simple_sql.metadata.MetaData attribute)</a>
+</li>
+      <li><a href="database.html#simple_sql.database.Database.__cursor">__cursor (simple_sql.database.Database attribute)</a>
 </li>
       <li><a href="model.html#simple_sql.model.column.Column.__default">__default (simple_sql.model.column.Column attribute)</a>
 </li>
@@ -250,9 +257,11 @@
 </li>
       <li><a href="model.html#simple_sql.model.type.Type.__len">__len (simple_sql.model.type.Type attribute)</a>
 </li>
-      <li><a href="model.html#simple_sql.model.table.Table.__metadata">__metadata (simple_sql.model.table.Table attribute)</a>
+      <li><a href="database.html#simple_sql.database.Database.__metadata">__metadata (simple_sql.database.Database attribute)</a>
 
       <ul>
+        <li><a href="model.html#simple_sql.model.table.Table.__metadata">(simple_sql.model.table.Table attribute)</a>
+</li>
         <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper.__metadata">(simple_sql.wrappers.delete_wrapper.DeleteWrapper attribute)</a>
 </li>
         <li><a href="wrappers.html#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper.__metadata">(simple_sql.wrappers.drop_table_wrapper.DropTableWrapper attribute)</a>
@@ -282,14 +291,14 @@
 </li>
       <li><a href="statements.html#simple_sql.statements.select.Select.__select_clause">__select_clause (simple_sql.statements.select.Select attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="statements.html#simple_sql.statements.update.Update.__set_clause">__set_clause (simple_sql.statements.update.Update attribute)</a>
 
       <ul>
         <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause">(simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.__set_clause_str">__set_clause_str (simple_sql.wrappers.update_wrapper.UpdateWrapper attribute)</a>
 </li>
       <li><a href="statements.html#simple_sql.statements.delete.Delete.__table">__table (simple_sql.statements.delete.Delete attribute)</a>
@@ -384,6 +393,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="model.html#simple_sql.model.table.Table.contains">contains() (simple_sql.model.table.Table method)</a>
 </li>
+      <li><a href="database.html#simple_sql.database.Database.create_table">create_table() (simple_sql.database.Database method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -396,13 +407,25 @@
 </li>
       <li><a href="statements.html#simple_sql.statements.delete.Delete">Delete (class in simple_sql.statements.delete)</a>
 </li>
+      <li><a href="database.html#simple_sql.database.Database.delete">delete() (simple_sql.database.Database method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper">DeleteWrapper (class in simple_sql.wrappers.delete_wrapper)</a>
 </li>
+      <li><a href="database.html#simple_sql.database.Database.drop_table">drop_table() (simple_sql.database.Database method)</a>
+</li>
       <li><a href="statements.html#simple_sql.statements.drop_table.DropTable">DropTable (class in simple_sql.statements.drop_table)</a>
 </li>
       <li><a href="wrappers.html#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper">DropTableWrapper (class in simple_sql.wrappers.drop_table_wrapper)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="database.html#simple_sql.database.Database.execute">execute() (simple_sql.database.Database method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -433,6 +456,8 @@
       <li><a href="model.html#simple_sql.model.column.Column.get_constraint">get_constraint() (simple_sql.model.column.Column method)</a>
 </li>
       <li><a href="metadata.html#simple_sql.metadata.MetaData.get_current_database">get_current_database() (simple_sql.metadata.MetaData method)</a>
+</li>
+      <li><a href="database.html#simple_sql.database.Database.get_databases">get_databases() (simple_sql.database.Database method)</a>
 </li>
       <li><a href="model.html#simple_sql.model.column.Column.get_default">get_default() (simple_sql.model.column.Column method)</a>
 </li>
@@ -466,14 +491,16 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="database.html#simple_sql.database.Database.insert_into">insert_into() (simple_sql.database.Database method)</a>
+</li>
       <li><a href="statements.html#simple_sql.statements.insert_into.InsertInto">InsertInto (class in simple_sql.statements.insert_into)</a>
 </li>
       <li><a href="wrappers.html#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper">InsertIntoWrapper (class in simple_sql.wrappers.insert_into_wrapper)</a>
 </li>
-      <li><a href="model.html#simple_sql.model.column.Column.is_compatible">is_compatible() (simple_sql.model.column.Column method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="model.html#simple_sql.model.column.Column.is_compatible">is_compatible() (simple_sql.model.column.Column method)</a>
+</li>
       <li><a href="model.html#simple_sql.model.column.Column.is_nullable">is_nullable() (simple_sql.model.column.Column method)</a>
 </li>
       <li><a href="model.html#simple_sql.model.column.Column.is_primary_key">is_primary_key() (simple_sql.model.column.Column method)</a>
@@ -526,10 +553,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="statements.html#simple_sql.statements.select.Select">Select (class in simple_sql.statements.select)</a>
 </li>
-      <li><a href="wrappers.html#simple_sql.wrappers.select_wrapper.SelectWrapper">SelectWrapper (class in simple_sql.wrappers.select_wrapper)</a>
+      <li><a href="database.html#simple_sql.database.Database.select">select() (simple_sql.database.Database method)</a>
+</li>
+      <li><a href="database.html#simple_sql.database.Database.select_database">select_database() (simple_sql.database.Database method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="wrappers.html#simple_sql.wrappers.select_wrapper.SelectWrapper">SelectWrapper (class in simple_sql.wrappers.select_wrapper)</a>
+</li>
       <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper.set">set() (simple_sql.wrappers.update_wrapper.UpdateWrapper method)</a>
 </li>
       <li><a href="model.html#simple_sql.model.foreign_key.ForeignKey.set_objects">set_objects() (simple_sql.model.foreign_key.ForeignKey method)</a>
@@ -558,10 +589,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="statements.html#simple_sql.statements.update.Update">Update (class in simple_sql.statements.update)</a>
 </li>
-      <li><a href="metadata.html#simple_sql.metadata.MetaData.update_current_database">update_current_database() (simple_sql.metadata.MetaData method)</a>
+      <li><a href="database.html#simple_sql.database.Database.update">update() (simple_sql.database.Database method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="metadata.html#simple_sql.metadata.MetaData.update_current_database">update_current_database() (simple_sql.metadata.MetaData method)</a>
+</li>
       <li><a href="metadata.html#simple_sql.metadata.MetaData.update_table">update_table() (simple_sql.metadata.MetaData method)</a>
 </li>
       <li><a href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper">UpdateWrapper (class in simple_sql.wrappers.update_wrapper)</a>
