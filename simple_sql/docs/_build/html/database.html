@@ -205,7 +205,257 @@
 <dl class="py class">
 <dt id="simple_sql.database.Database">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">simple_sql.database.</span></code><code class="sig-name descname"><span class="pre">Database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><span class="pre">simple_sql.metadata.MetaData</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.database.Database" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This is the main class of the module. Using the methods in this class
+you can create, drop, select, update, insert into and delete tables.
+First you must select the database, for now this works only on a
+database level (not serer level like grant options).
+There is also the possibility of executing custom queries
+but you should use that function correctly.
+When initialized the class will connect to the server using the
+provided credentials, create the connection and the cursor.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The user must create a <a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><code class="xref py py-class docutils literal notranslate"><span class="pre">simple_sql.metadata.MetaData</span></code></a> object
+to pass to the instance but the class will take care of updating it.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em>) – The host of the server to connect to.</p></li>
+<li><p><strong>user</strong> (<em>str</em>) – The name of the user to use for login.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The string of the password.</p></li>
+<li><p><strong>metadata</strong> (<a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData"><em>MetaData</em></a>) – The metadata instance.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="simple_sql.database.Database.__credentials">
+<code class="sig-name descname"><span class="pre">__credentials</span></code><a class="headerlink" href="#simple_sql.database.Database.__credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dictionary for the credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Dict[str, str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.database.Database.__metadata">
+<code class="sig-name descname"><span class="pre">__metadata</span></code><a class="headerlink" href="#simple_sql.database.Database.__metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>The metadata instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="metadata.html#simple_sql.metadata.MetaData" title="simple_sql.metadata.MetaData">MetaData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.database.Database.__connection">
+<code class="sig-name descname"><span class="pre">__connection</span></code><a class="headerlink" href="#simple_sql.database.Database.__connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The connection to the MySQL server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">MySQLConnection</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="simple_sql.database.Database.__cursor">
+<code class="sig-name descname"><span class="pre">__cursor</span></code><a class="headerlink" href="#simple_sql.database.Database.__cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The cursor to execute the statements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">CursorBase</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.create_table">
+<code class="sig-name descname"><span class="pre">create_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><span class="pre">simple_sql.model.table.Table</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.database.Database.create_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a table and adds it to the metadata instance.
+Commits the changes to the connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<a class="reference internal" href="model.html#simple_sql.model.table.Table" title="simple_sql.model.table.Table"><em>Table</em></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code> to add to the database.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.delete">
+<code class="sig-name descname"><span class="pre">delete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="wrappers.html#simple_sql.wrappers.delete_wrapper.DeleteWrapper" title="simple_sql.wrappers.delete_wrapper.DeleteWrapper"><span class="pre">simple_sql.wrappers.delete_wrapper.DeleteWrapper</span></a><a class="headerlink" href="#simple_sql.database.Database.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a delete statement with the name of the table
+to delete from.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>str</em>) – The name of the table to delete from.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.drop_table">
+<code class="sig-name descname"><span class="pre">drop_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="wrappers.html#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper" title="simple_sql.wrappers.drop_table_wrapper.DropTableWrapper"><span class="pre">simple_sql.wrappers.drop_table_wrapper.DropTableWrapper</span></a><a class="headerlink" href="#simple_sql.database.Database.drop_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a drop table statement with the name of the table
+to drop.
+This method also removes the table from the metadata instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>str</em>) – The name of the table to drop.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">DropTableWrapper</span></code> instance with the current metadata
+instance and the provided table name.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="wrappers.html#simple_sql.wrappers.drop_table_wrapper.DropTableWrapper" title="simple_sql.wrappers.drop_table_wrapper.DropTableWrapper">DropTableWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.execute">
+<code class="sig-name descname"><span class="pre">execute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">SelectWrapper</span> <span class="p"><span class="pre">|</span></span> <span class="pre">AnyStr</span> <span class="p"><span class="pre">|</span></span> <span class="pre">object</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#simple_sql.database.Database.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a query. To execute the queries you create using the
+appropriate methods you should provide the return value of
+the method. If the query is a select statement you can obtain
+the output of the statement.
+You can also use this method to execute a custom query providing
+a string in MySQL compliant syntax.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful while executing custom queries because in that case
+the execution is unchecked.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em><em> or </em><em>object</em>) – A string or a wrapper object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The result of the fetchall of the execution. If the query is a
+select statement the result is parsed as a list of dictionaries
+with <code class="xref py py-obj docutils literal notranslate"><span class="pre">table.column</span></code> key format and the respective value.
+If the query is not a select statement the result is a list
+of tuples.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[Dict] or List[Tuple]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.get_databases">
+<code class="sig-name descname"><span class="pre">get_databases</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_them</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#simple_sql.database.Database.get_databases" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this method to see which databases are available.
+To disable the log print of the list pass False as print_them
+parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>print_them</strong> (<em>bool</em><em>, </em><em>default True</em>) – True if the function should print the list.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of the names of the databases.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.insert_into">
+<code class="sig-name descname"><span class="pre">insert_into</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">AnyStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="wrappers.html#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper" title="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper"><span class="pre">simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper</span></a><a class="headerlink" href="#simple_sql.database.Database.insert_into" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a insert into statement with the name of the table to
+insert into and eventually the set of column to insert into.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<em>str</em>) – The name of the table to insert into.</p></li>
+<li><p><strong>columns</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – The list of column names to insert into.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An <code class="xref py py-class docutils literal notranslate"><span class="pre">InsertIntoWrapper</span></code> instance with the current
+metadata instance and the provided table name and eventually
+columns list.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="wrappers.html#simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper" title="simple_sql.wrappers.insert_into_wrapper.InsertIntoWrapper">InsertIntoWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.select">
+<code class="sig-name descname"><span class="pre">select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">select_clause</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="wrappers.html#simple_sql.wrappers.select_wrapper.SelectWrapper" title="simple_sql.wrappers.select_wrapper.SelectWrapper"><span class="pre">simple_sql.wrappers.select_wrapper.SelectWrapper</span></a><a class="headerlink" href="#simple_sql.database.Database.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a select statement with the select clause.
+The select clause is a list of strings that will be used to
+create the select AND from clause.
+It must be formatted as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use the format <code class="xref py py-obj docutils literal notranslate"><span class="pre">table.column</span></code> if you want to add a single
+column to the selection, the table will be added
+to the from clause.</p></li>
+<li><p>Use the format <code class="xref py py-obj docutils literal notranslate"><span class="pre">table</span></code> if you want to add all the
+columns of the table to the selection, the table will
+be added to the from clause.</p></li>
+</ul>
+</div></blockquote>
+<p>You can make a list that mixes these two formats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>select_clause</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – The list of select clause columns.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">SelectWrapper</span></code> instance with the current metadata
+instance and the provided select clause.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="wrappers.html#simple_sql.wrappers.select_wrapper.SelectWrapper" title="simple_sql.wrappers.select_wrapper.SelectWrapper">SelectWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.select_database">
+<code class="sig-name descname"><span class="pre">select_database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simple_sql.database.Database.select_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use this method to select the working database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>database</strong> (<em>str</em>) – The name of the database to select. Use get_databases
+to obtain all the available databases.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#simple_sql.exceptions.NoSuchDatabase" title="simple_sql.exceptions.NoSuchDatabase"><strong>NoSuchDatabase</strong></a> – If the requested database does not exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="simple_sql.database.Database.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper"><span class="pre">simple_sql.wrappers.update_wrapper.UpdateWrapper</span></a><a class="headerlink" href="#simple_sql.database.Database.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a update statement with the name of the table to
+update.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table</strong> (<em>str</em>) – The name of the table to update.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An <code class="xref py py-class docutils literal notranslate"><span class="pre">UpdateWrapper</span></code> instance with the current metadata
+instance and the provided table name.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="wrappers.html#simple_sql.wrappers.update_wrapper.UpdateWrapper" title="simple_sql.wrappers.update_wrapper.UpdateWrapper">UpdateWrapper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 </div>

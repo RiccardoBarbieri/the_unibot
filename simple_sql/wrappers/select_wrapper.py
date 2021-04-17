@@ -141,7 +141,7 @@ class SelectWrapper():
     def get_elements(self) -> Dict[AnyStr, List[AnyStr]]:
         """
         Function used in database to create the dictionary with correct
-        table and colum names for bettere accessibility.
+        table and colum names for better accessibility.
 
         Returns
         -------
