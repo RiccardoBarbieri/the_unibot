@@ -138,24 +138,86 @@ class Course():
         
 
     def get_name(self) -> str:
+        """
+        Getter for the name attribute.
+
+        Returns
+        -------
+        str
+            The name of the course.
+
+        """
         return self.__name
     
     def get_code(self) -> str:
+        """
+        Getter for the code attribute.
+
+        Returns
+        -------
+        str
+            The code of the course.
+
+        """
         return self.__code
     
     def get_campus(self) -> str:
+        """
+        Getter for the campus attribute.
+
+        Returns
+        -------
+        str
+            The campus of the course.
+
+        """
         return self.__campus
     
     def get_international(self) -> bool:
+        """
+        Getter for the international attribute.
+
+        Returns
+        -------
+        bool
+            True if the course is international.
+        """
         return bool(self.__international)
     
-    def get_(self) -> str:
+    def get_access(self) -> str:
+        """
+        Getter for the access attribute.
+
+        Returns
+        -------
+        str
+            The access of the course.
+
+        """
         return self.__access
     
-    def get_name(self) -> str:
+    def get_site(self) -> str:
+        """
+        Getter for the site attribute.
+
+        Returns
+        -------
+        str
+            The site of the course.
+
+        """
         return self.__site
     
-    def get_name(self) -> str:
+    def get_codec(self) -> str:
+        """
+        Getter for the codec attribute.
+
+        Returns
+        -------
+        str
+            The codec of the course.
+
+        """
         return self.__codec
 
 test = Course('asd', '123', 'qui', 1, 'asd', 'url', 'asd')
