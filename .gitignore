@@ -7,3 +7,4 @@ chromedriver.exe
 *.json
 *@*
 *.dump
+simple_sql/
