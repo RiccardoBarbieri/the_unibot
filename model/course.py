@@ -27,6 +27,12 @@ class Course():
     To create an instance of this class one must provide the attributes
     of the course separately or the from_dict that maps them, NOT BOTH.
 
+    Note
+    ----
+    Set from_table parameter to False only if the from_dict parameter does
+    not have keys formatted like \'table.attribute\'. You have to do this if the
+    from_dict keys are of the format \'attribute\'.
+
     Parameters
     ----------
     name: str, optional
@@ -47,7 +53,10 @@ class Course():
         The codec of the course, the last element of site's url.
     from_dict: Dict[str, str | int], optional
         A mapping of the same attributes above.
-
+    from_table: bool
+        True if the dict comes from a sql query and has keys like
+        table.attribute.
+        
     Attributes
     ----------
     __name: str
@@ -66,6 +75,9 @@ class Course():
         The url of the course.
     __codec: str
         The codec of the course, the last element of site's url.
+    __from_table: bool, dafault True
+        True if the dict comes from a sql query and has keys like
+        table.attribute.
 
     Raises
     ------
@@ -75,7 +87,8 @@ class Course():
         or from_dict.
     ParameterError
         If the single parameters are not None and so is from_dict
-        or viceversa.
+        or viceversa, also raised when from_dict does not respect
+        specification for its keys.
     """
 
     __name: str
@@ -85,6 +98,7 @@ class Course():
     __access: str
     __site: str
     __codec: str
+    __from_table: bool
 
     def __init__(
         self,
@@ -95,8 +109,10 @@ class Course():
         access: str = None,
         site: str = None,
         codec: str = None,
-        from_dict: Dict[str, str | int] = None
+        from_dict: Dict[str, str | int] = None,
+        from_table: bool = True
     ):
+        self.__from_table = from_table
         if (not from_dict) and (name and code and campus and international and access and site and codec):
             if (
                 (not isinstance(name, str)) or
@@ -116,23 +132,38 @@ class Course():
             self.__site = site
             self.__codec = codec
         elif (from_dict) and ((not name) and (not code) and (not campus) and (not international) and (not access) and (not site) and (not codec)):
-            if (
-                (not isinstance(from_dict['name'], str)) or
-                (not isinstance(from_dict['code'], str)) or
-                (not isinstance(from_dict['campus'], str)) or
-                (not isinstance(from_dict['international'], int)) or
-                (not isinstance(from_dict['access'], str)) or
-                (not isinstance(from_dict['site'], str)) or
-                (not isinstance(from_dict['codec'], str))
-            ):
-                raise TypeError('One or more attributes are not of the correct type.')
-            self.__name = from_dict['name']
-            self.__code = from_dict['code']
-            self.__campus = from_dict['campus']
-            self.__international = from_dict['international']
-            self.__access = from_dict['access']
-            self.__site = from_dict['site']
-            self.__codec = from_dict['codec']
+            keys_table_column = True
+            for i in from_dict.keys():
+                if not (i.split('.') == 2):
+                    keys_table_column = False
+            if not keys_table_column and self.__from_table:
+                raise ParameterError('The keys of from_dict must be of type \'table.attribute\' if from_table is True')
+            elif keys_table_column and not self.__from_table:
+                raise ParameterError('The keys of from dict must be of type \'attribute\' if from_table is False')
+            elif keys_table_column and self.__from_table:
+                for i in from_dict.keys():
+                    attr = i.split('.')[1]
+                    from_dict[attr] = from_dict.pop(i)
+            try:
+                if (
+                    (not isinstance(from_dict['name'], str)) or
+                    (not isinstance(from_dict['code'], str)) or
+                    (not isinstance(from_dict['campus'], str)) or
+                    (not isinstance(from_dict['international'], int)) or
+                    (not isinstance(from_dict['access'], str)) or
+                    (not isinstance(from_dict['site'], str)) or
+                    (not isinstance(from_dict['codec'], str))
+                ):
+                    raise TypeError('One or more attributes are not of the correct type.')
+                self.__name = from_dict['name']
+                self.__code = from_dict['code']
+                self.__campus = from_dict['campus']
+                self.__international = from_dict['international']
+                self.__access = from_dict['access']
+                self.__site = from_dict['site']
+                self.__codec = from_dict['codec']
+            except KeyError as e:
+                raise ParameterError('{key} is not a valid Course attribute.'.format(key = e))
         else:
             raise ParameterError('The single parameters must be provided only if from_dict isn\'t (or viceversa).')
         
@@ -219,5 +250,26 @@ class Course():
 
         """
         return self.__codec
+    
+    def __str__(self) -> str:
+        string = 'Nome: ' + self.__name + ', '
+        string += 'code: ' + self.__code + ', '
+        string += 'campus: ' + self.__campus + ', '
+        string += 'international: ' + str(bool(self.__international)) + ', '
+        string += 'access: ' + self.__access + ', '
+        string += 'site: ' + self.__site + ', '
+        string += 'codec: ' + self.__codec + '.'
+        return string
 
-test = Course('asd', '123', 'qui', 1, 'asd', 'url', 'asd')
+a = {    
+    'name': 'Fisica',
+    'code': '9244',
+    'campus': 'Bologna',
+    'international': 1,
+    'access': 'Aperto',
+    'site': 'www',
+    'codec': 'fisica'
+}
+
+test = Course(from_dict=a, from_table=False)
+print(repr(test))
