@@ -37,7 +37,8 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to The Unibot’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,14 +83,14 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">the_unibot.model package</a><ul>
-<li><a class="reference internal" href="#model-course">model.course</a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">the_unibot.model package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#model-course">model.course</a></li>
 </ul>
 </li>
 </ul>
-</div>
+
             
           
         </div>
@@ -161,7 +162,7 @@
 <h2>model.course<a class="headerlink" href="#model-course" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="model.course.Course">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">model.course.</span></code><code class="sig-name descname"><span class="pre">Course</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">campus</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">international</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_dict</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span> <span class="p"><span class="pre">|</span></span> <span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.course.Course" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">model.course.</span></code><code class="sig-name descname"><span class="pre">Course</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">campus</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">international</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">access</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_dict</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span> <span class="p"><span class="pre">|</span></span> <span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_table</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.course.Course" title="Permalink to this definition">¶</a></dt>
 <dd><p>Describes a course, it contains all the properties that a course
 has, obtainable through dedicated getters. The attributes of an
 instance of this class should not be modified, create a new instance
@@ -170,6 +171,12 @@ instead.</p>
 <p class="admonition-title">Note</p>
 <p>To create an instance of this class one must provide the attributes
 of the course separately or the from_dict that maps them, NOT BOTH.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Set from_table parameter to False only if the from_dict parameter does
+not have keys formatted like ‘table.attribute’. You have to do this if the
+from_dict keys are of the format ‘attribute’.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -184,6 +191,8 @@ representing whether the course is international or not.</p></li>
 <li><p><strong>site</strong> (<em>str</em><em>, </em><em>optional</em>) – The url of the course.</p></li>
 <li><p><strong>codec</strong> (<em>str</em><em>, </em><em>optional</em>) – The codec of the course, the last element of site’s url.</p></li>
 <li><p><strong>from_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str | int</em><em>]</em><em>, </em><em>optional</em>) – A mapping of the same attributes above.</p></li>
+<li><p><strong>from_table</strong> (<em>bool</em>) – True if the dict comes from a sql query and has keys like
+table.attribute.</p></li>
 </ul>
 </dd>
 </dl>
@@ -266,6 +275,18 @@ international or not.</p>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt id="model.course.Course.__from_table">
+<code class="sig-name descname"><span class="pre">__from_table</span></code><a class="headerlink" href="#model.course.Course.__from_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the dict comes from a sql query and has keys like
+table.attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool, dafault True</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><ul class="simple">
@@ -273,7 +294,8 @@ international or not.</p>
     the correct type, whether they come from single parameter
     or from_dict.</p></li>
 <li><p><strong>ParameterError</strong> – If the single parameters are not None and so is from_dict
-    or viceversa.</p></li>
+    or viceversa, also raised when from_dict does not respect
+    specification for its keys.</p></li>
 </ul>
 </dd>
 </dl>
@@ -385,6 +407,9 @@ international or not.</p>
            
           </div>
           <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to The Unibot’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
