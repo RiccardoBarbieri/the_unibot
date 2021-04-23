@@ -91,6 +91,7 @@ class Bot():
             'set_autosend', self.set_autosend)
         autosend_handler = CommandHandler('autosend', self.autosend)
         wiki_handler = CommandHandler('wiki', self.wiki)
+        offrimi_un_coffee_handler = CommandHandler('offrimi_un_coffee', self.offrimi_un_cafe)
         bug_report_handler = CommandHandler('bug_report', self.bug)
 
         dispatcher.add_handler(start_handler)
@@ -103,6 +104,7 @@ class Bot():
         dispatcher.add_handler(set_autosend_handler)
         dispatcher.add_handler(autosend_handler)
         dispatcher.add_handler(wiki_handler)
+        dispatcher.add_handler(offrimi_un_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
 
         updater.start_polling()
@@ -681,6 +683,10 @@ class Bot():
             self.db.insert('last_command', chat_id=update.effective_chat.id,
                            user_id=update.effective_user.id, text=update.message.text)
             self.db.update('last_command', key_chat_id=update.effective_chat.id, text=update.message.text)
+
+    def offrimi_un_cafe(self, update: Update, context: CallbackContext):
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Se vuoi donarci un caffé (o altro):')
+        context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
 
 
 if __name__ == '__main__':

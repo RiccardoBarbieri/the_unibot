@@ -1,14 +1,17 @@
-from __future__ import annotations
-import sys
-import getpass
-if getpass.getuser() == 'ricca':
-    sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
-elif getpass.getuser() == 'grufoony':
-    sys.path.append('/home/grufoony/bot-telegram')
-elif getpass.getuser() == 'riccardoob':
-    sys.path.append('/home/riccardoob/telegram_bot')
-elif getpass.getuser() == 'pi':
-    sys.path.append('/home/pi/telegram-bot')
+# from __future__ import annotations
+# import sys
+# import getpass
+# if getpass.getuser() == 'ricca':
+#     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
+# elif getpass.getuser() == 'grufoony':
+#     sys.path.append('/home/grufoony/bot-telegram')
+# elif getpass.getuser() == 'riccardoob':
+#     sys.path.append('/home/riccardoob/telegram_bot')
+# elif getpass.getuser() == 'pi':
+#     sys.path.append('/home/pi/telegram-bot')
+    
+import simple_sql
+from simple_sql.model import Table, Column, Type, TypesEnum
 
 # class class1():
     
@@ -34,12 +37,15 @@ elif getpass.getuser() == 'pi':
 # cc = class2()
 
 # func(cc >= c)
+metadata = simple_sql.metadata.MetaData('bak.dump')
+db = simple_sql.database.Database('riccardohost.ddns.net', 'root', 'j4xrldl3E', metadata)
 
-a = {
-    'ads': 123
-}
+db.get_databases(print_them=True)
 
-try:
-    print(a['asd'])
-except KeyError as e:
-    print(e)
+db.select_database('telegram')
+
+cols_data = [Column('chat_id', Type(TypesEnum.INT), primary_key=True), Column('user_id', Type(TypesEnum.INT)), Column('name', Type(TypesEnum.VARCHAR))]
+
+data = Table(metadata, 'data', *cols_data, if_not_exists=True)
+
+db.create_table(data)
