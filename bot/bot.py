@@ -58,15 +58,15 @@ class Bot():
 
         self.jobs: Dict[str, Job] = {}
 
-        updater = Updater(token=token, use_context=True)
-        dispatcher = updater.dispatcher
+        self.updater = Updater(token=token, use_context=True)
+        dispatcher = self.updater.dispatcher
 
         logging.basicConfig(
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
         self.db = Database(Path('./database/telegram.db'))
 
-        self.job_queue = updater.job_queue
+        self.job_queue = self.updater.job_queue
 
         for i in self.db.query_all('data'):
             scheduled_time_str = Utils.idiot_time(i['autosend_time'])
@@ -107,7 +107,8 @@ class Bot():
         dispatcher.add_handler(offrimi_un_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
 
-        updater.start_polling()
+        self.updater.start_polling()
+        # self.updater.idle()
 
     def start(self, update: Update, context: CallbackContext):
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
