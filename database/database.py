@@ -58,10 +58,6 @@ class Database():
                             PRIMARY KEY (label),
                             FOREIGN KEY (course_code) REFERENCES courses(course_code) ON DELETE CASCADE
                             ) WITHOUT ROWID;''')
-            cursor.execute('''CREATE TABLE IF NOT EXISTS test (
-                            blobber BLOB,
-                            PRIMARY KEY (blobber)
-                            ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS last_command (
                             text TEXT NOT NULL,
                             chat_id INTEGER NOT NULL,
