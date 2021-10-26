@@ -4,9 +4,9 @@ chromedriver.exe
 *.pyc
 /database/*.db
 /database/backup*.json
-*.json
 *@*
 *.dump
 simple_sql/
 *Zone.Identifier
 test.py
+back*
