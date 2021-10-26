@@ -116,7 +116,7 @@ class Bot():
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                        course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a nel bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                                  .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     def misc(self, update: Update, context: CallbackContext):
@@ -193,7 +193,7 @@ class Bot():
             print('Updated user {user_id} with curricula {code}'.format(
                 code=code, user_id=user_id))
     def help(self, update: Update, context: CallbackContext):
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                                  .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     def set_corso(self, update: Update, context: CallbackContext):
