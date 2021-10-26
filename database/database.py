@@ -157,6 +157,7 @@ class Database():
             cols = tuple([i[1] for i in cursor.fetchall()])
 
             cursor.execute('SELECT * FROM {table}'.format(table=table))
+            #cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
 
             return self.__dict_creation(cols, cursor.fetchall())
 
