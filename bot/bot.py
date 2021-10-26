@@ -4,7 +4,7 @@ from telegram.ext.jobqueue import Job
 if getpass.getuser() == 'ricca':
     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
 elif getpass.getuser() == 'grufoony':
-    sys.path.append('/home/grufoony/bot-telegram')
+    sys.path.append('/home/grufoony/the_unibot')
 elif getpass.getuser() == 'riccardoob':
     sys.path.append('/home/riccardoob/telegram_bot')
 elif getpass.getuser() == 'pi':
@@ -127,11 +127,9 @@ class Bot():
 
         
 
-        if 'piedi' in update.message.text.lower():
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Qualcuno ha detto PIEDI????')
-            context.bot.send_photo(chat_id=update.effective_chat.id,
-                                   photo='https://www.benesserecorpomente.it/wp-content/uploads/2017/03/Piedi.jpg')
+        if ('give you up' in update.message.text.lower()) or ('give u up' in update.message.text.lower()) or ('let you down' in update.message.text.lower()) or ('let u down' in update.message.text.lower()) or ('roll around' in update.message.text.lower()) or ('rick' in update.message.text.lower()):
+            context.bot.send_animation(chat_id=update.effective_chat.id,
+                                   animation='https://c.tenor.com/u9XnPveDa9AAAAAM/rick-rickroll.gif') #da aggiornare con gif
         if 'egistr' in update.message.text.lower() and update.effective_chat.type != 'private':
             text = update.message.text.replace('egistr', '******')
             context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
