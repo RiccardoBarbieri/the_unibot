@@ -9,3 +9,4 @@ chromedriver.exe
 simple_sql/
 *Zone.Identifier
 back*
+/venv/
