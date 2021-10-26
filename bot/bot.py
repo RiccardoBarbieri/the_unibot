@@ -108,7 +108,7 @@ class Bot():
         dispatcher.add_handler(bug_report_handler)
 
         self.updater.start_polling()
-        # self.updater.idle()
+        self.updater.idle()
 
     def start(self, update: Update, context: CallbackContext):
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
