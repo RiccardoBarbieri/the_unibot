@@ -83,7 +83,7 @@ class Bot():
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
             Filters.text & (~Filters.command), self.misc)
-        help_handler = CommandHandler('help', self.start)
+        help_handler = CommandHandler('help', self.help)
         set_corso_handler = CommandHandler('set_corso', self.set_corso)
         set_curricula_handler = CommandHandler(
             'set_curricula', self.set_curricula)
@@ -118,7 +118,7 @@ class Bot():
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                        course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a nel bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                                  .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     def misc(self, update: Update, context: CallbackContext):
@@ -140,9 +140,6 @@ class Bot():
                                      .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
             context.bot.delete_message(
                 chat_id=update.effective_chat.id, message_id=update.message.message_id)
-        if last_command is not None and 'help' in last_command['text']:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a dal bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                                 .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         if last_command is not None and '/wiki' in last_command['text'] and self.last_mess is not None:
             self.wiki(update, context)
         if last_command is not None and '/set_corso' in last_command['text']:
@@ -197,6 +194,9 @@ class Bot():
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
                 code=code, user_id=user_id))
+    def help(self, update: Update, context: CallbackContext):
+        context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
+                                 .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     def set_corso(self, update: Update, context: CallbackContext):
         member = update.effective_chat.get_member(update.effective_user.id)
