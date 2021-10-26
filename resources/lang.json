@@ -1,0 +1,30 @@
+{
+    "help": {
+        "en": "Welcome in UniBO's bot.\nFor a quick start you can check out <a href=\"{link}\">repository</a> del bot.",
+        "it": "Benvenuto/a nel bot dell'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href=\"{link}\">repository</a> del bot."
+    },
+    "set_corso_usage": {
+        "en": "Use /set_corso [words] [number] to select courses and change page.\nIf you cannot find your course tell us with (/bug_report).",
+        "it": "Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report)."
+    },
+    "set_corso_select": {
+        "en": "Select course, {page_param}/{pages}.",
+        "it": "Seleziona il corso, {page_param}/{pages}."
+    },
+    "orario_autosend": {
+        "en": "There are no lessons on {date}",
+        "it": "Non ci sono lezioni il {date}."
+    },
+    "wiki_sel": {
+        "en": "Select a page",
+        "it": "Seleziona la pagina"
+    },
+    "admin": {
+        "en": "Only admin users can run this command.",
+        "it": "Solo gli amministratori possono usare questo comando."
+    },
+    "error_404": {
+        "en": "Error 404: not found.",
+        "it": "Errore 404: non trovato."
+    }
+}
