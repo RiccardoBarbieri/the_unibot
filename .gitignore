@@ -8,3 +8,4 @@ chromedriver.exe
 *.dump
 simple_sql/
 *Zone.Identifier
+back*
