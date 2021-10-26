@@ -32,6 +32,8 @@ from pprint import pprint
 from datetime import datetime, timedelta
 from typing import Dict
 
+import pathlib
+
 SECONDS_IN_A_DAY = 86400
 
 SECONDS_TEST = 20
@@ -129,7 +131,7 @@ class Bot():
 
         if ('give you up' in update.message.text.lower()) or ('give u up' in update.message.text.lower()) or ('let you down' in update.message.text.lower()) or ('let u down' in update.message.text.lower()) or ('roll around' in update.message.text.lower()) or ('rick' in update.message.text.lower()):
             context.bot.send_animation(chat_id=update.effective_chat.id,
-                                   animation='https://c.tenor.com/u9XnPveDa9AAAAAM/rick-rickroll.gif') #da aggiornare con gif
+                                   animation=open("./resources/nggyu.gif", "rb")) #da aggiornare con gif
         if 'egistr' in update.message.text.lower() and update.effective_chat.type != 'private':
             text = update.message.text.replace('egistr', '******')
             context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
