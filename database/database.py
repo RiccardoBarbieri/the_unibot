@@ -163,6 +163,7 @@ class Database():
 
     # pass columns to display as follows: col1[1/2], col2[1/2] ...
     # pass keys for where clause as follows: col11 = col21, col12 = col22 ...
+    # val conds per condizioni con valori
     def query_join(self, table1, table2, val_conds: dict, *args, **kwargs):
         with sqlite3.connect(self.path) as connection:
             cursor = connection.cursor()
