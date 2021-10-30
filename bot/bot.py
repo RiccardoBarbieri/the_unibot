@@ -194,6 +194,7 @@ class Bot():
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
                 code=code, user_id=user_id))
+                
     def help(self, update: Update, context: CallbackContext):
         context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                                  .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
