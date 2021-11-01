@@ -1,6 +1,5 @@
 import wikipediaapi
 import requests
-import json
 from json import JSONDecodeError
 
 class WikipediaAPI():
