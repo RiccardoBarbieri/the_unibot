@@ -1,7 +1,6 @@
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
-from datetime import time
 from pathlib import Path
 import requests
 import getpass

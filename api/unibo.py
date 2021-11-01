@@ -1,7 +1,6 @@
 import requests
 import json
 from json import JSONDecodeError
-from pprint import pprint
 
 class UniboAPI():
 
