@@ -1,22 +1,12 @@
 from json.decoder import JSONDecodeError
-import sys
-import getpass
-if getpass.getuser() == 'ricca':
-    sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
-elif getpass.getuser() == 'grufoony':
-    sys.path.append('/home/grufoony/bot-telegram')
-elif getpass.getuser() == 'riccardoob':
-    sys.path.append('/home/riccardoob/telegram_bot')
-elif getpass.getuser() == 'pi':
-    sys.path.append('/home/pi/telegram-bot')
-from parsers.parsing_courses import CourseParser
-from parsers.flatten import flatten_courses
+
+from the_unibot.parsers import CourseParser
+from the_unibot.parsers.flatten import flatten_courses
+from the_unibot.utils import Utils
 
 import json
 from pathlib import Path
 import requests
-from utils.utils import Utils
-from pprint import pprint
 
 
 if __name__ == '__main__':

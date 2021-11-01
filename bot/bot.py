@@ -1,27 +1,16 @@
-import sys
-import getpass
-from telegram.ext.jobqueue import Job
-if getpass.getuser() == 'ricca':
-    sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
-elif getpass.getuser() == 'grufoony':
-    sys.path.append('/home/grufoony/the_unibot')
-elif getpass.getuser() == 'riccardoob':
-    sys.path.append('/home/riccardoob/telegram_bot')
-elif getpass.getuser() == 'pi':
-    sys.path.append('/home/pi/telegram-bot')
-
-from api.unibo import UniboAPI
-from api.wikipedia import WikipediaAPI
-from api.weather import WeatherAPI
-from utils.utils import Utils
-from utils.message_creator import MessageCreator
-from database.database import Database
+from the_unibot.api.unibo import UniboAPI
+from the_unibot.api import WikipediaAPI
+from the_unibot.api import WeatherAPI
+from the_unibot.utils import Utils
+from the_unibot.utils import MessageCreator
+from the_unibot.database import Database
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 from telegram.error import BadRequest
 from telegram.update import Update
 from telegram.parsemode import ParseMode
 from telegram.ext import CommandHandler, MessageHandler, Filters, Updater, CallbackContext, JobQueue
+from telegram.ext.jobqueue import Job
 
 import logging
 import json
