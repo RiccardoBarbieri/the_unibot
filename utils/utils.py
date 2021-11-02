@@ -56,6 +56,13 @@ class Utils():
             return 'timetable'
         else:
             return 'orario-lezioni'
+    
+    @staticmethod
+    def get_course_lang2(url: str):
+        if 'cycle' in url:
+            return 'course-structure-diagram'
+        else:
+            return 'insegnamenti'
 
     @staticmethod
     def string_contains(string, params):

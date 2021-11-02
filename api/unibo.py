@@ -77,14 +77,3 @@ class UniboAPI():
             final_schedule.append(i)
         
         return final_schedule
-    
-type = "laurea"
-codec = "IngegneriaInformatica"
-lang = "insegnamenti" #course-structure-diagram
-current_year = "2021"
-course_code = "9254"
-curricula_first_seg = "000"
-curricula_second_seg = "000"
-registered_year = "2019"
-url = f"https://corsi.unibo.it/{type}/{codec}/{lang}/piano/{current_year}/{course_code}/{curricula_first_seg}/{curricula_second_seg}/{registered_year}"
-print(url)
