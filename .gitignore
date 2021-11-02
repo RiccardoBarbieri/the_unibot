@@ -1,14 +1,22 @@
-*.txt
-chromedriver.exe
-/.vscode/
-*.pyc
+#database files
 /database/*.db
 /database/backup*.json
+simple_sql/
+
+#backups
+back*
+
+#windows files
+chromedriver.exe
+*.txt
+*Zone.Identifier
+
+#useless folders
+/.vscode/
+/venv/
+
+#others
+*.pyc
 *@*
 *.dump
-simple_sql/
-*Zone.Identifier
-back*
-/venv/
 test.py
-back*
