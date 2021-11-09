@@ -22,21 +22,23 @@ if __name__ == '__main__':
 
     years = ["2018", "2019", "2020", "2021"]
 
-    for i in courses:
-        lang = Utils.get_course_lang2(i["site"])
-        year = now = datetime.datetime.now().year
-        course_code = i["course_code"]
-        for j in i["curriculas"]:
-            curricula = j["value"].replace("-", "/")
-            for y in years:
-                url = i["site"] + f"/{lang}/piano/{year}/{course_code}/{curricula}/{y}"
-                r = requests.get(url)
-                if r.status_code != 200:
-                    print(bcolors.FAIL + 'error   ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
-                else:
-                    print(bcolors.OKGREEN + 'success ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
+    with open("parsers/teachings.log", "w+") as f:
 
-
+        for i in courses:
+            lang = Utils.get_course_lang2(i["site"])
+            year = now = datetime.datetime.now().year
+            course_code = i["course_code"]
+            for j in i["curriculas"]:
+                curricula = j["value"].replace("-", "/")
+                for y in years:
+                    url = i["site"] + f"/{lang}/piano/{year}/{course_code}/{curricula}/{y}"
+                    r = requests.get(url)
+                    if r.status_code != 200:
+                        print(bcolors.FAIL + 'error   ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
+                        f.write('<span style="color:red,font-family:courier-new;font-size:20px">error   </span>' + f' on {i["course_name"]}, {url}\n')
+                    else:
+                        print(bcolors.OKGREEN + 'success ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
+                        f.write('<span style="color:green,font-family:courier-new;font-size:20px">success </span>' + f' on {i["course_name"]}, {url}\n')
 
 # type = "laurea"
 # codec = "IngegneriaInformatica"
