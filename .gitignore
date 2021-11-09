@@ -20,3 +20,4 @@ chromedriver.exe
 *@*
 *.dump
 test.py
+*.png
