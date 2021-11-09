@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     years = ["2018", "2019", "2020", "2021"]
 
-    with open("parsers/teachings.log", "w+") as f:
+    with open("parsers/teachings.log.md", "w+") as f:
 
         for i in courses:
             lang = Utils.get_course_lang2(i["site"])
@@ -35,10 +35,12 @@ if __name__ == '__main__':
                     r = requests.get(url)
                     if r.status_code != 200:
                         print(bcolors.FAIL + 'error   ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
-                        f.write('<span style="color:red,font-family:courier-new;font-size:20px">error   </span>' + f' on {i["course_name"]}, {url}\n')
+                        f.write('<span style="color:red;font-family:courier-new;font-size:20px">error   </span>' + f' on {i["course_name"]}, {url}\n')
                     else:
                         print(bcolors.OKGREEN + 'success ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
-                        f.write('<span style="color:green,font-family:courier-new;font-size:20px">success </span>' + f' on {i["course_name"]}, {url}\n')
+                        f.write('<span style="color:green;font-family:courier-new;font-size:20px">success </span>' + f' on {i["course_name"]}, {url}\n')
+
+
 
 # type = "laurea"
 # codec = "IngegneriaInformatica"
