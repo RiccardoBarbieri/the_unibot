@@ -1,8 +1,10 @@
 import requests
 import json
 from the_unibot.utils import Utils
+from tqdm import tqdm
 from bs4 import BeautifulSoup
 from pprint import pprint
+
 
 class bcolors:
     HEADER = '\033[95m'
@@ -19,22 +21,20 @@ if __name__ == '__main__':
     with open("./resources/flat_courses_full.json") as f:
         courses = json.load(f)
     all_years = ["1", "2", "3", "4", "5"]
-    curriculas = []
+    curriculas = {}
     old = {}
-    print(all_years[:3])
-    print(all_years[3:])
-    for course, i in zip(courses, range(len(courses))):
-        # if course["course_codec"] != "storia":
-        #     continue
-        print(f"{i}/{len(courses)}")
-        if Utils.get_course_type(course["site"]) in ["magistrale", "2cycle"]:
-            years = all_years[3:]
-        if Utils.get_course_type(course["site"]) in ["laurea", "1cycle"]:
-            years = all_years[:3]
-        for year in years:
-            url = f'{course["site"]}/orario-lezioni/@@available_curricula?anno={year}'
+    with open("./logs/srcape_curriculas.log", "w+") as f:
+
+        for course, i in zip(courses, tqdm(range(len(courses)))):
+            
+            url = f'{course["site"]}/{Utils.get_course_lang(course["site"])}/@@available_curricula'
             r = requests.get(url)
             if r:
-                curriculas.append({"year":year, "course_code":course["course_code"], "curriculas":json.loads(r.content), "len":len(json.loads(r.content))})
-    pprint(curriculas)
-            
+                temp = json.loads(r.content)
+                for i in temp:
+                    i.pop("selected")
+                curriculas[course["course_code"]] = temp
+            else:
+                f.write(f'ERROR on {course["course_code"]}, {course["course_codec"]}, {url}\n')
+    with open("./resources/curriculas.json", "w") as f:
+        json.dump(curriculas, f)
