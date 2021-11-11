@@ -1,3 +1,4 @@
+import sys
 from the_unibot.api.unibo import UniboAPI
 from the_unibot.api import WikipediaAPI
 from the_unibot.api import WeatherAPI
