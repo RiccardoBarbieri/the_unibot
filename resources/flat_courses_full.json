@@ -2024,11 +2024,7 @@
         "languages": [
             "Inglese"
         ],
-<<<<<<< HEAD
-        "site": "https://corsi.unibo.it/magistrale/MedicalBiotechnology",
-=======
         "site": "https://corsi.unibo.it/2cycle/MedicalBiotechnology",
->>>>>>> 05bf363610c44e1888147ae52f24102915910b44
         "curriculas": [
             {
                 "value": "000-000",

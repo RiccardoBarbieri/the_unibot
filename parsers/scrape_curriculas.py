@@ -23,25 +23,6 @@ class bcolors:
 if __name__ == '__main__':
     with open("./resources/flat_courses_full.json") as f:
         courses = json.load(f)
-    all_years = ["1", "2", "3", "4", "5"]
-    curriculas = []
-    old = {}
-    print(all_years[:3])
-    print(all_years[3:])
-    for course, i in zip(courses, range(len(courses))):
-        # if course["course_codec"] != "storia":
-        #     continue
-        print(f"{i}/{len(courses)}")
-        if Utils.get_course_type(course["site"]) in ["magistrale", "2cycle"]:
-            years = all_years[3:]
-        if Utils.get_course_type(course["site"]) in ["laurea", "1cycle"]:
-            years = all_years[:3]
-        for year in years:
-            url = f'{course["site"]}/orario-lezioni/@@available_curricula?anno={year}'
-            r = requests.get(url)
-            if r:
-                curriculas.append({"year":year, "course_code":course["course_code"], "curriculas":json.loads(r.content), "len":len(json.loads(r.content))})
-    pprint(curriculas)
             
     curriculas = {}
     old = {}
@@ -56,7 +37,9 @@ if __name__ == '__main__':
                 for i in temp:
                     i.pop("selected")
                 curriculas[course["course_code"]] = temp
+                tqdm.write(f"{bcolors.OKGREEN}[+]{bcolors.ENDC} {course['course_code']}")
             else:
+                tqdm.write(f"{bcolors.FAIL} {course['course_code']} {bcolors.ENDC}")
                 f.write(f'ERROR on {course["course_code"]}, {course["course_codec"]}, {url}\n')
     with open("./resources/curriculas.json", "w") as f:
-        json.dump(curriculas, f)
+        json.dump(curriculas, f, indent=4)
