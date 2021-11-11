@@ -4,6 +4,11 @@ from the_unibot.utils import Utils
 from bs4 import BeautifulSoup
 from pprint import pprint
 
+from tqdm import tqdm
+from bs4 import BeautifulSoup
+from pprint import pprint
+
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -38,3 +43,20 @@ if __name__ == '__main__':
                 curriculas.append({"year":year, "course_code":course["course_code"], "curriculas":json.loads(r.content), "len":len(json.loads(r.content))})
     pprint(curriculas)
             
+    curriculas = {}
+    old = {}
+    with open("./logs/srcape_curriculas.log", "w+") as f:
+
+        for course, i in zip(courses, tqdm(range(len(courses)))):
+            
+            url = f'{course["site"]}/{Utils.get_course_lang(course["site"])}/@@available_curricula'
+            r = requests.get(url)
+            if r:
+                temp = json.loads(r.content)
+                for i in temp:
+                    i.pop("selected")
+                curriculas[course["course_code"]] = temp
+            else:
+                f.write(f'ERROR on {course["course_code"]}, {course["course_codec"]}, {url}\n')
+    with open("./resources/curriculas.json", "w") as f:
+        json.dump(curriculas, f)
