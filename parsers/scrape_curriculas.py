@@ -34,7 +34,8 @@ if __name__ == '__main__':
                 for i in temp:
                     i.pop("selected")
                 curriculas[course["course_code"]] = temp
+                tqdm.write(f'SUCCESS on {course["course_code"]}, {course["course_codec"]}, {url}')
             else:
                 f.write(f'ERROR on {course["course_code"]}, {course["course_codec"]}, {url}\n')
     with open("./resources/curriculas.json", "w") as f:
-        json.dump(curriculas, f)
+        json.dump(curriculas, f, indent=4)
