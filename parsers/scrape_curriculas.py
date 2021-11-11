@@ -1,6 +1,9 @@
 import requests
 import json
 from the_unibot.utils import Utils
+from bs4 import BeautifulSoup
+from pprint import pprint
+
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 from pprint import pprint
@@ -20,7 +23,7 @@ class bcolors:
 if __name__ == '__main__':
     with open("./resources/flat_courses_full.json") as f:
         courses = json.load(f)
-    all_years = ["1", "2", "3", "4", "5"]
+            
     curriculas = {}
     old = {}
     with open("./logs/srcape_curriculas.log", "w+") as f:
@@ -34,8 +37,9 @@ if __name__ == '__main__':
                 for i in temp:
                     i.pop("selected")
                 curriculas[course["course_code"]] = temp
-                tqdm.write(f'SUCCESS on {course["course_code"]}, {course["course_codec"]}, {url}')
+                tqdm.write(f"{bcolors.OKGREEN}[+]{bcolors.ENDC} {course['course_code']}")
             else:
+                tqdm.write(f"{bcolors.FAIL} {course['course_code']} {bcolors.ENDC}")
                 f.write(f'ERROR on {course["course_code"]}, {course["course_codec"]}, {url}\n')
     with open("./resources/curriculas.json", "w") as f:
         json.dump(curriculas, f, indent=4)

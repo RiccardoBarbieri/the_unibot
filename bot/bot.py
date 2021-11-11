@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import sys
+>>>>>>> 05bf363610c44e1888147ae52f24102915910b44
 from the_unibot.api.unibo import UniboAPI
 from the_unibot.api import WikipediaAPI
 from the_unibot.api import WeatherAPI
