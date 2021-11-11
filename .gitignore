@@ -21,3 +21,6 @@ chromedriver.exe
 *.dump
 test.py
 *.png
+
+#env
+.env
