@@ -1,11 +1,8 @@
 import requests
 import json
 from the_unibot.utils import Utils
-from bs4 import BeautifulSoup
-from pprint import pprint
 
 from tqdm import tqdm
-from bs4 import BeautifulSoup
 from pprint import pprint
 
 
