@@ -23,32 +23,30 @@ if __name__ == '__main__':
 
     years = ["2016", "2017", "2018", "2019", "2020", "2021"]
 
-    f = open("parsers/teachings.log.md", "w+")
+
 
     try:
-        for i, j in zip(courses, tqdm(range(len(courses)))):
-            lang = Utils.get_course_lang2(i["site"])
+        for j in tqdm(range(len(courses))):
+            course = courses[j]
+
+            lang = Utils.get_course_lang2(course["site"])
             year = now = datetime.datetime.now().year
-            course_code = i["course_code"]
-            for j in i["curriculas"]:
+            course_code = course["course_code"]
+            for j in course["curriculas"]:
                 curricula = j["value"].replace("-", "/")
                 for y in years:
-                    url = i["site"] + f"/{lang}/piano/{year}/{course_code}/{curricula}/{y}"
+                    url = course["site"] + f"/{lang}/piano/{year}/{course_code}/{curricula}/{y}"
                     r = requests.get(url)
                     if r.status_code != 200:
-                        tqdm.write(bcolors.FAIL + 'error   ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
-                        f.write('<span style="color:red;font-family:courier-new;font-size:20px">error   </span>' + f' on {i["course_name"]}, {url}\n')
+                        tqdm.write(bcolors.FAIL + 'error   ' + bcolors.ENDC + f' on {course["course_name"]}, {url}')
                     else:
-                        tqdm.write(bcolors.OKGREEN + 'success ' + bcolors.ENDC + f' on {i["course_name"]}, {url}')
-                        f.write('<span style="color:green;font-family:courier-new;font-size:20px">success </span>' + f' on {i["course_name"]}, {url}\n')
+                        tqdm.write(bcolors.OKGREEN + 'success ' + bcolors.ENDC + f' on {course["course_name"]}, {url}')
                         with open(f'./resources/teachings/{course_code}.{j["value"]}.{year}.html', "w+") as f2:
                             f2.write(r.content.decode("utf-8"))
     except KeyboardInterrupt as e:
         print(e)
     finally:
-        f.close()
-            
-
+        f2.close()
 
 
 # type = "laurea"
