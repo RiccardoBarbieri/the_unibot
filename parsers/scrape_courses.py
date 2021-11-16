@@ -3,7 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import ResultSet
 import re
-from pprint import pprint
+from time import sleep
+
+from tqdm.std import tqdm
 
 def print_result(course_name_, course_code_, campus_, international_, access_, languages_, site_):
     print('Course name:     ' + course_name_.strip())
@@ -19,7 +21,7 @@ flat_courses_full = []
 if __name__ == "__main__":
 
     scheda = 1
-    
+
     while True:
         url = f'https://www.unibo.it/it/didattica/corsi-di-studio/elenco?schede={scheda}'
 
@@ -27,10 +29,19 @@ if __name__ == "__main__":
         soup = BeautifulSoup(r.content, 'html.parser')
 
         if not soup.find_all('div', {'class': f'item area{scheda}'}):
+            scheda -= 1
             break
+        scheda += 1
+
+    for i in tqdm(range(scheda)):
+
+        url = f'https://www.unibo.it/it/didattica/corsi-di-studio/elenco?schede={i + 1}'
+
+        r = requests.get(url)
+        soup = BeautifulSoup(r.content, 'html.parser')
         
-        item_areas = soup.find_all('div', class_=f'item area{scheda}')
-        print(len(item_areas).__str__() + " - " + url)
+        item_areas = soup.find_all('div', class_=f'item area{i + 1}')
+        tqdm.write(str(len(item_areas)).center(4, ' ') + " - " + url)
         for item_area in item_areas:
             course = {}
             top_info_ = item_area.find('div', class_='text-wrapper')
@@ -61,8 +72,6 @@ if __name__ == "__main__":
             course['course_codec'] = site_.strip().split('/')[-1]
         
             flat_courses_full.append(course)
-        
-        scheda += 1
 
     with open('./resources/flat_courses_full.json', 'w+') as f:
         json.dump(flat_courses_full, f, indent=4)
