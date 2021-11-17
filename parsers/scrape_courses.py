@@ -16,10 +16,11 @@ def print_result(course_name_, course_code_, campus_, international_, access_, l
     print('Languages:       ' + languages_.strip())
     print('Site:            ' + site_)
 
-flat_courses_full = []
+
 
 if __name__ == "__main__":
 
+    flat_courses_full = []
     scheda = 1
 
     while True:
