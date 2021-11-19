@@ -4,6 +4,9 @@ from pprint import pprint
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 import re
+from datetime import datetime
+from bs4 import BeautifulSoup
+from bs4.element import Tag
 
 import logging
 logging.basicConfig(
@@ -27,8 +30,45 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-# with open("./resources/flat_courses_full.json") as f:
-#        courses = json.load(f)
+def get_full_title(tr: Tag):
+    title = tr.find("td", {"class": "title"})
+    if title:
+        return title.text.strip()
+
+def get_title(tr: Tag):
+    title = tr.find("td", {"class": "title"})
+    if title:
+        return re.sub(r'[0-9]{0,7}(.*)', r'\1', get_full_title(tr)).strip()
+
+def get_ssd(tr: Tag):
+    ssd = tr.find("td", {"class": "ssd"})
+    if ssd:
+        return ssd.text.strip()
+    else:
+        return ''
+
+def get_site(tr: Tag):
+    title = tr.find("td", {"class": "title"})
+    if title and title.find("a"):
+        return title.find("a")['href']
+    else:
+        return ''
+
+def get_cfu(tr: Tag):
+    infos = tr.find_all("td", {"class": "info"})
+    if infos:
+        cfu = infos[-1].text.strip()
+    if re.fullmatch(r'[0-9]{0,2}', cfu):
+        return cfu
+    else:
+        return ''
+
+def get_code(tr: Tag):
+    code = tr.find("td", {"class": "code"})
+    if code.text == '':
+        return re.sub(r'([0-9]{0,7}).*', r'\1', get_full_title(tr)).strip()
+    else:
+        return code.text.strip()
 
 def scrape_curriculas(courses: dict) -> dict:
             
@@ -46,9 +86,9 @@ def scrape_curriculas(courses: dict) -> dict:
             for i in temp:
                 i.pop("selected")
             curriculas[course["course_code"]] = temp
-            logging.error(f'success on {course["course_code"]}, {course["course_codec"]}, {url}')
+            logging.info(f'success on {course["course_code"]}, {course["course_codec"]}, {url}')
         else:
-            logging.error(f'failed on {course["course_code"]}, {course["course_codec"]}, {url}')
+            logging.error(f'failed  on {course["course_code"]}, {course["course_codec"]}, {url}')
 
     with open("./resources/curriculas.json", "w") as f:
         json.dump(curriculas, f, indent=4)
@@ -112,11 +152,59 @@ def scrape_course() -> list:
             
                 flat_courses_full.append(course)
 
-                logging.INFO(f'success on scheda {i + 1}/{scheda} on {item_areas.index(item_area) + 1}/{len(item_areas)}')
+                logging.info(f'success on scheda {i + 1}/{scheda} on {item_areas.index(item_area) + 1}/{len(item_areas)}')
             except Exception as e:
-                logging.ERROR(f'failed on scheda {i + 1}/{scheda} on {item_areas.index(item_area) + 1}/{len(item_areas)}')
+                logging.error(f'failed  on scheda {i + 1}/{scheda} on {item_areas.index(item_area) + 1}/{len(item_areas)}')
 
     with open('./resources/flat_courses_full.json', 'w+') as f:
         json.dump(flat_courses_full, f, indent=4)
 
     return flat_courses_full
+
+def scrape_teachings(courses: dict):
+    with open("./resources/flat_courses_curriculas.json") as f:
+        courses = json.load(f)
+
+    years = ["2016", "2017", "2018", "2019", "2020", "2021"]
+        
+    teachings_final = []
+    for j in tqdm(range(len(courses))):
+        course = courses[j]
+
+        lang = Utils.get_course_lang2(course["site"])
+        year = now = datetime.datetime.now().year
+        course_code = course["course_code"]
+        for j in course["curriculas"]:
+            curricula = j["value"].replace("-", "/")
+            for y in years:
+                url = course["site"] + f"/{lang}/piano/{year}/{course_code}/{curricula}/{y}"
+                r = requests.get(url)
+                if r.status_code != 200:
+                    logging.error(f'failed  on {course["course_name"]}, {url}')
+                else:
+                    logging.info(f'success on {course["course_name"]}, {url}')
+                    
+                    soup = BeautifulSoup(r.content.decode("utf-8"), "html.parser")
+                    teachings = soup.find_all("tr")
+                    teachings_filtered = []
+                    last = None
+                    for i in teachings:
+                        if last and 'modulo' in i.get('class', []) and 'modulo' not in last.get('class', []):
+                            teachings_filtered.remove(last)
+                        if i.find_all('th') == []:
+                            teachings_filtered.append(i)
+
+                        last = i
+
+                    for i in teachings_filtered:
+                        temp = {}
+                        temp['title'] = get_title(i)
+                        temp['ssd'] = get_ssd(i)
+                        temp['cfu'] = get_cfu(i)
+                        temp['code'] = get_code(i)
+                        temp['site'] = get_site(i)
+                    
+                        teachings_final.append(temp)
+        
+        with open('./resources/teachings.json', 'w+') as f:
+            json.dump(teachings_final, f, indent = 4)

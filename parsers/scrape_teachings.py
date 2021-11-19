@@ -19,7 +19,6 @@ class bcolors:
 if __name__ == '__main__':
     with open("./resources/flat_courses_curriculas.json") as f:
         courses = json.load(f)
-    db = Database("./database/telegram.db")
 
     years = ["2016", "2017", "2018", "2019", "2020", "2021"]
 
