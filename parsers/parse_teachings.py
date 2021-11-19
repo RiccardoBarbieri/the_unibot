@@ -56,37 +56,12 @@ def get_code(tr: Tag):
     else:
         return code.text.strip()
 
-def red(string: str):
-    return bcolors.FAIL + string + bcolors.ENDC
-
-def green(string: str):
-    return bcolors.OKGREEN + string + bcolors.ENDC
-
-def color(cond: bool):
-    return red(str(cond)) if cond else green(str(cond))
-
-def print_report(i):
-    flag = [False, False, False, False, False]
-    if not isinstance(get_title(i), str):
-        flag[0] = True
-    if not isinstance(get_ssd(i), str):
-        flag[1] = True
-    if not isinstance(get_cfu(i), str):
-        flag[2] = True
-    if not isinstance(get_code(i), str):
-        flag[3] = True
-    if not isinstance(get_site(i), str):
-        flag[4] = True
-    print(color(flag[0]), color(flag[1]), color(flag[2]), color(flag[3]), color(flag[4]), sep = '-', end = '')
-        
-
 if __name__ == '__main__':
     course_file = os.listdir("./resources/teachings")
 
 
     teachings_final = []
     for file_name, num in zip(course_file, range(len(course_file))):
-        break
 
         with open("./resources/teachings/" + file_name, "r") as f:
             soup = BeautifulSoup(f, "html.parser")
@@ -114,13 +89,5 @@ if __name__ == '__main__':
         
             teachings_final.append(temp)
 
-    # with open('./resources/teachings.json', 'w+') as f:
-    #     json.dump(teachings_final, f, indent = 4)
-
-    with open('./resources/teachings.json', 'r') as f:
-        teachings_final = json.load(f)
-    
-    codes = set()
-    for i in teachings_final:
-        codes.add(i['code'])
-    pprint(codes)
+    with open('./resources/teachings.json', 'w+') as f:
+        json.dump(teachings_final, f, indent = 4)
