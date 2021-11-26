@@ -1,10 +1,12 @@
 import requests
 import json
-from pprint import pprint
 from tqdm import tqdm
+from pprint import pprint
+
 from bs4 import BeautifulSoup
 import re
 from datetime import datetime
+
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 
@@ -76,12 +78,13 @@ def scrape_curriculas(courses: dict) -> dict:
 
     for i in tqdm(range(len(courses))):
         course = courses[i]
-        
-        tqdm.write(f'{bcolors.OKBLUE}Scraping curriculas:{bcolors.ENDC}')
 
         url = f'{course["site"]}/{Utils.get_course_lang(course["site"])}/@@available_curricula'
         r = requests.get(url)
         if r:
+            if r.url != url:
+                logging.error(f'failed on {course["course_code"]}, {course["course_codec"]}, {url}')
+                continue
             temp = json.loads(r.content)
             for i in temp:
                 i.pop("selected")
@@ -95,7 +98,7 @@ def scrape_curriculas(courses: dict) -> dict:
     
     return curriculas
 
-def scrape_course() -> list:
+def scrape_courses() -> list:
 
     flat_courses_full = []
     scheda = 1
@@ -172,7 +175,7 @@ def scrape_teachings(courses: dict):
         course = courses[j]
 
         lang = Utils.get_course_lang2(course["site"])
-        year = now = datetime.datetime.now().year
+        year = datetime.now().year
         course_code = course["course_code"]
         for j in course["curriculas"]:
             curricula = j["value"].replace("-", "/")
@@ -208,3 +211,9 @@ def scrape_teachings(courses: dict):
         
         with open('./resources/teachings.json', 'w+') as f:
             json.dump(teachings_final, f, indent = 4)
+
+if __name__ == "__main__":
+    course = scrape_courses()
+
+    curriculas = scrape_curriculas(course)
+    teachings = scrape_teachings(course)
