@@ -19,6 +19,12 @@
             "label": "8965 - Percorso generico"
         }
     ],
+    "5815": [
+        {
+            "value": "000-000",
+            "label": "5815 - Percorso generico"
+        }
+    ],
     "0897": [
         {
             "value": "755-000",
@@ -131,6 +137,12 @@
         {
             "value": "000-000",
             "label": "8835 - Percorso generico"
+        }
+    ],
+    "5819": [
+        {
+            "value": "000-000",
+            "label": "5819 - Percorso generico"
         }
     ],
     "0901": [
@@ -345,6 +357,12 @@
         {
             "value": "B80-000",
             "label": "CURRICULUM SPACE"
+        }
+    ],
+    "5809": [
+        {
+            "value": "000-000",
+            "label": "5809 - Percorso generico"
         }
     ],
     "9265": [
@@ -679,6 +697,16 @@
             "label": "9198 - Percorso generico"
         }
     ],
+    "5818": [
+        {
+            "value": "C27-000",
+            "label": "CENTRO DIDATTICO BOLOGNA"
+        },
+        {
+            "value": "C28-000",
+            "label": "CENTRO DIDATTICO IMOLA"
+        }
+    ],
     "9249": [
         {
             "value": "B29-000",
@@ -691,6 +719,18 @@
         {
             "value": "B30-000",
             "label": "ENVIRONMENTAL OFFSHORE ENGINEERING"
+        }
+    ],
+    "5817": [
+        {
+            "value": "000-000",
+            "label": "5817 - Percorso generico"
+        }
+    ],
+    "5816": [
+        {
+            "value": "000-000",
+            "label": "5816 - Percorso generico"
         }
     ],
     "9205": [
@@ -797,6 +837,12 @@
         {
             "value": "000-000",
             "label": "8474 - Percorso generico"
+        }
+    ],
+    "8475": [
+        {
+            "value": "000-000",
+            "label": "8475 - Percorso generico"
         }
     ],
     "9080": [
@@ -907,6 +953,12 @@
             "label": "8522 - Percorso generico"
         }
     ],
+    "5814": [
+        {
+            "value": "000-000",
+            "label": "5814 - Percorso generico"
+        }
+    ],
     "8617": [
         {
             "value": "000-000",
@@ -971,6 +1023,12 @@
             "label": "9225 - Percorso generico"
         }
     ],
+    "5706": [
+        {
+            "value": "000-000",
+            "label": "5706 - Percorso generico"
+        }
+    ],
     "8418": [
         {
             "value": "000-000",
@@ -999,6 +1057,12 @@
         {
             "value": "000-000",
             "label": "8857 - Percorso generico"
+        }
+    ],
+    "5701": [
+        {
+            "value": "000-000",
+            "label": "5701 - Percorso generico"
         }
     ],
     "9072": [
@@ -1271,6 +1335,12 @@
             "label": "CURRICULUM PROGETTAZIONE E GESTIONE DEGLI SPAZI VERDI"
         }
     ],
+    "5808": [
+        {
+            "value": "000-000",
+            "label": "5808 - Percorso generico"
+        }
+    ],
     "9235": [
         {
             "value": "943-000",
@@ -1379,6 +1449,12 @@
             "label": "9214 - Percorso generico"
         }
     ],
+    "5812": [
+        {
+            "value": "000-000",
+            "label": "5812 - Percorso generico"
+        }
+    ],
     "8512": [
         {
             "value": "000-000",
@@ -1405,6 +1481,12 @@
         {
             "value": "000-000",
             "label": "9069 - Percorso generico"
+        }
+    ],
+    "5813": [
+        {
+            "value": "000-000",
+            "label": "5813 - Percorso generico"
         }
     ],
     "5703": [
