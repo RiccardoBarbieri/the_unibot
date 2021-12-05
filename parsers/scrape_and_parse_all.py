@@ -2,8 +2,8 @@ import requests
 import json
 from tqdm import tqdm
 from pprint import pprint
+from threading import Thread
 
-from bs4 import BeautifulSoup
 import re
 from datetime import datetime
 
@@ -17,7 +17,6 @@ logging.basicConfig(
     level = logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-
 
 from the_unibot.utils import Utils
 
@@ -73,6 +72,7 @@ def get_code(tr: Tag):
         return code.text.strip()
 
 def scrape_curriculas(courses: dict) -> dict:
+    logging.info('SCRAPING CURRICULAS')
             
     curriculas = {}
 
@@ -99,6 +99,7 @@ def scrape_curriculas(courses: dict) -> dict:
     return curriculas
 
 def scrape_courses() -> list:
+    logging.info('SCRAPING COURSES')
 
     flat_courses_full = []
     scheda = 1
@@ -159,18 +160,18 @@ def scrape_courses() -> list:
             except Exception as e:
                 logging.error(f'failed  on scheda {i + 1}/{scheda} on {item_areas.index(item_area) + 1}/{len(item_areas)}')
 
-    with open('./resources/flat_courses_full.json', 'w+') as f:
+    with open('./resources/courses.json', 'w+') as f:
         json.dump(flat_courses_full, f, indent=4)
 
     return flat_courses_full
 
 def scrape_teachings(courses: dict):
-    with open("./resources/flat_courses_curriculas.json") as f:
-        courses = json.load(f)
+    logging.info('SCRAPING TEACHINGS')
 
     years = ["2016", "2017", "2018", "2019", "2020", "2021"]
         
-    teachings_final = []
+    # teachings_final = []
+    threads = []
     for j in tqdm(range(len(courses))):
         course = courses[j]
 
@@ -206,14 +207,31 @@ def scrape_teachings(courses: dict):
                         temp['cfu'] = get_cfu(i)
                         temp['code'] = get_code(i)
                         temp['site'] = get_site(i)
+                        temp['from'] = url
                     
                         teachings_final.append(temp)
         
         with open('./resources/teachings.json', 'w+') as f:
             json.dump(teachings_final, f, indent = 4)
 
-if __name__ == "__main__":
-    course = scrape_courses()
 
-    curriculas = scrape_curriculas(course)
-    teachings = scrape_teachings(course)
+teachings_final = []
+
+if __name__ == "__main__":
+    courses = scrape_courses()
+
+    curriculas = scrape_curriculas(courses)
+
+    final = []
+    logging.info('JOINING COURSES AND CURRICULAS')
+    for course in courses:
+        if course['course_code'] not in curriculas.keys():
+            logging.error(f'failed  on {course["course_code"]}')
+            continue
+        temp = {}
+        temp = course
+        temp['curriculas'] = curriculas[course['course_code']]
+        final.append(temp)
+        logging.error(f'success on {course["course_code"]}')
+
+    teachings = scrape_teachings(final)
