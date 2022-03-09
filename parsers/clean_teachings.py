@@ -17,11 +17,20 @@ def count_word(word: str, words: list):
 def split_newline(string: str):
     return string.split('\n')[0].strip()
 
-def clean_teachings(teachings: list):
+def remove_newline(teachings: list):
     final = []
     for t in teachings:
         temp = {}
-        temp[''] = split_newline(t['text'])
+        temp['title'] = split_newline(t['title'])
+        temp['ssd'] = t['ssd']
+        temp['code'] = t['code']
+        temp['cfu'] = t['cfu']
+        temp['site'] = t['site']
+        temp['from'] = t['from']
+        final.append(temp)
+    return final
+    
+
 
 def is_dup(i, l):
     try:
@@ -32,17 +41,16 @@ def is_dup(i, l):
         return True
     return False
 
-dups = []
-start1 = time.time_ns()
+# dups = []
+# start1 = time.time_ns()
 # for j in tqdm(range(len(teachings))):
-for j in tqdm(range(len(teachings))):
-    i = teachings[j]
-    if i in dups:
-        continue
-    if is_dup(i, teachings[j:]):
-        dups.append(i)
-end1 = time.time_ns()
-print(f'Search time: {(end1-start1)/1000000000} seconds')
+#     i = teachings[j]
+#     if i in dups:
+#         continue
+#     if is_dup(i, teachings[j:]):
+#         dups.append(i)
+# end1 = time.time_ns()
+# print(f'Search time: {(end1-start1)/1000000000} seconds')
 
 # start2 = time.time_ns()
 # # for j in tqdm(teachings):
@@ -65,15 +73,17 @@ print(f'Search time: {(end1-start1)/1000000000} seconds')
 # end3 = time.time_ns()
 # print(f'Time taken: {(end3-start3)/1000000000} seconds')
 
-start1 = time.time_ns()
-dups.sort(key = lambda x: int(x['code']))
-end1 = time.time_ns()
-print(f'Sort time: {(end1-start1)/1000000000} seconds')
+# start1 = time.time_ns()
+# dups.sort(key = lambda x: int(x['code']))
+# end1 = time.time_ns()
+# print(f'Sort time: {(end1-start1)/1000000000} seconds')
 
-print(len(dups))
+# print(len(dups))
 
-with open('./dup_list.json', 'w+') as f:
-    json.dump(dups, f, indent=4)
+# with open('./resources/dup_list.json', 'w+') as f:
+#     json.dump(dups, f, indent=4)
+
+
 
 # con = sqlite3.connect('./temp.db')
 # cur = con.cursor()
@@ -82,15 +92,23 @@ with open('./dup_list.json', 'w+') as f:
 
 # for i in teachings:
     
+teachings_temp = remove_newline(teachings)
+
+teachings_empty_code = [i for i in teachings_temp if i['code'] == '']
+
+with open('./resources/teachings_temp.json', 'w+') as f:
+    json.dump(teachings_temp, f, indent=4)
+
+with open('./resources/teachings_empty_code.json', 'w+') as f:
+    json.dump(teachings_empty_code, f, indent=4)
 
 
-# codes = [i['code'] for i in teachings]
-# sites = [i['site'] for i in teachings]
-# titles = [i['title'] for i in teachings]
-# ssds = [i['ssd'] for i in teachings]
+codes = [i['code'] for i in teachings]
+sites = [i['site'] for i in teachings]
+titles = [i['title'] for i in teachings]
+ssds = [i['ssd'] for i in teachings]
 
-# print('Codes: ', len(codes), len(set(codes)))
-# print('Sites: ', len(sites), len(set(sites)))
-# print('Titles: ', len(titles), len(set(titles)))
-
-# print(count_word('prova finale', titles))
+print('Codes:  ', len(codes), len(set(codes)))
+print('Sites:  ', len(sites), len(set(sites)))
+print('Titles: ', len(titles), len(set(titles)))
+print('SSDs:   ', len(ssds), len(set(ssds)))
