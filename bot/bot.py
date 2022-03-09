@@ -147,7 +147,7 @@ class Bot():
                                             'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
 
             found = {}
-            with open(Path('./resources/flat_courses.json')) as f:
+            with open(Path('./resources/courses.json')) as f:
                 courses = json.load(f)
             for i in courses:
                 if i['course_code'] == course_code:
