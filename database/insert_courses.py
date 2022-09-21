@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 if __name__ == '__main__':
-    with open(Path('./resources/flat_courses_full.json')) as f:
+    with open(Path('./resources/courses_curriculas.json')) as f:
         courses = json.load(f)
     with sqlite3.connect(Path('./database/telegram.db')) as connection:
         cursor = connection.cursor()
@@ -17,8 +17,9 @@ if __name__ == '__main__':
             access = i['access']
             site = i['site']
             course_codec = i['course_codec']
-            course_data = (course_name, course_code, campus, international, access, site, course_codec)
+            course_data = (course_name, course_code, campus[0], international, access, site, course_codec)
             try:
+                print(course_data)
                 cursor.execute('INSERT INTO courses VALUES (?,?,?,?,?,?,?)', course_data)
             except sqlite3.IntegrityError as e:
                 print('{msg}, not inserting '.format(msg = str(e)) + str(course_data))
