@@ -49,11 +49,10 @@
         "campus": [
             "Bologna"
         ],
-        "international": true,
+        "international": false,
         "access": "Numero programmato - prova di selezione",
         "languages": [
-            "Italiano",
-            "Inglese"
+            "Italiano"
         ],
         "site": "https://corsi.unibo.it/magistrale/DirezioneAziendale",
         "course_codec": "DirezioneAziendale"
@@ -93,10 +92,11 @@
         "campus": [
             "Rimini"
         ],
-        "international": false,
+        "international": true,
         "access": "Numero programmato - TOLC\u200b",
         "languages": [
-            "Italiano"
+            "Italiano",
+            "Inglese"
         ],
         "site": "https://corsi.unibo.it/laurea/clei",
         "course_codec": "clei"
@@ -121,18 +121,17 @@
         "campus": [
             "Forl\u00ec"
         ],
-        "international": true,
+        "international": false,
         "access": "Numero programmato - TOLC\u200b",
         "languages": [
-            "Italiano",
-            "Inglese"
+            "Italiano"
         ],
         "site": "https://corsi.unibo.it/laurea/EconomiaCommercio",
         "course_codec": "EconomiaCommercio"
     },
     {
         "course_name": "Economia e diritto",
-        "course_code": "9221",
+        "course_code": "5913",
         "campus": [
             "Bologna"
         ],
@@ -224,7 +223,7 @@
             "Bologna"
         ],
         "international": true,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato - TOLC\u200b",
         "languages": [
             "Inglese"
         ],
@@ -238,7 +237,7 @@
             "Bologna"
         ],
         "international": true,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato - TOLC\u200b",
         "languages": [
             "Inglese"
         ],
@@ -261,7 +260,7 @@
     },
     {
         "course_name": "Health economics and management",
-        "course_code": "8880",
+        "course_code": "5902",
         "campus": [
             "Bologna"
         ],
@@ -288,6 +287,20 @@
         "course_codec": "gioca"
     },
     {
+        "course_name": "International management",
+        "course_code": "5891",
+        "campus": [
+            "Bologna"
+        ],
+        "international": true,
+        "access": "Numero programmato - prova di selezione",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/2cycle/InternationalManagement",
+        "course_codec": "InternationalManagement"
+    },
+    {
         "course_name": "International politics and economics",
         "course_code": "5702",
         "campus": [
@@ -300,6 +313,34 @@
         ],
         "site": "https://corsi.unibo.it/2cycle/InternationalPoliticsEconomics",
         "course_codec": "InternationalPoliticsEconomics"
+    },
+    {
+        "course_name": "Law, economics and governance",
+        "course_code": "5811",
+        "campus": [
+            "Bologna"
+        ],
+        "international": true,
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/2cycle/LawEconomicsGovernance",
+        "course_codec": "LawEconomicsGovernance"
+    },
+    {
+        "course_name": "Management and economics",
+        "course_code": "5892",
+        "campus": [
+            "Forl\u00ec"
+        ],
+        "international": true,
+        "access": "Numero programmato - TOLC\u200b",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/1cycle/Management",
+        "course_codec": "Management"
     },
     {
         "course_name": "Management dell'economia sociale",
@@ -345,7 +386,7 @@
     },
     {
         "course_name": "Tourism economics and management",
-        "course_code": "8609",
+        "course_code": "5910",
         "campus": [
             "Rimini"
         ],
@@ -462,7 +503,7 @@
             "Bologna"
         ],
         "international": true,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato - TOLC\u200b",
         "languages": [
             "Inglese"
         ],
@@ -541,6 +582,20 @@
     },
     {
         "course_name": "Giurisprudenza",
+        "course_code": "5903",
+        "campus": [
+            "Ravenna"
+        ],
+        "international": true,
+        "access": "Libero con verifica delle conoscenze - TOLC\u200b",
+        "languages": [
+            "Italiano"
+        ],
+        "site": "https://corsi.unibo.it/magistralecu/Giurisprudenza-Ravenna",
+        "course_codec": "Giurisprudenza-Ravenna"
+    },
+    {
+        "course_name": "Giurisprudenza",
         "course_code": "9232",
         "campus": [
             "Bologna"
@@ -552,20 +607,6 @@
         ],
         "site": "https://corsi.unibo.it/magistralecu/Giurisprudenza-Bologna",
         "course_codec": "Giurisprudenza-Bologna"
-    },
-    {
-        "course_name": "Giurisprudenza",
-        "course_code": "9233",
-        "campus": [
-            "Ravenna"
-        ],
-        "international": true,
-        "access": "Libero con verifica delle conoscenze - TOLC\u200b",
-        "languages": [
-            "Italiano"
-        ],
-        "site": "https://corsi.unibo.it/magistralecu/Giurisprudenza-Ravenna",
-        "course_codec": "Giurisprudenza-Ravenna"
     },
     {
         "course_name": "Giurista per le imprese e per la pubblica amministrazione",
@@ -594,21 +635,6 @@
         ],
         "site": "https://corsi.unibo.it/2cycle/legal-studies",
         "course_codec": "legal-studies"
-    },
-    {
-        "course_name": "Advanced automotive electronic engineering",
-        "course_code": "9238",
-        "campus": [
-            "Bologna",
-            " Modena"
-        ],
-        "international": true,
-        "access": "Numero programmato - prova di selezione",
-        "languages": [
-            "Inglese"
-        ],
-        "site": "https://corsi.unibo.it/2cycle/AutomotiveElectronicEngineering",
-        "course_codec": "AutomotiveElectronicEngineering"
     },
     {
         "course_name": "Advanced automotive engineering",
@@ -688,7 +714,7 @@
             "Bologna"
         ],
         "international": false,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato nazionale - prova locale\u200b",
         "languages": [
             "Italiano"
         ],
@@ -736,6 +762,20 @@
         ],
         "site": "https://corsi.unibo.it/magistrale/IngegneriaBiomedica",
         "course_codec": "IngegneriaBiomedica"
+    },
+    {
+        "course_name": "Building construction engineering",
+        "course_code": "5897",
+        "campus": [
+            "Ravenna"
+        ],
+        "international": true,
+        "access": "Numero programmato - TOLC\u200b",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/1cycle/Building",
+        "course_codec": "Building"
     },
     {
         "course_name": "Civil engineering",
@@ -793,6 +833,22 @@
         ],
         "site": "https://corsi.unibo.it/2cycle/ElectricVehicleEngineering",
         "course_codec": "ElectricVehicleEngineering"
+    },
+    {
+        "course_name": "Electronic engineering for intelligent vehicles",
+        "course_code": "5917",
+        "campus": [
+            "Parma",
+            " Modena",
+            " Bologna"
+        ],
+        "international": true,
+        "access": "Numero programmato - prova di selezione",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/2cycle/ElectronicEngineeringIntelligentVehicles",
+        "course_codec": "ElectronicEngineeringIntelligentVehicles"
     },
     {
         "course_name": "Ingegneria aerospaziale",
@@ -967,20 +1023,6 @@
         "course_codec": "IngegneriaScienzeInformatiche"
     },
     {
-        "course_name": "Ingegneria edile",
-        "course_code": "9199",
-        "campus": [
-            "Ravenna"
-        ],
-        "international": false,
-        "access": "Numero programmato - TOLC\u200b",
-        "languages": [
-            "Italiano"
-        ],
-        "site": "https://corsi.unibo.it/laurea/IngegneriaEdile",
-        "course_codec": "IngegneriaEdile"
-    },
-    {
         "course_name": "Ingegneria edile-architettura",
         "course_code": "5697",
         "campus": [
@@ -989,7 +1031,6 @@
         "international": true,
         "access": "Numero programmato - prova di selezione",
         "languages": [
-            "Italiano",
             "Inglese"
         ],
         "site": "https://corsi.unibo.it/2cycle/ArchitectureEngineering",
@@ -1226,10 +1267,11 @@
         "course_code": "5818",
         "campus": [
             "Bologna",
+            " Lugo",
             " Imola"
         ],
         "international": false,
-        "access": "Numero programmato - TOLC\u200b",
+        "access": "Numero programmato - prova di selezione",
         "languages": [
             "Italiano"
         ],
@@ -1257,7 +1299,7 @@
             "Bologna"
         ],
         "international": false,
-        "access": "Numero programmato - TOLC\u200b",
+        "access": "Numero programmato - prova di selezione",
         "languages": [
             "Italiano"
         ],
@@ -1268,10 +1310,11 @@
         "course_name": "Tecnologie dei sistemi informatici",
         "course_code": "5816",
         "campus": [
-            "Cesena"
+            "Cesena",
+            " Imola"
         ],
         "international": false,
-        "access": "Numero programmato - TOLC\u200b",
+        "access": "Numero programmato - prova di selezione",
         "languages": [
             "Italiano"
         ],
@@ -1462,7 +1505,7 @@
     },
     {
         "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
-        "course_code": "8473",
+        "course_code": "5907",
         "campus": [
             "Bologna"
         ],
@@ -1476,7 +1519,7 @@
     },
     {
         "course_name": "Infermieristica (abilitante alla professione sanitaria di infermiere)",
-        "course_code": "8474",
+        "course_code": "5908",
         "campus": [
             "Faenza"
         ],
@@ -1532,21 +1575,21 @@
     },
     {
         "course_name": "Medicina e chirurgia",
-        "course_code": "5708",
+        "course_code": "5904",
         "campus": [
-            "Ravenna"
+            "Bologna"
         ],
         "international": false,
         "access": "\u200bNumero programmato nazionale",
         "languages": [
             "Italiano"
         ],
-        "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia-Ravenna",
-        "course_codec": "MedicinaChirurgia-Ravenna"
+        "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia",
+        "course_codec": "MedicinaChirurgia"
     },
     {
         "course_name": "Medicina e chirurgia",
-        "course_code": "5709",
+        "course_code": "5905",
         "campus": [
             "Forl\u00ec"
         ],
@@ -1560,17 +1603,17 @@
     },
     {
         "course_name": "Medicina e chirurgia",
-        "course_code": "8415",
+        "course_code": "5906",
         "campus": [
-            "Bologna"
+            "Ravenna"
         ],
         "international": false,
         "access": "\u200bNumero programmato nazionale",
         "languages": [
             "Italiano"
         ],
-        "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia",
-        "course_codec": "MedicinaChirurgia"
+        "site": "https://corsi.unibo.it/magistralecu/MedicinaChirurgia-Ravenna",
+        "course_codec": "MedicinaChirurgia-Ravenna"
     },
     {
         "course_name": "Medicine and surgery",
@@ -1635,7 +1678,7 @@
             "Imola"
         ],
         "international": false,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato nazionale - prova locale\u200b",
         "languages": [
             "Italiano"
         ],
@@ -1649,7 +1692,7 @@
             "Bologna"
         ],
         "international": false,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato nazionale - prova locale\u200b",
         "languages": [
             "Italiano"
         ],
@@ -1714,7 +1757,7 @@
     },
     {
         "course_name": "Tecniche ortopediche (abilitante alla professione sanitaria di tecnico ortopedico)",
-        "course_code": "8483",
+        "course_code": "5915",
         "campus": [
             "Bologna"
         ],
@@ -1761,7 +1804,7 @@
             "Ozzano dell' Emilia"
         ],
         "international": true,
-        "access": "Libero con verifica delle conoscenze",
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
         "languages": [
             "Inglese"
         ],
@@ -1912,7 +1955,9 @@
         "course_name": "Advanced methods in particle physics",
         "course_code": "5810",
         "campus": [
-            "Bologna"
+            "Bologna",
+            " Dortmund",
+            " Clermont-Ferrand"
         ],
         "international": true,
         "access": "Libero con verifica dell'adeguatezza della preparazione",
@@ -1938,14 +1983,15 @@
     },
     {
         "course_name": "Analisi e gestione dell'ambiente",
-        "course_code": "8418",
+        "course_code": "5900",
         "campus": [
             "Ravenna"
         ],
-        "international": false,
+        "international": true,
         "access": "Libero con verifica dell'adeguatezza della preparazione",
         "languages": [
-            "Italiano"
+            "Italiano",
+            "Inglese"
         ],
         "site": "https://corsi.unibo.it/magistrale/AnalisiGestioneAmbiente",
         "course_codec": "AnalisiGestioneAmbiente"
@@ -2021,13 +2067,28 @@
         "course_codec": "BiologiaMarina"
     },
     {
+        "course_name": "Biology of human and environmental health",
+        "course_code": "5909",
+        "campus": [
+            "Padova",
+            " Bologna"
+        ],
+        "international": true,
+        "access": "Numero programmato - TOLC\u200b",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/1cycle/HumanEnvironmentalHealth",
+        "course_codec": "HumanEnvironmentalHealth"
+    },
+    {
         "course_name": "Chemical innovation and regulation",
         "course_code": "5701",
         "campus": [
             "Bologna"
         ],
         "international": true,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
         "languages": [
             "Inglese"
         ],
@@ -2192,6 +2253,20 @@
     },
     {
         "course_name": "Informatica",
+        "course_code": "5898",
+        "campus": [
+            "Bologna"
+        ],
+        "international": true,
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
+        "languages": [
+            "Italiano"
+        ],
+        "site": "https://corsi.unibo.it/magistrale/informatica",
+        "course_codec": "informatica"
+    },
+    {
+        "course_name": "Informatica",
         "course_code": "8009",
         "campus": [
             "Bologna"
@@ -2202,20 +2277,6 @@
             "Italiano"
         ],
         "site": "https://corsi.unibo.it/laurea/informatica",
-        "course_codec": "informatica"
-    },
-    {
-        "course_name": "Informatica",
-        "course_code": "8028",
-        "campus": [
-            "Bologna"
-        ],
-        "international": true,
-        "access": "Libero con verifica dell'adeguatezza della preparazione",
-        "languages": [
-            "Italiano"
-        ],
-        "site": "https://corsi.unibo.it/magistrale/informatica",
         "course_codec": "informatica"
     },
     {
@@ -2305,6 +2366,20 @@
         "course_codec": "matematica"
     },
     {
+        "course_name": "Metodologie chimiche per prodotti e processi",
+        "course_code": "5881",
+        "campus": [
+            "Bologna"
+        ],
+        "international": false,
+        "access": "Numero programmato - prova di selezione",
+        "languages": [
+            "Italiano"
+        ],
+        "site": "https://corsi.unibo.it/laurea/MetodologieChimicheProdottiProcessi",
+        "course_codec": "MetodologieChimicheProdottiProcessi"
+    },
+    {
         "course_name": "Photochemistry and molecular materials",
         "course_code": "9074",
         "campus": [
@@ -2346,6 +2421,20 @@
         ],
         "site": "https://corsi.unibo.it/2cycle/ScienceForConservation",
         "course_codec": "ScienceForConservation"
+    },
+    {
+        "course_name": "Science of climate",
+        "course_code": "5895",
+        "campus": [
+            "Bologna"
+        ],
+        "international": true,
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/2cycle/ClimateScience",
+        "course_codec": "ClimateScience"
     },
     {
         "course_name": "Scienze ambientali",
@@ -2425,7 +2514,7 @@
             "Bologna"
         ],
         "international": true,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato - TOLC\u200b",
         "languages": [
             "Italiano",
             "Inglese"
@@ -2458,7 +2547,7 @@
             " Bologna"
         ],
         "international": true,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
         "languages": [
             "Inglese"
         ],
@@ -2859,22 +2948,8 @@
         "course_codec": "ComunicazionePubblicaImpresa"
     },
     {
-        "course_name": "Economics, politics and social sciences",
-        "course_code": "5819",
-        "campus": [
-            "Bologna"
-        ],
-        "international": true,
-        "access": "Numero programmato - prova di selezione",
-        "languages": [
-            "Inglese"
-        ],
-        "site": "https://corsi.unibo.it/1cycle/EconomicsPoliticsSocialSciences",
-        "course_codec": "EconomicsPoliticsSocialSciences"
-    },
-    {
-        "course_name": "Interdisciplinary research and studies on eastern europe",
-        "course_code": "8049",
+        "course_name": "East european and eurasian studies",
+        "course_code": "5911",
         "campus": [
             "Forl\u00ec"
         ],
@@ -2885,6 +2960,48 @@
         ],
         "site": "https://corsi.unibo.it/2cycle/mirees",
         "course_codec": "mirees"
+    },
+    {
+        "course_name": "Economics, politics and social sciences",
+        "course_code": "5819",
+        "campus": [
+            "Bologna"
+        ],
+        "international": true,
+        "access": "Numero programmato - TOLC\u200b",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/1cycle/EconomicsPoliticsSocialSciences",
+        "course_codec": "EconomicsPoliticsSocialSciences"
+    },
+    {
+        "course_name": "European studies",
+        "course_code": "5983",
+        "campus": [
+            "Bologna"
+        ],
+        "international": true,
+        "access": "Numero programmato - prova di selezione",
+        "languages": [
+            "Inglese"
+        ],
+        "site": "https://corsi.unibo.it/1cycle/EuropeanStudies",
+        "course_codec": "EuropeanStudies"
+    },
+    {
+        "course_name": "Governance e politiche dell'innovazione digitale",
+        "course_code": "5889",
+        "campus": [
+            "Bologna"
+        ],
+        "international": false,
+        "access": "Numero programmato - prova di selezione",
+        "languages": [
+            "Italiano"
+        ],
+        "site": "https://corsi.unibo.it/magistrale/PoliticheInnovazioneDigitale",
+        "course_codec": "PoliticheInnovazioneDigitale"
     },
     {
         "course_name": "International cooperation on human rights and intercultural heritage",
@@ -2925,22 +3042,8 @@
         "languages": [
             "Inglese"
         ],
-        "site": "https://corsi.unibo.it/magistrale/InternationalRelations",
+        "site": "https://corsi.unibo.it/2cycle/InternationalRelations",
         "course_codec": "InternationalRelations"
-    },
-    {
-        "course_name": "Mass media e politica",
-        "course_code": "8051",
-        "campus": [
-            "Forl\u00ec"
-        ],
-        "international": false,
-        "access": "Numero programmato - prova di selezione",
-        "languages": [
-            "Italiano"
-        ],
-        "site": "https://corsi.unibo.it/magistrale/MassMediaPolitica",
-        "course_codec": "MassMediaPolitica"
     },
     {
         "course_name": "Politica, amministrazione e organizzazione",
@@ -3016,7 +3119,7 @@
     },
     {
         "course_name": "Sviluppo locale e globale",
-        "course_code": "9200",
+        "course_code": "5912",
         "campus": [
             "Bologna"
         ],
@@ -3029,18 +3132,18 @@
         "course_codec": "SviluppoLocaleGlobale"
     },
     {
-        "course_name": "Finanza, assicurazioni e impresa",
-        "course_code": "8872",
+        "course_name": "Greening energy market and finance",
+        "course_code": "5885",
         "campus": [
-            "Rimini"
+            "Bologna"
         ],
-        "international": false,
-        "access": "Numero programmato - TOLC\u200b",
+        "international": true,
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
         "languages": [
-            "Italiano"
+            "Inglese"
         ],
-        "site": "https://corsi.unibo.it/laurea/FinanzaAssicurazioniImpresa",
-        "course_codec": "FinanzaAssicurazioniImpresa"
+        "site": "https://corsi.unibo.it/2cycle/GreeningEnergyMarketFinance",
+        "course_codec": "GreeningEnergyMarketFinance"
     },
     {
         "course_name": "Quantitative finance",
@@ -3063,7 +3166,7 @@
             "Bologna"
         ],
         "international": true,
-        "access": "Numero programmato - prova di selezione",
+        "access": "Numero programmato - TOLC\u200b",
         "languages": [
             "Italiano",
             "Inglese"
@@ -3099,6 +3202,20 @@
         ],
         "site": "https://corsi.unibo.it/magistrale/StatisticaEconomiaImpresa",
         "course_codec": "StatisticaEconomiaImpresa"
+    },
+    {
+        "course_name": "Statistica, finanza e assicurazioni",
+        "course_code": "5901",
+        "campus": [
+            "Rimini"
+        ],
+        "international": false,
+        "access": "Numero programmato - TOLC\u200b",
+        "languages": [
+            "Italiano"
+        ],
+        "site": "https://corsi.unibo.it/laurea/StatisticaFinanzaAssicurazioni",
+        "course_codec": "StatisticaFinanzaAssicurazioni"
     },
     {
         "course_name": "Statistical sciences",
@@ -3273,7 +3390,7 @@
     },
     {
         "course_name": "Cinema, televisione e produzione multimediale",
-        "course_code": "0966",
+        "course_code": "5899",
         "campus": [
             "Bologna"
         ],
@@ -3469,19 +3586,18 @@
         "course_codec": "lettere"
     },
     {
-        "course_name": "Progettazione e gestione dei sistemi produttivi audiovisivi e performativi",
-        "course_code": "5710",
+        "course_name": "Religioni Storie Culture",
+        "course_code": "5890",
         "campus": [
-            "Lecce",
-            " Bologna"
+            "Bologna"
         ],
         "international": false,
         "access": "Libero con verifica dell'adeguatezza della preparazione",
         "languages": [
             "Italiano"
         ],
-        "site": "https://corsi.unibo.it/magistrale/SistemiProduttiviAudiovisiviPerformativi",
-        "course_codec": "SistemiProduttiviAudiovisiviPerformativi"
+        "site": "https://corsi.unibo.it/magistrale/ReligioniStorieCulture",
+        "course_codec": "ReligioniStorieCulture"
     },
     {
         "course_name": "Scienze del libro e del documento",
@@ -3510,6 +3626,21 @@
         ],
         "site": "https://corsi.unibo.it/laurea/ScienzeComunicazione",
         "course_codec": "ScienzeComunicazione"
+    },
+    {
+        "course_name": "Scienze dello spettacolo e della produzione audiovisiva",
+        "course_code": "5710",
+        "campus": [
+            "Lecce",
+            " Bologna"
+        ],
+        "international": false,
+        "access": "Libero con verifica dell'adeguatezza della preparazione",
+        "languages": [
+            "Italiano"
+        ],
+        "site": "https://corsi.unibo.it/magistrale/SistemiProduttiviAudiovisiviPerformativi",
+        "course_codec": "SistemiProduttiviAudiovisiviPerformativi"
     },
     {
         "course_name": "Scienze filosofiche",

@@ -29,10 +29,6 @@
         {
             "value": "755-000",
             "label": "CURRICULUM DIREZIONE AZIENDALE"
-        },
-        {
-            "value": "756-000",
-            "label": "CURRICULUM INTERNATIONAL MANAGEMENT"
         }
     ],
     "8871": [
@@ -53,12 +49,16 @@
     ],
     "8848": [
         {
+            "value": "B69-000",
+            "label": "CURRICULUM PERCORSO MANAGERIALE"
+        },
+        {
             "value": "B68-000",
             "label": "CURRICULUM PERCORSO PROFESSIONALE"
         },
         {
-            "value": "B69-000",
-            "label": "PERCORSO MANAGERIALE"
+            "value": "C32-000",
+            "label": "FINANCIAL AND BUSINESS MANAGEMENT"
         }
     ],
     "0905": [
@@ -81,14 +81,14 @@
             "label": "CURRICULUM MANAGEMENT"
         }
     ],
-    "9221": [
+    "5913": [
         {
             "value": "000-000",
-            "label": "9221 - Percorso generico"
+            "label": "5913 - Percorso generico"
         },
         {
-            "value": "B08-000",
-            "label": "CURRICULUM LAW AND ECONOMICS OF INSURANCE AND FINANCE"
+            "value": "C44-000",
+            "label": "LAW AND ECONOMICS OF INTERNATIONAL FINANCE"
         }
     ],
     "9203": [
@@ -151,10 +151,10 @@
             "label": "0901 - Percorso generico"
         }
     ],
-    "8880": [
+    "5902": [
         {
             "value": "000-000",
-            "label": "8880 - Percorso generico"
+            "label": "5902 - Percorso generico"
         }
     ],
     "0902": [
@@ -163,10 +163,28 @@
             "label": "0902 - Percorso generico"
         }
     ],
+    "5891": [
+        {
+            "value": "000-000",
+            "label": "5891 - Percorso generico"
+        }
+    ],
     "5702": [
         {
             "value": "000-000",
             "label": "5702 - Percorso generico"
+        }
+    ],
+    "5811": [
+        {
+            "value": "000-000",
+            "label": "5811 - Percorso generico"
+        }
+    ],
+    "5892": [
+        {
+            "value": "000-000",
+            "label": "5892 - Percorso generico"
         }
     ],
     "8843": [
@@ -191,10 +209,10 @@
             "label": "8839 - Percorso generico"
         }
     ],
-    "8609": [
+    "5910": [
         {
             "value": "000-000",
-            "label": "8609 - Percorso generico"
+            "label": "5910 - Percorso generico"
         }
     ],
     "8020": [
@@ -210,10 +228,6 @@
         }
     ],
     "9212": [
-        {
-            "value": "000-000",
-            "label": "9212 - Percorso generico"
-        },
         {
             "value": "B72-000",
             "label": "CURRICULUM BIOSANITARIO-FORENSE"
@@ -281,6 +295,20 @@
         {
             "value": "000-000",
             "label": "9230 - Percorso generico"
+        },
+        {
+            "value": "C14-000",
+            "label": "CURRICULUM \nSCIENZE GIURIDICHE DEL LAVORO E DELLE RELAZIONI AZIENDALI\n"
+        },
+        {
+            "value": "C15-000",
+            "label": "CURRICULUM OPERATORE GIURIDICO PER LA SICUREZZA E PROTEZIONE DEI DATI IN AZIENDA"
+        }
+    ],
+    "5903": [
+        {
+            "value": "000-000",
+            "label": "5903 - Percorso generico"
         }
     ],
     "9232": [
@@ -289,28 +317,22 @@
             "label": "9232 - Percorso generico"
         }
     ],
-    "9233": [
-        {
-            "value": "000-000",
-            "label": "9233 - Percorso generico"
-        }
-    ],
     "9242": [
         {
             "value": "B16-000",
-            "label": "AMMINISTRAZIONE E GOVERNO DEL TERRITORIO"
+            "label": "CURRICULUM AMMINISTRAZIONE E GOVERNO DEL TERRITORIO"
         },
         {
             "value": "B09-000",
             "label": "CURRICULUM CONTRATTI E IMPRESA"
         },
         {
-            "value": "B17-000",
-            "label": "CURRICULUM TRASPORTI, LOGISTICA E SISTEMI PORTUALI"
+            "value": "B18-000",
+            "label": "CURRICULUM FOOD, SPORT E WELLNESS"
         },
         {
-            "value": "B18-000",
-            "label": "FOOD, SPORT E WELLNESS"
+            "value": "B17-000",
+            "label": "CURRICULUM TRASPORTI, LOGISTICA E SISTEMI PORTUALI"
         }
     ],
     "9062": [
@@ -319,20 +341,14 @@
             "label": "9062 - Percorso generico"
         }
     ],
-    "9238": [
-        {
-            "value": "000-000",
-            "label": "9238 - Percorso generico"
-        }
-    ],
     "9239": [
-        {
-            "value": "B01-000",
-            "label": "ADVANCED POWERTRAIN"
-        },
         {
             "value": "B02-000",
             "label": "CURRICULUM ADVANCED MOTORCYCLE ENGINEERING"
+        },
+        {
+            "value": "B01-000",
+            "label": "CURRICULUM ADVANCED POWERTRAIN"
         },
         {
             "value": "B03-000",
@@ -392,22 +408,24 @@
     "9266": [
         {
             "value": "B89-000",
-            "label": "BIOENGINEERING OF HUMAN MOVEMENT"
+            "label": "CURRICULUM BIOENGINEERING OF HUMAN MOVEMENT"
         },
         {
             "value": "B87-000",
-            "label": "BIOMEDICAL ENGINEERING FOR NEUROSCIENCE"
+            "label": "CURRICULUM BIOMEDICAL ENGINEERING FOR NEUROSCIENCE"
         },
         {
             "value": "B88-000",
             "label": "CURRICULUM INNOVATIVE TECHNOLOGIES IN DIAGNOSTICS AND THERAPY"
         }
     ],
-    "8895": [
+    "5897": [
         {
-            "value": "B66-000",
-            "label": "CLIMATE CHANGE ADAPTATION"
-        },
+            "value": "000-000",
+            "label": "5897 - Percorso generico"
+        }
+    ],
+    "8895": [
         {
             "value": "C04-000",
             "label": "CURRICULUM HARBOUR ENGINEERING"
@@ -422,7 +440,7 @@
         },
         {
             "value": "I01-000",
-            "label": "SUSTAINABLE MOBILITY IN URBAN AREAS"
+            "label": "CURRICULUM SUSTAINABLE MOBILITY IN URBAN AREAS"
         }
     ],
     "8182": [
@@ -435,6 +453,16 @@
         {
             "value": "000-000",
             "label": "5699 - Percorso generico"
+        }
+    ],
+    "5917": [
+        {
+            "value": "C52-000",
+            "label": "AUTONOMOUS DRIVING ENGINEERING"
+        },
+        {
+            "value": "C51-000",
+            "label": "ELECTRONIC AND COMMUNICATION SYSTEMS"
         }
     ],
     "9234": [
@@ -505,8 +533,12 @@
     ],
     "9217": [
         {
+            "value": "C50-000",
+            "label": "CURRICULUM AUTOMATION ENGINEERING"
+        },
+        {
             "value": "740-000",
-            "label": "AUTOMATION ENGINEERING"
+            "label": "CURRICULUM AUTOMATION ENGINEERING"
         },
         {
             "value": "739-000",
@@ -545,12 +577,6 @@
             "label": "8615 - Percorso generico"
         }
     ],
-    "9199": [
-        {
-            "value": "000-000",
-            "label": "9199 - Percorso generico"
-        }
-    ],
     "5697": [
         {
             "value": "B78-000",
@@ -587,10 +613,6 @@
         {
             "value": "000-000",
             "label": "8770 - Percorso generico"
-        },
-        {
-            "value": "A97-000",
-            "label": "CURRICULUM INFORMATION AND COMMUNICATION TECHNOLOGY FOR CLIMATE"
         }
     ],
     "0924": [
@@ -600,13 +622,25 @@
         },
         {
             "value": "B13-000",
-            "label": "FONTI ENERGETICHE TRADIZIONALI E RINNOVABILI"
+            "label": "CURRICULUM FONTI ENERGETICHE TRADIZIONALI E RINNOVABILI"
         }
     ],
     "0935": [
         {
             "value": "000-000",
             "label": "0935 - Percorso generico"
+        },
+        {
+            "value": "C48-000",
+            "label": "ADVANCED METHODS AND TECHNOLOGIES FOR ENERGY"
+        },
+        {
+            "value": "C46-000",
+            "label": "EFFICIENZA ENERGETICA E FONTI RINNOVABILI"
+        },
+        {
+            "value": "C47-000",
+            "label": "ENERGETICA INDUSTRIALE"
         }
     ],
     "0925": [
@@ -655,20 +689,20 @@
             "label": "CURRICULUM IMPIANTI INDUSTRIALI"
         },
         {
+            "value": "912-000",
+            "label": "CURRICULUM MACCHINE A FLUIDO"
+        },
+        {
+            "value": "B82-000",
+            "label": "CURRICULUM MECCANICA DELL\u2019AUTOMAZIONE E ROBOTICA"
+        },
+        {
             "value": "B83-000",
             "label": "CURRICULUM MOTOVEICOLO"
         },
         {
             "value": "914-000",
             "label": "CURRICULUM PROGETTAZIONE MECCANICA E MODELLAZIONE"
-        },
-        {
-            "value": "912-000",
-            "label": "MACCHINE A FLUIDO"
-        },
-        {
-            "value": "B82-000",
-            "label": "MECCANICA DELL\u2019AUTOMAZIONE E ROBOTICA"
         }
     ],
     "8771": [
@@ -678,10 +712,6 @@
         }
     ],
     "8894": [
-        {
-            "value": "B66-000",
-            "label": "CLIMATE CHANGE ADAPTATION"
-        },
         {
             "value": "976-000",
             "label": "CURRICULUM EARTH RESOURCES ENGINEERING"
@@ -705,9 +735,17 @@
         {
             "value": "C28-000",
             "label": "CENTRO DIDATTICO IMOLA"
+        },
+        {
+            "value": "C57-000",
+            "label": "CENTRO DIDATTICO LUGO"
         }
     ],
     "9249": [
+        {
+            "value": "B30-000",
+            "label": "CURRICULUM ENVIRONMENTAL OFFSHORE ENGINEERING"
+        },
         {
             "value": "B29-000",
             "label": "CURRICULUM OFFSHORE ENERGY TECHNOLOGIES"
@@ -715,10 +753,6 @@
         {
             "value": "B31-000",
             "label": "CURRICULUM OFFSHORE STRUCTURES"
-        },
-        {
-            "value": "B30-000",
-            "label": "ENVIRONMENTAL OFFSHORE ENGINEERING"
         }
     ],
     "5817": [
@@ -729,8 +763,12 @@
     ],
     "5816": [
         {
-            "value": "000-000",
-            "label": "5816 - Percorso generico"
+            "value": "C54-000",
+            "label": "CENTRO DIDATTICO CESENA"
+        },
+        {
+            "value": "C28-000",
+            "label": "CENTRO DIDATTICO IMOLA"
         }
     ],
     "9205": [
@@ -753,12 +791,12 @@
     ],
     "0981": [
         {
-            "value": "000-000",
-            "label": "0981 - Percorso generico"
-        },
-        {
             "value": "946-000",
             "label": "CURRICULUM LETTERATURE MODERNE, COMPARATE E POSTCOLONIALI"
+        },
+        {
+            "value": "C49-000",
+            "label": "CURRICULUM WOMEN'S AND GENDER STUDIES - STUDI DI GENERE E DELLE DONNE (GEMMA)"
         },
         {
             "value": "736-000",
@@ -790,10 +828,6 @@
         }
     ],
     "9174": [
-        {
-            "value": "000-000",
-            "label": "9174 - Percorso generico"
-        },
         {
             "value": "C08-000",
             "label": "CURRICULUM SPECIALIZED TRANSLATION"
@@ -827,16 +861,16 @@
             "label": "8481 - Percorso generico"
         }
     ],
-    "8473": [
+    "5907": [
         {
             "value": "000-000",
-            "label": "8473 - Percorso generico"
+            "label": "5907 - Percorso generico"
         }
     ],
-    "8474": [
+    "5908": [
         {
             "value": "000-000",
-            "label": "8474 - Percorso generico"
+            "label": "5908 - Percorso generico"
         }
     ],
     "8475": [
@@ -857,22 +891,22 @@
             "label": "9081 - Percorso generico"
         }
     ],
-    "5708": [
+    "5904": [
         {
             "value": "000-000",
-            "label": "5708 - Percorso generico"
+            "label": "5904 - Percorso generico"
         }
     ],
-    "5709": [
+    "5905": [
         {
             "value": "000-000",
-            "label": "5709 - Percorso generico"
+            "label": "5905 - Percorso generico"
         }
     ],
-    "8415": [
+    "5906": [
         {
             "value": "000-000",
-            "label": "8415 - Percorso generico"
+            "label": "5906 - Percorso generico"
         }
     ],
     "9210": [
@@ -935,10 +969,10 @@
             "label": "9079 - Percorso generico"
         }
     ],
-    "8483": [
+    "5915": [
         {
             "value": "000-000",
-            "label": "8483 - Percorso generico"
+            "label": "5915 - Percorso generico"
         }
     ],
     "8834": [
@@ -1023,16 +1057,26 @@
             "label": "9225 - Percorso generico"
         }
     ],
+    "5810": [
+        {
+            "value": "000-000",
+            "label": "5810 - Percorso generico"
+        }
+    ],
     "5706": [
         {
             "value": "000-000",
             "label": "5706 - Percorso generico"
         }
     ],
-    "8418": [
+    "5900": [
         {
             "value": "000-000",
-            "label": "8418 - Percorso generico"
+            "label": "5900 - Percorso generico"
+        },
+        {
+            "value": "968-000",
+            "label": "CURRICULUM: WATER AND COASTAL MANAGEMENT"
         }
     ],
     "8004": [
@@ -1111,16 +1155,16 @@
             "label": "CURRICULUM COMUNICAZIONE DELLE SCIENZE NEI MUSEI"
         },
         {
-            "value": "B95-000",
-            "label": "CURRICULUM DIDATTICA E SVILUPPO SOSTENIBILE"
-        },
-        {
             "value": "B96-000",
-            "label": "DIDATTICA DELLA COMUNICAZIONE SCIENTIFICA"
+            "label": "CURRICULUM DIDATTICA DELLA COMUNICAZIONE SCIENTIFICA"
         },
         {
             "value": "B93-000",
-            "label": "DIDATTICA DELLE SCIENZE DELLA NATURA"
+            "label": "CURRICULUM DIDATTICA DELLE SCIENZE DELLA NATURA"
+        },
+        {
+            "value": "B95-000",
+            "label": "CURRICULUM DIDATTICA E SVILUPPO SOSTENIBILE"
         }
     ],
     "9244": [
@@ -1149,13 +1193,7 @@
             "label": "CURRICULUM C: RAW MATERIALS EXPLORATION AND SUSTAINABILITY"
         }
     ],
-    "8009": [
-        {
-            "value": "000-000",
-            "label": "8009 - Percorso generico"
-        }
-    ],
-    "8028": [
+    "5898": [
         {
             "value": "A58-000",
             "label": "CURRICULUM A: TECNICHE DEL SOFTWARE"
@@ -1167,6 +1205,12 @@
         {
             "value": "992-000",
             "label": "CURRICULUM C: SISTEMI E RETI"
+        }
+    ],
+    "8009": [
+        {
+            "value": "000-000",
+            "label": "8009 - Percorso generico"
         }
     ],
     "8014": [
@@ -1205,16 +1249,30 @@
             "label": "8010 - Percorso generico"
         }
     ],
+    "5881": [
+        {
+            "value": "000-000",
+            "label": "5881 - Percorso generico"
+        }
+    ],
     "9074": [
         {
             "value": "000-000",
             "label": "9074 - Percorso generico"
+        },
+        {
+            "value": "C35-000",
+            "label": "CURRICULUM ENERGY"
+        },
+        {
+            "value": "C36-000",
+            "label": "CURRICULUM HEALTH"
         }
     ],
     "9245": [
         {
             "value": "B25-000",
-            "label": "APPLIED PHYSICS"
+            "label": "CURRICULUM APPLIED PHYSICS"
         },
         {
             "value": "B26-000",
@@ -1237,6 +1295,12 @@
         {
             "value": "000-000",
             "label": "8537 - Percorso generico"
+        }
+    ],
+    "5895": [
+        {
+            "value": "000-000",
+            "label": "5895 - Percorso generico"
         }
     ],
     "8011": [
@@ -1275,6 +1339,10 @@
     ],
     "8873": [
         {
+            "value": "000-000",
+            "label": "8873 - Percorso generico"
+        },
+        {
             "value": "722-000",
             "label": "CURRICULUM BIO-DEMOGRAFICO"
         },
@@ -1308,7 +1376,7 @@
     "5705": [
         {
             "value": "B91-000",
-            "label": "ANIMAL PRODUCTION"
+            "label": "CURRICULUM ANIMAL PRODUCTION"
         },
         {
             "value": "B90-000",
@@ -1323,12 +1391,8 @@
     ],
     "8532": [
         {
-            "value": "000-000",
-            "label": "8532 - Percorso generico"
-        },
-        {
             "value": "944-000",
-            "label": "ANALISI E MONITORAGGIO DEGLI ECOSISTEMI"
+            "label": "CURRICULUM ANALISI E MONITORAGGIO DEGLI ECOSISTEMI"
         },
         {
             "value": "945-000",
@@ -1348,11 +1412,11 @@
         },
         {
             "value": "A37-000",
-            "label": "PRODUZIONI E BIOTECNOLOGIE VEGETALI"
+            "label": "CURRICULUM PRODUZIONI E BIOTECNOLOGIE VEGETALI"
         },
         {
             "value": "A38-000",
-            "label": "TECNICO-ECONOMICO E GESTIONALE"
+            "label": "CURRICULUM TECNICO-ECONOMICO E GESTIONALE"
         }
     ],
     "8531": [
@@ -1499,20 +1563,32 @@
             "label": "CURRICULUM GIORNALISMO E MEDIA DIGITALI"
         }
     ],
-    "8049": [
+    "5911": [
         {
             "value": "000-000",
-            "label": "8049 - Percorso generico"
+            "label": "5911 - Percorso generico"
+        }
+    ],
+    "5983": [
+        {
+            "value": "000-000",
+            "label": "5983 - Percorso generico"
+        }
+    ],
+    "5889": [
+        {
+            "value": "000-000",
+            "label": "5889 - Percorso generico"
         }
     ],
     "9237": [
         {
-            "value": "A94-000",
-            "label": "CURRICULUM PROTECTION OF HUMAN RIGHTS AND INTERNATIONAL COOPERATION"
+            "value": "A95-000",
+            "label": "CURRICULUM INTERNATIONAL COOPERATION ON INTERCULTURAL HERITAGE"
         },
         {
-            "value": "A95-000",
-            "label": "INTERNATIONAL COOPERATION ON INTERCULTURAL HERITAGE"
+            "value": "A94-000",
+            "label": "CURRICULUM PROTECTION OF HUMAN RIGHTS AND INTERNATIONAL COOPERATION"
         }
     ],
     "9084": [
@@ -1533,13 +1609,15 @@
             "label": "CURRICULUM INTERNATIONAL AFFAIRS"
         }
     ],
-    "8051": [
-        {
-            "value": "000-000",
-            "label": "8051 - Percorso generico"
-        }
-    ],
     "9085": [
+        {
+            "value": "C55-000",
+            "label": "CURRICULUM AMMINISTRAZIONE E POLITICHE PUBBLICHE"
+        },
+        {
+            "value": "C56-000",
+            "label": "CURRICULUM ORGANIZZAZIONE E RISORSE UMANE"
+        },
         {
             "value": "B44-000",
             "label": "CURRICULUM POLITICS AND SOCIAL POLICY"
@@ -1554,6 +1632,10 @@
         }
     ],
     "8048": [
+        {
+            "value": "000-000",
+            "label": "8048 - Percorso generico"
+        },
         {
             "value": "B11-000",
             "label": "CURRICULUM DIPLOMATIC AND INTERNATIONAL SCIENCES"
@@ -1584,19 +1666,19 @@
         },
         {
             "value": "952-000",
-            "label": "PERCORSO INTEGRATO UNIVERSIT\u00c0 E IMPRESA"
+            "label": "CURRICULUM PERCORSO INTEGRATO UNIVERSIT\u00c0 E IMPRESA"
         },
         {
             "value": "950-000",
-            "label": "RELAZIONI INTERNAZIONALI"
+            "label": "CURRICULUM RELAZIONI INTERNAZIONALI"
         },
         {
             "value": "949-000",
-            "label": "SCIENZE DELL\u2019ORGANIZZAZIONE"
+            "label": "CURRICULUM SCIENZE DELL\u2019ORGANIZZAZIONE"
         },
         {
             "value": "951-000",
-            "label": "SOCIOLOGIA"
+            "label": "CURRICULUM SOCIOLOGIA"
         }
     ],
     "8890": [
@@ -1605,16 +1687,32 @@
             "label": "8890 - Percorso generico"
         }
     ],
-    "9200": [
+    "5912": [
         {
-            "value": "000-000",
-            "label": "9200 - Percorso generico"
+            "value": "C42-000",
+            "label": "SVILUPPO GLOBALE E COOPERAZIONE INTERNAZIONALE"
+        },
+        {
+            "value": "C43-000",
+            "label": "SVILUPPO LOCALE E POLITICHE DI WELFARE"
         }
     ],
-    "8872": [
+    "5885": [
         {
             "value": "000-000",
-            "label": "8872 - Percorso generico"
+            "label": "5885 - Percorso generico"
+        },
+        {
+            "value": "C41-000",
+            "label": "CLIMATE&BUSINESS SCIENCE"
+        },
+        {
+            "value": "C40-000",
+            "label": "ENVIRONMENTAL FINANCE"
+        },
+        {
+            "value": "C39-000",
+            "label": "RENEWABLE TECHNOLOGIES\n\n"
         }
     ],
     "8854": [
@@ -1643,6 +1741,12 @@
             "label": "CURRICULUM METODI QUANTITATIVI PER LE DECISIONI ECONOMICHE"
         }
     ],
+    "5901": [
+        {
+            "value": "000-000",
+            "label": "5901 - Percorso generico"
+        }
+    ],
     "9222": [
         {
             "value": "A91-000",
@@ -1655,6 +1759,10 @@
         {
             "value": "A93-000",
             "label": "CURRICULUM OFFICIAL STATISTICS"
+        },
+        {
+            "value": "C58-000",
+            "label": "HEALTH AND POPULATION ANALYTICS"
         }
     ],
     "8491": [
@@ -1733,10 +1841,10 @@
             "label": "9076 - Percorso generico"
         }
     ],
-    "0966": [
+    "5899": [
         {
             "value": "000-000",
-            "label": "0966 - Percorso generico"
+            "label": "5899 - Percorso generico"
         }
     ],
     "8616": [
@@ -1822,7 +1930,7 @@
     "9220": [
         {
             "value": "A88-000",
-            "label": "CULTURE LETTERARIE EUROPEE"
+            "label": "CURRICULUM CULTURE LETTERARIE EUROPEE"
         },
         {
             "value": "A89-000",
@@ -1851,7 +1959,12 @@
             "label": "CURRICULUM MODERNO"
         }
     ],
-    "5710": [],
+    "5890": [
+        {
+            "value": "000-000",
+            "label": "5890 - Percorso generico"
+        }
+    ],
     "9077": [
         {
             "value": "000-000",
@@ -1864,6 +1977,7 @@
             "label": "8885 - Percorso generico"
         }
     ],
+    "5710": [],
     "8773": [
         {
             "value": "000-000",
@@ -1892,16 +2006,16 @@
     ],
     "5696": [
         {
+            "value": "B85-000",
+            "label": "CURRICULUM POLITICA, DIRITTI, RISORSE"
+        },
+        {
             "value": "B86-000",
             "label": "CURRICULUM SICUREZZA, LINGUAGGI, ISTITUZIONI"
         },
         {
             "value": "B84-000",
             "label": "CURRICULUM STORIA, RELIGIONI, AMBIENTE"
-        },
-        {
-            "value": "B85-000",
-            "label": "POLITICA, DIRITTI, RISORSE"
         }
     ],
     "0962": [
