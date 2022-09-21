@@ -3,6 +3,7 @@ import json
 from tqdm import tqdm
 from pprint import pprint
 from threading import Thread
+import sys
 
 import re
 from datetime import datetime
@@ -218,9 +219,15 @@ def scrape_teachings(courses: dict):
 teachings_final = []
 
 if __name__ == "__main__":
-    courses = scrape_courses()
+    if len(sys.argv) == 2 and sys.argv[1] == 'lazy':
+        with open('./resources/curriculas.json', 'r') as f:
+            curriculas = json.load(f)
+        with open('./resources/courses.json', 'r') as f:
+            courses = json.load(f)
+    else:
+        courses = scrape_courses()
 
-    curriculas = scrape_curriculas(courses)
+        curriculas = scrape_curriculas(courses)
 
     final = []
     logging.info('JOINING COURSES AND CURRICULAS')
@@ -234,4 +241,7 @@ if __name__ == "__main__":
         final.append(temp)
         logging.error(f'success on {course["course_code"]}')
 
-    teachings = scrape_teachings(final)
+        with open('./resources/courses_curriculas.json', 'w+') as f:
+            json.dump(final, f, indent=4)
+    if not (len(sys.argv) == 2 and sys.argv[1] == 'lazy'):
+        teachings = scrape_teachings(final)

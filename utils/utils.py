@@ -67,7 +67,8 @@ class Utils():
     @staticmethod
     def string_contains(string, params):
         check = True
-        for i in params:
+        params_lower = [i.lower() for i in params]
+        for i in params_lower:
             if not (i in string.lower()):
                 check = False
         return check
