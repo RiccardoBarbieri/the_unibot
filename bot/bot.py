@@ -7,11 +7,11 @@ from utils import Utils
 from utils import MessageCreator
 from database import Database
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Update
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Update, Bot
 from telegram.error import BadRequest
 from telegram.constants import ParseMode
-from telegram.ext import CommandHandler, MessageHandler, Updater, CallbackContext, JobQueue, Job
-from telegram.ext.filters import BaseFilter
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Updater, CallbackContext, JobQueue, Job
+from telegram.ext import filters
 
 import logging
 import json
@@ -28,7 +28,7 @@ SECONDS_IN_A_DAY = 86400
 SECONDS_TEST = 20
 
 
-class Bot():
+class the_unibot():
 
     # every time a message is sent this variable must be set to the message text (NOT OBJECT)
     last_mess: str = None
@@ -43,21 +43,27 @@ class Bot():
 
     jobs: Dict[str, Job]
 
+    # bot instance
+    bot: Bot
+    update_queue: None
+    # updater instance
+    updater: Updater
+
     def __init__(self, token, which_bot):
 
         self.which_bot = which_bot
 
         self.jobs: Dict[str, Job] = {}
 
-        self.updater = Updater()
-        dispatcher = self.updater.dispatcher
+        self.bot = Bot(token=token)
+        self.updater = Updater(bot=self.bot, update_queue=None)
+        
+        dispatcher = ApplicationBuilder().token(token).build()
 
         logging.basicConfig(
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
         self.db = Database(Path('./database/telegram.db'))
-
-        self.job_queue = self.updater.job_queue
 
         for i in self.db.query_all('data'):
             scheduled_time_str = Utils.idiot_time(i['autosend_time'])
@@ -71,7 +77,7 @@ class Bot():
 
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
-            BaseFilter.text & (~BaseFilter.command), self.misc)
+            filters.TEXT & (~filters.COMMAND), self.misc)
         help_handler = CommandHandler('help', self.help)
         set_corso_handler = CommandHandler('set_corso', self.set_corso)
         set_curricula_handler = CommandHandler(
@@ -100,8 +106,8 @@ class Bot():
         dispatcher.add_handler(offrimi_un_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
 
-        self.updater.start_polling()
-        self.updater.idle()
+        # self.updater.start_polling()
+        # self.updater.idle()
 
     def start(self, update: Update, context: CallbackContext):
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
@@ -697,4 +703,4 @@ if __name__ == '__main__':
             which_bot = 'the_unibot'
     
 
-    bot = Bot(token, which_bot)
+    bot = the_unibot(token, which_bot)
