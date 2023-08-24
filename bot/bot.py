@@ -1,28 +1,27 @@
 import sys
-from the_unibot.api.unibo import UniboAPI
-from the_unibot.api import WikipediaAPI
-from the_unibot.api import WeatherAPI
-from the_unibot.utils import Utils
-from the_unibot.utils import MessageCreator
-from the_unibot.database import Database
+sys.path.append('.')
+from api.unibo import UniboAPI
+from api import WikipediaAPI
+from api import WeatherAPI
+from utils import Utils
+from utils import MessageCreator
+from database import Database
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Update
 from telegram.error import BadRequest
-from telegram.update import Update
-from telegram.parsemode import ParseMode
-from telegram.ext import CommandHandler, MessageHandler, Filters, Updater, CallbackContext, JobQueue
-from telegram.ext.jobqueue import Job
+from telegram.constants import ParseMode
+from telegram.ext import CommandHandler, MessageHandler, Updater, CallbackContext, JobQueue, Job
+from telegram.ext.filters import BaseFilter
 
 import logging
 import json
 from pathlib import Path
 from math import ceil
 import re
-from pprint import pprint
 from datetime import datetime, timedelta
 from typing import Dict
 
-import pathlib
+# note: to run this "python3 bot/bot.py test"
 
 SECONDS_IN_A_DAY = 86400
 
@@ -50,7 +49,7 @@ class Bot():
 
         self.jobs: Dict[str, Job] = {}
 
-        self.updater = Updater(token=token, use_context=True)
+        self.updater = Updater()
         dispatcher = self.updater.dispatcher
 
         logging.basicConfig(
@@ -72,7 +71,7 @@ class Bot():
 
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
-            Filters.text & (~Filters.command), self.misc)
+            BaseFilter.text & (~BaseFilter.command), self.misc)
         help_handler = CommandHandler('help', self.help)
         set_corso_handler = CommandHandler('set_corso', self.set_corso)
         set_curricula_handler = CommandHandler(
