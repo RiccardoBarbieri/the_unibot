@@ -2,7 +2,9 @@ import sqlite3
 import json
 from pathlib import Path
 
-from the_unibot.utils import Utils
+import sys
+sys.path.append('.')
+from utils import Utils
 
 class Database():
 
