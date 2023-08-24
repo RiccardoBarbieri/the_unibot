@@ -21,6 +21,8 @@ import re
 from datetime import datetime, timedelta
 from typing import Dict
 
+import asyncio
+
 # note: to run this "python3 bot/bot.py test"
 
 SECONDS_IN_A_DAY = 86400
@@ -106,7 +108,7 @@ class the_unibot():
         dispatcher.add_handler(offrimi_un_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
 
-        # self.updater.start_polling()
+        dispatcher.run_polling()
         # self.updater.idle()
 
     def start(self, update: Update, context: CallbackContext):
