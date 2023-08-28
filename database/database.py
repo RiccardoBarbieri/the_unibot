@@ -6,6 +6,76 @@ import sys
 sys.path.append('.')
 from utils import Utils
 
+'''
+This class is used to manage the database.
+It is possible to insert, update, query and delete data.
+The database is composed of 4 tables:
+    - data: contains the data of the users
+    - courses: contains the data of the courses
+    - curriculas: contains the data of the curriculas
+    - last_command: contains the last command sent by the user
+
+The data table has the following columns:
+    - chat_id: the id of the chat
+    - user_id: the id of the user
+    - course: the course of the user
+    - year: the year of the user
+    - detail: the detail of the user
+    - curricula: the curricula of the user
+    - autosend_time: the time of the autosend
+    - autosend: the autosend status
+
+The courses table has the following columns:
+    - course_name: the name of the course
+    - course_code: the code of the course
+    - campus: the campus of the course
+    - international: the international status of the course
+    - access: the access of the course
+    - site: the site of the course
+    - course_codec: the codec of the course
+
+The curriculas table has the following columns:
+    - course_code: the code of the course
+    - label: the label of the curricula
+    - code: the code of the curricula
+    
+The last_command table has the following columns:
+    - text: the text of the last command
+    - chat_id: the id of the chat
+    - user_id: the id of the user
+
+Attributes
+----------
+path : str
+    the path of the database
+ip : str
+    the ip of the database
+
+Methods
+-------
+create_table()
+    creates the tables if they don't exist
+insert(table: str, **kwargs)
+    inserts data into the table
+update(table: str, **kwargs)
+    updates data in the table
+query(table: str, **kwargs) -> dict
+    queries data from the table
+query_all(table: str) -> dict
+    queries all the data from the table
+query_join(table1: str, table2: str, val_conds: dict, *args, **kwargs) -> dict
+    queries data from the table using a join
+custom_query(query: str = '', data: tuple = None) -> list
+    queries data from the table using a custom query
+query_by_ids(chat_id: int) -> list
+    queries data from the table using the chat_id
+delete_all(table: str)
+    deletes all the data from the table
+backup(table: str)
+    creates a backup of the table
+restore_backup(table: str)
+    restores the backup of the table
+'''
 class Database():
 
     path = None
