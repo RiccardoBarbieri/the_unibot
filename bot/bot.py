@@ -65,6 +65,8 @@ class the_unibot():
 
         self.db = Database(Path('./database/telegram.db'))
 
+        self.job_queue = dispatcher.job_queue
+
         for i in self.db.query_all('data'):
             scheduled_time_str = Utils.idiot_time(i['autosend_time'])
             effective_day = 'oggi' if int(
@@ -72,8 +74,7 @@ class the_unibot():
             chat_id = i['chat_id']
             # user_id = i['user_id']
             if bool(i['autosend']):
-                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                    'day': effective_day, 'chat_id': chat_id})
+                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id)
 
         start_handler = CommandHandler('start', self.start)
         misc_handler = MessageHandler(
