@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from typing import Dict
 
-from the_unibot.exceptions import ParameterError
+import sys
+sys.path.append('.')
+from exceptions import ParameterError
 
 class Course():
 
