@@ -28,7 +28,9 @@ class WikipediaAPI():
     
     @staticmethod
     def summary(url):
-        wiki = wikipediaapi.Wikipedia('en')
+        user_agent = 'the_unibot (https://github.com/RiccardoBarbieri/the_unibot)'
+        language = 'en'
+        wiki = wikipediaapi.Wikipedia(user_agent=user_agent, language=language)
 
         reverse_url = url[::-1]
         index = reverse_url.find('/')
