@@ -20,13 +20,42 @@ import re
 from datetime import datetime, timedelta
 from typing import Dict
 
-
-# note: to run this "python3 bot/bot.py test"
-
 SECONDS_IN_A_DAY = 86400
 
 SECONDS_TEST = 20
 
+'''
+This class is the main class of the_unibot.
+You can find it on Telegram with the username @the_unibot.
+
+It contains all the methods that are called when a command is sent to the bot.
+
+The methods are called by the dispatcher, which is an instance of the telegram.ext.ApplicationBuilder class.
+
+The methods are called with two parameters: update and context.
+The update parameter contains all the information about the message sent to the bot.
+The context parameter contains all the information about the bot itself.
+
+The methods are async, so they can be called with the await keyword.
+
+Parameters
+----------
+last_mess : str
+    Contains the last message sent to the bot.
+db : Database
+    Contains the database instance.
+which_bot : str
+    Contains the name of the bot.
+job_queue : telegram.ext.JobQueue
+    Contains the job_queue instance.
+jobs : Dict[str, Job]
+    Contains the jobs scheduled by the bot.
+bot : Bot
+    Contains the bot instance.
+updater : telegram.ext.Updater
+    Contains the updater instance.
+
+'''
 
 class the_unibot():
 
@@ -45,11 +74,28 @@ class the_unibot():
 
     # bot instance
     bot: Bot
-    update_queue: None
+
     # updater instance
     updater: Updater
 
-    def __init__(self, token, which_bot):
+    '''
+    This method is called when the bot is started.
+    It creates the dispatcher, the updater and the bot instances.
+    It also creates the database instance, or loads it if it already exists.
+    It also creates the job_queue instance together with the jobs dictionary.
+    
+    Parameters
+    ----------
+    token : str
+        Contains the token of the bot.
+    which_bot : str
+        Contains the name of the bot.
+
+    Returns
+    -------
+    None
+    '''
+    def __init__(self, token, which_bot) -> None:
 
         self.which_bot = which_bot
 
@@ -77,8 +123,8 @@ class the_unibot():
                 self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id)
 
         start_handler = CommandHandler('start', self.start)
-        misc_handler = MessageHandler(
-            filters.TEXT & (~filters.COMMAND), self.misc)
+        message_handler = MessageHandler(
+            filters.TEXT & (~filters.COMMAND), self.message_handler)
         help_handler = CommandHandler('help', self.help)
         set_corso_handler = CommandHandler('set_corso', self.set_corso)
         set_curricula_handler = CommandHandler(
@@ -95,7 +141,7 @@ class the_unibot():
         bug_report_handler = CommandHandler('bug_report', self.bug)
 
         dispatcher.add_handler(start_handler)
-        dispatcher.add_handler(misc_handler)
+        dispatcher.add_handler(message_handler)
         dispatcher.add_handler(help_handler)
         dispatcher.add_handler(set_corso_handler)
         dispatcher.add_handler(set_curricula_handler)
@@ -111,14 +157,44 @@ class the_unibot():
         dispatcher.run_polling()
         # self.updater.idle()
 
-    async def start(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the bot is started by a new user.
+    It inserts the user in the database and sends a welcome message.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def start(self, update: Update, context: CallbackContext) -> None:
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                        course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
         await context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a nel bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                                        .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
-    async def misc(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the bot receives a message.
+    It updates the last_mess variable and handles the message with respect to other commands.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def message_handler(self, update: Update, context: CallbackContext) -> None:
 
         await self.__update_last_command(update, context)
 
@@ -191,11 +267,41 @@ class the_unibot():
             print('Updated user {user_id} with curricula {code}'.format(
                 code=code, user_id=user_id))
 
-    async def help(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the help command is sent to the bot.
+    It sends a message with a link to the repository of the bot.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def help(self, update: Update, context: CallbackContext) -> None:
         await context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
                                        .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
-    async def set_corso(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the set_corso command is sent to the bot.
+    It sends a message with a list of courses and a keyboard to select one of them.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+        
+    Returns
+    -------
+    None
+    '''
+    async def set_corso(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             message = 'Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'
@@ -270,7 +376,22 @@ class the_unibot():
             context.bot.send_message(chat_id=update.effective_chat.id,
                                      text='Solo gli amministratori possono usare questo comando.')
 
-    def __pages_creation(self, courses: list, page_num: int):
+    '''
+    This method is called together with the set_corso command.
+    It creates the pages for the keyboard.
+
+    Parameters
+    ----------
+    courses : list
+        Contains the list of courses.
+    page_num : int
+        Contains the number of pages.
+
+    Returns
+    -------
+    pages : list
+    '''
+    def __pages_creation(self, courses: list, page_num: int) -> list:
         pages = []
         last_course = 0
         for i in range(page_num):
@@ -290,7 +411,22 @@ class the_unibot():
             pages[i] = pages[i][1:]
         return pages
 
-    async def set_curricula(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the set_curricula command is sent to the bot.
+    It sends a message with a list of curriculas and a keyboard to select one of them.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def set_curricula(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
@@ -362,7 +498,22 @@ class the_unibot():
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
-    async def set_anno(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the set_anno command is sent to the bot.
+    It sends a message with a keyboard to select the year.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+    
+    Returns
+    -------
+    None
+    '''
+    async def set_anno(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             await self.__update_last_command(update, context)
@@ -390,7 +541,22 @@ class the_unibot():
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
-    async def set_detail(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the set_detail command is sent to the bot.
+    It sets the detail of the schedule.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def set_detail(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             await self.__update_last_command(update, context)
@@ -418,7 +584,22 @@ class the_unibot():
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
 
-    async def orario(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the orario command is sent to the bot.
+    It sends a message with the schedule of the user.
+    
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def orario(self, update: Update, context: CallbackContext) -> None:
 
         await self.__update_last_command(update, context)
         user = self.db.query_by_ids(
@@ -480,7 +661,21 @@ class the_unibot():
             await context.bot.send_message(
                 chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
 
-    def __messages_creation(self, date: str, chat_id: int):
+    '''
+    This method is used to create the messages for the schedule.
+
+    Parameters
+    ----------
+    date : str
+        Contains the date.
+    chat_id : int
+        Contains the chat id.
+
+    Returns
+    -------
+    messages : list
+    '''
+    def __messages_creation(self, date: str, chat_id: int) -> list:
         date = Utils.to_ISO8601(date)
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
             chat_id)}, 'site2', 'course_codec2', course='course_code')[0]
@@ -497,7 +692,22 @@ class the_unibot():
 
         return messages
 
-    async def set_autosend(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the set_autosend command is sent to the bot.
+    It sets the autosend time for the user.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def set_autosend(self, update: Update, context: CallbackContext) -> None:
         time_regex = '([0-1]?[0-9]|2[0-3]):[0-5][0-9]'
 
         member = await update.effective_chat.get_member(update.effective_user.id)
@@ -546,7 +756,22 @@ class the_unibot():
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text='Solo gli amministratori possono usare questo comando.')
 
-    async def autosend(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the autosend command is sent to the bot.
+    It enables or disables the autosend for the user.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def autosend(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             user = self.db.query_by_ids(
@@ -586,7 +811,20 @@ class the_unibot():
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text='Solo gli amministratori possono usare questo comando.')
 
-    async def __orario_autosend(self, context: CallbackContext):
+    '''
+    This method is called when the orario command is sent to the bot.
+    It parses some text like 'oggi' or 'domani' and sends the schedule of the user.
+
+    Parameters
+    ----------
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def __orario_autosend(self, context: CallbackContext) -> None:
         data = context.job.context
         day = data['day']
         chat_id = data['chat_id']
@@ -618,10 +856,38 @@ class the_unibot():
             await context.bot.send_message(chat_id=chat_id, text=i,
                                            parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
-    async def __callback_loop(self, context: CallbackContext):
+    '''
+    This method is used for the callback of a scheduled job.
+
+    Parameters
+    ----------
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def __callback_loop(self, context: CallbackContext) -> None:
         await self.__orario_autosend(context)
 
-    async def wiki(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the wiki command is sent to the bot.
+    It sends a message with the wikipedia page of the argument sent to the bot.
+    If the page is not unique, it sends a message with a keyboard to select the page.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def wiki(self, update: Update, context: CallbackContext) -> None:
 
         await self.__update_last_command(update, context)
 
@@ -658,8 +924,26 @@ class the_unibot():
                 chat_id=update.effective_chat.id, text='Pagina non trovata.')
             self.last_mess = None
 
+    '''
+    This method is called when the wiki command is sent to the bot.
+    It manages the exceptions of te wikipedia API.
+    At the end, it sends a message with the summary of the page.
+
+    Parameters
+    ----------
+    url_ : str
+        Contains the url of the wikipedia page.
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
     # function defined for optimization
-    async def __temp_func(self, url_: str, update: Update, context: CallbackContext):
+    async def __temp_func(self, url_: str, update: Update, context: CallbackContext) -> None:
 
         try:
             message = WikipediaAPI.summary(url_)
@@ -672,21 +956,62 @@ class the_unibot():
 
         self.last_mess = None
 
-    def __long_mess_fix(self, message: str):
+    '''
+    This method is used to fix the message too long error by cutting the message.
+
+    Parameters
+    ----------
+    message : str
+        Contains the message.
+        
+    Returns
+    -------
+    message : str
+    '''
+    def __long_mess_fix(self, message: str) -> str:
         message = message[:4095]
         message = message[::-1]
         message = message[message.find('.'):]
         message = message[::-1]
         return message
 
-    async def bug(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the bug_report command is sent to the bot.
+    It sends a message with the link to the repository of the bot.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def bug(self, update: Update, context: CallbackContext) -> None:
 
         await self.__update_last_command(update, context)
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot.'
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sul <a href="{link}">repository</a> del bot.'
                                        .format(link='https://github.com/RiccardoBarbieri/the_unibot/issues'), parse_mode=ParseMode.HTML)
 
-    async def __update_last_command(self, update: Update, context: CallbackContext):
+    '''
+    This method is used to update the last command sent to the bot.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def __update_last_command(self, update: Update, context: CallbackContext) -> None:
         if len(self.db.query('data', key_chat_id=update.effective_chat.id)) == 0:
             self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                            course='0', year=1, detail=2, curricula='default')
@@ -696,7 +1021,22 @@ class the_unibot():
             self.db.update(
                 'last_command', key_chat_id=update.effective_chat.id, text=update.message.text)
 
-    async def offrimi_un_cafe(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the offrimi_un_cafe command is sent to the bot.
+    It sends a message with the link to donate to the bot.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def offrimi_un_cafe(self, update: Update, context: CallbackContext) -> None:
         await context.bot.send_message(chat_id=update.effective_chat.id, text='Se vuoi donarci un caffé (o altro):')
         await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
 
