@@ -58,6 +58,7 @@ updater : telegram.ext.Updater
 '''
 
 class the_unibot():
+    __version__ = "2023.08.28"
 
     # every time a message is sent this variable must be set to the message text (NOT OBJECT)
     last_mess: str = None
@@ -176,8 +177,8 @@ class the_unibot():
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                        course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
-        await context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a nel bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                                       .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a nel bot dell\'Università di Bologna, versione {version}.\nPer una guida rapida è possibile consultare il <a href="{link}">repository</a> del bot.'
+                                       .format(version=self.__version__, link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     '''
     This method is called when the bot receives a message.
