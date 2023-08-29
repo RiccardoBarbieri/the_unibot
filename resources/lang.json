@@ -1,30 +1,90 @@
 {
-    "help": {
-        "en": "Welcome in UniBO's bot.\nFor a quick start you can check out <a href=\"{link}\">repository</a> del bot.",
-        "it": "Benvenuto/a nel bot dell'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href=\"{link}\">repository</a> del bot."
+    "start": {
+        "en": "Welcome in UniBO's bot, version {version}.\nFor a quick start you can check out the bot's <a href=\"{link}\">repository</a>.",
+        "it": "Benvenuto/a nel bot dell'Università di Bologna, versione {version}.\nPer una guida rapida è possibile consultare il <a href=\"{link}\">repository</a> del bot."
     },
-    "set_corso_usage": {
+    "help": {
+        "en":"For a quick guide you can check out the bot's <a href=\"{link}\">repository</a>.",
+        "it": "Per una guida rapida è possibile consultare il <a href=\"{link}\">repository</a> del bot."
+    },
+    "set_course_usage": {
         "en": "Use /set_corso [words] [number] to select courses and change page.\nIf you cannot find your course tell us with (/bug_report).",
         "it": "Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report)."
     },
-    "set_corso_select": {
+    "set_course_select": {
         "en": "Select course, {page_param}/{pages}.",
         "it": "Seleziona il corso, {page_param}/{pages}."
     },
-    "orario_autosend": {
-        "en": "There are no lessons on {date}",
-        "it": "Non ci sono lezioni il {date}."
+    "set_curricula": {
+        "en": "Curricula set to {name} [{curr}].",
+        "it": "Curricula impostato a {name} [{curr}]."
+    },
+    "set_curricula_select": {
+        "en": "Select the curricula:",
+        "it": "Seleziona il curricula:"
+    },
+    "set_curricula_not_available": {
+        "en": "No curricula available.",
+        "it": "Nessun curricula disponibile."
+    },
+    "set_year": {
+        "en": "Year set to {year}.",
+        "it": "Anno impostato a {year}."
+    },
+    "set_detail": {
+        "en": "Detail level set to {detail}.",
+        "it": "Livello di dettaglio impostato a {detail}."
+    },
+    "set_autosend": {
+        "en": "Autosend time set to {time}.",
+        "it": "Impostato orario autosend a {time}."
+    },
+    "autosend_enabled": {
+        "en": "Autosend enabled.",
+        "it": "Autosend attivato."
+    },
+    "autosend_disabled": {
+        "en": "Autosend disabled.",
+        "it": "Autosend disattivato."
     },
     "wiki_sel": {
         "en": "Select a page",
         "it": "Seleziona la pagina"
     },
-    "admin": {
-        "en": "Only admin users can run this command.",
-        "it": "Solo gli amministratori possono usare questo comando."
+    "bug_report": {
+        "en": "You can report a bug/suggest an improvement on the bot's <a href=\"{link}\">repository</a>.",
+        "it": "Si può segnalare un bug/suggerire un miglioramento sul <a href=\"{link}\">repository</a> del bot."
+    },
+    "coffee": {
+        "en": "If you want to buy us a coffee (or something else):",
+        "it": "Se vuoi donarci un caffé (o altro):"
     },
     "error_404": {
         "en": "Error 404: not found.",
         "it": "Errore 404: non trovato."
+    },
+    "error_too_many_params": {
+        "en": "Too many parameters, I'm going to use only the first one.",
+        "it": "Troppi parametri, uso solo il primo."
+    },
+    "error_admin": {
+        "en": "Only admin users can run this command.",
+        "it": "Solo gli amministratori possono usare questo comando."
+    },
+    "error_no_course_set": {
+        "en": "No course or curricula set, use /set_corso or /set_curricula to set one.",
+        "it": "Nessun corso o curricula impostato, usa /set_corso o /set_curricula per impostarne uno."
+    },
+    "error_wrong_params": {
+        "en": "Wrong parameters.",
+        "it": "Parametri errati."
+    },
+    "error_no_lessons": {
+        "en": "No lessons.",
+        "it": "Nessuna lezione."
+    },
+    "error_no_lessons_date": {
+        "en": "There are no lessons on {date}",
+        "it": "Non ci sono lezioni il {date}."
     }
 }
