@@ -1,7 +1,8 @@
-beautifulsoup4==4.10.0
-pandas==2.0.3
-python-telegram-bot==20.4
-Requests==2.31.0
-SQLAlchemy==2.0.20
-tqdm==4.66.1
-Wikipedia_API==0.6.0
+beautifulsoup4
+pandas
+python-telegram-bot>=20.4
+python-telegram-bot[job-queue]
+Requests
+SQLAlchemy
+tqdm
+Wikipedia_API
