@@ -131,15 +131,15 @@ class the_unibot():
             # user_id = i['user_id']
             if bool(i['autosend']):
                 self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                    seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id)
+                    seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, data=effective_day)
 
         start_handler = CommandHandler('start', self.start)
         message_handler = MessageHandler(
             filters.TEXT & (~filters.COMMAND), self.message_handler)
         help_handler = CommandHandler('help', self.help)
         set_course_handler = CommandHandler('set_course', self.set_course)
-        set_curricula_handler = CommandHandler(
-            'set_curricula', self.set_curricula)
+        set_curriculum_handler = CommandHandler(
+            'set_curriculum', self.set_curriculum)
         set_year_handler = CommandHandler('set_year', self.set_year)
         set_detail_handler = CommandHandler('set_detail', self.set_detail)
         timetable_handler = CommandHandler('timetable', self.timetable)
@@ -157,7 +157,7 @@ class the_unibot():
         dispatcher.add_handler(message_handler)
         dispatcher.add_handler(help_handler)
         dispatcher.add_handler(set_course_handler)
-        dispatcher.add_handler(set_curricula_handler)
+        dispatcher.add_handler(set_curriculum_handler)
         dispatcher.add_handler(set_year_handler)
         dispatcher.add_handler(set_detail_handler)
         dispatcher.add_handler(timetable_handler)
@@ -260,7 +260,7 @@ class the_unibot():
             self.db.backup('data')
             print('Updated user {user_id} with course {course_code}'.format(
                 course_code=course_code, user_id=user_id))
-        if last_command is not None and '/set_curricula' in last_command['text']:
+        if last_command is not None and '/set_curriculum' in last_command['text']:
             chat_id = last_command['chat_id']
             user_id = last_command['user_id']
 
@@ -442,7 +442,7 @@ class the_unibot():
         return pages
 
     '''
-    This method is called when the set_curricula command is sent to the bot.
+    This method is called when the set_curriculum command is sent to the bot.
     It sends a message with a list of curriculas and a keyboard to select one of them.
 
     Parameters
@@ -456,18 +456,18 @@ class the_unibot():
     -------
     None
     '''
-    async def set_curricula(self, update: Update, context: CallbackContext) -> None:
+    async def set_curriculum(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
 
-            self.__update_last_command(update, context)
+            await self.__update_last_command(update, context)
 
             course_code = self.db.query_by_ids(
                 chat_id=update.effective_chat.id)[0]['course']
 
             params = Utils.parse_params(
-                '/set_curricula', update.message.text, self.which_bot)
+                '/set_curriculum', update.message.text, self.which_bot)
 
             curriculas_codes = self.db.query_join('courses', 'curriculas', {
                 'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
@@ -497,7 +497,7 @@ class the_unibot():
                         self.db.update('data', key_chat_id=chat_id,
                                        curricula=params['text'][0])
                         await context.bot.send_message(chat_id=update.effective_chat.id,
-                                                       text=self.messgaes['set_curricula'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(name=name, curr=params['text'][0]))
+                                                       text=self.messages['set_curriculum'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(name=name, curr=params['text'][0]))
                         print(self.db.query_by_ids(chat_id))
 
                     else:
@@ -516,10 +516,10 @@ class the_unibot():
                         rows, one_time_keyboard=True, selective=True)
 
                     if len(rows) != 0:
-                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_select'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curriculum_select'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
                                                        reply_markup=keyboard, reply_to_message_id=update.message.message_id)
                     else:
-                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_no_available'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curriculum_no_available'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
                                                        reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
             else:
@@ -773,12 +773,12 @@ class the_unibot():
 
                 if (str(chat_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = True
                 else:
                     self.jobs[str(chat_id)].schedule_removal()
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = True
 
                 print(self.db.query_by_ids(chat_id))
@@ -824,7 +824,7 @@ class the_unibot():
             if not current:  # enabling autosend
                 if (str(chat_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = True
                 else:
                     self.jobs[str(chat_id)].enabled = True
@@ -834,7 +834,7 @@ class the_unibot():
             else:
                 if (str(chat_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = False
                 else:
                     self.jobs[str(chat_id)].enabled = False
@@ -858,9 +858,8 @@ class the_unibot():
     None
     '''
     async def __orario_autosend(self, context: CallbackContext) -> None:
-        data = context.job.context
-        day = data['day']
-        chat_id = data['chat_id']
+        day = context.job.data
+        chat_id = context.job.chat_id
 
         date = Utils.date_from_days(day)
 
@@ -872,7 +871,7 @@ class the_unibot():
         messages = self.__messages_creation(
             date, chat_id)
 
-        message_default = self.messages['error_no_lessons_date'].format(
+        message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=chat_id)[0]['language']].format(
             date=date)
 
         if 'oggi' in day:

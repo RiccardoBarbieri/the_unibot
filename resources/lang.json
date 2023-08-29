@@ -8,8 +8,8 @@
         "it": "Per una guida rapida è possibile consultare il <a href=\"{link}\">repository</a> del bot."
     },
     "set_course_usage": {
-        "en": "Use /set_corso [words] [number] to select courses and change page.\nIf you cannot find your course tell us with (/bug_report).",
-        "it": "Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report)."
+        "en": "Use /set_course [words] [number] to select courses and change page.\nIf you cannot find your course tell us with (/bug_report).",
+        "it": "Usa /set_course [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report)."
     },
     "set_course_select": {
         "en": "Select course, {page_param}/{pages}.",
@@ -19,17 +19,17 @@
         "en": "Selected course: <a href=\"{link}\">{course_name}</a>.",
         "it": "Corso selezionato: <a href=\"{link}\">{course_name}</a>."
     },
-    "set_curricula": {
-        "en": "Curricula set to {name} [{curr}].",
-        "it": "Curricula impostato a {name} [{curr}]."
+    "set_curriculum": {
+        "en": "Curriculum set to {name} [{curr}].",
+        "it": "Curriculum impostato a {name} [{curr}]."
     },
-    "set_curricula_select": {
-        "en": "Select the curricula:",
-        "it": "Seleziona il curricula:"
+    "set_curriculum_select": {
+        "en": "Select the curriculum:",
+        "it": "Seleziona il curriculum:"
     },
-    "set_curricula_not_available": {
-        "en": "No curricula available.",
-        "it": "Nessun curricula disponibile."
+    "set_curriculum_not_available": {
+        "en": "No curriculum available.",
+        "it": "Nessun curriculum disponibile."
     },
     "set_year": {
         "en": "Year set to {year}.",
@@ -84,8 +84,8 @@
         "it": "Solo gli amministratori possono usare questo comando."
     },
     "error_no_course_set": {
-        "en": "No course or curricula set, use /set_corso or /set_curricula to set one.",
-        "it": "Nessun corso o curricula impostato, usa /set_corso o /set_curricula per impostarne uno."
+        "en": "No course or curriculum set, use /set_course or /set_curriculum to set one.",
+        "it": "Nessun corso o curriculum impostato, usa /set_course o /set_curriculum per impostarne uno."
     },
     "error_wrong_params": {
         "en": "Wrong parameters.",
