@@ -241,7 +241,7 @@ class the_unibot():
             for i in courses:
                 if i['course_code'] == course_code:
                     found = i
-            message = 'Corso selezionato: <a href="{link}">{course_name}</a>.'.format(
+            message = self.messages['set_course'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                 course_name=course_name, link=found['site'])
             await context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
