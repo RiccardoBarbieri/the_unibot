@@ -59,6 +59,14 @@
         "en": "If you want to buy us a coffee (or something else):",
         "it": "Se vuoi donarci un caffé (o altro):"
     },
+    "lang_change_menu": {
+        "en": "Select language:",
+        "it": "Seleziona la lingua:"
+    },
+    "lang_change": {
+        "en": "Language changed to English.",
+        "it": "Lingua cambiata in Italiano."
+    },
     "error_404": {
         "en": "Error 404: not found.",
         "it": "Errore 404: non trovato."
