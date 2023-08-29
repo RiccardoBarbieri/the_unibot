@@ -59,7 +59,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.08.28'
+    __version__ = '2023.08.29'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
 
@@ -284,15 +284,16 @@ class the_unibot():
 
             language = self.__langs__[update.message.text]
 
+            self.db.update('data', key_chat_id=chat_id, language=self.__langs__[update.message.text])
+
+            self.db.backup('data')
+
             message = self.messages['lang_change'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                 language=update.message.text)
 
             await context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
-
-            self.db.update('data', key_chat_id=chat_id, language=self.__langs__[update.message.text])
-
-            self.db.backup('data')
+            
             print('Updated user {user_id} with language {language}'.format(
                 language=language, user_id=user_id))
 
