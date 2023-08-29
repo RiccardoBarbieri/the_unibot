@@ -61,7 +61,7 @@ updater : telegram.ext.Updater
 class the_unibot():
     __version__ = '2023.08.28'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
-    __langs__ = {'en': 'English', 'it': 'Italiano'}
+    __langs__ = {'English': 'en', 'Italiano': 'it'}
 
     messages: str
 
@@ -150,6 +150,8 @@ class the_unibot():
         donate_a_coffee_handler = CommandHandler(
             'donate_a_coffee', self.donate_a_coffee)
         bug_report_handler = CommandHandler('bug_report', self.bug)
+        change_language_handler = CommandHandler(
+            'change_language', self.change_language)
 
         dispatcher.add_handler(start_handler)
         dispatcher.add_handler(message_handler)
@@ -164,6 +166,7 @@ class the_unibot():
         dispatcher.add_handler(wiki_handler)
         dispatcher.add_handler(donate_a_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
+        dispatcher.add_handler(change_language_handler)
 
         dispatcher.run_polling()
 
@@ -275,6 +278,23 @@ class the_unibot():
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
                 code=code, user_id=user_id))
+        if last_command is not None and '/change_language' in last_command['text']:
+            chat_id = last_command['chat_id']
+            user_id = last_command['user_id']
+
+            language = self.__langs__[update.message.text]
+
+            message = self.messages['lang_change'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
+                language=update.message.text)
+
+            await context.bot.send_message(
+                chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
+
+            self.db.update('data', key_chat_id=chat_id, language=self.__langs__[update.message.text])
+
+            self.db.backup('data')
+            print('Updated user {user_id} with language {language}'.format(
+                language=language, user_id=user_id))
 
     '''
     This method is called when the help command is sent to the bot.
@@ -1053,6 +1073,19 @@ class the_unibot():
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['coffee'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
 
+    async def change_language(self, update: Update, context: CallbackContext) -> None:
+
+        await self.__update_last_command(update, context)
+
+        rows = []
+        for lang, id in self.__langs__.items():
+            temp = []
+            temp.append(KeyboardButton(lang))
+            rows.append(temp)
+        keyboard = ReplyKeyboardMarkup(
+            rows, one_time_keyboard=True, selective=True)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
+                                    reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
 if __name__ == '__main__':
 
