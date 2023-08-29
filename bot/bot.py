@@ -58,7 +58,11 @@ updater : telegram.ext.Updater
 '''
 
 class the_unibot():
-    __version__ = "2023.08.28"
+    __version__ = '2023.08.28'
+    __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
+
+    lang = 'en'
+    messages: str
 
     # every time a message is sent this variable must be set to the message text (NOT OBJECT)
     last_mess: str = None
@@ -104,6 +108,9 @@ class the_unibot():
 
         self.bot = Bot(token=token)
         self.updater = Updater(bot=self.bot, update_queue=None)
+
+        with open(Path('./resources/lang.json')) as file:
+            self.messages = json.load(file)
 
         dispatcher = ApplicationBuilder().token(token).build()
 
@@ -156,7 +163,6 @@ class the_unibot():
         dispatcher.add_handler(bug_report_handler)
 
         dispatcher.run_polling()
-        # self.updater.idle()
 
     '''
     This method is called when the bot is started by a new user.
@@ -177,8 +183,7 @@ class the_unibot():
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                        course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
-        await context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a nel bot dell\'Università di Bologna, versione {version}.\nPer una guida rapida è possibile consultare il <a href="{link}">repository</a> del bot.'
-                                       .format(version=self.__version__, link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['start'][self.lang].format(version=self.__version__, link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     '''
     This method is called when the bot receives a message.
@@ -284,8 +289,8 @@ class the_unibot():
     None
     '''
     async def help(self, update: Update, context: CallbackContext) -> None:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                                       .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['help'][self.lang]
+                                       .format(link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     '''
     This method is called when the set_corso command is sent to the bot.
@@ -305,9 +310,8 @@ class the_unibot():
     async def set_corso(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
-            message = 'Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'
             await context.bot.send_message(
-                chat_id=update.effective_chat.id, text=message)
+                chat_id=update.effective_chat.id, text=self.messages['set_course_usage'][self.lang])
 
             courses = self.db.query_all('courses')
 
@@ -336,7 +340,7 @@ class the_unibot():
                     page_param = params['numeric'][0]
                     if len(params['numeric']) > 1:
                         await context.bot.send_message(
-                            chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo.')
+                            chat_id=update.effective_chat.id, text=self.messages['error_too_many_params'][self.lang])
 
                 # foolproofing text parameters
                 if len(params['text']) == 0:
@@ -368,14 +372,14 @@ class the_unibot():
             if pages:  # if pages is not empty
                 keyboard = ReplyKeyboardMarkup(
                     pages[page_param], one_time_keyboard=True, selective=True)
-                await context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
+                await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_course_select'][self.lang].format(
                     pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Nessun corso trovato.')
+                    chat_id=update.effective_chat.id, text=self.messages['error_404'][self.lang])
         else:
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text='Solo gli amministratori possono usare questo comando.')
+                                     text=self.messages['error_admin'][self.lang])
 
     '''
     This method is called together with the set_corso command.
@@ -468,12 +472,12 @@ class the_unibot():
                         self.db.update('data', key_chat_id=chat_id,
                                        curricula=params['text'][0])
                         await context.bot.send_message(chat_id=update.effective_chat.id,
-                                                       text='Impostato curricula a {name} [{curr}].'.format(name=name, curr=params['text'][0]))
+                                                       text=self.messgaes['set_curricula'][self.lang].format(name=name, curr=params['text'][0]))
                         print(self.db.query_by_ids(chat_id))
 
                     else:
                         await context.bot.send_message(
-                            chat_id=update.effective_chat.id, text='Il curricula {curr} non è disponibile per il tuo corso.'.format(curr=params['text'][0]))
+                            chat_id=update.effective_chat.id, text=self.messages['error_404'][self.lang])
 
                 elif (len(params['numeric']) == 0 and len(params['text']) == 0):
                     rows = []
@@ -487,17 +491,17 @@ class the_unibot():
                         rows, one_time_keyboard=True, selective=True)
 
                     if len(rows) != 0:
-                        await context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il curricula:',
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_select'][self.lang],
                                                        reply_markup=keyboard, reply_to_message_id=update.message.message_id)
                     else:
-                        await context.bot.send_message(chat_id=update.effective_chat.id, text='Nessun curricula disponibile.',
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_no_available'][self.lang],
                                                        reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Imposta prima il tuo corso.')
+                    chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.lang])
         else:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
 
     '''
     This method is called when the set_anno command is sent to the bot.
@@ -534,13 +538,13 @@ class the_unibot():
                                        year=params['numeric'][0])
                     self.db.backup('data')
                     await context.bot.send_message(chat_id=chat_id,
-                                                   text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
+                                                   text=self.messages['set_year'][self.lang].format(year=params['numeric'][0]))
                     print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Parametri errati.')
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.lang])
         else:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
 
     '''
     This method is called when the set_detail command is sent to the bot.
@@ -577,13 +581,13 @@ class the_unibot():
                                        detail=params['numeric'][0])
                     self.db.backup('data')
                     await context.bot.send_message(chat_id=chat_id,
-                                                   text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
+                                                   text=self.messages['set_detail'][self.lang].format(detail=params['numeric'][0]))
                     print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Parametri errati.')
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.lang])
         else:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
 
     '''
     This method is called when the orario command is sent to the bot.
@@ -637,7 +641,7 @@ class the_unibot():
                 messages = self.__messages_creation(
                     date, update.effective_chat.id)
 
-                message_default = 'Non ci sono lezioni il {date}.'.format(
+                message_default = self.messages['error_no_lessons_date'][self.lang].format(
                     date=date)
 
             elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
@@ -646,11 +650,11 @@ class the_unibot():
                 messages = self.__messages_creation(
                     date, update.effective_chat.id)
 
-                message_default = 'Nessuna lezione.'
+                message_default = self.messages['error_no_lessons'][self.lang]
 
             else:
                 messages = []
-                message_default = 'Parametri non corretti.'
+                message_default = self.messages['error_wrong_params'][self.lang]
 
             if len(messages) == 0:
                 await context.bot.send_message(
@@ -660,7 +664,7 @@ class the_unibot():
                                                parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         else:
             await context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
+                chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.lang])
 
     '''
     This method is used to create the messages for the schedule.
@@ -737,7 +741,7 @@ class the_unibot():
 
                 self.db.backup('data')
                 await context.bot.send_message(chat_id=update.effective_chat.id,
-                                               text='Impostato orario autosend a {time}.'.format(time=scheduled_time_str))
+                                               text=self.messages['set_autosend'][self.lang].format(time=scheduled_time_str))
 
                 if (str(chat_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
@@ -752,10 +756,10 @@ class the_unibot():
                 print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Parametri errati.')
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.lang])
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id,
-                                           text='Solo gli amministratori possono usare questo comando.')
+                                           text=self.messages['error_admin'][self.lang])
 
     '''
     This method is called when the autosend command is sent to the bot.
@@ -798,7 +802,7 @@ class the_unibot():
                     self.jobs[str(chat_id)].enabled = True
 
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Autosend attivato.')
+                    chat_id=update.effective_chat.id, text=self.messages['autosend_enabled'][self.lang])
             else:
                 if (str(chat_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
@@ -807,10 +811,10 @@ class the_unibot():
                 else:
                     self.jobs[str(chat_id)].enabled = False
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Autosend disattivato.')
+                    chat_id=update.effective_chat.id, text=self.messages['autosend_disabled'][self.lang])
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id,
-                                           text='Solo gli amministratori possono usare questo comando.')
+                                           text=self.messages['error_admin'][self.lang])
 
     '''
     This method is called when the orario command is sent to the bot.
@@ -840,7 +844,7 @@ class the_unibot():
         messages = self.__messages_creation(
             date, chat_id)
 
-        message_default = 'Non ci sono lezioni il {date}.'.format(
+        message_default = self.messages['error_no_lessons_date'].format(
             date=date)
 
         if 'oggi' in day:
@@ -919,10 +923,10 @@ class the_unibot():
                     keyboard = ReplyKeyboardMarkup(
                         rows, one_time_keyboard=True, selective=True)
                     await context.bot.send_message(
-                        chat_id=update.effective_chat.id, text='Seleziona la pagina', reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                        chat_id=update.effective_chat.id, text=self.messages['wiki_sel'][self.lang], reply_markup=keyboard, reply_to_message_id=update.message.message_id)
         else:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Pagina non trovata.')
+                chat_id=update.effective_chat.id, text=self.messages['error_404'][self.lang])
             self.last_mess = None
 
     '''
@@ -995,8 +999,8 @@ class the_unibot():
 
         await self.__update_last_command(update, context)
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sul <a href="{link}">repository</a> del bot.'
-                                       .format(link='https://github.com/RiccardoBarbieri/the_unibot/issues'), parse_mode=ParseMode.HTML)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['bug_report'][self.lang]
+                                       .format(link=self.__link__ + '/issues'), parse_mode=ParseMode.HTML)
 
     '''
     This method is used to update the last command sent to the bot.
@@ -1038,7 +1042,7 @@ class the_unibot():
     None
     '''
     async def offrimi_un_cafe(self, update: Update, context: CallbackContext) -> None:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text='Se vuoi donarci un caffé (o altro):')
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['coffee'][self.lang])
         await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
 
 
