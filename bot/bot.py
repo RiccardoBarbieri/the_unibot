@@ -1,5 +1,5 @@
-import sys
-sys.path.append('.')
+import sys  # nopep8
+sys.path.append('.')  # nopep8
 
 from api.unibo import UniboAPI
 from api import WikipediaAPI
@@ -57,12 +57,12 @@ updater : telegram.ext.Updater
 
 '''
 
+
 class the_unibot():
     __version__ = '2023.08.28'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'en': 'English', 'it': 'Italiano'}
 
-    lang = 'en'
     messages: str
 
     # every time a message is sent this variable must be set to the message text (NOT OBJECT)
@@ -101,6 +101,7 @@ class the_unibot():
     -------
     None
     '''
+
     def __init__(self, token, which_bot) -> None:
 
         self.which_bot = which_bot
@@ -129,7 +130,8 @@ class the_unibot():
             chat_id = i['chat_id']
             # user_id = i['user_id']
             if bool(i['autosend']):
-                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id)
+                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                    seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id)
 
         start_handler = CommandHandler('start', self.start)
         message_handler = MessageHandler(
@@ -184,7 +186,7 @@ class the_unibot():
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                        course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['start'][self.lang].format(version=self.__version__, link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['start'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(version=self.__version__, link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     '''
     This method is called when the bot receives a message.
@@ -290,7 +292,7 @@ class the_unibot():
     None
     '''
     async def help(self, update: Update, context: CallbackContext) -> None:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['help'][self.lang]
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['help'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']]
                                        .format(link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     '''
@@ -312,7 +314,7 @@ class the_unibot():
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             await context.bot.send_message(
-                chat_id=update.effective_chat.id, text=self.messages['set_course_usage'][self.lang])
+                chat_id=update.effective_chat.id, text=self.messages['set_course_usage'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
             courses = self.db.query_all('courses')
 
@@ -341,7 +343,7 @@ class the_unibot():
                     page_param = params['numeric'][0]
                     if len(params['numeric']) > 1:
                         await context.bot.send_message(
-                            chat_id=update.effective_chat.id, text=self.messages['error_too_many_params'][self.lang])
+                            chat_id=update.effective_chat.id, text=self.messages['error_too_many_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
                 # foolproofing text parameters
                 if len(params['text']) == 0:
@@ -373,14 +375,14 @@ class the_unibot():
             if pages:  # if pages is not empty
                 keyboard = ReplyKeyboardMarkup(
                     pages[page_param], one_time_keyboard=True, selective=True)
-                await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_course_select'][self.lang].format(
+                await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_course_select'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                     pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=self.messages['error_404'][self.lang])
+                    chat_id=update.effective_chat.id, text=self.messages['error_404'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text=self.messages['error_admin'][self.lang])
+                                     text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called together with the set_course command.
@@ -397,6 +399,7 @@ class the_unibot():
     -------
     pages : list
     '''
+
     def __pages_creation(self, courses: list, page_num: int) -> list:
         pages = []
         last_course = 0
@@ -473,12 +476,12 @@ class the_unibot():
                         self.db.update('data', key_chat_id=chat_id,
                                        curricula=params['text'][0])
                         await context.bot.send_message(chat_id=update.effective_chat.id,
-                                                       text=self.messgaes['set_curricula'][self.lang].format(name=name, curr=params['text'][0]))
+                                                       text=self.messgaes['set_curricula'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(name=name, curr=params['text'][0]))
                         print(self.db.query_by_ids(chat_id))
 
                     else:
                         await context.bot.send_message(
-                            chat_id=update.effective_chat.id, text=self.messages['error_404'][self.lang])
+                            chat_id=update.effective_chat.id, text=self.messages['error_404'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
                 elif (len(params['numeric']) == 0 and len(params['text']) == 0):
                     rows = []
@@ -492,17 +495,17 @@ class the_unibot():
                         rows, one_time_keyboard=True, selective=True)
 
                     if len(rows) != 0:
-                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_select'][self.lang],
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_select'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
                                                        reply_markup=keyboard, reply_to_message_id=update.message.message_id)
                     else:
-                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_no_available'][self.lang],
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curricula_no_available'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
                                                        reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.lang])
+                    chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called when the set_year command is sent to the bot.
@@ -539,13 +542,13 @@ class the_unibot():
                                        year=params['numeric'][0])
                     self.db.backup('data')
                     await context.bot.send_message(chat_id=chat_id,
-                                                   text=self.messages['set_year'][self.lang].format(year=params['numeric'][0]))
+                                                   text=self.messages['set_year'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(year=params['numeric'][0]))
                     print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.lang])
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called when the set_detail command is sent to the bot.
@@ -582,13 +585,13 @@ class the_unibot():
                                        detail=params['numeric'][0])
                     self.db.backup('data')
                     await context.bot.send_message(chat_id=chat_id,
-                                                   text=self.messages['set_detail'][self.lang].format(detail=params['numeric'][0]))
+                                                   text=self.messages['set_detail'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(detail=params['numeric'][0]))
                     print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.lang])
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called when the timetable command is sent to the bot.
@@ -642,7 +645,7 @@ class the_unibot():
                 messages = self.__messages_creation(
                     date, update.effective_chat.id)
 
-                message_default = self.messages['error_no_lessons_date'][self.lang].format(
+                message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                     date=date)
 
             elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
@@ -651,11 +654,13 @@ class the_unibot():
                 messages = self.__messages_creation(
                     date, update.effective_chat.id)
 
-                message_default = self.messages['error_no_lessons'][self.lang]
+                message_default = self.messages['error_no_lessons'][self.db.query(
+                    'data', key_chat_id=update.effective_chat.id)[0]['language']]
 
             else:
                 messages = []
-                message_default = self.messages['error_wrong_params'][self.lang]
+                message_default = self.messages['error_wrong_params'][self.db.query(
+                    'data', key_chat_id=update.effective_chat.id)[0]['language']]
 
             if len(messages) == 0:
                 await context.bot.send_message(
@@ -665,7 +670,7 @@ class the_unibot():
                                                parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         else:
             await context.bot.send_message(
-                chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.lang])
+                chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is used to create the messages for the schedule.
@@ -681,6 +686,7 @@ class the_unibot():
     -------
     messages : list
     '''
+
     def __messages_creation(self, date: str, chat_id: int) -> list:
         date = Utils.to_ISO8601(date)
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
@@ -742,25 +748,25 @@ class the_unibot():
 
                 self.db.backup('data')
                 await context.bot.send_message(chat_id=update.effective_chat.id,
-                                               text=self.messages['set_autosend'][self.lang].format(time=scheduled_time_str))
+                                               text=self.messages['set_autosend'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(time=scheduled_time_str))
 
                 if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
                     self.jobs[str(chat_id)].enabled = True
                 else:
                     self.jobs[str(chat_id)].schedule_removal()
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
                     self.jobs[str(chat_id)].enabled = True
 
                 print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.lang])
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id,
-                                           text=self.messages['error_admin'][self.lang])
+                                           text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called when the autosend command is sent to the bot.
@@ -796,26 +802,26 @@ class the_unibot():
 
             if not current:  # enabling autosend
                 if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
                     self.jobs[str(chat_id)].enabled = True
                 else:
                     self.jobs[str(chat_id)].enabled = True
 
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=self.messages['autosend_enabled'][self.lang])
+                    chat_id=update.effective_chat.id, text=self.messages['autosend_enabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
             else:
                 if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id)
                     self.jobs[str(chat_id)].enabled = False
                 else:
                     self.jobs[str(chat_id)].enabled = False
                 await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=self.messages['autosend_disabled'][self.lang])
+                    chat_id=update.effective_chat.id, text=self.messages['autosend_disabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id,
-                                           text=self.messages['error_admin'][self.lang])
+                                           text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called when the timetable command is sent to the bot.
@@ -924,10 +930,10 @@ class the_unibot():
                     keyboard = ReplyKeyboardMarkup(
                         rows, one_time_keyboard=True, selective=True)
                     await context.bot.send_message(
-                        chat_id=update.effective_chat.id, text=self.messages['wiki_sel'][self.lang], reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                        chat_id=update.effective_chat.id, text=self.messages['wiki_sel'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']], reply_markup=keyboard, reply_to_message_id=update.message.message_id)
         else:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text=self.messages['error_404'][self.lang])
+                chat_id=update.effective_chat.id, text=self.messages['error_404'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
             self.last_mess = None
 
     '''
@@ -974,6 +980,7 @@ class the_unibot():
     -------
     message : str
     '''
+
     def __long_mess_fix(self, message: str) -> str:
         message = message[:4095]
         message = message[::-1]
@@ -1000,7 +1007,7 @@ class the_unibot():
 
         await self.__update_last_command(update, context)
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['bug_report'][self.lang]
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['bug_report'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']]
                                        .format(link=self.__link__ + '/issues'), parse_mode=ParseMode.HTML)
 
     '''
@@ -1043,7 +1050,7 @@ class the_unibot():
     None
     '''
     async def donate_a_coffee(self, update: Update, context: CallbackContext) -> None:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['coffee'][self.lang])
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['coffee'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
 
 

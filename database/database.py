@@ -24,6 +24,7 @@ The data table has the following columns:
     - curricula: the curricula of the user
     - autosend_time: the time of the autosend
     - autosend: the autosend status
+    - language: the language of the user
 
 The courses table has the following columns:
     - course_name: the name of the course
@@ -98,6 +99,7 @@ class Database():
                             curricula TEXT DEFAULT "default",
                             autosend_time TEXT DEFAULT "00:00",
                             autosend INTEGER CHECK (autosend IN (0,1)) DEFAULT 0,
+                            language TEXT DEFAULT "en",
                             PRIMARY KEY (chat_id)
                             ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS courses (
