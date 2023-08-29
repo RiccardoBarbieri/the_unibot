@@ -651,10 +651,10 @@ class the_unibot():
 
         if 'oggi' in params['text']:
             await context.bot.send_message(
-                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0))
+                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
         elif 'domani' in params['text']:
             await context.bot.send_message(
-                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1))
+                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
 
         date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$'
 
@@ -876,10 +876,10 @@ class the_unibot():
 
         if 'oggi' in day:
             await context.bot.send_message(
-                chat_id=chat_id, text=WeatherAPI.get_weather(city, 0))
+                chat_id=chat_id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=chat_id)[0]['language']))
         elif 'domani' in day:
             await context.bot.send_message(
-                chat_id=chat_id, text=WeatherAPI.get_weather(city, 1))
+                chat_id=chat_id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
         if len(messages) == 0:
             await context.bot.send_message(
