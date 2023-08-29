@@ -60,6 +60,7 @@ updater : telegram.ext.Updater
 class the_unibot():
     __version__ = '2023.08.28'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
+    __langs__ = {'en': 'English', 'it': 'Italiano'}
 
     lang = 'en'
     messages: str
@@ -134,32 +135,32 @@ class the_unibot():
         message_handler = MessageHandler(
             filters.TEXT & (~filters.COMMAND), self.message_handler)
         help_handler = CommandHandler('help', self.help)
-        set_corso_handler = CommandHandler('set_corso', self.set_corso)
+        set_course_handler = CommandHandler('set_course', self.set_course)
         set_curricula_handler = CommandHandler(
             'set_curricula', self.set_curricula)
-        set_anno_handler = CommandHandler('set_anno', self.set_anno)
+        set_year_handler = CommandHandler('set_year', self.set_year)
         set_detail_handler = CommandHandler('set_detail', self.set_detail)
-        orario_handler = CommandHandler('orario', self.orario)
+        timetable_handler = CommandHandler('timetable', self.timetable)
         set_autosend_handler = CommandHandler(
             'set_autosend', self.set_autosend)
         autosend_handler = CommandHandler('autosend', self.autosend)
         wiki_handler = CommandHandler('wiki', self.wiki)
-        offrimi_un_coffee_handler = CommandHandler(
-            'offrimi_un_coffee', self.offrimi_un_cafe)
+        donate_a_coffee_handler = CommandHandler(
+            'donate_a_coffee', self.donate_a_coffee)
         bug_report_handler = CommandHandler('bug_report', self.bug)
 
         dispatcher.add_handler(start_handler)
         dispatcher.add_handler(message_handler)
         dispatcher.add_handler(help_handler)
-        dispatcher.add_handler(set_corso_handler)
+        dispatcher.add_handler(set_course_handler)
         dispatcher.add_handler(set_curricula_handler)
-        dispatcher.add_handler(set_anno_handler)
+        dispatcher.add_handler(set_year_handler)
         dispatcher.add_handler(set_detail_handler)
-        dispatcher.add_handler(orario_handler)
+        dispatcher.add_handler(timetable_handler)
         dispatcher.add_handler(set_autosend_handler)
         dispatcher.add_handler(autosend_handler)
         dispatcher.add_handler(wiki_handler)
-        dispatcher.add_handler(offrimi_un_coffee_handler)
+        dispatcher.add_handler(donate_a_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
 
         dispatcher.run_polling()
@@ -218,7 +219,7 @@ class the_unibot():
                 chat_id=update.effective_chat.id, message_id=update.message.message_id)
         if last_command is not None and '/wiki' in last_command['text'] and self.last_mess is not None:
             await self.wiki(update, context)
-        if last_command is not None and '/set_corso' in last_command['text']:
+        if last_command is not None and '/set_course' in last_command['text']:
             # getting ids from last_command sent
             chat_id = last_command['chat_id']
             user_id = last_command['user_id']
@@ -293,7 +294,7 @@ class the_unibot():
                                        .format(link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     '''
-    This method is called when the set_corso command is sent to the bot.
+    This method is called when the set_course command is sent to the bot.
     It sends a message with a list of courses and a keyboard to select one of them.
 
     Parameters
@@ -307,7 +308,7 @@ class the_unibot():
     -------
     None
     '''
-    async def set_corso(self, update: Update, context: CallbackContext) -> None:
+    async def set_course(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             await context.bot.send_message(
@@ -331,7 +332,7 @@ class the_unibot():
                 pages = self.__pages_creation(courses, page_num)
             else:
                 params = Utils.parse_params(
-                    '/set_corso', update.message.text, self.which_bot)
+                    '/set_course', update.message.text, self.which_bot)
 
                 # foolproofing numeric parameters
                 if len(params['numeric']) == 0:
@@ -382,7 +383,7 @@ class the_unibot():
                                      text=self.messages['error_admin'][self.lang])
 
     '''
-    This method is called together with the set_corso command.
+    This method is called together with the set_course command.
     It creates the pages for the keyboard.
 
     Parameters
@@ -504,7 +505,7 @@ class the_unibot():
             await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
 
     '''
-    This method is called when the set_anno command is sent to the bot.
+    This method is called when the set_year command is sent to the bot.
     It sends a message with a keyboard to select the year.
 
     Parameters
@@ -518,13 +519,13 @@ class the_unibot():
     -------
     None
     '''
-    async def set_anno(self, update: Update, context: CallbackContext) -> None:
+    async def set_year(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             await self.__update_last_command(update, context)
 
             params = Utils.parse_params(
-                '/set_anno', update.message.text, self.which_bot)
+                '/set_year', update.message.text, self.which_bot)
 
             if len(params['numeric']) == 1 and len(params['text']) == 0:
                 if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
@@ -590,7 +591,7 @@ class the_unibot():
             await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.lang])
 
     '''
-    This method is called when the orario command is sent to the bot.
+    This method is called when the timetable command is sent to the bot.
     It sends a message with the schedule of the user.
     
     Parameters
@@ -604,7 +605,7 @@ class the_unibot():
     -------
     None
     '''
-    async def orario(self, update: Update, context: CallbackContext) -> None:
+    async def timetable(self, update: Update, context: CallbackContext) -> None:
 
         await self.__update_last_command(update, context)
         user = self.db.query_by_ids(
@@ -616,7 +617,7 @@ class the_unibot():
         print(user)
 
         params = Utils.parse_params(
-            '/orario', update.message.text, self.which_bot)
+            '/timetable', update.message.text, self.which_bot)
 
         if (len(params['numeric']) == 0 and len(params['text']) == 0):
             if datetime.now().hour < 15:
@@ -817,7 +818,7 @@ class the_unibot():
                                            text=self.messages['error_admin'][self.lang])
 
     '''
-    This method is called when the orario command is sent to the bot.
+    This method is called when the timetable command is sent to the bot.
     It parses some text like 'oggi' or 'domani' and sends the schedule of the user.
 
     Parameters
@@ -1027,7 +1028,7 @@ class the_unibot():
                 'last_command', key_chat_id=update.effective_chat.id, text=update.message.text)
 
     '''
-    This method is called when the offrimi_un_cafe command is sent to the bot.
+    This method is called when the donate_a_coffee command is sent to the bot.
     It sends a message with the link to donate to the bot.
 
     Parameters
@@ -1041,7 +1042,7 @@ class the_unibot():
     -------
     None
     '''
-    async def offrimi_un_cafe(self, update: Update, context: CallbackContext) -> None:
+    async def donate_a_coffee(self, update: Update, context: CallbackContext) -> None:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['coffee'][self.lang])
         await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
 
