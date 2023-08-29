@@ -15,6 +15,10 @@
         "en": "Select course, {page_param}/{pages}.",
         "it": "Seleziona il corso, {page_param}/{pages}."
     },
+    "set_course": {
+        "en": "Selected course: <a href=\"{link}\">{course_name}</a>.",
+        "it": "Corso selezionato: <a href=\"{link}\">{course_name}</a>."
+    },
     "set_curricula": {
         "en": "Curricula set to {name} [{curr}].",
         "it": "Curricula impostato a {name} [{curr}]."
