@@ -71,6 +71,10 @@
         "en": "Language changed to English.",
         "it": "Lingua cambiata in Italiano."
     },
+    "weather": {
+        "en": "Weather: ",
+        "it": "Meteo: "
+    },
     "error_404": {
         "en": "Error 404: not found.",
         "it": "Errore 404: non trovato."
