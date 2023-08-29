@@ -1,4 +1,6 @@
-from the_unibot.api import UniboAPI
+import sys
+sys.path.append('.')
+from api import UniboAPI
 
 class MessageCreator():
 
