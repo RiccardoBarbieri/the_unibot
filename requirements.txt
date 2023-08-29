@@ -1,0 +1,8 @@
+beautifulsoup4
+pandas
+python-telegram-bot>=20.4
+python-telegram-bot[job-queue]
+Requests
+SQLAlchemy
+tqdm
+Wikipedia_API
