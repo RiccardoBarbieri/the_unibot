@@ -1,35 +1,69 @@
-import sys
-from the_unibot.api.unibo import UniboAPI
-from the_unibot.api import WikipediaAPI
-from the_unibot.api import WeatherAPI
-from the_unibot.utils import Utils
-from the_unibot.utils import MessageCreator
-from the_unibot.database import Database
+import sys  # nopep8
+sys.path.append('.')  # nopep8
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from api.unibo import UniboAPI
+from api import WikipediaAPI
+from api import WeatherAPI
+from utils import Utils
+from utils import MessageCreator
+from database import Database
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Update, Bot
 from telegram.error import BadRequest
-from telegram.update import Update
-from telegram.parsemode import ParseMode
-from telegram.ext import CommandHandler, MessageHandler, Filters, Updater, CallbackContext, JobQueue
-from telegram.ext.jobqueue import Job
-
+from telegram.constants import ParseMode
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Updater, CallbackContext, JobQueue, Job
+from telegram.ext import filters
 import logging
 import json
 from pathlib import Path
 from math import ceil
 import re
-from pprint import pprint
 from datetime import datetime, timedelta
 from typing import Dict
-
-import pathlib
 
 SECONDS_IN_A_DAY = 86400
 
 SECONDS_TEST = 20
 
+'''
+This class is the main class of the_unibot.
+You can find it on Telegram with the username @the_unibot.
 
-class Bot():
+It contains all the methods that are called when a command is sent to the bot.
+
+The methods are called by the dispatcher, which is an instance of the telegram.ext.ApplicationBuilder class.
+
+The methods are called with two parameters: update and context.
+The update parameter contains all the information about the message sent to the bot.
+The context parameter contains all the information about the bot itself.
+
+The methods are async, so they can be called with the await keyword.
+
+Parameters
+----------
+last_mess : str
+    Contains the last message sent to the bot.
+db : Database
+    Contains the database instance.
+which_bot : str
+    Contains the name of the bot.
+job_queue : telegram.ext.JobQueue
+    Contains the job_queue instance.
+jobs : Dict[str, Job]
+    Contains the jobs scheduled by the bot.
+bot : Bot
+    Contains the bot instance.
+updater : telegram.ext.Updater
+    Contains the updater instance.
+
+'''
+
+
+class the_unibot():
+    __version__ = '2023.08.29'
+    __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
+    __langs__ = {'English': 'en', 'Italiano': 'it'}
+
+    messages: str
 
     # every time a message is sent this variable must be set to the message text (NOT OBJECT)
     last_mess: str = None
@@ -44,21 +78,50 @@ class Bot():
 
     jobs: Dict[str, Job]
 
-    def __init__(self, token, which_bot):
+    # bot instance
+    bot: Bot
+
+    # updater instance
+    updater: Updater
+
+    '''
+    This method is called when the bot is started.
+    It creates the dispatcher, the updater and the bot instances.
+    It also creates the database instance, or loads it if it already exists.
+    It also creates the job_queue instance together with the jobs dictionary.
+    
+    Parameters
+    ----------
+    token : str
+        Contains the token of the bot.
+    which_bot : str
+        Contains the name of the bot.
+
+    Returns
+    -------
+    None
+    '''
+
+    def __init__(self, token, which_bot) -> None:
 
         self.which_bot = which_bot
 
         self.jobs: Dict[str, Job] = {}
 
-        self.updater = Updater(token=token, use_context=True)
-        dispatcher = self.updater.dispatcher
+        self.bot = Bot(token=token)
+        self.updater = Updater(bot=self.bot, update_queue=None)
+
+        with open(Path('./resources/lang.json')) as file:
+            self.messages = json.load(file)
+
+        dispatcher = ApplicationBuilder().token(token).build()
 
         logging.basicConfig(
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
         self.db = Database(Path('./database/telegram.db'))
 
-        self.job_queue = self.updater.job_queue
+        self.job_queue = dispatcher.job_queue
 
         for i in self.db.query_all('data'):
             scheduled_time_str = Utils.idiot_time(i['autosend_time'])
@@ -67,72 +130,101 @@ class Bot():
             chat_id = i['chat_id']
             # user_id = i['user_id']
             if bool(i['autosend']):
-                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                    'day': effective_day, 'chat_id': chat_id})
+                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                    seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, data=effective_day)
 
         start_handler = CommandHandler('start', self.start)
-        misc_handler = MessageHandler(
-            Filters.text & (~Filters.command), self.misc)
+        message_handler = MessageHandler(
+            filters.TEXT & (~filters.COMMAND), self.message_handler)
         help_handler = CommandHandler('help', self.help)
-        set_corso_handler = CommandHandler('set_corso', self.set_corso)
-        set_curricula_handler = CommandHandler(
-            'set_curricula', self.set_curricula)
-        set_anno_handler = CommandHandler('set_anno', self.set_anno)
+        set_course_handler = CommandHandler('set_course', self.set_course)
+        set_curriculum_handler = CommandHandler(
+            'set_curriculum', self.set_curriculum)
+        set_year_handler = CommandHandler('set_year', self.set_year)
         set_detail_handler = CommandHandler('set_detail', self.set_detail)
-        orario_handler = CommandHandler('orario', self.orario)
+        timetable_handler = CommandHandler('timetable', self.timetable)
         set_autosend_handler = CommandHandler(
             'set_autosend', self.set_autosend)
         autosend_handler = CommandHandler('autosend', self.autosend)
         wiki_handler = CommandHandler('wiki', self.wiki)
-        offrimi_un_coffee_handler = CommandHandler('offrimi_un_coffee', self.offrimi_un_cafe)
+        donate_a_coffee_handler = CommandHandler(
+            'donate_a_coffee', self.donate_a_coffee)
         bug_report_handler = CommandHandler('bug_report', self.bug)
+        change_language_handler = CommandHandler(
+            'change_language', self.change_language)
 
         dispatcher.add_handler(start_handler)
-        dispatcher.add_handler(misc_handler)
+        dispatcher.add_handler(message_handler)
         dispatcher.add_handler(help_handler)
-        dispatcher.add_handler(set_corso_handler)
-        dispatcher.add_handler(set_curricula_handler)
-        dispatcher.add_handler(set_anno_handler)
+        dispatcher.add_handler(set_course_handler)
+        dispatcher.add_handler(set_curriculum_handler)
+        dispatcher.add_handler(set_year_handler)
         dispatcher.add_handler(set_detail_handler)
-        dispatcher.add_handler(orario_handler)
+        dispatcher.add_handler(timetable_handler)
         dispatcher.add_handler(set_autosend_handler)
         dispatcher.add_handler(autosend_handler)
         dispatcher.add_handler(wiki_handler)
-        dispatcher.add_handler(offrimi_un_coffee_handler)
+        dispatcher.add_handler(donate_a_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
+        dispatcher.add_handler(change_language_handler)
 
-        self.updater.start_polling()
-        self.updater.idle()
+        dispatcher.run_polling()
 
-    def start(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the bot is started by a new user.
+    It inserts the user in the database and sends a welcome message.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def start(self, update: Update, context: CallbackContext) -> None:
         self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                        course='0', year=1, detail=2, curricula='default')
         self.db.backup('data')
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Benvenuto/a nel bot dell\'Università di Bologna.\nPer una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                                 .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['start'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(version=self.__version__, link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
-    def misc(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the bot receives a message.
+    It updates the last_mess variable and handles the message with respect to other commands.
 
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
 
-        self.__update_last_command(update, context)
+    Returns
+    -------
+    None
+    '''
+    async def message_handler(self, update: Update, context: CallbackContext) -> None:
+
+        await self.__update_last_command(update, context)
 
         last_command = (None if self.db.query('last_command', key_chat_id=update.effective_chat.id)[0][
             'text'] == '' else self.db.query('last_command', key_chat_id=update.effective_chat.id)[0])
 
-        
-
         if ('give you up' in update.message.text.lower()) or ('give u up' in update.message.text.lower()) or ('let you down' in update.message.text.lower()) or ('let u down' in update.message.text.lower()) or ('roll around' in update.message.text.lower()) or ('rick' in update.message.text.lower()):
-            context.bot.send_animation(chat_id=update.effective_chat.id,
-                                   animation=open("./resources/nggyu.gif", "rb"))
+            await context.bot.send_animation(chat_id=update.effective_chat.id,
+                                             animation=open("./resources/nggyu.gif", "rb"))
         if 'egistr' in update.message.text.lower() and update.effective_chat.type != 'private':
             text = update.message.text.replace('egistr', '******')
-            context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
-                                     .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
-            context.bot.delete_message(
+            await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="tg://user?id={user_id}">@{username}</a>'
+                                           .format(user_id=update.effective_user.id, username=update.effective_user.username) + ': ' + text, parse_mode=ParseMode.HTML)
+            await context.bot.delete_message(
                 chat_id=update.effective_chat.id, message_id=update.message.message_id)
         if last_command is not None and '/wiki' in last_command['text'] and self.last_mess is not None:
-            self.wiki(update, context)
-        if last_command is not None and '/set_corso' in last_command['text']:
+            await self.wiki(update, context)
+        if last_command is not None and '/set_course' in last_command['text']:
             # getting ids from last_command sent
             chat_id = last_command['chat_id']
             user_id = last_command['user_id']
@@ -149,9 +241,9 @@ class Bot():
             for i in courses:
                 if i['course_code'] == course_code:
                     found = i
-            message = 'Corso selezionato: <a href="{link}">{course_name}</a>.'.format(
+            message = self.messages['set_course'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                 course_name=course_name, link=found['site'])
-            context.bot.send_message(
+            await context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
             if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                 self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
@@ -159,14 +251,16 @@ class Bot():
             else:
                 self.db.update('data', key_chat_id=chat_id, course=course_code)
             if len(curriculas) == 1:
-                self.db.update('data', key_chat_id=chat_id, curricula=curriculas[0]['code'])
+                self.db.update('data', key_chat_id=chat_id,
+                               curricula=curriculas[0]['code'])
             elif len(curriculas) == 0:
-                self.db.update('data', key_chat_id=chat_id, curricula='000-000')
+                self.db.update('data', key_chat_id=chat_id,
+                               curricula='000-000')
 
             self.db.backup('data')
             print('Updated user {user_id} with course {course_code}'.format(
                 course_code=course_code, user_id=user_id))
-        if last_command is not None and '/set_curricula' in last_command['text']:
+        if last_command is not None and '/set_curriculum' in last_command['text']:
             chat_id = last_command['chat_id']
             user_id = last_command['user_id']
 
@@ -176,7 +270,7 @@ class Bot():
             message = 'Curricula selezionato: {name} [{code}]'.format(
                 name=name, code=code)
 
-            context.bot.send_message(
+            await context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
 
             self.db.update('data', key_chat_id=chat_id, curricula=code)
@@ -184,21 +278,68 @@ class Bot():
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
                 code=code, user_id=user_id))
-                
-    def help(self, update: Update, context: CallbackContext):
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Per una guida rapida è possibile consultare la <a href="{link}">repository</a> del bot.'
-                                 .format(link='https://github.com/RiccardoBarbieri/the_unibot'), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        if last_command is not None and '/change_language' in last_command['text']:
+            chat_id = last_command['chat_id']
+            user_id = last_command['user_id']
 
-    def set_corso(self, update: Update, context: CallbackContext):
-        member = update.effective_chat.get_member(update.effective_user.id)
+            language = self.__langs__[update.message.text]
+
+            self.db.update('data', key_chat_id=chat_id, language=self.__langs__[update.message.text])
+
+            self.db.backup('data')
+
+            message = self.messages['lang_change'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
+                language=update.message.text)
+
+            await context.bot.send_message(
+                chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
+            
+            print('Updated user {user_id} with language {language}'.format(
+                language=language, user_id=user_id))
+
+    '''
+    This method is called when the help command is sent to the bot.
+    It sends a message with a link to the repository of the bot.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def help(self, update: Update, context: CallbackContext) -> None:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['help'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']]
+                                       .format(link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+
+    '''
+    This method is called when the set_course command is sent to the bot.
+    It sends a message with a list of courses and a keyboard to select one of them.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+        
+    Returns
+    -------
+    None
+    '''
+    async def set_course(self, update: Update, context: CallbackContext) -> None:
+        member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
-            message = 'Usa /set_corso [parole] [numero] per filtrare tra i corsi e cambiare pagina.\nSe non trovi il tuo corso puoi segnalarcelo (/bug_report).'
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text=message)
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id, text=self.messages['set_course_usage'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
             courses = self.db.query_all('courses')
 
-            self.__update_last_command(update, context)
+            await self.__update_last_command(update, context)
 
             message_text = update.message.text.replace(
                 '@' + self.which_bot, '').strip()
@@ -214,7 +355,7 @@ class Bot():
                 pages = self.__pages_creation(courses, page_num)
             else:
                 params = Utils.parse_params(
-                    '/set_corso', update.message.text, self.which_bot)
+                    '/set_course', update.message.text, self.which_bot)
 
                 # foolproofing numeric parameters
                 if len(params['numeric']) == 0:
@@ -222,8 +363,8 @@ class Bot():
                 elif len(params['numeric']) >= 1:
                     page_param = params['numeric'][0]
                     if len(params['numeric']) > 1:
-                        context.bot.send_message(
-                            chat_id=update.effective_chat.id, text='Troppi parametri numerici, uso solo il primo.')
+                        await context.bot.send_message(
+                            chat_id=update.effective_chat.id, text=self.messages['error_too_many_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
                 # foolproofing text parameters
                 if len(params['text']) == 0:
@@ -255,15 +396,32 @@ class Bot():
             if pages:  # if pages is not empty
                 keyboard = ReplyKeyboardMarkup(
                     pages[page_param], one_time_keyboard=True, selective=True)
-                context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il corso, {page_param}/{pages}.'.format(
+                await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_course_select'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                     pages=page_num, page_param=page_param + 1), reply_markup=keyboard, reply_to_message_id=update.message.message_id)
             else:
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Nessun corso trovato.')
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=self.messages['error_404'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                     text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
-    def __pages_creation(self, courses: list, page_num: int):
+    '''
+    This method is called together with the set_course command.
+    It creates the pages for the keyboard.
+
+    Parameters
+    ----------
+    courses : list
+        Contains the list of courses.
+    page_num : int
+        Contains the number of pages.
+
+    Returns
+    -------
+    pages : list
+    '''
+
+    def __pages_creation(self, courses: list, page_num: int) -> list:
         pages = []
         last_course = 0
         for i in range(page_num):
@@ -283,29 +441,44 @@ class Bot():
             pages[i] = pages[i][1:]
         return pages
 
-    def set_curricula(self, update: Update, context: CallbackContext):
-        member = update.effective_chat.get_member(update.effective_user.id)
+    '''
+    This method is called when the set_curriculum command is sent to the bot.
+    It sends a message with a list of curriculas and a keyboard to select one of them.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def set_curriculum(self, update: Update, context: CallbackContext) -> None:
+        member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
 
-            self.__update_last_command(update, context)
+            await self.__update_last_command(update, context)
 
             course_code = self.db.query_by_ids(
                 chat_id=update.effective_chat.id)[0]['course']
 
             params = Utils.parse_params(
-                '/set_curricula', update.message.text, self.which_bot)
+                '/set_curriculum', update.message.text, self.which_bot)
 
             curriculas_codes = self.db.query_join('courses', 'curriculas', {
-                                                'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
+                'course_code1': course_code}, 'course_code1', 'code2', 'label2', course_code='course_code')
 
             if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                 if len(curriculas_codes) == 1:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                course='0', year=1, detail=2, curricula=curriculas_codes['code'])
+                                   course='0', year=1, detail=2, curricula=curriculas_codes['code'])
                 else:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                course='0', year=1, detail=2, curricula='default')
+                                   course='0', year=1, detail=2, curricula='default')
 
             if course_code != '0':
 
@@ -321,14 +494,15 @@ class Bot():
                         chat_id = update.effective_chat.id
                         user_id = update.effective_user.id
 
-                        self.db.update('data', key_chat_id=chat_id, curricula=params['text'][0])
-                        context.bot.send_message(chat_id=update.effective_chat.id,
-                                                text='Impostato curricula a {name} [{curr}].'.format(name=name, curr=params['text'][0]))
+                        self.db.update('data', key_chat_id=chat_id,
+                                       curricula=params['text'][0])
+                        await context.bot.send_message(chat_id=update.effective_chat.id,
+                                                       text=self.messages['set_curriculum'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(name=name, curr=params['text'][0]))
                         print(self.db.query_by_ids(chat_id))
 
                     else:
-                        context.bot.send_message(
-                            chat_id=update.effective_chat.id, text='Il curricula {curr} non è disponibile per il tuo corso.'.format(curr=params['text'][0]))
+                        await context.bot.send_message(
+                            chat_id=update.effective_chat.id, text=self.messages['error_404'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
                 elif (len(params['numeric']) == 0 and len(params['text']) == 0):
                     rows = []
@@ -342,49 +516,80 @@ class Bot():
                         rows, one_time_keyboard=True, selective=True)
 
                     if len(rows) != 0:
-                        context.bot.send_message(chat_id=update.effective_chat.id, text='Seleziona il curricula:',
-                                                reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curriculum_select'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
+                                                       reply_markup=keyboard, reply_to_message_id=update.message.message_id)
                     else:
-                        context.bot.send_message(chat_id=update.effective_chat.id, text='Nessun curricula disponibile.',
-                                                reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['set_curriculum_no_available'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
+                                                       reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
             else:
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Imposta prima il tuo corso.')
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
-    def set_anno(self, update: Update, context: CallbackContext):
-        member = update.effective_chat.get_member(update.effective_user.id)
+    '''
+    This method is called when the set_year command is sent to the bot.
+    It sends a message with a keyboard to select the year.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+    
+    Returns
+    -------
+    None
+    '''
+    async def set_year(self, update: Update, context: CallbackContext) -> None:
+        member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
-            self.__update_last_command(update, context)
+            await self.__update_last_command(update, context)
 
             params = Utils.parse_params(
-                '/set_anno', update.message.text, self.which_bot)
+                '/set_year', update.message.text, self.which_bot)
 
             if len(params['numeric']) == 1 and len(params['text']) == 0:
                 if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
                     chat_id = update.effective_chat.id
                     user_id = update.effective_user.id
-                    if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
-                        self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                    course='0', year=1, detail=2, curricula='default')
+                    if len(self.db.query_by_ids(chat_id)) == 0:
+                        self.db.insert('data', chat_id=chat_id, user_id=user_id,
+                                       course='0', year=1, detail=2, curricula='default')
                     else:
-                        self.db.update('data', key_chat_id=update.effective_chat.id, year=params['numeric'][0])
+                        self.db.update('data', key_chat_id=chat_id,
+                                       year=params['numeric'][0])
                     self.db.backup('data')
-                    context.bot.send_message(chat_id=update.effective_chat.id,
-                                            text='Impostato anno a {year}.'.format(year=params['numeric'][0]))
+                    await context.bot.send_message(chat_id=chat_id,
+                                                   text=self.messages['set_year'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(year=params['numeric'][0]))
                     print(self.db.query_by_ids(chat_id))
             else:
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Parametri errati.')
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
-    def set_detail(self, update: Update, context: CallbackContext):
-        member = update.effective_chat.get_member(update.effective_user.id)
+    '''
+    This method is called when the set_detail command is sent to the bot.
+    It sets the detail of the schedule.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def set_detail(self, update: Update, context: CallbackContext) -> None:
+        member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
-            self.__update_last_command(update, context)
+            await self.__update_last_command(update, context)
 
             params = Utils.parse_params(
                 '/set_detail', update.message.text, self.which_bot)
@@ -393,36 +598,51 @@ class Bot():
                 if params['numeric'][0] >= 1 or params['numeric'][0] <= 5:
                     chat_id = update.effective_chat.id
                     user_id = update.effective_user.id
-                    if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
-                        self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                    course='0', year=1, detail=2, curricula='default')
+                    if len(self.db.query_by_ids(chat_id)) == 0:
+                        self.db.insert('data', chat_id=chat_id, user_id=user_id,
+                                       course='0', year=1, detail=2, curricula='default')
                     else:
-                        self.db.update('data', key_chat_id=update.effective_chat.id, detail=params['numeric'][0])
+                        self.db.update('data', key_chat_id=chat_id,
+                                       detail=params['numeric'][0])
                     self.db.backup('data')
-                    context.bot.send_message(chat_id=update.effective_chat.id,
-                                            text='Impostato dettaglio a {detail}.'.format(detail=params['numeric'][0]))
+                    await context.bot.send_message(chat_id=chat_id,
+                                                   text=self.messages['set_detail'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(detail=params['numeric'][0]))
                     print(self.db.query_by_ids(chat_id))
             else:
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Parametri errati.')
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
-    def orario(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the timetable command is sent to the bot.
+    It sends a message with the schedule of the user.
+    
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
 
-        self.__update_last_command(update, context)
+    Returns
+    -------
+    None
+    '''
+    async def timetable(self, update: Update, context: CallbackContext) -> None:
+
+        await self.__update_last_command(update, context)
         user = self.db.query_by_ids(
             chat_id=update.effective_chat.id)[0]
         course_code = user['course']
         city = self.db.query('courses', key_course_code=course_code)[
             0]['campus'].strip()
-        
+
         print(user)
-        
 
         params = Utils.parse_params(
-            '/orario', update.message.text, self.which_bot)
-        
+            '/timetable', update.message.text, self.which_bot)
+
         if (len(params['numeric']) == 0 and len(params['text']) == 0):
             if datetime.now().hour < 15:
                 params['text'].append('oggi')
@@ -430,11 +650,11 @@ class Bot():
                 params['text'].append('domani')
 
         if 'oggi' in params['text']:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0))
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
         elif 'domani' in params['text']:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1))
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
 
         date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$'
 
@@ -446,7 +666,7 @@ class Bot():
                 messages = self.__messages_creation(
                     date, update.effective_chat.id)
 
-                message_default = 'Non ci sono lezioni il {date}.'.format(
+                message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                     date=date)
 
             elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
@@ -455,23 +675,40 @@ class Bot():
                 messages = self.__messages_creation(
                     date, update.effective_chat.id)
 
-                message_default = 'Nessuna lezione.'
+                message_default = self.messages['error_no_lessons'][self.db.query(
+                    'data', key_chat_id=update.effective_chat.id)[0]['language']]
 
             else:
                 messages = []
-                message_default = 'Parametri non corretti.'
+                message_default = self.messages['error_wrong_params'][self.db.query(
+                    'data', key_chat_id=update.effective_chat.id)[0]['language']]
 
             if len(messages) == 0:
-                context.bot.send_message(
+                await context.bot.send_message(
                     chat_id=update.effective_chat.id, text=message_default)
             for i in messages:
-                context.bot.send_message(chat_id=update.effective_chat.id, text=i,
-                                         parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+                await context.bot.send_message(chat_id=update.effective_chat.id, text=i,
+                                               parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         else:
-            context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Imposta il corso e il curricula prima.')
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
-    def __messages_creation(self, date: str, chat_id: int):
+    '''
+    This method is used to create the messages for the schedule.
+
+    Parameters
+    ----------
+    date : str
+        Contains the date.
+    chat_id : int
+        Contains the chat id.
+
+    Returns
+    -------
+    messages : list
+    '''
+
+    def __messages_creation(self, date: str, chat_id: int) -> list:
         date = Utils.to_ISO8601(date)
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
             chat_id)}, 'site2', 'course_codec2', course='course_code')[0]
@@ -488,13 +725,28 @@ class Bot():
 
         return messages
 
-    def set_autosend(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the set_autosend command is sent to the bot.
+    It sets the autosend time for the user.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def set_autosend(self, update: Update, context: CallbackContext) -> None:
         time_regex = '([0-1]?[0-9]|2[0-3]):[0-5][0-9]'
 
-        member = update.effective_chat.get_member(update.effective_user.id)
+        member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
-            
-            self.__update_last_command(update, context)
+
+            await self.__update_last_command(update, context)
 
             params = Utils.parse_params(
                 '/set_autosend', update.message.text, self.which_bot)
@@ -505,37 +757,55 @@ class Bot():
 
                 scheduled_time_str = Utils.idiot_time(params['text'][0])
 
-                effective_day = 'oggi' if int(scheduled_time_str[:2]) < 15 else 'domani'
+                effective_day = 'oggi' if int(
+                    scheduled_time_str[:2]) < 15 else 'domani'
 
                 if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                course='0', year=1, detail=2, curricula='default', autosend_time=scheduled_time_str)
+                                   course='0', year=1, detail=2, curricula='default', autosend_time=scheduled_time_str)
                 else:
-                    self.db.update('data', key_chat_id=update.effective_chat.id, autosend_time=scheduled_time_str)
+                    self.db.update(
+                        'data', key_chat_id=update.effective_chat.id, autosend_time=scheduled_time_str)
 
                 self.db.backup('data')
-                context.bot.send_message(chat_id=update.effective_chat.id,
-                                        text='Impostato orario autosend a {time}.'.format(time=scheduled_time_str))
+                await context.bot.send_message(chat_id=update.effective_chat.id,
+                                               text=self.messages['set_autosend'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(time=scheduled_time_str))
 
                 if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = True
                 else:
                     self.jobs[str(chat_id)].schedule_removal()
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = True
 
                 print(self.db.query_by_ids(chat_id))
             else:
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Parametri errati.')
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=self.messages['error_wrong_params'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id,
+                                           text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
-    def autosend(self, update: Update, context: CallbackContext):
-        member = update.effective_chat.get_member(update.effective_user.id)
+    '''
+    This method is called when the autosend command is sent to the bot.
+    It enables or disables the autosend for the user.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def autosend(self, update: Update, context: CallbackContext) -> None:
+        member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             user = self.db.query_by_ids(
                 chat_id=update.effective_chat.id)[0]
@@ -543,39 +813,53 @@ class Bot():
             user_id = user['user_id']
             chat_id = user['chat_id']
 
-            self.db.update('data', key_chat_id=update.effective_chat.id, autosend=int(not current))
+            self.db.update(
+                'data', key_chat_id=update.effective_chat.id, autosend=int(not current))
 
             effective_day = 'oggi' if int(
                 user['autosend_time'][:2]) < 15 else 'domani'
-            
+
             scheduled_time_str = user['autosend_time']
 
             if not current:  # enabling autosend
                 if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = True
                 else:
                     self.jobs[str(chat_id)].enabled = True
 
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Autosend attivato.')
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=self.messages['autosend_enabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
             else:
                 if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), context={
-                        'day': effective_day, 'chat_id': chat_id, 'user_id': user_id})
+                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                     self.jobs[str(chat_id)].enabled = False
                 else:
                     self.jobs[str(chat_id)].enabled = False
-                context.bot.send_message(
-                    chat_id=update.effective_chat.id, text='Autosend disattivato.')
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=self.messages['autosend_disabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Solo gli amministratori possono usare questo comando.')
+            await context.bot.send_message(chat_id=update.effective_chat.id,
+                                           text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
-    def __orario_autosend(self, context: CallbackContext):
-        data = context.job.context
-        day = data['day']
-        chat_id = data['chat_id']
+    '''
+    This method is called when the timetable command is sent to the bot.
+    It parses some text like 'oggi' or 'domani' and sends the schedule of the user.
+
+    Parameters
+    ----------
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def __orario_autosend(self, context: CallbackContext) -> None:
+        day = context.job.data
+        chat_id = context.job.chat_id
 
         date = Utils.date_from_days(day)
 
@@ -587,29 +871,57 @@ class Bot():
         messages = self.__messages_creation(
             date, chat_id)
 
-        message_default = 'Non ci sono lezioni il {date}.'.format(
+        message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=chat_id)[0]['language']].format(
             date=date)
 
         if 'oggi' in day:
-            context.bot.send_message(
-                chat_id=chat_id, text=WeatherAPI.get_weather(city, 0))
+            await context.bot.send_message(
+                chat_id=chat_id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=chat_id)[0]['language']))
         elif 'domani' in day:
-            context.bot.send_message(
-                chat_id=chat_id, text=WeatherAPI.get_weather(city, 1))
+            await context.bot.send_message(
+                chat_id=chat_id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
         if len(messages) == 0:
-            context.bot.send_message(
+            await context.bot.send_message(
                 chat_id=chat_id, text=message_default)
         for i in messages:
-            context.bot.send_message(chat_id=chat_id, text=i,
-                                     parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            await context.bot.send_message(chat_id=chat_id, text=i,
+                                           parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
-    def __callback_loop(self, context: CallbackContext):
-        self.__orario_autosend(context)
+    '''
+    This method is used for the callback of a scheduled job.
 
-    def wiki(self, update: Update, context: CallbackContext):
+    Parameters
+    ----------
+    context : telegram.ext.CallbackContext
+        Contains the context object.
 
-        self.__update_last_command(update, context)
+    Returns
+    -------
+    None
+    '''
+    async def __callback_loop(self, context: CallbackContext) -> None:
+        await self.__orario_autosend(context)
+
+    '''
+    This method is called when the wiki command is sent to the bot.
+    It sends a message with the wikipedia page of the argument sent to the bot.
+    If the page is not unique, it sends a message with a keyboard to select the page.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def wiki(self, update: Update, context: CallbackContext) -> None:
+
+        await self.__update_last_command(update, context)
 
         if '/wiki@{bot}'.format(bot=self.which_bot) in update.message.text:
             text = update.message.text[(7 + len(self.which_bot)):]
@@ -623,12 +935,12 @@ class Bot():
             if self.last_mess is not None and self.last_mess.lower() == text.lower():
                 index = results['names'].index(text)
                 url = results['links'][index]
-                self.__temp_func(url, update, context)
+                await self.__temp_func(url, update, context)
             else:
                 self.last_mess = text
                 if results['single']:
                     url = results['links']
-                    self.__temp_func(url, update, context)
+                    await self.__temp_func(url, update, context)
                 else:
                     rows = []
                     for i in results['names']:
@@ -637,54 +949,143 @@ class Bot():
                         rows.append(temp)
                     keyboard = ReplyKeyboardMarkup(
                         rows, one_time_keyboard=True, selective=True)
-                    context.bot.send_message(
-                        chat_id=update.effective_chat.id, text='Seleziona la pagina', reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                    await context.bot.send_message(
+                        chat_id=update.effective_chat.id, text=self.messages['wiki_sel'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']], reply_markup=keyboard, reply_to_message_id=update.message.message_id)
         else:
             context.bot.send_message(
-                chat_id=update.effective_chat.id, text='Pagina non trovata.')
+                chat_id=update.effective_chat.id, text=self.messages['error_404'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
             self.last_mess = None
 
+    '''
+    This method is called when the wiki command is sent to the bot.
+    It manages the exceptions of te wikipedia API.
+    At the end, it sends a message with the summary of the page.
+
+    Parameters
+    ----------
+    url_ : str
+        Contains the url of the wikipedia page.
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
     # function defined for optimization
-    def __temp_func(self, url_: str, update: Update, context: CallbackContext):
+    async def __temp_func(self, url_: str, update: Update, context: CallbackContext) -> None:
 
         try:
             message = WikipediaAPI.summary(url_)
-            context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text=message, reply_markup=ReplyKeyboardRemove())
+            await context.bot.send_message(chat_id=update.effective_chat.id,
+                                           text=message, reply_markup=ReplyKeyboardRemove())
         except BadRequest as e:
             if str(e) == 'Message is too long':
-                context.bot.send_message(chat_id=update.effective_chat.id,
-                                         text=self.__long_mess_fix(message), reply_markup=ReplyKeyboardRemove())
+                await context.bot.send_message(chat_id=update.effective_chat.id,
+                                               text=self.__long_mess_fix(message), reply_markup=ReplyKeyboardRemove())
 
         self.last_mess = None
 
-    def __long_mess_fix(self, message: str):
+    '''
+    This method is used to fix the message too long error by cutting the message.
+
+    Parameters
+    ----------
+    message : str
+        Contains the message.
+        
+    Returns
+    -------
+    message : str
+    '''
+
+    def __long_mess_fix(self, message: str) -> str:
         message = message[:4095]
         message = message[::-1]
         message = message[message.find('.'):]
         message = message[::-1]
         return message
 
-    def bug(self, update: Update, context: CallbackContext):
+    '''
+    This method is called when the bug_report command is sent to the bot.
+    It sends a message with the link to the repository of the bot.
 
-        self.__update_last_command(update, context)
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
 
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Si può segnalare un bug/suggerire un miglioramento sulla <a href="{link}">repository</a> del bot.'
-                                 .format(link='https://github.com/RiccardoBarbieri/the_unibot/issues'), parse_mode=ParseMode.HTML)
+    Returns
+    -------
+    None
+    '''
+    async def bug(self, update: Update, context: CallbackContext) -> None:
 
-    def __update_last_command(self, update: Update, context: CallbackContext):
+        await self.__update_last_command(update, context)
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['bug_report'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']]
+                                       .format(link=self.__link__ + '/issues'), parse_mode=ParseMode.HTML)
+
+    '''
+    This method is used to update the last command sent to the bot.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def __update_last_command(self, update: Update, context: CallbackContext) -> None:
         if len(self.db.query('data', key_chat_id=update.effective_chat.id)) == 0:
             self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                            course='0', year=1, detail=2, curricula='default')
         if '/' in update.message.text:
             self.db.insert('last_command', chat_id=update.effective_chat.id,
                            user_id=update.effective_user.id, text=update.message.text)
-            self.db.update('last_command', key_chat_id=update.effective_chat.id, text=update.message.text)
+            self.db.update(
+                'last_command', key_chat_id=update.effective_chat.id, text=update.message.text)
 
-    def offrimi_un_cafe(self, update: Update, context: CallbackContext):
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Se vuoi donarci un caffé (o altro):')
-        context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
+    '''
+    This method is called when the donate_a_coffee command is sent to the bot.
+    It sends a message with the link to donate to the bot.
 
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def donate_a_coffee(self, update: Update, context: CallbackContext) -> None:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['coffee'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
+
+    async def change_language(self, update: Update, context: CallbackContext) -> None:
+
+        await self.__update_last_command(update, context)
+
+        rows = []
+        for lang, id in self.__langs__.items():
+            temp = []
+            temp.append(KeyboardButton(lang))
+            rows.append(temp)
+        keyboard = ReplyKeyboardMarkup(
+            rows, one_time_keyboard=True, selective=True)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
+                                    reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
 if __name__ == '__main__':
 
@@ -696,6 +1097,5 @@ if __name__ == '__main__':
         with open(Path('./keys/token.txt')) as f:
             token = f.readline()
             which_bot = 'the_unibot'
-    
 
-    bot = Bot(token, which_bot)
+    bot = the_unibot(token, which_bot)
