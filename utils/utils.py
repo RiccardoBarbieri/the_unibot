@@ -6,6 +6,7 @@ import requests
 import getpass
 import re
 
+
 class Utils():
 
     @staticmethod
@@ -14,7 +15,7 @@ class Utils():
         day = date[:2]
         month = date[3:5]
         return day + '/' + month + '/' + year
-    
+
     @staticmethod
     def to_ISO8601(date: str) -> str:
         year = date[-4:]
@@ -56,7 +57,7 @@ class Utils():
             return 'timetable'
         else:
             return 'orario-lezioni'
-    
+
     @staticmethod
     def get_course_lang2(url: str):
         if 'cycle' in url:
@@ -94,7 +95,6 @@ class Utils():
         else:
             string1 = string1[:len(string2)]
         return [i for i in range(len(string1)) if string1[i] != string2[i]][0]
-
 
     @staticmethod
     def ip_changed():

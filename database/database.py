@@ -1,9 +1,8 @@
+import sys  # nopep8
+sys.path.append('.')  # nopep8
 import sqlite3
 import json
 from pathlib import Path
-
-import sys
-sys.path.append('.')
 from utils import Utils
 
 '''
@@ -77,6 +76,8 @@ backup(table: str)
 restore_backup(table: str)
     restores the backup of the table
 '''
+
+
 class Database():
 
     path = None
@@ -170,7 +171,7 @@ class Database():
                                     )[:-2].replace('\'', '') + ')'
 
             query = 'UPDATE {table} '.format(table=table) + 'SET ' + str_cols +\
-            ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
+                ' = ' + str_data + ' WHERE ' + str_where_cols + ' = ' + str_where_data
             try:
                 cursor.execute(query, data + where_data)
             except sqlite3.IntegrityError as e:
@@ -218,7 +219,7 @@ class Database():
             cols = tuple([i[1] for i in cursor.fetchall()])
 
             cursor.execute('SELECT * FROM {table}'.format(table=table))
-            #cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+            # cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
 
             return self.__dict_creation(cols, cursor.fetchall())
 
@@ -312,7 +313,6 @@ class Database():
             cursor.execute("PRAGMA table_info({table})".format(table='data'))
             cols = tuple([i[1] for i in cursor.fetchall()])
 
-
             query = 'SELECT * FROM data WHERE chat_id = ' + str(chat_id)
             cursor.execute(query)
 
@@ -348,5 +348,3 @@ class Database():
 
 if __name__ == '__main__':
     db = Database(Path('./database/telegram.db'))
-
-    
