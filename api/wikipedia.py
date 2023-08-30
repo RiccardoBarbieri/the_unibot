@@ -15,6 +15,8 @@ pages(query: str) -> dict
 summary(url: str) -> str
     Returns the summary of the specified wikipedia page.
 '''
+
+
 class WikipediaAPI():
 
     '''
@@ -34,24 +36,26 @@ class WikipediaAPI():
     def pages(query) -> dict:
         url = 'https://en.wikipedia.org/w/api.php'
         params = {
-            'action':'opensearch',
-            'namesearch':'0',
-            'search':query,
-            'format':'json'
+            'action': 'opensearch',
+            'namesearch': '0',
+            'search': query,
+            'format': 'json'
         }
 
         session = requests.Session()
-        r = session.get(url = url, params = params)
+        r = session.get(url=url, params=params)
 
         data = r.json()
 
         if len(data[3]) == 0:
             return dict(names=data[1], links=data[3], single=False)
         elif len(data[3]) > 1:
-            return dict(names=data[1], links=data[3], single=False) # if False -> multiple links
+            # if False -> multiple links
+            return dict(names=data[1], links=data[3], single=False)
         else:
-            return dict(names=data[1][0], links=data[3][0], single=True) # if True -> single link
-    
+            # if True -> single link
+            return dict(names=data[1][0], links=data[3][0], single=True)
+
     '''
     Returns the summary of the specified wikipedia page.
     
@@ -74,7 +78,7 @@ class WikipediaAPI():
         reverse_url = url[::-1]
         index = reverse_url.find('/')
         page_name = reverse_url[:index][::-1]
-        
+
         # apostrophes management
         if '%27' in page_name:
             page_name = page_name.replace('%27', '\'')
