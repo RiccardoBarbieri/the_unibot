@@ -18,15 +18,15 @@ class MessageCreator():
 
     @staticmethod
     def get_message(schedule, lvl):
-        message = ''
+        message = '{time}\n{course_name}'.format(course_name = schedule['title'], time = schedule['time'])
         
-        if (lvl == 1):
-            message = '{time}\n{course_name}'.format(course_name = schedule['title'], time = schedule['time'])
-        elif (lvl == 2):
-            message = '{time}\n{course_name}\nLuogo: {location}\n<a href="{teams}">Link lezione</a>'.format(time = schedule['time'], course_name = schedule['title'], location = schedule['location'], teams = schedule['teams'])
+        if (lvl == 2):
+            message += '\nLuogo: {location}'.format(location = schedule['location'])
         elif (lvl == 3):
-            message = '{time}\n{course_name}\nCFU: {cfu}\nDocente: {teacher}\nLuogo: {location}\nTeledidattica obbligatoria: {dad}\n<a href="{teams}">Link lezione</a>'\
-            .format(time = schedule['time'], course_name = schedule['title'], location = schedule['location'], cfu = schedule['cfu'], teacher = schedule['docente'], dad = schedule['teledidattica'], teams = schedule['teams'])
+            message += '\nCFU: {cfu}\nDocente: {teacher}\nLuogo: {location}\nTeledidattica obbligatoria: {dad}'\
+            .format(location = schedule['location'], cfu = schedule['cfu'], teacher = schedule['docente'], dad = schedule['teledidattica'])
+        if lvl > 1 and schedule['teams'] is not None:
+            message += '\n<a href="{teams}">Link lezione</a>'.format(teams = schedule['teams'])
         return message
 
     @staticmethod
