@@ -721,7 +721,7 @@ class the_unibot():
 
         messages = []
         for i in schedules:
-            messages.append(MessageCreator.get_message(i, result['detail']))
+            messages.append(MessageCreator.get_message(i, result['detail'], self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
         return messages
 
