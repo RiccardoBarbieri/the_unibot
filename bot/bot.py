@@ -208,7 +208,7 @@ class the_unibot():
     '''
     async def message_handler(self, update: Update, context: CallbackContext) -> None:
 
-        await self.__update_last_command(update, context)
+        await self.__update_last_command(update)
 
         last_command = (None if self.db.query('last_command', key_chat_id=update.effective_chat.id)[0][
             'text'] == '' else self.db.query('last_command', key_chat_id=update.effective_chat.id)[0])
@@ -339,7 +339,7 @@ class the_unibot():
 
             courses = self.db.query_all('courses')
 
-            await self.__update_last_command(update, context)
+            await self.__update_last_command(update)
 
             message_text = update.message.text.replace(
                 '@' + self.which_bot, '').strip()
@@ -461,7 +461,7 @@ class the_unibot():
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
             curricula_regex = '^([A-Z0-9]){3}-([A-Z0-9]){3}$'
 
-            await self.__update_last_command(update, context)
+            await self.__update_last_command(update)
 
             course_code = self.db.query_by_ids(
                 chat_id=update.effective_chat.id)[0]['course']
@@ -546,7 +546,7 @@ class the_unibot():
     async def set_year(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
-            await self.__update_last_command(update, context)
+            await self.__update_last_command(update)
 
             params = Utils.parse_params(
                 '/set_year', update.message.text, self.which_bot)
@@ -589,7 +589,7 @@ class the_unibot():
     async def set_detail(self, update: Update, context: CallbackContext) -> None:
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
-            await self.__update_last_command(update, context)
+            await self.__update_last_command(update)
 
             params = Utils.parse_params(
                 '/set_detail', update.message.text, self.which_bot)
@@ -631,7 +631,7 @@ class the_unibot():
     '''
     async def timetable(self, update: Update, context: CallbackContext) -> None:
 
-        await self.__update_last_command(update, context)
+        await self.__update_last_command(update)
         user = self.db.query_by_ids(
             chat_id=update.effective_chat.id)[0]
         course_code = user['course']
@@ -746,7 +746,7 @@ class the_unibot():
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
 
-            await self.__update_last_command(update, context)
+            await self.__update_last_command(update)
 
             params = Utils.parse_params(
                 '/set_autosend', update.message.text, self.which_bot)
@@ -921,7 +921,7 @@ class the_unibot():
     '''
     async def wiki(self, update: Update, context: CallbackContext) -> None:
 
-        await self.__update_last_command(update, context)
+        await self.__update_last_command(update)
 
         if '/wiki@{bot}'.format(bot=self.which_bot) in update.message.text:
             text = update.message.text[(7 + len(self.which_bot)):]
@@ -1025,7 +1025,7 @@ class the_unibot():
     '''
     async def bug(self, update: Update, context: CallbackContext) -> None:
 
-        await self.__update_last_command(update, context)
+        await self.__update_last_command(update)
 
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['bug_report'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']]
                                        .format(link=self.__link__ + '/issues'), parse_mode=ParseMode.HTML)
@@ -1037,14 +1037,12 @@ class the_unibot():
     ----------
     update : telegram.Update
         Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
 
     Returns
     -------
     None
     '''
-    async def __update_last_command(self, update: Update, context: CallbackContext) -> None:
+    async def __update_last_command(self, update: Update) -> None:
         if len(self.db.query('data', key_chat_id=update.effective_chat.id)) == 0:
             self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
                            course='0', year=1, detail=2, curricula='default')
@@ -1075,7 +1073,7 @@ class the_unibot():
 
     async def change_language(self, update: Update, context: CallbackContext) -> None:
 
-        await self.__update_last_command(update, context)
+        await self.__update_last_command(update)
 
         rows = []
         for lang, id in self.__langs__.items():
