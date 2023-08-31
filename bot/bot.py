@@ -59,7 +59,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.08.29'
+    __version__ = '2023.08.31'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
 
@@ -256,6 +256,8 @@ class the_unibot():
             elif len(curriculas) == 0:
                 self.db.update('data', key_chat_id=chat_id,
                                curricula='000-000')
+                
+            self.db.update('last_command', key_chat_id=chat_id, text='/start')
 
             self.db.backup('data')
             print('Updated user {user_id} with course {course_code}'.format(
@@ -274,6 +276,8 @@ class the_unibot():
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
 
             self.db.update('data', key_chat_id=chat_id, curricula=code)
+
+            self.db.update('last_command', key_chat_id=chat_id, text='/start')
 
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
@@ -294,6 +298,8 @@ class the_unibot():
 
             await context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
+            
+            self.db.update('last_command', key_chat_id=chat_id, text='/start')
 
             print('Updated user {user_id} with language {language}'.format(
                 language=language, user_id=user_id))
@@ -994,6 +1000,8 @@ class the_unibot():
                                                text=self.__long_mess_fix(message), reply_markup=ReplyKeyboardRemove())
 
         self.last_mess = None
+
+        self.db.update('last_command', key_chat_id=update.effective_chat.id, text='/start')
 
     '''
     This method is used to fix the message too long error by cutting the message.
