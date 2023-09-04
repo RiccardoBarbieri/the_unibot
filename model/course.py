@@ -1,10 +1,11 @@
 from __future__ import annotations
+from exceptions import ParameterError
 
 from typing import Dict
 
-import sys
-sys.path.append('.')
-from exceptions import ParameterError
+import sys  # nopep8
+sys.path.append('.')  # nopep8
+
 
 class Course():
 
@@ -48,7 +49,7 @@ class Course():
     from_table: bool
         True if the dict comes from a sql query and has keys like
         table.attribute.
-        
+
     Attributes
     ----------
     __name: str
@@ -86,7 +87,7 @@ class Course():
     __name: str
     __code: str
     __campus: str
-    __international: int # bool
+    __international: int  # bool
     __access: str
     __site: str
     __codec: str
@@ -115,7 +116,8 @@ class Course():
                 (not isinstance(site, str)) or
                 (not isinstance(codec, str))
             ):
-                raise TypeError('One or more attributes are not of the correct type.')
+                raise TypeError(
+                    'One or more attributes are not of the correct type.')
             self.__name = name
             self.__code = code
             self.__campus = campus
@@ -129,9 +131,11 @@ class Course():
                 if not (i.split('.') == 2):
                     keys_table_column = False
             if not keys_table_column and self.__from_table:
-                raise ParameterError('The keys of from_dict must be of type \'table.attribute\' if from_table is True')
+                raise ParameterError(
+                    'The keys of from_dict must be of type \'table.attribute\' if from_table is True')
             elif keys_table_column and not self.__from_table:
-                raise ParameterError('The keys of from dict must be of type \'attribute\' if from_table is False')
+                raise ParameterError(
+                    'The keys of from dict must be of type \'attribute\' if from_table is False')
             elif keys_table_column and self.__from_table:
                 for i in from_dict.keys():
                     attr = i.split('.')[1]
@@ -146,7 +150,8 @@ class Course():
                     (not isinstance(from_dict['site'], str)) or
                     (not isinstance(from_dict['codec'], str))
                 ):
-                    raise TypeError('One or more attributes are not of the correct type.')
+                    raise TypeError(
+                        'One or more attributes are not of the correct type.')
                 self.__name = from_dict['name']
                 self.__code = from_dict['code']
                 self.__campus = from_dict['campus']
@@ -155,10 +160,11 @@ class Course():
                 self.__site = from_dict['site']
                 self.__codec = from_dict['codec']
             except KeyError as e:
-                raise ParameterError('{key} is not a valid Course attribute.'.format(key = e))
+                raise ParameterError(
+                    '{key} is not a valid Course attribute.'.format(key=e))
         else:
-            raise ParameterError('The single parameters must be provided only if from_dict isn\'t (or viceversa).')
-        
+            raise ParameterError(
+                'The single parameters must be provided only if from_dict isn\'t (or viceversa).')
 
     def get_name(self) -> str:
         """
@@ -171,7 +177,7 @@ class Course():
 
         """
         return self.__name
-    
+
     def get_code(self) -> str:
         """
         Getter for the code attribute.
@@ -183,7 +189,7 @@ class Course():
 
         """
         return self.__code
-    
+
     def get_campus(self) -> str:
         """
         Getter for the campus attribute.
@@ -195,7 +201,7 @@ class Course():
 
         """
         return self.__campus
-    
+
     def get_international(self) -> bool:
         """
         Getter for the international attribute.
@@ -206,7 +212,7 @@ class Course():
             True if the course is international.
         """
         return bool(self.__international)
-    
+
     def get_access(self) -> str:
         """
         Getter for the access attribute.
@@ -218,7 +224,7 @@ class Course():
 
         """
         return self.__access
-    
+
     def get_site(self) -> str:
         """
         Getter for the site attribute.
@@ -230,7 +236,7 @@ class Course():
 
         """
         return self.__site
-    
+
     def get_codec(self) -> str:
         """
         Getter for the codec attribute.
@@ -242,7 +248,7 @@ class Course():
 
         """
         return self.__codec
-    
+
     def __str__(self) -> str:
         string = 'Nome: ' + self.__name + ', '
         string += 'code: ' + self.__code + ', '
@@ -253,7 +259,8 @@ class Course():
         string += 'codec: ' + self.__codec + '.'
         return string
 
-a = {    
+
+a = {
     'name': 'Fisica',
     'code': '9244',
     'campus': 'Bologna',
