@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def create_connection(db_file):
     conn = None
     try:
@@ -8,6 +9,7 @@ def create_connection(db_file):
     except sqlite3.Error as e:
         print(e)
     return conn
+
 
 connection = create_connection('telegram.db')
 

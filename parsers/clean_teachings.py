@@ -7,6 +7,7 @@ from datetime import datetime
 with open('./resources/teachings.json') as f:
     teachings = json.load(f)
 
+
 def count_word(word: str, words: list):
     count = 0
     for w in words:
@@ -14,8 +15,10 @@ def count_word(word: str, words: list):
             count += 1
     return count
 
+
 def split_newline(string: str):
     return string.split('\n')[0].strip()
+
 
 def remove_newline(teachings: list):
     final = []
@@ -29,7 +32,6 @@ def remove_newline(teachings: list):
         temp['from'] = t['from']
         final.append(temp)
     return final
-    
 
 
 def is_dup(i, l):
@@ -84,14 +86,12 @@ def is_dup(i, l):
 #     json.dump(dups, f, indent=4)
 
 
-
 # con = sqlite3.connect('./temp.db')
 # cur = con.cursor()
 
 # cur.ex
 
 # for i in teachings:
-    
 teachings_temp = remove_newline(teachings)
 
 teachings_empty_code = [i for i in teachings_temp if i['code'] == '']
