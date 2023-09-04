@@ -25,7 +25,7 @@ class Utils():
 
     @staticmethod
     def check_days(string: str):
-        days = ['oggi', 'domani', 'dopodomani']
+        days = ['oggi', 'today', 'domani', 'tomorrow', 'dopodomani']
         return string in days
 
     @staticmethod
@@ -78,9 +78,9 @@ class Utils():
     def date_from_days(day: str) -> str:
         format_string = '%d-%m-%Y'
         today: date = datetime.now().date()
-        if day == 'oggi':
+        if any(d in day for d in ['oggi', 'today']):
             new_date_str = today.strftime(format_string)
-        elif day == 'domani':
+        elif any(d in day for d in ['domani', 'tomorrow']):
             tomorrow = today + timedelta(days=1)
             new_date_str = tomorrow.strftime(format_string)
         elif day == 'dopodomani':
