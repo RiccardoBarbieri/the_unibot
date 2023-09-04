@@ -75,6 +75,22 @@
         "en": "Weather: ",
         "it": "Meteo: "
     },
+    "place": {
+        "en": "Place: ",
+        "it": "Luogo: "
+    },
+    "professor": {
+        "en": "Professor: ",
+        "it": "Docente: "
+    },
+    "online_lecture": {
+        "en": "Online-only lecture: ",
+        "it": "Teledidattica obbligatoria: "
+    },
+    "lecture_link": {
+        "en": "Lecture link: ",
+        "it": "Link lezione: "
+    },
     "error_404": {
         "en": "Error 404: not found.",
         "it": "Errore 404: non trovato."
