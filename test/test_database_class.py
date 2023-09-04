@@ -1,6 +1,6 @@
-import sqlite3
-import json
-from the_unibot.database import Database
+import sys  # nopep8
+sys.path.append('.')  # nopep8
+from database import Database
 from pathlib import Path
 
 db = Database(Path('./database/telegram.db'))

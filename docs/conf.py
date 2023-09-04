@@ -19,7 +19,7 @@ sys.setrecursionlimit(1500)
 # -- Project information -----------------------------------------------------
 
 project = 'The Unibot'
-copyright = '2021, Riccardo Barbieri, Gregorio Berselli'
+copyright = '2021-2023, Riccardo Barbieri, Gregorio Berselli'
 author = 'Riccardo Barbieri, Gregorio Berselli'
 
 # The full version, including alpha/beta/rc tags
@@ -32,9 +32,9 @@ release = '1.0.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc', 
-    'sphinx.ext.coverage', 
-    'sphinx.ext.napoleon', 
+    'sphinx.ext.autodoc',
+    'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
     'sphinx_rtd_theme',
     'sphinx.ext.autosummary'
 ]
