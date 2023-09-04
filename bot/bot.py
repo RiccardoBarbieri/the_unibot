@@ -256,6 +256,8 @@ class the_unibot():
             elif len(curriculas) == 0:
                 self.db.update('data', key_chat_id=chat_id,
                                curricula='000-000')
+                
+            self.db.update('last_command', key_chat_id=chat_id, text='/start')
 
             self.db.backup('data')
             print('Updated user {user_id} with course {course_code}'.format(
@@ -275,6 +277,8 @@ class the_unibot():
 
             self.db.update('data', key_chat_id=chat_id, curricula=code)
 
+            self.db.update('last_command', key_chat_id=chat_id, text='/start')
+
             self.db.backup('data')
             print('Updated user {user_id} with curricula {code}'.format(
                 code=code, user_id=user_id))
@@ -285,6 +289,7 @@ class the_unibot():
             language = self.__langs__[update.message.text]
 
             self.db.update('data', key_chat_id=chat_id,
+                          
                            language=self.__langs__[update.message.text])
 
             self.db.backup('data')
@@ -294,6 +299,8 @@ class the_unibot():
 
             await context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
+
+            self.db.update('last_command', key_chat_id=chat_id, text='/start')
 
             print('Updated user {user_id} with language {language}'.format(
                 language=language, user_id=user_id))
@@ -722,7 +729,8 @@ class the_unibot():
 
         messages = []
         for i in schedules:
-            messages.append(MessageCreator.get_message(i, result['detail']))
+            messages.append(MessageCreator.get_message(
+                i, result['detail'], self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
         return messages
 
@@ -939,6 +947,11 @@ class the_unibot():
         else:
             text = update.message.text
 
+        if text == '' or text.isspace():
+            await context.bot.send_message(chat_id=update.effective_chat.id,
+                                           text=self.messages['error_404'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
+            return
+
         results = WikipediaAPI.pages(text)
         if len(results['names']) != 0:
             if self.last_mess is not None and self.last_mess.lower() == text.lower():
@@ -996,6 +1009,8 @@ class the_unibot():
                                                text=self.__long_mess_fix(message), reply_markup=ReplyKeyboardRemove())
 
         self.last_mess = None
+
+        self.db.update('last_command', key_chat_id=update.effective_chat.id, text='/start')
 
     '''
     This method is used to fix the message too long error by cutting the message.
@@ -1092,7 +1107,8 @@ class the_unibot():
         keyboard = ReplyKeyboardMarkup(
             rows, one_time_keyboard=True, selective=True)
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
-                                       reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                                          reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+
 
 
 if __name__ == '__main__':

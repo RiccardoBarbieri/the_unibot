@@ -18,18 +18,20 @@ get_weather(city: str, day: int) -> str
 parse_weather(day: int, weather: dict) -> str
     Returns the weather forecast for the specified day.
 '''
+
+
 class WeatherAPI():
-    
+
     '''
     Returns the weather forecast for the specified city and day.
-    
+
     Parameters
     ----------
     city : str
         The city for which the weather forecast is requested.
     day : int
         The day for which the weather forecast is requested.
-        
+
     Returns
     -------
     str
@@ -39,13 +41,15 @@ class WeatherAPI():
     def get_weather(city: str, day: int, lang: str) -> str:
         with open(Path('./keys/weather.txt')) as f:
             api_key = f.readline()
-        coords_url = "https://api.openweathermap.org/data/2.5/weather?&appid={key}&q={city}&units=metric".format(key = api_key, city = city)
+        coords_url = "https://api.openweathermap.org/data/2.5/weather?&appid={key}&q={city}&units=metric".format(
+            key=api_key, city=city)
         response = requests.get(coords_url)
         coords = response.json()
         if coords['cod'] != 401:
             lat = coords['coord']['lat']
             lon = coords['coord']['lon']
-            weather_url = 'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={key}&units=metric&lang={lang}&exclude=minutely,hourly'.format(lat = lat, lon = lon, key = api_key, lang = lang)
+            weather_url = 'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&appid={key}&units=metric&lang={lang}&exclude=minutely,hourly'.format(
+                lat=lat, lon=lon, key=api_key, lang=lang)
             response = requests.get(weather_url)
             weather = response.json()
             return WeatherAPI.parse_weather(day, weather, lang)
