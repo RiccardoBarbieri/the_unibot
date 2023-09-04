@@ -8,7 +8,7 @@ from utils import Utils
 from utils import MessageCreator
 from database import Database
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Update, Bot
-from telegram.error import BadRequest
+from telegram.error import BadRequest, Forbidden
 from telegram.constants import ParseMode
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Updater, CallbackContext, JobQueue, Job
 from telegram.ext import filters
@@ -59,7 +59,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.08.29'
+    __version__ = '2023.09.04'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
 
@@ -284,7 +284,8 @@ class the_unibot():
 
             language = self.__langs__[update.message.text]
 
-            self.db.update('data', key_chat_id=chat_id, language=self.__langs__[update.message.text])
+            self.db.update('data', key_chat_id=chat_id,
+                           language=self.__langs__[update.message.text])
 
             self.db.backup('data')
 
@@ -293,7 +294,7 @@ class the_unibot():
 
             await context.bot.send_message(
                 chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
-            
+
             print('Updated user {user_id} with language {language}'.format(
                 language=language, user_id=user_id))
 
@@ -874,19 +875,27 @@ class the_unibot():
         message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=chat_id)[0]['language']].format(
             date=date)
 
-        if 'oggi' in day:
-            await context.bot.send_message(
-                chat_id=chat_id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=chat_id)[0]['language']))
-        elif 'domani' in day:
-            await context.bot.send_message(
-                chat_id=chat_id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=chat_id)[0]['language']))
+        try:
+            if 'oggi' in day:
+                await context.bot.send_message(
+                    chat_id=chat_id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=chat_id)[0]['language']))
+            elif 'domani' in day:
+                await context.bot.send_message(
+                    chat_id=chat_id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
-        if len(messages) == 0:
-            await context.bot.send_message(
-                chat_id=chat_id, text=message_default)
-        for i in messages:
-            await context.bot.send_message(chat_id=chat_id, text=i,
-                                           parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            if len(messages) == 0:
+                await context.bot.send_message(
+                    chat_id=chat_id, text=message_default)
+            for i in messages:
+                await context.bot.send_message(chat_id=chat_id, text=i,
+                                               parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        except Forbidden as e:
+            # user blocked the bot, so set the autosend to False
+            self.db.update(
+                'data', key_chat_id=chat_id, autosend=0)
+            self.jobs[str(chat_id)].schedule_removal()
+            print('User {id} blocked the bot, autosend disabled.'.format(
+                id=context.job.user_id))
 
     '''
     This method is used for the callback of a scheduled job.
@@ -1083,7 +1092,8 @@ class the_unibot():
         keyboard = ReplyKeyboardMarkup(
             rows, one_time_keyboard=True, selective=True)
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
-                                    reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+                                       reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+
 
 if __name__ == '__main__':
 
