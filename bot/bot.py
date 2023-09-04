@@ -60,6 +60,7 @@ updater : telegram.ext.Updater
 
 class the_unibot():
     __version__ = '2023.09.04'
+    __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
 
@@ -125,8 +126,8 @@ class the_unibot():
 
         for i in self.db.query_all('data'):
             scheduled_time_str = Utils.idiot_time(i['autosend_time'])
-            effective_day = 'oggi' if int(
-                scheduled_time_str[:2]) < 15 else 'domani'
+            effective_day = 'today' if int(
+                scheduled_time_str[:2]) < 15 else 'tomorrow'
             chat_id = i['chat_id']
             # user_id = i['user_id']
             if bool(i['autosend']):
@@ -256,7 +257,7 @@ class the_unibot():
             elif len(curriculas) == 0:
                 self.db.update('data', key_chat_id=chat_id,
                                curricula='000-000')
-                
+
             self.db.update('last_command', key_chat_id=chat_id, text='/start')
 
             self.db.backup('data')
@@ -289,7 +290,7 @@ class the_unibot():
             language = self.__langs__[update.message.text]
 
             self.db.update('data', key_chat_id=chat_id,
-                          
+
                            language=self.__langs__[update.message.text])
 
             self.db.backup('data')
@@ -653,14 +654,14 @@ class the_unibot():
 
         if (len(params['numeric']) == 0 and len(params['text']) == 0):
             if datetime.now().hour < 15:
-                params['text'].append('oggi')
+                params['text'].append('today')
             else:
-                params['text'].append('domani')
+                params['text'].append('tomorrow')
 
-        if 'oggi' in params['text']:
+        if any(day in params['text'] for day in ['oggi', 'today']):
             await context.bot.send_message(
                 chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
-        elif 'domani' in params['text']:
+        elif any(day in params['text'] for day in ['domani', 'tomorrow']):
             await context.bot.send_message(
                 chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
 
@@ -766,8 +767,8 @@ class the_unibot():
 
                 scheduled_time_str = Utils.idiot_time(params['text'][0])
 
-                effective_day = 'oggi' if int(
-                    scheduled_time_str[:2]) < 15 else 'domani'
+                effective_day = 'today' if int(
+                    scheduled_time_str[:2]) < 15 else 'tomorrow'
 
                 if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
@@ -825,8 +826,8 @@ class the_unibot():
             self.db.update(
                 'data', key_chat_id=update.effective_chat.id, autosend=int(not current))
 
-            effective_day = 'oggi' if int(
-                user['autosend_time'][:2]) < 15 else 'domani'
+            effective_day = 'today' if int(
+                user['autosend_time'][:2]) < 15 else 'tomorrow'
 
             scheduled_time_str = user['autosend_time']
 
@@ -855,7 +856,7 @@ class the_unibot():
 
     '''
     This method is called when the timetable command is sent to the bot.
-    It parses some text like 'oggi' or 'domani' and sends the schedule of the user.
+    It parses some text like 'today' or 'tomorrow' and sends the schedule of the user.
 
     Parameters
     ----------
@@ -884,10 +885,10 @@ class the_unibot():
             date=date)
 
         try:
-            if 'oggi' in day:
+            if any(d in day for d in ['oggi', 'today']):
                 await context.bot.send_message(
                     chat_id=chat_id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=chat_id)[0]['language']))
-            elif 'domani' in day:
+            elif any(d in day for d in ['domani', 'tomorrow']):
                 await context.bot.send_message(
                     chat_id=chat_id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
@@ -1010,7 +1011,8 @@ class the_unibot():
 
         self.last_mess = None
 
-        self.db.update('last_command', key_chat_id=update.effective_chat.id, text='/start')
+        self.db.update(
+            'last_command', key_chat_id=update.effective_chat.id, text='/start')
 
     '''
     This method is used to fix the message too long error by cutting the message.
@@ -1107,8 +1109,7 @@ class the_unibot():
         keyboard = ReplyKeyboardMarkup(
             rows, one_time_keyboard=True, selective=True)
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
-                                          reply_markup=keyboard, reply_to_message_id=update.message.message_id)
-
+                                       reply_markup=keyboard, reply_to_message_id=update.message.message_id)
 
 
 if __name__ == '__main__':
