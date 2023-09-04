@@ -47,9 +47,10 @@ To get the timetable of a generic day:
 
     /timetable dd/mm/yyyy
 
-or writing *oggi, domani o dopodomani*, which mean *today, tomorrow, the day after tomorrow*.
+or writing *today, tomorrow*.
 
 **N.B.**: if no day is passed to the command, it will send the timetable of the current day.
+Also, using if one word from *today, tomorrow* is given, the bot will also return weather infos.
 
 #### Autosend
 One can also set an autosend time
