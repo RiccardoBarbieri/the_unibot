@@ -1147,7 +1147,7 @@ class the_unibot():
 
         await self.__update_last_command(update)
 
-        self.db.update('data', key_chat_id=update.effective_chat.id, course='', year=1, detail=2,
+        self.db.update('data', key_chat_id=update.effective_chat.id, course='0', year=1, detail=2,
                        curricula='default', autosend=0, autosend_time='00:00')
 
         self.db.backup('data')
