@@ -646,10 +646,11 @@ class the_unibot():
         user = self.db.query_by_ids(
             chat_id=update.effective_chat.id)[0]
         course_code = user['course']
-        city = self.db.query('courses', key_course_code=course_code)[
-            0]['campus'].strip()
-
-        print(user)
+        try:
+            city = self.db.query('courses', key_course_code=course_code)[
+                0]['campus'].strip()
+        except IndexError:
+            city = 'Bologna'
 
         params = Utils.parse_params(
             '/timetable', update.message.text, self.which_bot)
