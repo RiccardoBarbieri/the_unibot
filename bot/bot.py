@@ -153,6 +153,7 @@ class the_unibot():
         bug_report_handler = CommandHandler('bug_report', self.bug)
         change_language_handler = CommandHandler(
             'change_language', self.change_language)
+        reset_handler = CommandHandler('reset', self.reset)
 
         dispatcher.add_handler(start_handler)
         dispatcher.add_handler(message_handler)
@@ -168,6 +169,7 @@ class the_unibot():
         dispatcher.add_handler(donate_a_coffee_handler)
         dispatcher.add_handler(bug_report_handler)
         dispatcher.add_handler(change_language_handler)
+        dispatcher.add_handler(reset_handler)
 
         dispatcher.run_polling()
 
@@ -644,10 +646,11 @@ class the_unibot():
         user = self.db.query_by_ids(
             chat_id=update.effective_chat.id)[0]
         course_code = user['course']
-        city = self.db.query('courses', key_course_code=course_code)[
-            0]['campus'].strip()
-
-        print(user)
+        try:
+            city = self.db.query('courses', key_course_code=course_code)[
+                0]['campus'].strip()
+        except IndexError:
+            city = 'Bologna'
 
         params = Utils.parse_params(
             '/timetable', update.message.text, self.which_bot)
@@ -1097,6 +1100,21 @@ class the_unibot():
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['coffee'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         await context.bot.send_message(chat_id=update.effective_chat.id, text='<a href="https://paypal.me/Grufoony?locale.x=it_IT">Paypal</a>', parse_mode=ParseMode.HTML)
 
+    '''
+    This method is called when the change_language command is sent to the bot.
+    It sends a message with a keyboard to select the language of the bot.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
     async def change_language(self, update: Update, context: CallbackContext) -> None:
 
         await self.__update_last_command(update)
@@ -1110,6 +1128,32 @@ class the_unibot():
             rows, one_time_keyboard=True, selective=True)
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
                                        reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+
+    '''
+    This method is called when the reset command is sent to the bot.
+    It resets the user data to the default values.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def reset(self, update: Update, context: CallbackContext) -> None:
+
+        await self.__update_last_command(update)
+
+        self.db.update('data', key_chat_id=update.effective_chat.id, course='0', year=1, detail=2,
+                       curricula='default', autosend=0, autosend_time='00:00')
+
+        self.db.backup('data')
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['reset'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
 
 if __name__ == '__main__':
