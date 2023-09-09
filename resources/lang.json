@@ -91,6 +91,10 @@
         "en": "Lecture link: ",
         "it": "Link lezione: "
     },
+    "reset": {
+        "en": "User data correctly resetted.",
+        "it": "Dati utente resettati correttamente."
+    },
     "error_404": {
         "en": "Error 404: not found.",
         "it": "Errore 404: non trovato."
