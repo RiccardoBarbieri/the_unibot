@@ -59,7 +59,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.09.04'
+    __version__ = '2023.09.10'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
@@ -90,7 +90,7 @@ class the_unibot():
     It creates the dispatcher, the updater and the bot instances.
     It also creates the database instance, or loads it if it already exists.
     It also creates the job_queue instance together with the jobs dictionary.
-    
+
     Parameters
     ----------
     token : str
@@ -337,7 +337,7 @@ class the_unibot():
         Contains the update object.
     context : telegram.ext.CallbackContext
         Contains the context object.
-        
+
     Returns
     -------
     None
@@ -549,7 +549,7 @@ class the_unibot():
         Contains the update object.
     context : telegram.ext.CallbackContext
         Contains the context object.
-    
+
     Returns
     -------
     None
@@ -628,7 +628,7 @@ class the_unibot():
     '''
     This method is called when the timetable command is sent to the bot.
     It sends a message with the schedule of the user.
-    
+
     Parameters
     ----------
     update : telegram.Update
@@ -646,11 +646,6 @@ class the_unibot():
         user = self.db.query_by_ids(
             chat_id=update.effective_chat.id)[0]
         course_code = user['course']
-        try:
-            city = self.db.query('courses', key_course_code=course_code)[
-                0]['campus'].strip()
-        except IndexError:
-            city = 'Bologna'
 
         params = Utils.parse_params(
             '/timetable', update.message.text, self.which_bot)
@@ -661,16 +656,18 @@ class the_unibot():
             else:
                 params['text'].append('tomorrow')
 
-        if any(day in params['text'] for day in ['oggi', 'today']):
-            await context.bot.send_message(
-                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
-        elif any(day in params['text'] for day in ['domani', 'tomorrow']):
-            await context.bot.send_message(
-                chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
-
         date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$'
 
         if not ((user['course'] == '0') or (user['curricula'] == 'default')):
+            city = self.db.query('courses', key_course_code=course_code)[
+                0]['campus'].strip()
+            # weather message
+            if any(day in params['text'] for day in ['oggi', 'today']):
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
+            elif any(day in params['text'] for day in ['domani', 'tomorrow']):
+                await context.bot.send_message(
+                    chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
 
             if (len(params['numeric']) == 0 and len(params['text']) == 1) and (re.match(date_regex, params['text'][0])):
                 date = Utils.parse_date(params['text'][0])
