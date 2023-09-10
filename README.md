@@ -65,6 +65,13 @@ To enable/disable the autosend:
 
 The bot will send a confirmation message.
 
+#### Reset
+To reset all user data to default values one can simply call
+
+    /reset
+
+The bot will send a confirmation message.
+
 ### Search on Wikipedia
 One can also do a quick search on Wikipedia
 
@@ -128,6 +135,13 @@ specificando l'orario *rigorosamente* nel formato indicato.
 Per abilitare/disabilitare l'autosend è sufficiente lanciare il comando, funzionante come un bottone booleano:
 
     /autosend
+
+Verrà inviato un messaggio di conferma.
+
+#### Reset
+Per reimpostare i dati dell'utente ai valori di default è poissibile chiamare il comando
+
+    /reset
 
 Verrà inviato un messaggio di conferma.
 
