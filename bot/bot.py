@@ -154,6 +154,8 @@ class the_unibot():
         change_language_handler = CommandHandler(
             'change_language', self.change_language)
         reset_handler = CommandHandler('reset', self.reset)
+        hide_handler = CommandHandler('hide', self.hide)
+        show_handler = CommandHandler('show', self.show)
 
         dispatcher.add_handler(start_handler)
         dispatcher.add_handler(message_handler)
@@ -170,6 +172,8 @@ class the_unibot():
         dispatcher.add_handler(bug_report_handler)
         dispatcher.add_handler(change_language_handler)
         dispatcher.add_handler(reset_handler)
+        dispatcher.add_handler(hide_handler)
+        dispatcher.add_handler(show_handler)
 
         dispatcher.run_polling()
 
@@ -730,8 +734,13 @@ class the_unibot():
 
         messages = []
         for i in schedules:
-            messages.append(MessageCreator.get_message(
-                i, result['detail'], self.db.query('data', key_chat_id=chat_id)[0]['language']))
+            if self.db.query_by_ids(chat_id)[0]['hide_show'] == 1:
+                if any(j in i['cod_modulo'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()) or any(j in i['title'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()):
+                    messages.append(MessageCreator.get_message(
+                        i, result['detail'], self.db.query('data', key_chat_id=chat_id)[0]['language']))
+            elif not any(j in i['cod_modulo'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()) and not any(j in i['title'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()):
+                messages.append(MessageCreator.get_message(
+                    i, result['detail'], self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
         return messages
 
@@ -1151,6 +1160,88 @@ class the_unibot():
         self.db.backup('data')
 
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['reset'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
+
+    '''
+    This method is called when the hide command is sent to the bot.
+    It stores in the database the parameter passed as argument to the command, in order to tell the bot to not send the schedule of that course.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+    None
+    '''
+    async def hide(self, update: Update, context: CallbackContext):
+        await self.__update_last_command(update)
+
+        params = Utils.parse_params(
+            '/hide', update.message.text, self.which_bot)
+
+        if len(params['text']) > 0 and len(params['numeric']) > 0:
+            words = ' '.join(params['text']).lower(
+            ) + ' ' + ' '.join([str(p) for p in params['numeric']]).lower()
+        elif len(params['text']) > 0:
+            words = ' '.join(params['text']).lower()
+        elif len(params['numeric']) > 0:
+            words = ' '.join([str(p) for p in params['numeric']]).lower()
+        else:
+            words = 'default'
+
+        self.db.update(
+            'data', key_chat_id=update.effective_chat.id, hide_show=0)
+        self.db.update(
+            'data', key_chat_id=update.effective_chat.id, filter=words)
+        self.db.backup('data')
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['hide'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(course=words))
+
+    '''
+    This method is called when the show command is sent to the bot.
+    It stores in the database the parameter passed as argument to the command, in order to tell the bot to send only the schedule of that course.
+
+    Parameters
+    ----------
+    update : telegram.Update
+        Contains the update object.
+    context : telegram.ext.CallbackContext
+        Contains the context object.
+
+    Returns
+    -------
+        None
+    '''
+    async def show(self, update: Update, context: CallbackContext):
+        await self.__update_last_command(update)
+
+        params = Utils.parse_params(
+            '/show', update.message.text, self.which_bot)
+
+        if len(params['text']) > 0 and len(params['numeric']) > 0:
+            words = ' '.join(params['text']).lower(
+            ) + ' ' + ' '.join([str(p) for p in params['numeric']]).lower()
+        elif len(params['text']) > 0:
+            words = ' '.join(params['text']).lower()
+        elif len(params['numeric']) > 0:
+            words = ' '.join([str(p) for p in params['numeric']]).lower()
+        else:
+            words = 'default'
+
+        if words == 'default':
+            self.db.update(
+                'data', key_chat_id=update.effective_chat.id, hide_show=0)
+        else:
+            self.db.update(
+                'data', key_chat_id=update.effective_chat.id, hide_show=1)
+        self.db.update(
+            'data', key_chat_id=update.effective_chat.id, filter=words)
+        self.db.backup('data')
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['show'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(course=words))
 
 
 if __name__ == '__main__':
