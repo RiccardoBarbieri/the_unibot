@@ -24,6 +24,8 @@ The data table has the following columns:
     - autosend_time: the time of the autosend
     - autosend: the autosend status
     - language: the language of the user
+    - hide_show: the hide_show status
+    - filter: the schedule filter of the user
 
 The courses table has the following columns:
     - course_name: the name of the course
@@ -101,6 +103,8 @@ class Database():
                             autosend_time TEXT DEFAULT "00:00",
                             autosend INTEGER CHECK (autosend IN (0,1)) DEFAULT 0,
                             language TEXT DEFAULT "en",
+                            hide_show INTEGER CHECK (hide_show IN (0,1)) DEFAULT 0,
+                            filter TEXT DEFAULT "default",
                             PRIMARY KEY (chat_id)
                             ) WITHOUT ROWID;''')
             cursor.execute('''CREATE TABLE IF NOT EXISTS courses (
