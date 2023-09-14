@@ -1122,19 +1122,22 @@ class the_unibot():
     None
     '''
     async def change_language(self, update: Update, context: CallbackContext) -> None:
+        member = await update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            await self.__update_last_command(update)
 
-        await self.__update_last_command(update)
-
-        rows = []
-        for lang, id in self.__langs__.items():
-            temp = []
-            temp.append(KeyboardButton(lang))
-            rows.append(temp)
-        keyboard = ReplyKeyboardMarkup(
-            rows, one_time_keyboard=True, selective=True)
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
-                                       reply_markup=keyboard, reply_to_message_id=update.message.message_id)
-
+            rows = []
+            for lang, id in self.__langs__.items():
+                temp = []
+                temp.append(KeyboardButton(lang))
+                rows.append(temp)
+            keyboard = ReplyKeyboardMarkup(
+                rows, one_time_keyboard=True, selective=True)
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['lang_change_menu'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']],
+                                           reply_markup=keyboard, reply_to_message_id=update.message.message_id)
+        else:
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                     text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
     '''
     This method is called when the reset command is sent to the bot.
     It resets the user data to the default values.
@@ -1151,15 +1154,19 @@ class the_unibot():
     None
     '''
     async def reset(self, update: Update, context: CallbackContext) -> None:
+        member = await update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            await self.__update_last_command(update)
 
-        await self.__update_last_command(update)
+            self.db.update('data', key_chat_id=update.effective_chat.id, course='0', year=1, detail=2,
+                           curricula='default', autosend=0, autosend_time='00:00', language='en', hide_show=0, filter='default')
 
-        self.db.update('data', key_chat_id=update.effective_chat.id, course='0', year=1, detail=2,
-                       curricula='default', autosend=0, autosend_time='00:00', language='en', hide_show=0, filter='default')
+            self.db.backup('data')
 
-        self.db.backup('data')
-
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['reset'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['reset'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
+        else:
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                     text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called when the hide command is sent to the bot.
@@ -1177,28 +1184,33 @@ class the_unibot():
     None
     '''
     async def hide(self, update: Update, context: CallbackContext):
-        await self.__update_last_command(update)
+        member = await update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            await self.__update_last_command(update)
 
-        params = Utils.parse_params(
-            '/hide', update.message.text, self.which_bot)
+            params = Utils.parse_params(
+                '/hide', update.message.text, self.which_bot)
 
-        if len(params['text']) > 0 and len(params['numeric']) > 0:
-            words = ' '.join(params['text']).lower(
-            ) + ' ' + ' '.join([str(p) for p in params['numeric']]).lower()
-        elif len(params['text']) > 0:
-            words = ' '.join(params['text']).lower()
-        elif len(params['numeric']) > 0:
-            words = ' '.join([str(p) for p in params['numeric']]).lower()
+            if len(params['text']) > 0 and len(params['numeric']) > 0:
+                words = ' '.join(params['text']).lower(
+                ) + ' ' + ' '.join([str(p) for p in params['numeric']]).lower()
+            elif len(params['text']) > 0:
+                words = ' '.join(params['text']).lower()
+            elif len(params['numeric']) > 0:
+                words = ' '.join([str(p) for p in params['numeric']]).lower()
+            else:
+                words = 'default'
+
+            self.db.update(
+                'data', key_chat_id=update.effective_chat.id, hide_show=0)
+            self.db.update(
+                'data', key_chat_id=update.effective_chat.id, filter=words)
+            self.db.backup('data')
+
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['hide'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(course=words))
         else:
-            words = 'default'
-
-        self.db.update(
-            'data', key_chat_id=update.effective_chat.id, hide_show=0)
-        self.db.update(
-            'data', key_chat_id=update.effective_chat.id, filter=words)
-        self.db.backup('data')
-
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['hide'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(course=words))
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                     text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
     '''
     This method is called when the show command is sent to the bot.
@@ -1216,32 +1228,37 @@ class the_unibot():
         None
     '''
     async def show(self, update: Update, context: CallbackContext):
-        await self.__update_last_command(update)
+        member = await update.effective_chat.get_member(update.effective_user.id)
+        if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
+            await self.__update_last_command(update)
 
-        params = Utils.parse_params(
-            '/show', update.message.text, self.which_bot)
+            params = Utils.parse_params(
+                '/show', update.message.text, self.which_bot)
 
-        if len(params['text']) > 0 and len(params['numeric']) > 0:
-            words = ' '.join(params['text']).lower(
-            ) + ' ' + ' '.join([str(p) for p in params['numeric']]).lower()
-        elif len(params['text']) > 0:
-            words = ' '.join(params['text']).lower()
-        elif len(params['numeric']) > 0:
-            words = ' '.join([str(p) for p in params['numeric']]).lower()
-        else:
-            words = 'default'
+            if len(params['text']) > 0 and len(params['numeric']) > 0:
+                words = ' '.join(params['text']).lower(
+                ) + ' ' + ' '.join([str(p) for p in params['numeric']]).lower()
+            elif len(params['text']) > 0:
+                words = ' '.join(params['text']).lower()
+            elif len(params['numeric']) > 0:
+                words = ' '.join([str(p) for p in params['numeric']]).lower()
+            else:
+                words = 'default'
 
-        if words == 'default':
+            if words == 'default':
+                self.db.update(
+                    'data', key_chat_id=update.effective_chat.id, hide_show=0)
+            else:
+                self.db.update(
+                    'data', key_chat_id=update.effective_chat.id, hide_show=1)
             self.db.update(
-                'data', key_chat_id=update.effective_chat.id, hide_show=0)
-        else:
-            self.db.update(
-                'data', key_chat_id=update.effective_chat.id, hide_show=1)
-        self.db.update(
-            'data', key_chat_id=update.effective_chat.id, filter=words)
-        self.db.backup('data')
+                'data', key_chat_id=update.effective_chat.id, filter=words)
+            self.db.backup('data')
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['show'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(course=words))
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['show'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(course=words))
+        else:
+            context.bot.send_message(chat_id=update.effective_chat.id,
+                                     text=self.messages['error_admin'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
 
 
 if __name__ == '__main__':
