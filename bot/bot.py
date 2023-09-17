@@ -59,7 +59,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.09.14'
+    __version__ = '2023.09.17'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
@@ -276,11 +276,8 @@ class the_unibot():
             name = update.message.text.split('[')[0].strip()
             code = update.message.text.split('[')[1][:-1].strip()
 
-            message = 'Curricula selezionato: {name} [{code}]'.format(
-                name=name, code=code)
-
-            await context.bot.send_message(
-                chat_id=chat_id, text=message, reply_markup=ReplyKeyboardRemove())
+            await context.bot.send_message(chat_id=update.effective_chat.id,
+                                           text=self.messages['set_curriculum'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(name=name, curr=code), reply_markup=ReplyKeyboardRemove())
 
             self.db.update('data', key_chat_id=chat_id, curricula=code)
 
@@ -513,7 +510,6 @@ class the_unibot():
                                        curricula=params['text'][0])
                         await context.bot.send_message(chat_id=update.effective_chat.id,
                                                        text=self.messages['set_curriculum'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(name=name, curr=params['text'][0]))
-                        print(self.db.query_by_ids(chat_id))
 
                     else:
                         await context.bot.send_message(
