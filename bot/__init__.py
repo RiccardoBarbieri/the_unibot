@@ -1,1 +1,1 @@
-from .bot import Bot
+from .bot import the_unibot
