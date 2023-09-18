@@ -88,8 +88,8 @@
         "it": "Teledidattica obbligatoria: "
     },
     "lecture_link": {
-        "en": "Lecture link: ",
-        "it": "Link lezione: "
+        "en": "Lecture link",
+        "it": "Link lezione"
     },
     "reset": {
         "en": "User data correctly resetted.",
