@@ -1,0 +1,15 @@
+help - ask for help
+set_course -set the course. It is possible to add words as a filter after the command
+set_curriculum - needed for some courses
+set_year - set the year
+set_detail - set the detail level
+timetable - get the timetable of the day
+set_autosend - set the autosend's time
+autosend - enable/disable autosend
+hide - add hidind filters for timetable
+show - add showing filters for timetable
+change_language - change the bot's main language
+wiki - search on wikipedia
+bug_report - report a problem
+donate_a_coffee - we like coffee
+reset - reset user data
