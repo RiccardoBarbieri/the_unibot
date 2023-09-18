@@ -8,7 +8,7 @@ back*
 
 #windows files
 chromedriver.exe
-*/*.txt
+keys/
 *Zone.Identifier
 
 #useless folders
