@@ -80,12 +80,12 @@ class Utils():
         today: date = datetime.now().date()
         if any(d in day for d in ['oggi', 'today']):
             new_date_str = today.strftime(format_string)
-        elif any(d in day for d in ['domani', 'tomorrow']):
-            tomorrow = today + timedelta(days=1)
-            new_date_str = tomorrow.strftime(format_string)
         elif day == 'dopodomani':
             tdat = today + timedelta(days=2)
             new_date_str = tdat.strftime(format_string)
+        elif any(d in day for d in ['domani', 'tomorrow']):
+            tomorrow = today + timedelta(days=1)
+            new_date_str = tomorrow.strftime(format_string)
         return Utils.parse_date(new_date_str)
 
     @staticmethod
