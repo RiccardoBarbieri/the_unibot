@@ -8,7 +8,7 @@ from utils import Utils
 from utils import MessageCreator
 from database import Database
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, Update, Bot
-from telegram.error import BadRequest, Forbidden
+from telegram.error import BadRequest, Forbidden, ChatMigrated
 from telegram.constants import ParseMode
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, Updater, CallbackContext, JobQueue, Job
 from telegram.ext import filters
@@ -59,7 +59,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.09.17'
+    __version__ = '2023.09.19'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
@@ -924,7 +924,14 @@ class the_unibot():
     None
     '''
     async def __callback_loop(self, context: CallbackContext) -> None:
-        await self.__orario_autosend(context)
+        try:
+            await self.__orario_autosend(context)
+        except ChatMigrated as e:
+            self.db.update('data', key_chat_id=context.job.chat_id,
+                           chat_id=e.new_chat_id)
+            self.jobs[str(context.job.chat_id)].chat_id = e.new_chat_id
+            print('Chat migrated from {old} to {new}'.format(
+                old=context.job.chat_id, new=e.new_chat_id))
 
     '''
     This method is called when the wiki command is sent to the bot.
