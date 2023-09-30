@@ -2,6 +2,7 @@
 launch:
 	python3 ./bot/bot.py "launch"
 test:
+	clear
 	python3 ./bot/bot.py "test"
 format:
 	clear
