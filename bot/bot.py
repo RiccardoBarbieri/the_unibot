@@ -57,7 +57,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.09.19'
+    __version__ = '2023.09.30'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
@@ -654,8 +654,6 @@ class the_unibot():
             else:
                 params['text'].append('tomorrow')
 
-        date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[/]([0]?[1-9]|[1][0-2])[/]([0-9]{4}|[0-9]{2})$'
-
         if not ((user['course'] == '0') or (user['curricula'] == 'default')):
             city = self.db.query('courses', key_course_code=course_code)[
                 0]['campus'].strip()
@@ -667,7 +665,7 @@ class the_unibot():
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
 
-            if (len(params['numeric']) == 0 and len(params['text']) == 1) and (re.match(date_regex, params['text'][0])):
+            if (len(params['numeric']) == 0 and len(params['text']) == 1):
                 date = Utils.parse_date(params['text'][0])
 
                 messages = self.__messages_creation(
