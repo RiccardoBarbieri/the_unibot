@@ -1,0 +1,2 @@
+A bot created for Alma Mater Studiorum - Università di Bologna.
+It supports the 94% of UniBO's courses (231/244).
