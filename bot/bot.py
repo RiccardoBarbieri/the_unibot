@@ -22,8 +22,6 @@ from typing import Dict
 
 SECONDS_IN_A_DAY = 86400
 
-SECONDS_TEST = 20
-
 '''
 This class is the main class of the_unibot.
 You can find it on Telegram with the username @the_unibot.
