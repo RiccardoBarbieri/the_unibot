@@ -13,7 +13,12 @@ class Utils():
 
     @staticmethod
     def parse_date(date: str):
-        date = date.split([sc for sc in SPECIAL_CHARS if sc in date][0])
+        special_chars = [c for c in SPECIAL_CHARS if c in date and not c.isnumeric()]
+        if len(special_chars) == 0:
+            raise ValueError('Date format not recognized')
+        for sc in special_chars:
+            date = date.replace(sc, '/')
+        date = date.split('/')
         if len(date) == 3:
             year = date[2]
             month = date[1]
