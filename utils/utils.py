@@ -46,7 +46,7 @@ class Utils():
 
     @staticmethod
     def check_days(string: str):
-        days = ['oggi', 'today', 'domani', 'tomorrow', 'dopodomani']
+        days = ['oggi', 'today', 'domani', 'tomorrow', 'dopodomani', 'aftertomorrow', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
         return string in days
 
     @staticmethod
@@ -101,7 +101,7 @@ class Utils():
         today: date = datetime.now().date()
         if any(d in day for d in ['oggi', 'today']):
             new_date_str = today.strftime(format_string)
-        elif day == 'dopodomani':
+        elif any(d in day for d in ['dopodomani', 'aftertomorrow']):
             tdat = today + timedelta(days=2)
             new_date_str = tdat.strftime(format_string)
         elif any(d in day for d in ['domani', 'tomorrow']):
