@@ -72,8 +72,8 @@
         "it": "Lingua cambiata in Italiano."
     },
     "weather": {
-        "en": "Weather: ",
-        "it": "Meteo: "
+        "en": "<b>Weather</b>\n",
+        "it": "<b>Meteo</b>\n"
     },
     "place": {
         "en": "Place: ",

@@ -52,7 +52,7 @@ class WeatherAPI():
                 lat=lat, lon=lon, key=api_key, lang=lang)
             response = requests.get(weather_url)
             weather = response.json()
-            return WeatherAPI.parse_weather(city, day, weather, lang)
+            return WeatherAPI.parse_weather(weather, lang)
         else:
             with open(Path('./resources/lang.json')) as file:
                 msg = json.load(file)
@@ -78,21 +78,12 @@ class WeatherAPI():
         The weather forecast for the specified city and day.
     '''
     @staticmethod
-    def parse_weather(city: str, day: int, weather: dict, lang: str) -> str:
+    def parse_weather(weather: dict, lang: str) -> str:
         temp_min = int(weather['daily'][0]['temp']['min'])
         temp_max = int(weather['daily'][0]['temp']['max'])
         description = weather['daily'][0]['weather'][0]['description']
-        today = datetime.now().date()
-        date = ''
-        if day == 0:
-            date = today.strftime('%d-%m-%Y').replace('-', '/')
-        elif day == 1:
-            tomorrow = today + timedelta(days=1)
-            date = tomorrow.strftime('%d-%m-%Y').replace('-', '/')
-        else:
-            return ''  # will never happen
         with open(Path('./resources/lang.json')) as file:
             msg = json.load(file)
-        message = city + ' - ' + date + '\n' + msg['weather'][lang] + description.lower() + '\nMin ' + str(temp_min) + \
+        message = msg['weather'][lang] + description.capitalize() + '\nMin ' + str(temp_min) + \
             '°C - Max ' + str(temp_max) + '°C'
         return message
