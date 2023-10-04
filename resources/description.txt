@@ -1,2 +1,2 @@
 A bot created for Alma Mater Studiorum - Università di Bologna.
-Version 2023.09.30
+Version 2023.10.04
