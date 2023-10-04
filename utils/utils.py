@@ -23,21 +23,24 @@ class Utils():
         day = date[0]
         month = date[1]
         year = date[-1]
-        if len(date) == 3 and len(year) == 2:
-            year = '20' + year
-        if len(date) == 2 or len(year) != 4:
-            if int(month) < datetime.now().month:
-                year = str(datetime.now().year + 1)
-            else:
-                year = str(datetime.now().year)
-        if len(month) == 1:
-            month = '0' + month
-        elif int(month) > 12:
-            month = str(datetime.now().month)
-        if len(day) == 1:
-            day = '0' + day
-        elif int(day) > 31:
-            day = str(datetime.now().day)
+        try:
+            if len(date) == 3 and len(year) == 2:
+                year = '20' + year
+            if len(date) == 2 or len(year) != 4:
+                if int(month) < datetime.now().month:
+                    year = str(datetime.now().year + 1)
+                else:
+                    year = str(datetime.now().year)
+            if len(month) == 1:
+                month = '0' + month
+            elif int(month) > 12:
+                month = str(datetime.now().month)
+            if len(day) == 1:
+                day = '0' + day
+            elif int(day) > 31:
+                day = str(datetime.now().day)
+        except:
+            return None  # date is not valid
         return day + '/' + month + '/' + year
 
     @staticmethod
