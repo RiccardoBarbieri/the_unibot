@@ -6,6 +6,9 @@ import requests
 import getpass
 import re
 
+DAYS = {'oggi': -1, 'today': -1, 'dopodomani': -3, 'aftertomorrow': -3, 'domani': -2,
+        'tomorrow': -2, 'lun': 0, 'mon': 0, 'mar': 1, 'tue': 1, 'mer': 2, 'wed': 2, 'gio': 3, 'thu': 3, 'ven': 4, 'fri': 4, 'sab': 5, 'sat': 5}
+
 
 class Utils():
 
@@ -100,32 +103,9 @@ class Utils():
     def date_from_days(day: str) -> str:
         format_string = '%d-%m-%Y'
         today: date = datetime.now().date()
-        if any(d in day for d in ['oggi', 'today']):
-            new_date_str = today.strftime(format_string)
-        elif any(d in day for d in ['dopodomani', 'aftertomorrow']):
-            tdat = today + timedelta(days=2)
-            new_date_str = tdat.strftime(format_string)
-        elif any(d in day for d in ['domani', 'tomorrow']):
-            tomorrow = today + timedelta(days=1)
-            new_date_str = tomorrow.strftime(format_string)
-        elif any(d in day for d in ['lun', 'mon']):
-            new_date_str = Utils._next_weekday(
-                today, 0).strftime(format_string)
-        elif any(d in day for d in ['mar', 'tue']):
-            new_date_str = Utils._next_weekday(
-                today, 1).strftime(format_string)
-        elif any(d in day for d in ['mer', 'wed']):
-            new_date_str = Utils._next_weekday(
-                today, 2).strftime(format_string)
-        elif any(d in day for d in ['gio', 'thu']):
-            new_date_str = Utils._next_weekday(
-                today, 3).strftime(format_string)
-        elif any(d in day for d in ['ven', 'fri']):
-            new_date_str = Utils._next_weekday(
-                today, 4).strftime(format_string)
-        elif any(d in day for d in ['sab', 'sat']):
-            new_date_str = Utils._next_weekday(
-                today, 5).strftime(format_string)
+        d = [d for d in DAYS.keys() if d in day][0]
+        new_date_str = Utils._next_weekday(
+            today, DAYS[d]).strftime(format_string)
         return Utils.parse_date(new_date_str)
 
     @staticmethod
@@ -164,6 +144,9 @@ class Utils():
     @staticmethod
     def _next_weekday(day, weekday):
         days_ahead = weekday - day.weekday()
-        if days_ahead <= 0:  # Target day already happened this week
-            days_ahead += 7
-        return day + timedelta(days_ahead)
+        if weekday < 0:
+            return day + timedelta(-(weekday + 1))
+        else:
+            if days_ahead <= 0:  # Target day already happened this week
+                days_ahead += 7
+            return day + timedelta(days_ahead)
