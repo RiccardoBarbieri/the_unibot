@@ -6,35 +6,35 @@ import requests
 import getpass
 import re
 
-SPECIAL_CHARS = ['-', '/', '.', ' ', ',', '_', '|', '\\']
-
 
 class Utils():
 
     @staticmethod
     def parse_date(date: str):
-        date = date.split([sc for sc in SPECIAL_CHARS if sc in date][0])
-        if len(date) == 3:
-            year = date[2]
-            month = date[1]
-            day = date[0]
-            if len(year) == 2:
-                year = '20' + year
-            if len(month) == 1:
-                month = '0' + month
-            if len(day) == 1:
-                day = '0' + day
-        elif len(date) == 2:
-            month = date[1]
+        special_chars = [c for c in date if not c.isnumeric()]
+        for sc in special_chars:
+            date = date.replace(sc, '/')
+        if len(special_chars) == 0 or len(special_chars) > 2:
+            return None
+        date = date.split('/')
+        day = date[0]
+        month = date[1]
+        year = date[-1]
+        if len(date) == 3 and len(year) == 2:
+            year = '20' + year
+        if len(date) == 2 or len(year) != 4:
             if int(month) < datetime.now().month:
                 year = str(datetime.now().year + 1)
             else:
                 year = str(datetime.now().year)
-            day = date[0]
-            if len(month) == 1:
-                month = '0' + month
-            if len(day) == 1:
-                day = '0' + day
+        if len(month) == 1:
+            month = '0' + month
+        elif int(month) > 12:
+            month = str(datetime.now().month)
+        if len(day) == 1:
+            day = '0' + day
+        elif int(day) > 31:
+            day = str(datetime.now().day)
         return day + '/' + month + '/' + year
 
     @staticmethod

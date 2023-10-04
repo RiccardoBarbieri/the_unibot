@@ -665,7 +665,7 @@ class the_unibot():
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
 
-            if (len(params['numeric']) == 0 and len(params['text']) == 1):
+            if (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.parse_date(params['text'][0]) is not None):
                 date = Utils.parse_date(params['text'][0])
 
                 messages = self.__messages_creation(
