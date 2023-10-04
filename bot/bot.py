@@ -658,12 +658,10 @@ class the_unibot():
             city = self.db.query('courses', key_course_code=course_code)[
                 0]['campus'].strip()
             # weather message
-            if any(day in params['text'] for day in ['oggi', 'today']):
-                await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
-            elif any(day in params['text'] for day in ['domani', 'tomorrow']):
-                await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']))
+            weather_message = None
+            if any(day in params['text'] for day in ['oggi', 'today', 'domani', 'tomorrow']):
+                weather_message = WeatherAPI.get_weather(city, 0, self.db.query(
+                    'data', key_chat_id=update.effective_chat.id)[0]['language'])
 
             if (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.parse_date(params['text'][0]) is not None):
                 date = Utils.parse_date(params['text'][0])
@@ -688,9 +686,10 @@ class the_unibot():
                 message_default = self.messages['error_wrong_params'][self.db.query(
                     'data', key_chat_id=update.effective_chat.id)[0]['language']]
 
-            if len(messages) == 0:
-                await context.bot.send_message(
-                    chat_id=update.effective_chat.id, text=message_default)
+            if len(messages) < 2:
+                messages.append(message_default)
+            if weather_message is not None:
+                messages.insert(1, weather_message)
             for i in messages:
                 await context.bot.send_message(chat_id=update.effective_chat.id, text=i,
                                                parse_mode=ParseMode.HTML, disable_web_page_preview=True)
