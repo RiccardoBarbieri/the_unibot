@@ -46,8 +46,9 @@ class Utils():
 
     @staticmethod
     def check_days(string: str):
-        days = ['oggi', 'today', 'domani', 'tomorrow', 'dopodomani', 'aftertomorrow', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-        return string in days
+        days = ['oggi', 'today', 'domani', 'tomorrow', 'dopodomani', 'aftertomorrow', 'lun',
+                'mar', 'mer', 'gio', 'ven', 'sab', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+        return any(d in string for d in days)
 
     @staticmethod
     def parse_params(command: str, message: str, which_bot: str):
@@ -107,6 +108,24 @@ class Utils():
         elif any(d in day for d in ['domani', 'tomorrow']):
             tomorrow = today + timedelta(days=1)
             new_date_str = tomorrow.strftime(format_string)
+        elif any(d in day for d in ['lun', 'mon']):
+            new_date_str = Utils._next_weekday(
+                today, 0).strftime(format_string)
+        elif any(d in day for d in ['mar', 'tue']):
+            new_date_str = Utils._next_weekday(
+                today, 1).strftime(format_string)
+        elif any(d in day for d in ['mer', 'wed']):
+            new_date_str = Utils._next_weekday(
+                today, 2).strftime(format_string)
+        elif any(d in day for d in ['gio', 'thu']):
+            new_date_str = Utils._next_weekday(
+                today, 3).strftime(format_string)
+        elif any(d in day for d in ['ven', 'fri']):
+            new_date_str = Utils._next_weekday(
+                today, 4).strftime(format_string)
+        elif any(d in day for d in ['sab', 'sat']):
+            new_date_str = Utils._next_weekday(
+                today, 5).strftime(format_string)
         return Utils.parse_date(new_date_str)
 
     @staticmethod
@@ -141,3 +160,10 @@ class Utils():
             return '0' + idiot_time
         else:
             return idiot_time
+
+    @staticmethod
+    def _next_weekday(day, weekday):
+        days_ahead = weekday - day.weekday()
+        if days_ahead <= 0:  # Target day already happened this week
+            days_ahead += 7
+        return day + timedelta(days_ahead)

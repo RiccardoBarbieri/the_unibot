@@ -57,7 +57,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.09.30'
+    __version__ = '2023.10.04'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
@@ -668,8 +668,8 @@ class the_unibot():
             if (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.parse_date(params['text'][0]) is not None):
                 date = Utils.parse_date(params['text'][0])
 
-                messages = self.__messages_creation(
-                    date, update.effective_chat.id)
+                messages = self.__messages_creation(city,
+                                                    date, update.effective_chat.id)
 
                 message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
                     date=date)
@@ -677,8 +677,8 @@ class the_unibot():
             elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
                 date = Utils.date_from_days(params['text'][0])
 
-                messages = self.__messages_creation(
-                    date, update.effective_chat.id)
+                messages = self.__messages_creation(city,
+                                                    date, update.effective_chat.id)
 
                 message_default = self.messages['error_no_lessons'][self.db.query(
                     'data', key_chat_id=update.effective_chat.id)[0]['language']]
@@ -713,7 +713,10 @@ class the_unibot():
     messages : list
     '''
 
-    def __messages_creation(self, date: str, chat_id: int) -> list:
+    def __messages_creation(self, city: str, date: str, chat_id: int) -> list:
+        messages = []
+        messages.append(city + ' - ' + date)
+
         date = Utils.to_ISO8601(date)
         found = self.db.query_join('data', 'courses', {'chat_id1': str(
             chat_id)}, 'site2', 'course_codec2', course='course_code')[0]
@@ -724,7 +727,6 @@ class the_unibot():
         schedules = UniboAPI.get_orario(found['course_codec'], Utils.get_course_type(
             found['site']), result['year'], Utils.get_course_lang(found['site']), date, curricula=result['curricula'])
 
-        messages = []
         for i in schedules:
             if self.db.query_by_ids(chat_id)[0]['hide_show'] == 1:
                 if any(j in i['cod_modulo'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()) or any(j in i['title'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()):
@@ -879,8 +881,8 @@ class the_unibot():
         city = self.db.query('courses', key_course_code=course_code)[
             0]['campus'].strip()
 
-        messages = self.__messages_creation(
-            date, chat_id)
+        messages = self.__messages_creation(city,
+                                            date, chat_id)
 
         message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=chat_id)[0]['language']].format(
             date=date)
