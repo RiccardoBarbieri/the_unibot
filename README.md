@@ -45,11 +45,10 @@ The detail's levels are:
 #### Get the timetable of a generic day
 To get the timetable of a generic day:
 ```
-/timetable day month year
+/timetable param
 ```
-or writing *today, tomorrow*.
 
-*day, month, year* can be separated by any special character and the *year* can be omitted.
+where `param` can be anything, i.e. *today, tomorrow, aftertomorrow, monday, saturday, ...* or a date in the format *day month year*, separated by any special character (*year* can be omitted).
 
 **N.B.**: if no day is passed to the command, it will send the timetable of the current day.
 Also, using if one word from *today, tomorrow* is given, the bot will also return weather info.
@@ -130,11 +129,10 @@ I livelli di dettaglio implementati sono:
 #### Ottenere l'orario di un giorno
 Una volta impostato il livello di dettaglio è possibile richiedere l'orario di un giorno con il comando:
 ```
-/timetable giorno mese anno
+/timetable param
 ```
-o scrivendo invece della data *oggi, domani o dopodomani*.
 
-*giorno, mese, anno* possono essere separati da qualsiasi carattere speciale e l'*anno* può essere omesso.
+dove `param` può assumere qualsiasi valore, ad esempio *oggi, domani, dopodomani, lunedì, sabato, ...* o specificando la data nel formato *giorno mese anno* separata da qualsiasi carattere speciale (l'*anno* può essere omesso).
 
 **N.B.**: se l'orario viene richiesto nelle giornate *oggi* o *domani* verranno fornite anche informazioni meteo sulla città sede del corso.
 
