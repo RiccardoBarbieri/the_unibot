@@ -57,7 +57,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.10.04'
+    __version__ = '2023.10.05'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
@@ -659,9 +659,12 @@ class the_unibot():
                 0]['campus'].strip()
             # weather message
             weather_message = None
-            if any(day in params['text'] for day in ['oggi', 'today', 'domani', 'tomorrow']):
+            if any(day in params['text'] for day in ['oggi', 'today']):
                 weather_message = WeatherAPI.get_weather(city, 0, self.db.query(
                     'data', key_chat_id=update.effective_chat.id)[0]['language'])
+            elif any(day in params['text'] for day in ['domani', 'tomorrow'])
+            weather_message = WeatherAPI.get_weather(city, 1, self.db.query(
+                'data', key_chat_id=update.effective_chat.id)[0]['language'])
 
             if (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.parse_date(params['text'][0]) is not None):
                 date = Utils.parse_date(params['text'][0])
@@ -886,17 +889,19 @@ class the_unibot():
         message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=chat_id)[0]['language']].format(
             date=date)
 
+        weather_message = None
         try:
-            if any(d in day for d in ['oggi', 'today']):
-                await context.bot.send_message(
-                    chat_id=chat_id, text=WeatherAPI.get_weather(city, 0, self.db.query('data', key_chat_id=chat_id)[0]['language']))
-            elif any(d in day for d in ['domani', 'tomorrow']):
-                await context.bot.send_message(
-                    chat_id=chat_id, text=WeatherAPI.get_weather(city, 1, self.db.query('data', key_chat_id=chat_id)[0]['language']))
+            if any(day in day for day in ['oggi', 'today']):
+                weather_message = WeatherAPI.get_weather(city, 0, self.db.query(
+                    'data', key_chat_id=chat_id)[0]['language'])
+            elif any(day in day for day in ['domani', 'tomorrow'])
+            weather_message = WeatherAPI.get_weather(city, 1, self.db.query(
+                'data', key_chat_id=chat_id)[0]['language'])
 
-            if len(messages) == 0:
-                await context.bot.send_message(
-                    chat_id=chat_id, text=message_default)
+            if len(messages) < 2:
+                messages.append(message_default)
+            if weather_message is not None:
+                messages.insert(1, weather_message)
             for i in messages:
                 await context.bot.send_message(chat_id=chat_id, text=i,
                                                parse_mode=ParseMode.HTML, disable_web_page_preview=True)
