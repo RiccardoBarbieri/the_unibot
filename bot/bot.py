@@ -639,11 +639,9 @@ class the_unibot():
     None
     '''
     async def timetable(self, update: Update, context: CallbackContext) -> None:
-
         await self.__update_last_command(update)
         user = self.db.query_by_ids(
             chat_id=update.effective_chat.id)[0]
-        course_code = user['course']
 
         params = Utils.parse_params(
             '/timetable', update.message.text, self.which_bot)
@@ -655,47 +653,8 @@ class the_unibot():
                 params['text'].append('tomorrow')
 
         if not ((user['course'] == '0') or (user['curricula'] == 'default')):
-            city = self.db.query('courses', key_course_code=course_code)[
-                0]['campus'].strip()
-            # weather message
-            weather_message = None
-            if any(day in params['text'] for day in ['oggi', 'today']):
-                weather_message = WeatherAPI.get_weather(city, 0, self.db.query(
-                    'data', key_chat_id=update.effective_chat.id)[0]['language'])
-            elif any(day in params['text'] for day in ['domani', 'tomorrow'])
-            weather_message = WeatherAPI.get_weather(city, 1, self.db.query(
-                'data', key_chat_id=update.effective_chat.id)[0]['language'])
+            await self.__orario_autosend(context=context, chat_id=update.effective_chat.id, day=params['text'][0])
 
-            if (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.parse_date(params['text'][0]) is not None):
-                date = Utils.parse_date(params['text'][0])
-
-                messages = self.__messages_creation(city,
-                                                    date, update.effective_chat.id)
-
-                message_default = self.messages['error_no_lessons_date'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(
-                    date=date)
-
-            elif (len(params['numeric']) == 0 and len(params['text']) == 1) and (Utils.check_days(params['text'][0])):
-                date = Utils.date_from_days(params['text'][0])
-
-                messages = self.__messages_creation(city,
-                                                    date, update.effective_chat.id)
-
-                message_default = self.messages['error_no_lessons'][self.db.query(
-                    'data', key_chat_id=update.effective_chat.id)[0]['language']]
-
-            else:
-                messages = []
-                message_default = self.messages['error_wrong_params'][self.db.query(
-                    'data', key_chat_id=update.effective_chat.id)[0]['language']]
-
-            if len(messages) < 2:
-                messages.append(message_default)
-            if weather_message is not None:
-                messages.insert(1, weather_message)
-            for i in messages:
-                await context.bot.send_message(chat_id=update.effective_chat.id, text=i,
-                                               parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         else:
             await context.bot.send_message(
                 chat_id=update.effective_chat.id, text=self.messages['error_no_course_set'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
@@ -872,11 +831,15 @@ class the_unibot():
     -------
     None
     '''
-    async def __orario_autosend(self, context: CallbackContext) -> None:
-        day = context.job.data
-        chat_id = context.job.chat_id
+    async def __orario_autosend(self, context: CallbackContext, chat_id=None, day: str = None) -> None:
+        if day is None:
+            day = context.job.data
+        if chat_id is None:
+            chat_id = context.job.chat_id
 
-        date = Utils.date_from_days(day)
+        date = Utils.parse_date(day)
+        if date is None:
+            date = Utils.date_from_days(day)
 
         course_code = self.db.query_by_ids(
             chat_id=chat_id)[0]['course']
@@ -894,9 +857,9 @@ class the_unibot():
             if any(day in day for day in ['oggi', 'today']):
                 weather_message = WeatherAPI.get_weather(city, 0, self.db.query(
                     'data', key_chat_id=chat_id)[0]['language'])
-            elif any(day in day for day in ['domani', 'tomorrow'])
-            weather_message = WeatherAPI.get_weather(city, 1, self.db.query(
-                'data', key_chat_id=chat_id)[0]['language'])
+            elif any(day in day for day in ['domani', 'tomorrow']):
+                weather_message = WeatherAPI.get_weather(city, 1, self.db.query(
+                    'data', key_chat_id=chat_id)[0]['language'])
 
             if len(messages) < 2:
                 messages.append(message_default)
