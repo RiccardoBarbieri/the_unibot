@@ -30,8 +30,11 @@ class MessageCreator():
         if (lvl == 2):
             message += '\n' + msg['place'][lang] + schedule['location']
         elif (lvl == 3):
-            message += '\nCFU: {cfu}\n{teacher}{name}\n{place}{location}\n{online}{dad}'\
-                .format(location=schedule['location'], place=msg['place'][lang], cfu=schedule['cfu'], teacher=msg['professor'][lang], name=schedule['docente'], online=msg['online_lecture'][lang], dad=schedule['teledidattica'])
+            message += '\nCFU: {cfu}\n{teacher}{name}\n{place}{location}'\
+                .format(location=schedule['location'], place=msg['place'][lang], cfu=schedule['cfu'], teacher=msg['professor'][lang], name=schedule['docente'])
+            if schedule['teledidattica'] == 'True':
+                message += '\n{online}'.format(
+                    online=msg['online_lecture'][lang])
         if lvl > 1 and schedule['teams'] is not None:
             message += '\n<a href="{teams}">{link}</a>'.format(
                 teams=schedule['teams'], link=msg['lecture_link'][lang])
