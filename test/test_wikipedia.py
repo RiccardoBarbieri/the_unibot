@@ -1,44 +1,76 @@
-# from api.wikipedia import WikipediaAPI
-# import getpass
-# import sys
-# import wikipediaapi
-# import requests
+import sys  # nopep8
+sys.path.append('.')  # nopep8
+from api.wikipedia import WikipediaAPI
 
-# wiki = wikipediaapi.Wikipedia('en')
-
-# # page = wiki.page('Carlo Conti')
-
-# # print(page.sections)
-
-
-# # url = 'https://en.wikipedia.org/api.php?action=opensearch&search=Carlo+Conti&namespace=0&format=json'
-# url = 'https://en.wikipedia.org/w/api.php'
-# params = {
-#     'action': 'opensearch',
-#     'namesearch': '0',
-#     'search': 'pipo sudato',
-#     'format': 'json'
-# }
+'''
+This tests if the function WikipediaAPI.pages() works correctly
+GIVEN a query
+WHEN the function is called
+THEN it should return a dictionary containing the parsed parameters
+'''
 
 
-# session = requests.Session()
+def test_pages_single_result():
+    result = WikipediaAPI.pages('Python (programming language)')
+    assert result['single'] == True
+    assert result['names'] == 'Python (programming language)'
+    assert result['links'] == 'https://en.wikipedia.org/wiki/Python_(programming_language)'
 
-# r = session.get(url=url, params=params)
-# data = r.json()
 
-# for i in data:
-#     print(i)
-#     print('_____________________')
+'''
+This tests if the function WikipediaAPI.pages() works correctly
+GIVEN a query
+WHEN the function is called
+THEN it should return a dictionary containing the parsed parameters
+'''
 
-# reverse_link = data[3][0][::-1]
-# index = reverse_link.find('/')
-# page_name = reverse_link[:index][::-1]
 
-# print(wiki.page(page_name).title)
-# if getpass.getuser() == 'ricca':
-#     # TODO: change this path when migrating to another platform
-#     sys.path.append('C:\\Users\\ricca\\Desktop\\telegram')
-# elif getpass.getuser() == 'grufoony':
-#     sys.path.append('/home/grufoony/bot-telegram')
+def test_pages_multiple_results():
+    result = WikipediaAPI.pages('Apple')
+    assert result['single'] == False
+    assert 'Apple' in result['names']
+    assert 'https://en.wikipedia.org/wiki/Apple' in result['links']
 
-# print(WikipediaAPI.summary('Adolf_Hitler_50th_birthday'))
+
+'''
+This tests if the function WikipediaAPI.pages() works correctly
+GIVEN a query
+WHEN the function is called
+THEN it should return a dictionary containing the parsed parameters
+'''
+
+
+def test_pages_no_results():
+    result = WikipediaAPI.pages('Rhgbveroihg3eroigbneroingberoin')
+    assert result['single'] == False
+    assert len(result['names']) == 0
+    assert len(result['links']) == 0
+
+
+'''
+This tests if the function WikipediaAPI.summary() works correctly
+GIVEN a query
+WHEN the function is called
+THEN it should return the page summary
+'''
+
+
+def test_summary():
+    result = WikipediaAPI.pages('Python (programming language)')
+    url = result['links']
+    summary = WikipediaAPI.summary(url)
+    print(summary)
+    assert 'Python is a high-level, general-purpose programming language.' in summary
+
+
+'''
+This tests if the function WikipediaAPI.summary() works correctly
+GIVEN a query
+WHEN the function is called
+THEN it should return the page summary
+'''
+
+
+def test_summary_invalid_page():
+    summary = WikipediaAPI.summary('qwertyuiopasdfghjklzxcvbnm')
+    assert summary == ''
