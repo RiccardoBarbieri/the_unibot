@@ -691,10 +691,10 @@ class the_unibot():
         for i in schedules:
             if self.db.query_by_ids(chat_id)[0]['hide_show'] == 1:
                 if any(j in i['cod_modulo'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()) or any(j in i['title'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()):
-                    messages.append(MessageCreator.get_message(
+                    messages.append(MessageCreator.create_message(
                         i, result['detail'], self.db.query('data', key_chat_id=chat_id)[0]['language']))
             elif not any(j in i['cod_modulo'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()) and not any(j in i['title'].lower() for j in self.db.query_by_ids(chat_id)[0]['filter'].split()):
-                messages.append(MessageCreator.get_message(
+                messages.append(MessageCreator.create_message(
                     i, result['detail'], self.db.query('data', key_chat_id=chat_id)[0]['language']))
 
         return messages
