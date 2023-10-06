@@ -84,8 +84,8 @@
         "it": "Docente: "
     },
     "online_lecture": {
-        "en": "Online-only lecture: ",
-        "it": "Teledidattica obbligatoria: "
+        "en": "<b>This lecture is online only.</b>",
+        "it": "<b>Questa lezione è solo online.</b>"
     },
     "lecture_link": {
         "en": "Lecture link",
