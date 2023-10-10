@@ -24,3 +24,11 @@ test.py
 
 #env
 .env
+
+courses.json
+courses_curriculas.json
+curriculas.json
+dup_list.json
+teachings.json
+teachings_empty_code.json
+teachings_temp.json
