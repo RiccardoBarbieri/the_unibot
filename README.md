@@ -156,7 +156,7 @@ Per impostare l'orario in cui si vuole ricevere l'orario quotidianamente:
 ```
 /set_autosend oo:mm
 ```
-specificando l'orario *rigorosamente* nel formato indicato.
+specificando l'orario in qualunque formato, separando ore e minuti con un carattere speciale.
 
 **N.B.**: se l'orario inserito è precedente alle 15:00 il bot manderà l'orario del giorno stesso, in caso contrario verrà mandato l'orario del giorno dopo.
 

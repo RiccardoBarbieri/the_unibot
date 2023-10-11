@@ -67,7 +67,7 @@ class Utils():
 
     Returns
     -------
-        string
+        datetime.time
             the parsed time in the format hh:mm
     '''
     @staticmethod

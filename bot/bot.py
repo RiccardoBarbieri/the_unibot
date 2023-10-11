@@ -714,8 +714,6 @@ class the_unibot():
     None
     '''
     async def set_autosend(self, update: Update, context: CallbackContext) -> None:
-        time_regex = '([0-1]?[0-9]|2[0-3]):[0-5][0-9]'
-
         member = await update.effective_chat.get_member(update.effective_user.id)
         if member.status == 'creator' or member.status == 'administrator' or (update.effective_chat.type == 'private' and member.status == 'member'):
 
@@ -724,30 +722,30 @@ class the_unibot():
             params = Utils.parse_params(
                 '/set_autosend', update.message.text, self.which_bot)
 
-            if (len(params['numeric']) == 0) and (len(params['text']) == 1) and bool(re.match(time_regex, params['text'][0])):
+            scheduled_time = Utils.parse_time(
+                params['text'][0]) if len(params['text']) == 1 else None
+
+            if (len(params['numeric']) == 0) and (len(params['text']) == 1) and scheduled_time is not None:
                 chat_id = update.effective_chat.id
                 user_id = update.effective_user.id
 
-                scheduled_time_str = Utils.idiot_time(params['text'][0])
-
-                effective_day = 'today' if int(
-                    scheduled_time_str[:2]) < 15 else 'tomorrow'
+                effective_day = 'today' if scheduled_time.hour < 15 else 'tomorrow'
 
                 if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                     self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                                   course='0', year=1, detail=2, curricula='default', autosend_time=scheduled_time_str)
+                                   course='0', year=1, detail=2, curricula='default', autosend_time=scheduled_time.strftime('%H:%M'))
                 else:
                     self.db.update(
-                        'data', key_chat_id=update.effective_chat.id, autosend_time=scheduled_time_str)
+                        'data', key_chat_id=update.effective_chat.id, autosend_time=scheduled_time.strftime('%H:%M'))
 
                 self.db.backup('data')
                 await context.bot.send_message(chat_id=update.effective_chat.id,
-                                               text=self.messages['set_autosend'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(time=scheduled_time_str))
+                                               text=self.messages['set_autosend'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(time=scheduled_time.strftime('%H:%M')))
 
                 if str(chat_id) in self.jobs.keys():
                     self.jobs[str(chat_id)].schedule_removal()
 
-                self.jobs[str(chat_id)] = self.job_queue.run_daily(self.__callback_loop, time=Utils.parse_time(scheduled_time_str), days=(
+                self.jobs[str(chat_id)] = self.job_queue.run_daily(self.__callback_loop, time=scheduled_time, days=(
                     0, 1, 2, 3, 4, 5, 6), chat_id=chat_id, user_id=user_id, data=effective_day)
                 self.jobs[str(chat_id)].enabled = True
 
