@@ -1,10 +1,9 @@
-from datetime import date
-from datetime import datetime
-from datetime import timedelta
+from datetime import date, datetime, timedelta, time
 from pathlib import Path
 import requests
 import getpass
 import re
+import pytz
 
 DAYS = {'oggi': -1, 'today': -1, 'dopodomani': -3, 'aftertomorrow': -3, 'domani': -2,
         'tomorrow': -2, 'lun': 0, 'mon': 0, 'mar': 1, 'tue': 1, 'mer': 2, 'wed': 2, 'gio': 3, 'thu': 3, 'ven': 4, 'fri': 4, 'sab': 5, 'sat': 5}
@@ -56,6 +55,43 @@ class Utils():
         except:
             return None  # date is not valid
         return day + '/' + month + '/' + year
+
+    '''
+    This function parses a time in the format hh*mm or h:m or ...
+    and returns a time in the format hh:mm
+
+    Parameters
+    ----------
+        time: string
+            the time to be parsed
+
+    Returns
+    -------
+        datetime.time
+            the parsed time in the format hh:mm
+    '''
+    @staticmethod
+    def parse_time(time_str: str) -> datetime.time:
+        special_chars = [c for c in time_str if not c.isnumeric()]
+        for sc in special_chars:
+            time_str = time_str.replace(sc, ':')
+        if len(special_chars) == 0 or len(special_chars) > 1:
+            return None
+        time_str = time_str.split(':')
+        hours = time_str[0]
+        minutes = time_str[-1]
+        try:
+            if len(hours) == 1:
+                hours = '0' + hours
+            elif int(hours) > 23:
+                hours = str(datetime.now().hour)
+            if len(minutes) == 1:
+                minutes = '0' + minutes
+            elif int(minutes) > 59:
+                minutes = str(datetime.now().minute)
+        except:
+            return None
+        return time(int(hours), int(minutes), tzinfo=pytz.timezone('Europe/Rome'))
 
     '''
     This function parses a date to the format yyy-mm-dd

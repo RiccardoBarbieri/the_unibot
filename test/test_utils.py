@@ -24,6 +24,26 @@ def test_parse_date():
 
 
 '''
+This tests if the function Utils.parse_time() works correctly
+GIVEN a time in a generic format
+WHEN the function is called
+THEN it should return a time in the format HH:MM
+'''
+
+
+def test_parse_time():
+    time = '20:00'
+    time1 = '2:31'
+    wrong_time = '-5'
+
+    assert Utils.parse_time(time) == datetime.time(
+        datetime.strptime(time, '%H:%M'))
+    assert Utils.parse_time(time1) == datetime.time(
+        datetime.strptime(time1, '%H:%M'))
+    assert Utils.parse_time(wrong_time) is None
+
+
+'''
 This tests if the function Utils.to_ISO8601() works correctly
 GIVEN a date in the format dd/mm/yyyy
 WHEN the function is called
