@@ -17,10 +17,8 @@ import json
 from pathlib import Path
 from math import ceil
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Dict
-
-SECONDS_IN_A_DAY = 86400
 
 '''
 This class is the main class of the_unibot.
@@ -57,7 +55,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.10.05'
+    __version__ = '2023.10.06'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
@@ -127,10 +125,10 @@ class the_unibot():
             effective_day = 'today' if int(
                 scheduled_time_str[:2]) < 15 else 'tomorrow'
             chat_id = i['chat_id']
-            # user_id = i['user_id']
+            user_id = i['user_id']
             if bool(i['autosend']):
-                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                    seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, data=effective_day)
+                self.jobs[str(chat_id)] = self.job_queue.run_daily(self.__callback_loop, time=Utils.parse_time(scheduled_time_str), days=(
+                    0, 1, 2, 3, 4, 5, 6), chat_id=chat_id, user_id=user_id, data=effective_day)
 
         start_handler = CommandHandler('start', self.start)
         message_handler = MessageHandler(
@@ -749,8 +747,8 @@ class the_unibot():
                 if str(chat_id) in self.jobs.keys():
                     self.jobs[str(chat_id)].schedule_removal()
 
-                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                    seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
+                self.jobs[str(chat_id)] = self.job_queue.run_daily(self.__callback_loop, time=Utils.parse_time(scheduled_time_str), days=(
+                    0, 1, 2, 3, 4, 5, 6), chat_id=chat_id, user_id=user_id, data=effective_day)
                 self.jobs[str(chat_id)].enabled = True
 
                 print(self.db.query_by_ids(chat_id))
@@ -793,19 +791,16 @@ class the_unibot():
 
             scheduled_time_str = user['autosend_time']
 
+            if (str(chat_id)) not in self.jobs.keys():
+                self.jobs[str(chat_id)] = self.job_queue.run_daily(self.__callback_loop, time=Utils.parse_time(scheduled_time_str), days=(
+                    0, 1, 2, 3, 4, 5, 6), chat_id=chat_id, user_id=user_id, data=effective_day)
+
             if not current:  # enabling autosend
-                if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
                 self.jobs[str(chat_id)].enabled = True
 
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id, text=self.messages['autosend_enabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
-            else:
-                if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
-
+            else:  # disabling autosend
                 self.jobs[str(chat_id)].enabled = False
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id, text=self.messages['autosend_disabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
