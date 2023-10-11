@@ -30,7 +30,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Format with autopep8
       run: |
-        make format
+        make format-online
     - name: Test with pytest
       run: |
         pytest
