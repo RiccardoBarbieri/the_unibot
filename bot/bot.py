@@ -797,9 +797,7 @@ class the_unibot():
                 if (str(chat_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
                         seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
-                    self.jobs[str(chat_id)].enabled = True
-                else:
-                    self.jobs[str(chat_id)].enabled = True
+                self.jobs[str(chat_id)].enabled = True
 
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id, text=self.messages['autosend_enabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
@@ -807,9 +805,8 @@ class the_unibot():
                 if (str(chat_id)) not in self.jobs.keys():
                     self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
                         seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
-                    self.jobs[str(chat_id)].enabled = False
-                else:
-                    self.jobs[str(chat_id)].enabled = False
+
+                self.jobs[str(chat_id)].enabled = False
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id, text=self.messages['autosend_disabled'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']])
         else:
@@ -863,8 +860,8 @@ class the_unibot():
                 messages.append(message_default)
             if weather_message is not None:
                 messages.insert(1, weather_message)
-            for i in messages:
-                await context.bot.send_message(chat_id=chat_id, text=i,
+            for message in messages:
+                await context.bot.send_message(chat_id=chat_id, text=message,
                                                parse_mode=ParseMode.HTML, disable_web_page_preview=True)
         except Forbidden as e:
             # user blocked the bot, so set the autosend to False
