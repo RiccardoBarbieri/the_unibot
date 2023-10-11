@@ -3,9 +3,9 @@ name: Pylint
 # The workflow gets triggered by pushes and pull requests
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build:
