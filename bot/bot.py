@@ -746,15 +746,12 @@ class the_unibot():
                 await context.bot.send_message(chat_id=update.effective_chat.id,
                                                text=self.messages['set_autosend'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(time=scheduled_time_str))
 
-                if (str(chat_id)) not in self.jobs.keys():
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
-                    self.jobs[str(chat_id)].enabled = True
-                else:
+                if str(chat_id) in self.jobs.keys():
                     self.jobs[str(chat_id)].schedule_removal()
-                    self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
-                        seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
-                    self.jobs[str(chat_id)].enabled = True
+
+                self.jobs[str(chat_id)] = self.job_queue.run_repeating(self.__callback_loop, timedelta(
+                    seconds=SECONDS_IN_A_DAY), first=timedelta(seconds=Utils.get_seconds(scheduled_time_str)), chat_id=chat_id, user_id=user_id, data=effective_day)
+                self.jobs[str(chat_id)].enabled = True
 
                 print(self.db.query_by_ids(chat_id))
             else:
