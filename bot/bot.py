@@ -55,7 +55,7 @@ updater : telegram.ext.Updater
 
 
 class the_unibot():
-    __version__ = '2023.10.06'
+    __version__ = '2023.10.11'
     __author__ = 'Riccardo Barbieri, Gregorio Berselli'
     __link__ = 'https://github.com/RiccardoBarbieri/the_unibot'
     __langs__ = {'English': 'en', 'Italiano': 'it'}
