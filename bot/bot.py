@@ -191,9 +191,10 @@ class the_unibot():
     None
     '''
     async def start(self, update: Update, context: CallbackContext) -> None:
-        self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
-                       course='0', year=1, detail=2, curricula='default')
-        self.db.backup('data')
+        if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
+            self.db.insert('data', chat_id=update.effective_chat.id, user_id=update.effective_user.id,
+                           course='0', year=1, detail=2, curricula='default')
+            self.db.backup('data')
         await context.bot.send_message(chat_id=update.effective_chat.id, text=self.messages['start'][self.db.query('data', key_chat_id=update.effective_chat.id)[0]['language']].format(version=self.__version__, link=self.__link__), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
     '''
