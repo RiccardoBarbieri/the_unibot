@@ -1,3 +1,1 @@
-from .exceptions import (
-    ParameterError
-)
+from .exceptions import ParameterError

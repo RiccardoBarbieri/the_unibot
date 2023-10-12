@@ -1,5 +1,3 @@
-
-
 class ParameterError(Exception):
     def __init__(self, *args):
         if args:
@@ -9,6 +7,6 @@ class ParameterError(Exception):
 
     def __str__(self) -> str:
         if self.message:
-            return '{0} '.format(self.message)
+            return "{0} ".format(self.message)
         else:
-            return ''
+            return ""

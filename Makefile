@@ -6,8 +6,8 @@ test:
 	python3 ./bot/bot.py "test"
 format:
 	clear
-	autopep8 -i *.py
-	autopep8 -i ./*/*.py
+	python3 -m black *.py
+	python3 -m black ./*/*.py
 format-online:
-	autopep8 -i *.py
-	autopep8 -i ./*/*.py
+	python3 -m black *.py
+	python3 -m black ./*/*.py

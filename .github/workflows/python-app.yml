@@ -26,9 +26,9 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install autopep8 pytest
+        pip install black pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Format with autopep8
+    - name: Format with black
       run: |
         make format-online
     - name: Test with pytest
