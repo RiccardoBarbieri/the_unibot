@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta, time
+from datetime import datetime, timedelta, time
 from pathlib import Path
 import requests
 import getpass
@@ -258,7 +258,7 @@ class Utils():
         check = True
         params_lower = [i.lower() for i in params]
         for i in params_lower:
-            if not (i in string.lower()):
+            if not i in string.lower():
                 check = False
         return check
 
@@ -278,7 +278,7 @@ class Utils():
     @staticmethod
     def date_from_days(day: str) -> str:
         format_string = '%d-%m-%Y'
-        today: date = datetime.now().date()
+        today: datetime.date = datetime.now().date()
         d = [d for d in DAYS.keys() if d in day][0]
         new_date_str = Utils._next_weekday(
             today, DAYS[d]).strftime(format_string)
@@ -301,7 +301,7 @@ class Utils():
     '''
     @staticmethod
     def first_difference(string1: str, string2: str) -> int:
-        if (len(string1) < len(string2)):
+        if len(string1) < len(string2):
             string2 = string2[:len(string1)]
         else:
             string1 = string1[:len(string2)]
@@ -355,15 +355,15 @@ class Utils():
     def idiot_time(idiot_time: str) -> str:
         if re.match('([0-1]?[0-9]|2[0-3]):[0-5][0-9]', idiot_time) and len(idiot_time) == 4:
             return '0' + idiot_time
-        else:
-            return idiot_time
+
+        return idiot_time
 
     @staticmethod
     def _next_weekday(day, weekday):
         days_ahead = weekday - day.weekday()
         if weekday < 0:
             return day + timedelta(-(weekday + 1))
-        else:
-            if days_ahead <= 0:  # Target day already happened this week
-                days_ahead += 7
-            return day + timedelta(days_ahead)
+
+        if days_ahead <= 0:  # Target day already happened this week
+            days_ahead += 7
+        return day + timedelta(days_ahead)

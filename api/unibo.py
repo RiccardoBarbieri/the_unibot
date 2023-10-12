@@ -56,9 +56,6 @@ class UniboAPI():
         except JSONDecodeError:
             print('JSON decoding error')
 
-        for i in schedule.keys():
-            schedule[i]
-
         delete = ['note', 'start', 'end', 'val_crediti',
                   'aule', 'cod_sdoppiamento', 'extCode', 'periodo']
 
