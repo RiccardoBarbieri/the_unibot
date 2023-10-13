@@ -1,4 +1,4 @@
-.PHONY: launch test format
+.PHONY: launch test format format-online
 launch:
 	python3 ./bot/bot.py "launch"
 test:
@@ -6,5 +6,8 @@ test:
 	python3 ./bot/bot.py "test"
 format:
 	clear
-	autopep8 -i *.py
-	autopep8 -i ./*/*.py
+	python3 -m black *.py
+	python3 -m black ./*/*.py
+format-online:
+	python3 -m black *.py
+	python3 -m black ./*/*.py
