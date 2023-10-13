@@ -6,6 +6,7 @@ from pathlib import Path
 from math import ceil
 from datetime import datetime
 from typing import Dict
+import os
 
 from telegram import (
     ReplyKeyboardMarkup,
@@ -27,10 +28,10 @@ from telegram.ext import (
     filters,
 )
 
-from ..api.unibo import UniboAPI
-from ..api import WikipediaAPI, WeatherAPI
-from ..utils import Utils, MessageCreator
-from ..database import Database
+from api.unibo import UniboAPI
+from api import WikipediaAPI, WeatherAPI
+from utils import Utils, MessageCreator
+from database import Database
 
 
 class the_unibot:

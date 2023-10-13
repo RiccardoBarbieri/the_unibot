@@ -1,4 +1,5 @@
 .PHONY: launch test format format-online
+export PYTHONPATH := .
 launch:
 	python3 ./bot/bot.py "launch"
 test:
