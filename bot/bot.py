@@ -1,13 +1,12 @@
-import sys  # nopep8
+import sys
+import logging
+import json
+import re
+from pathlib import Path
+from math import ceil
+from datetime import datetime
+from typing import Dict
 
-sys.path.append(".")  # nopep8
-
-from api.unibo import UniboAPI
-from api import WikipediaAPI
-from api import WeatherAPI
-from utils import Utils
-from utils import MessageCreator
-from database import Database
 from telegram import (
     ReplyKeyboardMarkup,
     ReplyKeyboardRemove,
@@ -25,51 +24,48 @@ from telegram.ext import (
     CallbackContext,
     JobQueue,
     Job,
+    filters,
 )
-from telegram.ext import filters
-import logging
-import json
-from pathlib import Path
-from math import ceil
-import re
-from datetime import datetime
-from typing import Dict
 
-"""
-This class is the main class of the_unibot.
-You can find it on Telegram with the username @the_unibot.
-
-It contains all the methods that are called when a command is sent to the bot.
-
-The methods are called by the dispatcher, which is an instance of the telegram.ext.ApplicationBuilder class.
-
-The methods are called with two parameters: update and context.
-The update parameter contains all the information about the message sent to the bot.
-The context parameter contains all the information about the bot itself.
-
-The methods are async, so they can be called with the await keyword.
-
-Parameters
-----------
-last_mess : str
-    Contains the last message sent to the bot.
-db : Database
-    Contains the database instance.
-which_bot : str
-    Contains the name of the bot.
-job_queue : telegram.ext.JobQueue
-    Contains the job_queue instance.
-jobs : Dict[str, Job]
-    Contains the jobs scheduled by the bot.
-bot : Bot
-    Contains the bot instance.
-updater : telegram.ext.Updater
-    Contains the updater instance.
-
-"""
+from ..api.unibo import UniboAPI
+from ..api import WikipediaAPI, WeatherAPI
+from ..utils import Utils, MessageCreator
+from ..database import Database
 
 
 class the_unibot:
+    """
+    This class is the main class of the_unibot.
+    You can find it on Telegram with the username @the_unibot.
+
+    It contains all the methods that are called when a command is sent to the bot.
+
+    The methods are called by the dispatcher, which is an instance of the telegram.ext.ApplicationBuilder class.
+
+    The methods are called with two parameters: update and context.
+    The update parameter contains all the information about the message sent to the bot.
+    The context parameter contains all the information about the bot itself.
+
+    The methods are async, so they can be called with the await keyword.
+
+    Parameters
+    ----------
+    last_mess : str
+        Contains the last message sent to the bot.
+    db : Database
+        Contains the database instance.
+    which_bot : str
+        Contains the name of the bot.
+    job_queue : telegram.ext.JobQueue
+        Contains the job_queue instance.
+    jobs : Dict[str, Job]
+        Contains the jobs scheduled by the bot.
+    bot : Bot
+        Contains the bot instance.
+    updater : telegram.ext.Updater
+        Contains the updater instance.
+    """
+
     __version__ = "2023.10.11"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
@@ -96,25 +92,24 @@ class the_unibot:
     # updater instance
     updater: Updater
 
-    """
-    This method is called when the bot is started.
-    It creates the dispatcher, the updater and the bot instances.
-    It also creates the database instance, or loads it if it already exists.
-    It also creates the job_queue instance together with the jobs dictionary.
-
-    Parameters
-    ----------
-    token : str
-        Contains the token of the bot.
-    which_bot : str
-        Contains the name of the bot.
-
-    Returns
-    -------
-    None
-    """
-
     def __init__(self, token, which_bot) -> None:
+        """
+        This method is called when the bot is started.
+        It creates the dispatcher, the updater and the bot instances.
+        It also creates the database instance, or loads it if it already exists.
+        It also creates the job_queue instance together with the jobs dictionary.
+
+        Parameters
+        ----------
+        token : str
+            Contains the token of the bot.
+        which_bot : str
+            Contains the name of the bot.
+
+        Returns
+        -------
+        None
+        """
         self.which_bot = which_bot
 
         self.jobs: Dict[str, Job] = {}
@@ -195,23 +190,22 @@ class the_unibot:
 
         dispatcher.run_polling()
 
-    """
-    This method is called when the bot is started by a new user.
-    It inserts the user in the database and sends a welcome message.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def start(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the bot is started by a new user.
+        It inserts the user in the database and sends a welcome message.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
             self.db.insert(
                 "data",
@@ -234,23 +228,22 @@ class the_unibot:
             disable_web_page_preview=True,
         )
 
-    """
-    This method is called when the bot receives a message.
-    It updates the last_mess variable and handles the message with respect to other commands.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def message_handler(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the bot receives a message.
+        It updates the last_mess variable and handles the message with respect to other commands.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         await self.__update_last_command(update)
 
         last_command = (
@@ -317,8 +310,8 @@ class the_unibot:
             )
 
             found = {}
-            with open(Path("./resources/courses.json")) as f:
-                courses = json.load(f)
+            with open(Path("./resources/courses.json"), "r") as file:
+                courses = json.load(file)
             for i in courses:
                 if i["course_code"] == course_code:
                     found = i
@@ -420,23 +413,22 @@ class the_unibot:
                 )
             )
 
-    """
-    This method is called when the help command is sent to the bot.
-    It sends a message with a link to the repository of the bot.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def help(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the help command is sent to the bot.
+        It sends a message with a link to the repository of the bot.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=self.messages["help"][
@@ -448,23 +440,22 @@ class the_unibot:
             disable_web_page_preview=True,
         )
 
-    """
-    This method is called when the set_course command is sent to the bot.
-    It sends a message with a list of courses and a keyboard to select one of them.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def set_course(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the set_course command is sent to the bot.
+        It sends a message with a list of courses and a keyboard to select one of them.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -491,8 +482,7 @@ class the_unibot:
                 mess_len = 0
                 for i in self.db.query_all("courses"):
                     mess_len += len(
-                        i["course_name"]
-                        + " [{type}]".format(type=Utils.get_course_type(i["site"]))
+                        i["course_name"] + f" [{Utils.get_course_type(i['site'])}]"
                     )
                 page_num = ceil(mess_len / 4096)
 
@@ -531,14 +521,12 @@ class the_unibot:
                 mess_len = 0
                 for i in courses_filtered:
                     mess_len += len(
-                        i["course_name"]
-                        + " [{type}]".format(type=Utils.get_course_type(i["site"]))
+                        i["course_name"] + f" [{Utils.get_course_type(i['site'])}]"
                     )
                 page_num = ceil(mess_len / 4096)
 
                 # adapting page_param
-                if page_param > page_num:
-                    page_param = page_num
+                page_param = min(page_param, page_num)
                 if page_param <= 0:
                     page_param = 1
                 page_param -= 1
@@ -579,23 +567,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called together with the set_course command.
-    It creates the pages for the keyboard.
-
-    Parameters
-    ----------
-    courses : list
-        Contains the list of courses.
-    page_num : int
-        Contains the number of pages.
-
-    Returns
-    -------
-    pages : list
-    """
-
     def __pages_creation(self, courses: list, page_num: int) -> list:
+        """
+        This method is called together with the set_course command.
+        It creates the pages for the keyboard.
+
+        Parameters
+        ----------
+        courses : list
+            Contains the list of courses.
+        page_num : int
+            Contains the number of pages.
+
+        Returns
+        -------
+        pages : list
+        """
         pages = []
         last_course = 0
         for i in range(page_num):
@@ -603,15 +590,9 @@ class the_unibot:
             length = 0
             for j, k in zip(courses[last_course:], range(last_course, len(courses))):
                 rows.append(
-                    [
-                        KeyboardButton(
-                            j["course_name"] + " [{type}]".format(type=j["course_code"])
-                        )
-                    ]
+                    [KeyboardButton(j["course_name"] + f" [{j['course_code']}]")]
                 )
-                length += len(
-                    j["course_name"] + " [{type}]".format(type=j["course_code"])
-                )
+                length += len(j["course_name"] + f" [{j['course_code']}]")
                 last_course = k
                 if length > 4095:
                     break
@@ -621,23 +602,22 @@ class the_unibot:
             pages[i] = pages[i][1:]
         return pages
 
-    """
-    This method is called when the set_curriculum command is sent to the bot.
-    It sends a message with a list of curriculas and a keyboard to select one of them.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def set_curriculum(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the set_curriculum command is sent to the bot.
+        It sends a message with a list of curriculas and a keyboard to select one of them.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -728,13 +708,7 @@ class the_unibot:
                     rows = []
                     for i in curriculas_codes:
                         temp = []
-                        temp.append(
-                            KeyboardButton(
-                                "{label} [{code}]".format(
-                                    label=i["label"], code=i["code"]
-                                )
-                            )
-                        )
+                        temp.append(KeyboardButton(f"{i['label']} [{i['code']}]"))
                         rows.append(temp)
 
                     keyboard = ReplyKeyboardMarkup(
@@ -783,23 +757,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the set_year command is sent to the bot.
-    It sends a message with a keyboard to select the year.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def set_year(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the set_year command is sent to the bot.
+        It sends a message with a keyboard to select the year.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -859,23 +832,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the set_detail command is sent to the bot.
-    It sets the detail of the schedule.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def set_detail(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the set_detail command is sent to the bot.
+        It sets the detail of the schedule.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -935,23 +907,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the timetable command is sent to the bot.
-    It sends a message with the schedule of the user.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def timetable(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the timetable command is sent to the bot.
+        It sends a message with the schedule of the user.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         await self.__update_last_command(update)
         user = self.db.query_by_ids(chat_id=update.effective_chat.id)[0]
 
@@ -978,22 +949,21 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is used to create the messages for the schedule.
-
-    Parameters
-    ----------
-    date : str
-        Contains the date.
-    chat_id : int
-        Contains the chat id.
-
-    Returns
-    -------
-    messages : list
-    """
-
     def __messages_creation(self, city: str, date: str, chat_id: int) -> list:
+        """
+        This method is used to create the messages for the schedule.
+
+        Parameters
+        ----------
+        date : str
+            Contains the date.
+        chat_id : int
+            Contains the chat id.
+
+        Returns
+        -------
+        messages : list
+        """
         messages = []
         messages.append(city + " - " + date)
 
@@ -1051,23 +1021,22 @@ class the_unibot:
 
         return messages
 
-    """
-    This method is called when the set_autosend command is sent to the bot.
-    It sets the autosend time for the user.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def set_autosend(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the set_autosend command is sent to the bot.
+        It sets the autosend time for the user.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -1157,23 +1126,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the autosend command is sent to the bot.
-    It enables or disables the autosend for the user.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def autosend(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the autosend command is sent to the bot.
+        It enables or disables the autosend for the user.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -1236,23 +1204,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the timetable command is sent to the bot.
-    It parses some text like 'today' or 'tomorrow' and sends the schedule of the user.
-
-    Parameters
-    ----------
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def __orario_autosend(
         self, context: CallbackContext, chat_id=None, day: str = None
     ) -> None:
+        """
+        This method is called when the timetable command is sent to the bot.
+        It parses some text like 'today' or 'tomorrow' and sends the schedule of the user.
+
+        Parameters
+        ----------
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         if day is None:
             day = context.job.data
         if chat_id is None:
@@ -1275,11 +1242,11 @@ class the_unibot:
 
         weather_message = None
         try:
-            if any(day in day for day in ["oggi", "today"]):
+            if any(d in day for d in ["oggi", "today"]):
                 weather_message = WeatherAPI.get_weather(
                     city, 0, self.db.query("data", key_chat_id=chat_id)[0]["language"]
                 )
-            elif any(day in day for day in ["domani", "tomorrow"]):
+            elif any(d in day for d in ["domani", "tomorrow"]):
                 weather_message = WeatherAPI.get_weather(
                     city, 1, self.db.query("data", key_chat_id=chat_id)[0]["language"]
                 )
@@ -1295,30 +1262,25 @@ class the_unibot:
                     parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True,
                 )
-        except Forbidden as e:
+        except Forbidden:
             # user blocked the bot, so set the autosend to False
             self.db.update("data", key_chat_id=chat_id, autosend=0)
             self.jobs[str(chat_id)].schedule_removal()
-            print(
-                "User {id} blocked the bot, autosend disabled.".format(
-                    id=context.job.user_id
-                )
-            )
-
-    """
-    This method is used for the callback of a scheduled job.
-
-    Parameters
-    ----------
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
+            print(f"User {chat_id} blocked the bot, autosend disabled.")
 
     async def __callback_loop(self, context: CallbackContext) -> None:
+        """
+        This method is used for the callback of a scheduled job.
+
+        Parameters
+        ----------
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         try:
             await self.__orario_autosend(context)
         except ChatMigrated as e:
@@ -1326,33 +1288,28 @@ class the_unibot:
                 "data", key_chat_id=context.job.chat_id, chat_id=e.new_chat_id
             )
             self.jobs[str(context.job.chat_id)].chat_id = e.new_chat_id
-            print(
-                "Chat migrated from {old} to {new}".format(
-                    old=context.job.chat_id, new=e.new_chat_id
-                )
-            )
-
-    """
-    This method is called when the wiki command is sent to the bot.
-    It sends a message with the wikipedia page of the argument sent to the bot.
-    If the page is not unique, it sends a message with a keyboard to select the page.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
+            print(f"Chat migrated from {context.job.chat_id} to {e.new_chat_id}")
 
     async def wiki(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the wiki command is sent to the bot.
+        It sends a message with the wikipedia page of the argument sent to the bot.
+        If the page is not unique, it sends a message with a keyboard to select the page.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         await self.__update_last_command(update)
 
-        if "/wiki@{bot}".format(bot=self.which_bot) in update.message.text:
+        if f"/wiki@{self.which_bot}" in update.message.text:
             text = update.message.text[(7 + len(self.which_bot)) :]
         elif "/wiki" in update.message.text:
             text = update.message.text[6:]
@@ -1411,29 +1368,28 @@ class the_unibot:
             )
             self.last_mess = None
 
-    """
-    This method is called when the wiki command is sent to the bot.
-    It manages the exceptions of te wikipedia API.
-    At the end, it sends a message with the summary of the page.
-
-    Parameters
-    ----------
-    url_ : str
-        Contains the url of the wikipedia page.
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     # function defined for optimization
     async def __temp_func(
         self, url_: str, update: Update, context: CallbackContext
     ) -> None:
+        """
+        This method is called when the wiki command is sent to the bot.
+        It manages the exceptions of te wikipedia API.
+        At the end, it sends a message with the summary of the page.
+
+        Parameters
+        ----------
+        url_ : str
+            Contains the url of the wikipedia page.
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         try:
             message = WikipediaAPI.summary(url_)
             await context.bot.send_message(
@@ -1455,43 +1411,41 @@ class the_unibot:
             "last_command", key_chat_id=update.effective_chat.id, text="/start"
         )
 
-    """
-    This method is used to fix the message too long error by cutting the message.
-
-    Parameters
-    ----------
-    message : str
-        Contains the message.
-        
-    Returns
-    -------
-    message : str
-    """
-
     def __long_mess_fix(self, message: str) -> str:
+        """
+        This method is used to fix the message too long error by cutting the message.
+
+        Parameters
+        ----------
+        message : str
+            Contains the message.
+
+        Returns
+        -------
+        message : str
+        """
         message = message[:4095]
         message = message[::-1]
         message = message[message.find(".") :]
         message = message[::-1]
         return message
 
-    """
-    This method is called when the bug_report command is sent to the bot.
-    It sends a message with the link to the repository of the bot.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def bug(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the bug_report command is sent to the bot.
+        It sends a message with the link to the repository of the bot.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         await self.__update_last_command(update)
 
         await context.bot.send_message(
@@ -1504,20 +1458,19 @@ class the_unibot:
             parse_mode=ParseMode.HTML,
         )
 
-    """
-    This method is used to update the last command sent to the bot.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-
-    Returns
-    -------
-    None
-    """
-
     async def __update_last_command(self, update: Update) -> None:
+        """
+        This method is used to update the last command sent to the bot.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+
+        Returns
+        -------
+        None
+        """
         if len(self.db.query("data", key_chat_id=update.effective_chat.id)) == 0:
             self.db.insert(
                 "data",
@@ -1541,23 +1494,22 @@ class the_unibot:
                 text=update.message.text,
             )
 
-    """
-    This method is called when the donate_a_coffee command is sent to the bot.
-    It sends a message with the link to donate to the bot.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def donate_a_coffee(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the donate_a_coffee command is sent to the bot.
+        It sends a message with the link to donate to the bot.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=self.messages["coffee"][
@@ -1572,23 +1524,22 @@ class the_unibot:
             parse_mode=ParseMode.HTML,
         )
 
-    """
-    This method is called when the change_language command is sent to the bot.
-    It sends a message with a keyboard to select the language of the bot.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def change_language(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the change_language command is sent to the bot.
+        It sends a message with a keyboard to select the language of the bot.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -1598,7 +1549,7 @@ class the_unibot:
             await self.__update_last_command(update)
 
             rows = []
-            for lang, id in self.__langs__.items():
+            for lang, _ in self.__langs__.items():
                 temp = []
                 temp.append(KeyboardButton(lang))
                 rows.append(temp)
@@ -1623,23 +1574,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the reset command is sent to the bot.
-    It resets the user data to the default values.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def reset(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when the reset command is sent to the bot.
+        It resets the user data to the default values.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -1682,23 +1632,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the hide command is sent to the bot.
-    It stores in the database the parameter passed as argument to the command, in order to tell the bot to not send the schedule of that course.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-    None
-    """
-
     async def hide(self, update: Update, context: CallbackContext):
+        """
+        This method is called when the hide command is sent to the bot.
+        It stores in the database the parameter passed as argument to the command, in order to tell the bot to not send the schedule of that course.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+        None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -1744,23 +1693,22 @@ class the_unibot:
                 ],
             )
 
-    """
-    This method is called when the show command is sent to the bot.
-    It stores in the database the parameter passed as argument to the command, in order to tell the bot to send only the schedule of that course.
-
-    Parameters
-    ----------
-    update : telegram.Update
-        Contains the update object.
-    context : telegram.ext.CallbackContext
-        Contains the context object.
-
-    Returns
-    -------
-        None
-    """
-
     async def show(self, update: Update, context: CallbackContext):
+        """
+        This method is called when the show command is sent to the bot.
+        It stores in the database the parameter passed as argument to the command, in order to tell the bot to send only the schedule of that course.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+
+        Returns
+        -------
+            None
+        """
         member = await update.effective_chat.get_member(update.effective_user.id)
         if (
             member.status == "creator"
@@ -1816,11 +1764,11 @@ class the_unibot:
 
 if __name__ == "__main__":
     if sys.argv[1] == "test":
-        with open(Path("./keys/test.txt")) as f:
+        with open(Path("./keys/test.txt"), "r") as f:
             token = f.readline()
             which_bot = "orari_unibo_bot"
     elif sys.argv[1] == "launch":
-        with open(Path("./keys/token.txt")) as f:
+        with open(Path("./keys/token.txt"), "r") as f:
             token = f.readline()
             which_bot = "the_unibot"
 
