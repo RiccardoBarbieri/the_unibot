@@ -1402,7 +1402,7 @@ class the_unibot:
             if str(e) == "Message is too long":
                 await context.bot.send_message(
                     chat_id=update.effective_chat.id,
-                    text=self.__long_mess_fix(message),
+                    text=Utils.long_mess_fix(message),
                     reply_markup=ReplyKeyboardRemove(),
                 )
 
@@ -1411,25 +1411,6 @@ class the_unibot:
         self.db.update(
             "last_command", key_chat_id=update.effective_chat.id, text="/start"
         )
-
-    def __long_mess_fix(self, message: str) -> str:
-        """
-        This method is used to fix the message too long error by cutting the message.
-
-        Parameters
-        ----------
-        message : str
-            Contains the message.
-
-        Returns
-        -------
-        message : str
-        """
-        message = message[:4095]
-        message = message[::-1]
-        message = message[message.find(".") :]
-        message = message[::-1]
-        return message
 
     async def bug(self, update: Update, context: CallbackContext) -> None:
         """

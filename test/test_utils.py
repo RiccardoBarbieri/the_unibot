@@ -265,3 +265,16 @@ def test_idiot_time():
     assert Utils.idiot_time(time) == "20:00"
     time = "2:31"
     assert Utils.idiot_time(time) == "02:31"
+
+
+def test_long_mess_fix():
+    """
+    This tests if the function Utils.long_mess_fix() works correctly
+    GIVEN a message
+    WHEN the function is called
+    THEN it should return the message with the long words split in '.'
+    """
+    message = "a" * 3999
+    message += "."
+    message += "a" * 1000
+    assert len(Utils.long_mess_fix(message)) == 4000

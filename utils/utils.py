@@ -421,3 +421,23 @@ class Utils:
         if days_ahead <= 0:  # Target day already happened this week
             days_ahead += 7
         return day + timedelta(days_ahead)
+
+    @staticmethod
+    def long_mess_fix(message: str) -> str:
+        """
+        This method is used to fix the message too long error by cutting the message.
+
+        Parameters
+        ----------
+        message : str
+            Contains the message.
+
+        Returns
+        -------
+        message : str
+        """
+        message = message[:4095]
+        message = message[::-1]
+        message = message[message.find(".") :]
+        message = message[::-1]
+        return message
