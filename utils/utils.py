@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta, time
 from pathlib import Path
-import requests
 import getpass
 import re
+import requests
 import pytz
 
 DAYS = {
@@ -186,7 +186,7 @@ class Utils:
             dict
                 a dictionary containing the parsed parameters
         """
-        if "@{bot}".format(bot=which_bot) in message:
+        if f"@bot{which_bot}" in message:
             params = message[len(command + "@" + which_bot) :].split()
         else:
             params = message[len(command) :].split()
@@ -251,7 +251,7 @@ class Utils:
 
         if "cycle" in url:
             return "timetable"
-        else:
+
             return "orario-lezioni"
 
     @staticmethod
@@ -271,8 +271,8 @@ class Utils:
         """
         if "cycle" in url:
             return "course-structure-diagram"
-        else:
-            return "insegnamenti"
+        
+        return "insegnamenti"
 
     @staticmethod
     def string_contains(string: str, params: list) -> bool:
