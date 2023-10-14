@@ -1,40 +1,35 @@
-import sys  # nopep8
-
-sys.path.append(".")  # nopep8
 import json
 from pathlib import Path
-
-"""
-This class is used to create the message to send to the user
-
-Methods
--------
-    create_message(schedule, lvl, lang: str) -> str
-        creates the message to send to the user
-"""
 
 
 class MessageCreator:
     """
-    This function creates the message to send to the user
+    This class is used to create the message to send to the user
 
-    Parameters
-    ----------
-        schedule: dict
-            the schedule of the course
-        lvl: int
-            the level of the message
-        lang: str
-            the language of the message
-
-    Returns
+    Methods
     -------
-        string
-            the message to send to the user
-    """
+        create_message(schedule, lvl, lang: str) -> str
+            creates the message to send to the user"""
 
     @staticmethod
     def create_message(schedule, lvl, lang: str):
+        """
+        This function creates the message to send to the user
+
+        Parameters
+        ----------
+            schedule: dict
+                the schedule of the course
+            lvl: int
+                the level of the message
+            lang: str
+                the language of the message
+
+        Returns
+        -------
+            string
+                the message to send to the user
+        """
         message = "{time}\n{course_name}".format(
             course_name=schedule["title"], time=schedule["time"]
         )

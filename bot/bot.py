@@ -6,7 +6,6 @@ from pathlib import Path
 from math import ceil
 from datetime import datetime
 from typing import Dict
-import os
 
 from telegram import (
     ReplyKeyboardMarkup,

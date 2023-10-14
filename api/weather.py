@@ -1,45 +1,40 @@
 import requests
-from datetime import datetime
-from datetime import timedelta
 from pathlib import Path
 import json
 
-"""
-This class is used to get the weather forecasts using the OpenWeatherMap API.
-
-Attributes
-----------
-None
-
-Methods
--------
-get_weather(city: str, day: int) -> str
-    Returns the weather forecast for the specified city and day.
-parse_weather(day: int, weather: dict) -> str
-    Returns the weather forecast for the specified day.
-"""
-
 
 class WeatherAPI:
-
     """
-    Returns the weather forecast for the specified city and day.
+    This class is used to get the weather forecasts using the OpenWeatherMap API.
 
-    Parameters
+    Attributes
     ----------
-    city : str
-        The city for which the weather forecast is requested.
-    day : int
-        The day for which the weather forecast is requested.
+    None
 
-    Returns
+    Methods
     -------
-    str
-        The weather forecast for the specified city and day.
-    """
+    get_weather(city: str, day: int) -> str
+        Returns the weather forecast for the specified city and day.
+    parse_weather(day: int, weather: dict) -> str
+        Returns the weather forecast for the specified day."""
 
     @staticmethod
     def get_weather(city: str, day: int, lang: str) -> str:
+        """
+        Returns the weather forecast for the specified city and day.
+
+        Parameters
+        ----------
+        city : str
+            The city for which the weather forecast is requested.
+        day : int
+            The day for which the weather forecast is requested.
+
+        Returns
+        -------
+        str
+            The weather forecast for the specified city and day.
+        """
         with open(Path("./keys/weather.txt")) as f:
             api_key = f.readline()
         coords_url = "https://api.openweathermap.org/data/2.5/weather?&appid={key}&q={city}&units=metric".format(
@@ -61,28 +56,27 @@ class WeatherAPI:
                 msg = json.load(file)
             return msg["error_404"][lang]
 
-    """
-    Returns the parsed forecast given weather and day.
-
-    Parameters
-    ----------
-    city : str
-        The city for which the weather forecast is requested.
-    day : int
-        The day for which the weather forecast is requested.
-    weather : dict
-        The weather forecast for the specified city and day.
-    lang : str
-        The language of the message.
-        
-    Returns
-    -------
-    str
-        The weather forecast for the specified city and day.
-    """
-
     @staticmethod
     def parse_weather(weather: dict, lang: str) -> str:
+        """
+        Returns the parsed forecast given weather and day.
+
+        Parameters
+        ----------
+        city : str
+            The city for which the weather forecast is requested.
+        day : int
+            The day for which the weather forecast is requested.
+        weather : dict
+            The weather forecast for the specified city and day.
+        lang : str
+            The language of the message.
+
+        Returns
+        -------
+        str
+            The weather forecast for the specified city and day.
+        """
         temp_min = int(weather["daily"][0]["temp"]["min"])
         temp_max = int(weather["daily"][0]["temp"]["max"])
         description = weather["daily"][0]["weather"][0]["description"]
