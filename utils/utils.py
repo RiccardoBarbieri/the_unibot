@@ -186,7 +186,7 @@ class Utils:
             dict
                 a dictionary containing the parsed parameters
         """
-        if f"@bot{which_bot}" in message:
+        if f"@{which_bot}" in message:
             params = message[len(command + "@" + which_bot) :].split()
         else:
             params = message[len(command) :].split()
@@ -252,7 +252,7 @@ class Utils:
         if "cycle" in url:
             return "timetable"
 
-            return "orario-lezioni"
+        return "orario-lezioni"
 
     @staticmethod
     def get_course_lang2(url: str):
@@ -271,7 +271,7 @@ class Utils:
         """
         if "cycle" in url:
             return "course-structure-diagram"
-        
+
         return "insegnamenti"
 
     @staticmethod

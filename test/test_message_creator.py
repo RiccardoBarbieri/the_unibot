@@ -1,6 +1,3 @@
-import sys  # nopep8
-
-sys.path.append(".")  # nopep8
 from utils.message_creator import MessageCreator
 
 FAKE_SCHEDULE1 = {
@@ -23,15 +20,13 @@ FAKE_SCHEDULE2 = {
     "teledidattica": "True",
 }
 
-"""
-This tests the creation of a message with level 1
-GIVEN a schedule
-WHEN the function create_message is called with level 1
-THEN the message is created correctly
-"""
-
 
 def test_lvl1_message():
+    """
+    This tests the creation of a message with level 1
+    GIVEN a schedule
+    WHEN the function create_message is called with level 1
+    THEN the message is created correctly"""
     lang = "en"
     lvl = 1
 
@@ -40,15 +35,12 @@ def test_lvl1_message():
     assert message == expected_message
 
 
-"""
-This tests the creation of a message with level 2
-GIVEN a schedule
-WHEN the function create_message is called with level 2
-THEN the message is created correctly
-"""
-
-
 def test_lvl2_message():
+    """
+    This tests the creation of a message with level 2
+    GIVEN a schedule
+    WHEN the function create_message is called with level 2
+    THEN the message is created correctly"""
     lang = "it"
     lvl = 2
 
@@ -57,15 +49,12 @@ def test_lvl2_message():
     assert message == expected_message
 
 
-"""
-This tests the creation of a message with level 3
-GIVEN a schedule
-WHEN the function create_message is called with level 3
-THEN the message is created correctly
-"""
-
-
 def test_lvl3_message():
+    """
+    This tests the creation of a message with level 3
+    GIVEN a schedule
+    WHEN the function create_message is called with level 3
+    THEN the message is created correctly"""
     lang = "en"
     lvl = 3
 
@@ -74,15 +63,13 @@ def test_lvl3_message():
     assert message == expected_message
 
 
-"""
-This tests the creation of a message with level 3 and online lecture
-GIVEN a schedule with online lecture
-WHEN the function create_message is called with level 3
-THEN the message is created correctly
-"""
-
-
 def test_lvl3_message_with_online_lecture():
+    """
+    This tests the creation of a message with level 3 and online lecture
+    GIVEN a schedule with online lecture
+    WHEN the function create_message is called with level 3
+    THEN the message is created correctly"""
+
     lang = "it"
     lvl = 3
 

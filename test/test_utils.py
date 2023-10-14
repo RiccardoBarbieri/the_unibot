@@ -91,12 +91,12 @@ def test_parse_params():
     params = Utils.parse_params(command, message, which_bot)
     assert params["numeric"] == [123]
 
-    message = "/start@{bot} test".format(bot=which_bot)
+    message = f"/start@{which_bot} asd"
     params = Utils.parse_params(command, message, which_bot)
-    assert params["text"] == ["test"]
+    assert params["text"] == ["asd"]
 
     command = "/end"
-    message = "/end@{bot} 123 test".format(bot=which_bot)
+    message = f"/end@{which_bot} 123 test"
     params = Utils.parse_params(command, message, which_bot)
     assert params["numeric"] == [123]
     assert params["text"] == ["test"]

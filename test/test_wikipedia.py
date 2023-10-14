@@ -9,7 +9,7 @@ def test_pages_single_result():
     THEN it should return a dictionary containing the parsed parameters"""
 
     result = WikipediaAPI.pages("Python (programming language)")
-    assert result["single"] == True
+    assert result["single"] is True
     assert result["names"] == "Python (programming language)"
     assert (
         result["links"] == "https://en.wikipedia.org/wiki/Python_(programming_language)"
@@ -23,7 +23,7 @@ def test_pages_multiple_results():
     WHEN the function is called
     THEN it should return a dictionary containing the parsed parameters"""
     result = WikipediaAPI.pages("Apple")
-    assert result["single"] == False
+    assert result["single"] is False
     assert "Apple" in result["names"]
     assert "https://en.wikipedia.org/wiki/Apple" in result["links"]
 
@@ -35,7 +35,7 @@ def test_pages_no_results():
     WHEN the function is called
     THEN it should return a dictionary containing the parsed parameters"""
     result = WikipediaAPI.pages("Rhgbveroihg3eroigbneroingberoin")
-    assert result["single"] == False
+    assert result["single"] is False
     assert len(result["names"]) == 0
     assert len(result["links"]) == 0
 

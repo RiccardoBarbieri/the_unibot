@@ -1,6 +1,7 @@
-from api.weather import WeatherAPI
 import os
 import pytest
+
+from api.weather import WeatherAPI
 
 
 @pytest.mark.skipif(not os.path.isfile("keys/weather.txt"), reason="No API key found")
