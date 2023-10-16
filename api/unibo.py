@@ -2,49 +2,48 @@ import requests
 import json
 from json import JSONDecodeError
 
-"""
-This class is used to get the class schedule using the Unibo API.
-
-Attributes
-----------
-None
-
-Methods
--------
-get_orario(corso: str, type: str, anno: str, lang: str, date_exact: str, curricula: str) -> dict
-    Returns the class schedule for the specified course, type, year, language, date and curricula.
-"""
-
 
 class UniboAPI:
     """
-    Returns the class schedule for the specified course, type, year, language, date and curricula.
+    This class is used to get the class schedule using the Unibo API.
 
-    Parameters
+    Attributes
     ----------
-    corso : str
-        The course for which the class schedule is requested.
-    type : str
-        The type of the course for which the class schedule is requested.
-    anno : str
-        The year of the course for which the class schedule is requested.
-    lang : str
-        The language of the course for which the class schedule is requested.
-    date_exact : str
-        The date for which the class schedule is requested.
-    curricula : str
-        The curricula of the course for which the class schedule is requested.
+    None
 
-    Returns
+    Methods
     -------
-    dict
-        The class schedule for the specified course, type, year, language, date and curricula.
+    get_orario(corso: str, type: str, anno: str, lang: str, date_exact: str, curricula: str) -> dict
+        Returns the class schedule for the specified course, type, year, language, date and curricula.
     """
 
     @staticmethod
     def get_orario(
         corso, type, anno, date_start, date_end, curricula="000-000"
     ) -> dict:
+        """
+        Returns the class schedule for the specified course, type, year, language, date and curricula.
+
+        Parameters
+        ----------
+        corso : str
+            The course for which the class schedule is requested.
+        type : str
+            The type of the course for which the class schedule is requested.
+        anno : str
+            The year of the course for which the class schedule is requested.
+        lang : str
+            The language of the course for which the class schedule is requested.
+        date_exact : str
+            The date for which the class schedule is requested.
+        curricula : str
+            The curricula of the course for which the class schedule is requested.
+
+        Returns
+        -------
+        dict
+            The class schedule for the specified course, type, year, language, date and curricula.
+        """
         url = f"https://corsi.unibo.it/{type}/{corso}/orario-lezioni/@@orario_reale_json?anno={anno}&start={date_start}&end={date_end}&curricula={curricula}"
 
         r = requests.get(url)
@@ -77,32 +76,31 @@ class UniboAPI:
 
         return schedule
 
-    """
-    Returns the class schedule for the specified course, type, year, language, date and curricula.
-
-    Parameters
-    ----------
-    corso : str
-        The course for which the class schedule is requested.
-    type : str
-        The type of the course for which the class schedule is requested.
-    anno : str
-        The year of the course for which the class schedule is requested.
-    lang : str
-        The language of the course for which the class schedule is requested.
-    date_exact : str
-        The date for which the class schedule is requested.
-    curricula : str
-        The curricula of the course for which the class schedule is requested.
-    
-    Returns
-    -------
-    dict
-        The class schedule for the specified course, type, year, language, date and curricula.
-    """
-
     @staticmethod
     def get_orario(corso, type, anno, lang, date_exact, curricula=None):
+        """
+        Returns the class schedule for the specified course, type, year, language, date and curricula.
+
+        Parameters
+        ----------
+        corso : str
+            The course for which the class schedule is requested.
+        type : str
+            The type of the course for which the class schedule is requested.
+        anno : str
+            The year of the course for which the class schedule is requested.
+        lang : str
+            The language of the course for which the class schedule is requested.
+        date_exact : str
+            The date for which the class schedule is requested.
+        curricula : str
+            The curricula of the course for which the class schedule is requested.
+
+        Returns
+        -------
+        dict
+            The class schedule for the specified course, type, year, language, date and curricula.
+        """
         if curricula is not None:
             url = f"https://corsi.unibo.it/{type}/{corso}/{lang}/@@orario_reale_json?anno={anno}&start={date_exact}&end={date_exact}&curricula={curricula}"
         else:

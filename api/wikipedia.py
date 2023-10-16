@@ -1,40 +1,38 @@
 import wikipediaapi
 import requests
 
-"""
-This class is used to get the wikipedia pages using the Wikipedia API.
-
-Attributes
-----------
-None
-
-Methods
--------
-pages(query: str) -> dict
-    Returns the wikipedia pages for the specified query.
-summary(url: str) -> str
-    Returns the summary of the specified wikipedia page.
-"""
-
 
 class WikipediaAPI:
-
     """
-    Returns the wikipedia pages for the specified query.
+    This class is used to get the wikipedia pages using the Wikipedia API.
 
-    Parameters
+    Attributes
     ----------
-    query : str
-        The query for which the wikipedia pages are requested.
+    None
 
-    Returns
+    Methods
     -------
-    dict
-        The wikipedia pages for the specified query.
+    pages(query: str) -> dict
+        Returns the wikipedia pages for the specified query.
+    summary(url: str) -> str
+        Returns the summary of the specified wikipedia page.
     """
 
     @staticmethod
     def pages(query) -> dict:
+        """
+        Returns the wikipedia pages for the specified query.
+
+        Parameters
+        ----------
+        query : str
+            The query for which the wikipedia pages are requested.
+
+        Returns
+        -------
+        dict
+            The wikipedia pages for the specified query.
+        """
         url = "https://en.wikipedia.org/w/api.php"
         params = {
             "action": "opensearch",
@@ -57,22 +55,21 @@ class WikipediaAPI:
             # if True -> single link
             return dict(names=data[1][0], links=data[3][0], single=True)
 
-    """
-    Returns the summary of the specified wikipedia page.
-    
-    Parameters
-    ----------
-    url : str
-        The url of the wikipedia page for which the summary is requested.
-
-    Returns
-    -------
-    str
-        The summary of the specified wikipedia page.
-    """
-
     @staticmethod
     def summary(url) -> str:
+        """
+        Returns the summary of the specified wikipedia page.
+
+        Parameters
+        ----------
+        url : str
+            The url of the wikipedia page for which the summary is requested.
+
+        Returns
+        -------
+        str
+            The summary of the specified wikipedia page.
+        """
         user_agent = "the_unibot (https://github.com/RiccardoBarbieri/the_unibot)"
         language = "en"
         wiki = wikipediaapi.Wikipedia(user_agent=user_agent, language=language)

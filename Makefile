@@ -1,4 +1,4 @@
-.PHONY: launch test format format-online
+.PHONY: launch test format format-online pytest
 export PYTHONPATH := .
 launch:
 	python3 ./bot/bot.py "launch"
@@ -12,3 +12,5 @@ format:
 format-online:
 	python3 -m black *.py
 	python3 -m black ./*/*.py
+pytest:
+	pytest

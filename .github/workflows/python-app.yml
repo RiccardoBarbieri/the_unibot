@@ -33,4 +33,4 @@ jobs:
         make format-online
     - name: Test with pytest
       run: |
-        pytest
+        make pytest
