@@ -71,7 +71,7 @@ One can also set an autosend time
 ```
 /set_autosend hh:mm
 ```
-**N.B.**: if the time is before 15:00 boot will send the current day timetable, else, it will send the timetable for the next day.
+**N.B.**: if the time is before 18:00 boot will send the current day timetable, else, it will send the timetable for the next day.
 
 To enable/disable the autosend:
 ```
@@ -158,7 +158,7 @@ Per impostare l'orario in cui si vuole ricevere l'orario quotidianamente:
 ```
 specificando l'orario in qualunque formato, separando ore e minuti con un carattere speciale.
 
-**N.B.**: se l'orario inserito è precedente alle 15:00 il bot manderà l'orario del giorno stesso, in caso contrario verrà mandato l'orario del giorno dopo.
+**N.B.**: se l'orario inserito è precedente alle 18:00 il bot manderà l'orario del giorno stesso, in caso contrario verrà mandato l'orario del giorno dopo.
 
 Per abilitare/disabilitare l'autosend è sufficiente lanciare il comando, funzionante come un bottone booleano:
 ```

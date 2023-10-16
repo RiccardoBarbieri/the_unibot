@@ -6,7 +6,6 @@ from pathlib import Path
 from math import ceil
 from datetime import datetime
 from typing import Dict
-import os
 
 from telegram import (
     ReplyKeyboardMarkup,
@@ -67,7 +66,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.10.11"
+    __version__ = "2023.10.16"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -134,7 +133,7 @@ class the_unibot:
 
         for i in self.db.query_all("data"):
             scheduled_time_str = Utils.idiot_time(i["autosend_time"])
-            effective_day = "today" if int(scheduled_time_str[:2]) < 15 else "tomorrow"
+            effective_day = "today" if int(scheduled_time_str[:2]) < 18 else "tomorrow"
             chat_id = i["chat_id"]
             user_id = i["user_id"]
             if bool(i["autosend"]):
@@ -930,7 +929,7 @@ class the_unibot:
         params = Utils.parse_params("/timetable", update.message.text, self.which_bot)
 
         if len(params["numeric"]) == 0 and len(params["text"]) == 0:
-            if datetime.now().hour < 15:
+            if datetime.now().hour < 18:
                 params["text"].append("today")
             else:
                 params["text"].append("tomorrow")
@@ -1064,7 +1063,7 @@ class the_unibot:
                 chat_id = update.effective_chat.id
                 user_id = update.effective_user.id
 
-                effective_day = "today" if scheduled_time.hour < 15 else "tomorrow"
+                effective_day = "today" if scheduled_time.hour < 18 else "tomorrow"
 
                 if len(self.db.query_by_ids(update.effective_chat.id)) == 0:
                     self.db.insert(
@@ -1159,7 +1158,7 @@ class the_unibot:
             )
 
             effective_day = (
-                "today" if int(user["autosend_time"][:2]) < 15 else "tomorrow"
+                "today" if int(user["autosend_time"][:2]) < 18 else "tomorrow"
             )
 
             scheduled_time_str = user["autosend_time"]
