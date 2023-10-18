@@ -66,7 +66,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.10.16"
+    __version__ = "2023.10.18"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -349,6 +349,7 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
+            print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
             print(
                 "Updated user {user_id} with course {course_code}".format(
                     course_code=course_code, user_id=user_id
@@ -376,6 +377,7 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
+            print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
             print(
                 "Updated user {user_id} with curricula {code}".format(
                     code=code, user_id=user_id
@@ -406,7 +408,7 @@ class the_unibot:
             )
 
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
-
+            print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
             print(
                 "Updated user {user_id} with language {language}".format(
                     language=language, user_id=user_id
@@ -812,6 +814,7 @@ class the_unibot:
                             ]["language"]
                         ].format(year=params["numeric"][0]),
                     )
+                    print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
                     print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
@@ -887,6 +890,7 @@ class the_unibot:
                             ]["language"]
                         ].format(detail=params["numeric"][0]),
                     )
+                    print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
                     print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
@@ -1105,7 +1109,7 @@ class the_unibot:
                     data=effective_day,
                 )
                 self.jobs[str(chat_id)].enabled = True
-
+                print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
                 print(self.db.query_by_ids(chat_id))
             else:
                 await context.bot.send_message(
@@ -1262,10 +1266,14 @@ class the_unibot:
                     parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True,
                 )
+            print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
+            print(f"Sent autosend to {chat_id}")
+            print(f"Options: {self.db.query_by_ids(chat_id)}")
         except Forbidden:
             # user blocked the bot, so set the autosend to False
             self.db.update("data", key_chat_id=chat_id, autosend=0)
             self.jobs[str(chat_id)].schedule_removal()
+            print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
             print(f"User {chat_id} blocked the bot, autosend disabled.")
 
     async def __callback_loop(self, context: CallbackContext) -> None:
@@ -1288,6 +1296,7 @@ class the_unibot:
                 "data", key_chat_id=context.job.chat_id, chat_id=e.new_chat_id
             )
             self.jobs[str(context.job.chat_id)].chat_id = e.new_chat_id
+            print(f"DEBUG ---- line {sys._getframe(1).f_lineno}")
             print(f"Chat migrated from {context.job.chat_id} to {e.new_chat_id}")
 
     async def wiki(self, update: Update, context: CallbackContext) -> None:
