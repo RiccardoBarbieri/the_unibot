@@ -124,7 +124,7 @@ class the_unibot:
 
         logging.basicConfig(
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-            level=logging.INFO,
+            level=logging.WARNING,
         )
 
         self.db = Database(Path("./database/telegram.db"))
