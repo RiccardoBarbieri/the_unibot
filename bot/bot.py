@@ -1755,11 +1755,11 @@ class the_unibot:
 if __name__ == "__main__":
     if sys.argv[1] == "test":
         with open(Path("./keys/test.txt"), "r") as f:
-            token = f.readline()
+            token = f.readline().strip()
             which_bot = "orari_unibo_bot"
     elif sys.argv[1] == "launch":
         with open(Path("./keys/token.txt"), "r") as f:
-            token = f.readline()
+            token = f.readline().strip()
             which_bot = "the_unibot"
 
     bot = the_unibot(token, which_bot)
