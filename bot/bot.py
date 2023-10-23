@@ -1262,6 +1262,11 @@ class the_unibot:
             self.db.update("data", key_chat_id=chat_id, autosend=0)
             self.jobs[str(chat_id)].schedule_removal()
             logging.warning(f"User {chat_id} blocked the bot, autosend disabled.")
+        except BadRequest:
+            # user deleted the chat, so set the autosend to False
+            self.db.update("data", key_chat_id=chat_id, autosend=0)
+            self.jobs[str(chat_id)].schedule_removal()
+            logging.warning(f"User {chat_id} not existing, autosend disabled.")
 
     async def __callback_loop(self, context: CallbackContext) -> None:
         """
