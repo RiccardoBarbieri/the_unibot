@@ -122,6 +122,12 @@ class the_unibot:
 
         dispatcher = ApplicationBuilder().token(token).build()
 
+        class OnlyDEBUGFilter(logging.Filter):
+            def filter(self, record):
+                return record.level == logging.DEBUG
+
+        logging.addFilter(OnlyDEBUGFilter())
+
         logging.basicConfig(
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             level=logging.INFO,
@@ -349,7 +355,7 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
-            logging.info(f"Updated user {user_id} with course {course_code}")
+            logging.debug(f"Updated user {user_id} with course {course_code}")
         if last_command is not None and "/set_curriculum" in last_command["text"]:
             chat_id = last_command["chat_id"]
             user_id = last_command["user_id"]
@@ -372,7 +378,7 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
-            logging.info(f"Updated user {user_id} with curricula {code}")
+            logging.debug(f"Updated user {user_id} with curricula {code}")
         if last_command is not None and "/change_language" in last_command["text"]:
             chat_id = last_command["chat_id"]
             user_id = last_command["user_id"]
@@ -398,7 +404,7 @@ class the_unibot:
             )
 
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
-            logging.info(f"Updated user {user_id} with language {language}")
+            logging.debug(f"Updated user {user_id} with language {language}")
 
     async def help(self, update: Update, context: CallbackContext) -> None:
         """
@@ -799,7 +805,7 @@ class the_unibot:
                             ]["language"]
                         ].format(year=params["numeric"][0]),
                     )
-                    logging.info(
+                    logging.debug(
                         f'Updated user {user_id} with year {params["numeric"][0]}'
                     )
             else:
@@ -876,7 +882,7 @@ class the_unibot:
                             ]["language"]
                         ].format(detail=params["numeric"][0]),
                     )
-                    logging.info(
+                    logging.debug(
                         f'Updated user {user_id} with detail level {params["numeric"][0]}'
                     )
             else:
@@ -1096,7 +1102,7 @@ class the_unibot:
                     data=effective_day,
                 )
                 self.jobs[str(chat_id)].enabled = True
-                logging.info(
+                logging.debug(
                     f'Updated user {user_id} with autosend time {scheduled_time.strftime("%H:%M")}'
                 )
             else:
@@ -1254,7 +1260,7 @@ class the_unibot:
                     parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True,
                 )
-            logging.info(
+            logging.debug(
                 f"Sent autosend to {chat_id} with options {self.db.query_by_ids(chat_id)}"
             )
         except Forbidden:
