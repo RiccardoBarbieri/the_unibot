@@ -126,11 +126,11 @@ class the_unibot:
             def filter(self, record):
                 return record.level == logging.DEBUG
 
-        logging.addFilter(OnlyDEBUGFilter())
+        logging.getLogger("bot.py").addFilter(OnlyDEBUGFilter())
 
         logging.basicConfig(
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-            level=logging.INFO,
+            level=logging.WARNING,
         )
 
         self.db = Database(Path("./database/telegram.db"))
@@ -355,7 +355,7 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
-            logging.debug(f"Updated user {user_id} with course {course_code}")
+            logging.getLogger("bot.py").debug(f"Updated user {user_id} with course {course_code}")
         if last_command is not None and "/set_curriculum" in last_command["text"]:
             chat_id = last_command["chat_id"]
             user_id = last_command["user_id"]
@@ -378,7 +378,7 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
-            logging.debug(f"Updated user {user_id} with curricula {code}")
+            logging.getLogger("bot.py").debug(f"Updated user {user_id} with curricula {code}")
         if last_command is not None and "/change_language" in last_command["text"]:
             chat_id = last_command["chat_id"]
             user_id = last_command["user_id"]
@@ -404,7 +404,7 @@ class the_unibot:
             )
 
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
-            logging.debug(f"Updated user {user_id} with language {language}")
+            logging.getLogger("bot.py").debug(f"Updated user {user_id} with language {language}")
 
     async def help(self, update: Update, context: CallbackContext) -> None:
         """
@@ -805,7 +805,7 @@ class the_unibot:
                             ]["language"]
                         ].format(year=params["numeric"][0]),
                     )
-                    logging.debug(
+                    logging.getLogger("bot.py").debug(
                         f'Updated user {user_id} with year {params["numeric"][0]}'
                     )
             else:
@@ -882,7 +882,7 @@ class the_unibot:
                             ]["language"]
                         ].format(detail=params["numeric"][0]),
                     )
-                    logging.debug(
+                    logging.getLogger("bot.py").debug(
                         f'Updated user {user_id} with detail level {params["numeric"][0]}'
                     )
             else:
@@ -1102,7 +1102,7 @@ class the_unibot:
                     data=effective_day,
                 )
                 self.jobs[str(chat_id)].enabled = True
-                logging.debug(
+                logging.getLogger("bot.py").debug(
                     f'Updated user {user_id} with autosend time {scheduled_time.strftime("%H:%M")}'
                 )
             else:
@@ -1260,7 +1260,7 @@ class the_unibot:
                     parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True,
                 )
-            logging.debug(
+            logging.getLogger("bot.py").debug(
                 f"Sent autosend to {chat_id} with options {self.db.query_by_ids(chat_id)}"
             )
         except Forbidden:
