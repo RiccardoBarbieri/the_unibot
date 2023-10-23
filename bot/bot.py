@@ -133,6 +133,8 @@ class the_unibot:
             level=logging.WARNING,
         )
 
+        logging.getLogger("bot.py").setLevel(logging.DEBUG)
+
         self.db = Database(Path("./database/telegram.db"))
 
         self.job_queue = dispatcher.job_queue
