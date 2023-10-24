@@ -124,7 +124,7 @@ class the_unibot:
 
         class OnlyDEBUGFilter(logging.Filter):
             def filter(self, record):
-                return record.level == logging.DEBUG
+                return record.levelno == logging.DEBUG
 
         logging.getLogger("bot.py").addFilter(OnlyDEBUGFilter())
 
