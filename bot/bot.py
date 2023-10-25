@@ -357,7 +357,9 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
-            logging.getLogger("bot.py").debug(f"Updated user {user_id} with course {course_code}")
+            logging.getLogger("bot.py").debug(
+                f"Updated user {user_id} with course {course_code}"
+            )
         if last_command is not None and "/set_curriculum" in last_command["text"]:
             chat_id = last_command["chat_id"]
             user_id = last_command["user_id"]
@@ -380,7 +382,9 @@ class the_unibot:
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
 
             self.db.backup("data")
-            logging.getLogger("bot.py").debug(f"Updated user {user_id} with curricula {code}")
+            logging.getLogger("bot.py").debug(
+                f"Updated user {user_id} with curricula {code}"
+            )
         if last_command is not None and "/change_language" in last_command["text"]:
             chat_id = last_command["chat_id"]
             user_id = last_command["user_id"]
@@ -406,7 +410,9 @@ class the_unibot:
             )
 
             self.db.update("last_command", key_chat_id=chat_id, text="/start")
-            logging.getLogger("bot.py").debug(f"Updated user {user_id} with language {language}")
+            logging.getLogger("bot.py").debug(
+                f"Updated user {user_id} with language {language}"
+            )
 
     async def help(self, update: Update, context: CallbackContext) -> None:
         """
@@ -1292,10 +1298,38 @@ class the_unibot:
         try:
             await self.__orario_autosend(context)
         except ChatMigrated as e:
-            self.db.update(
-                "data", key_chat_id=context.job.chat_id, chat_id=e.new_chat_id
+            # add a new line to the database with same data but new chat_id
+            self.db.insert(
+                "data",
+                chat_id=e.new_chat_id,
+                user_id=context.job.user_id,
+                course=self.db.query_by_ids(context.job.chat_id)[0]["course"],
+                year=self.db.query_by_ids(context.job.chat_id)[0]["year"],
+                detail=self.db.query_by_ids(context.job.chat_id)[0]["detail"],
+                curricula=self.db.query_by_ids(context.job.chat_id)[0]["curricula"],
+                autosend=self.db.query_by_ids(context.job.chat_id)[0]["autosend"],
+                autosend_time=self.db.query_by_ids(context.job.chat_id)[0][
+                    "autosend_time"
+                ],
+                filter=self.db.query_by_ids(context.job.chat_id)[0]["filter"],
+                language=self.db.query_by_ids(context.job.chat_id)[0]["language"],
             )
-            self.jobs[str(context.job.chat_id)].chat_id = e.new_chat_id
+            # remove old entry
+            self.db.delete("data", key_chat_id=context.job.chat_id)
+            # remove old job
+            self.jobs[str(context.job.chat_id)].schedule_removal()
+            # add new job
+            self.jobs[str(e.new_chat_id)] = self.job_queue.run_daily(
+                self.__callback_loop,
+                time=Utils.parse_time(
+                    self.db.query_by_ids(e.new_chat_id)[0]["autosend_time"]
+                ),
+                days=(0, 1, 2, 3, 4, 5, 6),
+                chat_id=e.new_chat_id,
+                user_id=context.job.user_id,
+                data=context.job.data,
+            )
+            self.jobs[str(e.new_chat_id)].enabled = True
             logging.warning(
                 f"Chat migrated from {context.job.chat_id} to {e.new_chat_id}"
             )
