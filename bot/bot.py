@@ -66,7 +66,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.10.25"
+    __version__ = "2023.10.28"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -1298,6 +1298,8 @@ class the_unibot:
         try:
             await self.__orario_autosend(context)
         except ChatMigrated as e:
+            if context.job.chat_id == e.new_chat_id:
+                return
             # add a new line to the database with same data but new chat_id
             self.db.insert(
                 "data",
@@ -1314,8 +1316,8 @@ class the_unibot:
                 filter=self.db.query_by_ids(context.job.chat_id)[0]["filter"],
                 language=self.db.query_by_ids(context.job.chat_id)[0]["language"],
             )
-            # remove old entry
-            self.db.delete("data", key_chat_id=context.job.chat_id)
+            # remove old entry - TODO: not implemented yet
+            # self.db.delete("data", key_chat_id=context.job.chat_id)
             # remove old job
             self.jobs[str(context.job.chat_id)].schedule_removal()
             # add new job
