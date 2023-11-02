@@ -2,6 +2,7 @@ import sys
 import logging
 import json
 import re
+import time
 from pathlib import Path
 from math import ceil
 from datetime import datetime
@@ -14,7 +15,7 @@ from telegram import (
     Update,
     Bot,
 )
-from telegram.error import BadRequest, Forbidden, ChatMigrated
+from telegram.error import BadRequest, Forbidden, ChatMigrated, NetworkError
 from telegram.constants import ParseMode
 from telegram.ext import (
     ApplicationBuilder,
@@ -66,7 +67,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.10.28"
+    __version__ = "2023.11.02"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -130,7 +131,7 @@ class the_unibot:
 
         logging.basicConfig(
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-            level=logging.WARNING,
+            level=logging.INFO,
         )
 
         logging.getLogger("bot.py").setLevel(logging.DEBUG)
@@ -1316,8 +1317,19 @@ class the_unibot:
                 filter=self.db.query_by_ids(context.job.chat_id)[0]["filter"],
                 language=self.db.query_by_ids(context.job.chat_id)[0]["language"],
             )
-            # remove old entry - TODO: not implemented yet
-            # self.db.delete("data", key_chat_id=context.job.chat_id)
+            # set old entry to default values
+            self.db.update(
+                "data",
+                key_chat_id=context.job.chat_id,
+                course="0",
+                year=1,
+                detail=2,
+                curricula="default",
+                autosend=0,
+                autosend_time="00:00",
+                filter="",
+                language="en",
+            )
             # remove old job
             self.jobs[str(context.job.chat_id)].schedule_removal()
             # add new job
@@ -1335,6 +1347,10 @@ class the_unibot:
             logging.warning(
                 f"Chat migrated from {context.job.chat_id} to {e.new_chat_id}"
             )
+        except NetworkError:
+            logging.warning("Network error, retrying in 5 seconds...")
+            time.sleep(5)
+            await self.__callback_loop(context)
 
     async def wiki(self, update: Update, context: CallbackContext) -> None:
         """
