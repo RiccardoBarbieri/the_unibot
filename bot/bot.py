@@ -67,7 +67,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.11.02"
+    __version__ = "2023.11.03"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -1348,9 +1348,7 @@ class the_unibot:
                 f"Chat migrated from {context.job.chat_id} to {e.new_chat_id}"
             )
         except NetworkError:
-            logging.warning("Network error, retrying in 5 seconds...")
-            time.sleep(5)
-            await self.__callback_loop(context)
+            logging.warning("Network error raised, skipping it.")
 
     async def wiki(self, update: Update, context: CallbackContext) -> None:
         """
