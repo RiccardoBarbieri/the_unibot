@@ -131,7 +131,7 @@ class the_unibot:
 
         logging.basicConfig(
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-            level=logging.INFO,
+            level=logging.WARNING,
         )
 
         logging.getLogger("bot.py").setLevel(logging.DEBUG)
