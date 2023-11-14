@@ -1335,10 +1335,12 @@ class the_unibot:
                 filter="",
                 language="en",
             )
+            # TODO: add delete function
             # remove old entry
-            self.db.delete("data", key_chat_id=context.job.chat_id)
+            # self.db.delete("data", key_chat_id=context.job.chat_id)
             # remove old job
             self.jobs[str(context.job.chat_id)].schedule_removal()
+            self.jobs[str(context.job.chat_id)].enabled = False
             # add new job
             self.jobs[str(e.new_chat_id)] = self.job_queue.run_daily(
                 self.__callback_loop,
