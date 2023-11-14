@@ -67,7 +67,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.11.08"
+    __version__ = "2023.11.14"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -985,14 +985,17 @@ class the_unibot:
 
         result = self.db.query_by_ids(chat_id)[0]
 
-        schedules = UniboAPI.get_orario(
-            found["course_codec"],
-            Utils.get_course_type(found["site"]),
-            result["year"],
-            Utils.get_course_lang(found["site"]),
-            date,
-            curricula=result["curricula"],
-        )
+        try:
+            schedules = UniboAPI.get_orario(
+                found["course_codec"],
+                Utils.get_course_type(found["site"]),
+                result["year"],
+                Utils.get_course_lang(found["site"]),
+                date,
+                curricula=result["curricula"],
+            )
+        except NetworkError:
+            return None
 
         for i in schedules:
             if self.db.query_by_ids(chat_id)[0]["hide_show"] == 1:
@@ -1241,7 +1244,9 @@ class the_unibot:
             "campus"
         ].strip()
 
-        messages = self.__messages_creation(city, date, chat_id)
+        messages = None
+        while messages is None:
+            messages = self.__messages_creation(city, date, chat_id)
 
         message_default = self.messages["error_no_lessons_date"][
             self.db.query("data", key_chat_id=chat_id)[0]["language"]
@@ -1349,8 +1354,6 @@ class the_unibot:
             logging.warning(
                 f"Chat migrated from {context.job.chat_id} to {e.new_chat_id}"
             )
-        except NetworkError:
-            logging.warning("Network error raised, skipping it.")
 
     async def wiki(self, update: Update, context: CallbackContext) -> None:
         """
