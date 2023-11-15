@@ -67,7 +67,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.11.14"
+    __version__ = "2023.11.15"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -985,17 +985,20 @@ class the_unibot:
 
         result = self.db.query_by_ids(chat_id)[0]
 
-        try:
-            schedules = UniboAPI.get_orario(
-                found["course_codec"],
-                Utils.get_course_type(found["site"]),
-                result["year"],
-                Utils.get_course_lang(found["site"]),
-                date,
-                curricula=result["curricula"],
-            )
-        except NetworkError:
-            return None
+        while True:
+            try:
+                schedules = UniboAPI.get_orario(
+                    found["course_codec"],
+                    Utils.get_course_type(found["site"]),
+                    result["year"],
+                    Utils.get_course_lang(found["site"]),
+                    date,
+                    curricula=result["curricula"],
+                )
+                break
+            except Exception as e:
+                logging.getLogger("bot.py").warning(f"{e}. Retrying in 5 seconds...")
+                time.sleep(5)
 
         for i in schedules:
             if self.db.query_by_ids(chat_id)[0]["hide_show"] == 1:
@@ -1268,12 +1271,21 @@ class the_unibot:
             if weather_message is not None:
                 messages.insert(1, weather_message)
             for message in messages:
-                await context.bot.send_message(
-                    chat_id=chat_id,
-                    text=message,
-                    parse_mode=ParseMode.HTML,
-                    disable_web_page_preview=True,
-                )
+                sent_message = None
+                while sent_message != re.sub("<[^<]+?>", "", message):
+                    try:
+                        sent_message = await context.bot.send_message(
+                            chat_id=chat_id,
+                            text=message,
+                            parse_mode=ParseMode.HTML,
+                            disable_web_page_preview=True,
+                        )
+                    except NetworkError:
+                        logging.getLogger("bot.py").warning(
+                            "Network error, retrying in 5 seconds..."
+                        )
+                        time.sleep(5)
+                    sent_message = sent_message.text
             logging.getLogger("bot.py").debug(
                 f"Sent autosend to {chat_id} with options {self.db.query_by_ids(chat_id)}"
             )
@@ -1281,12 +1293,16 @@ class the_unibot:
             # user blocked the bot, so set the autosend to False
             self.db.update("data", key_chat_id=chat_id, autosend=0)
             self.jobs[str(chat_id)].schedule_removal()
-            logging.warning(f"User {chat_id} blocked the bot, autosend disabled.")
+            logging.getLogger("bot.py").warning(
+                f"User {chat_id} blocked the bot, autosend disabled."
+            )
         except BadRequest:
             # user deleted the chat, so set the autosend to False
             self.db.update("data", key_chat_id=chat_id, autosend=0)
             self.jobs[str(chat_id)].schedule_removal()
-            logging.warning(f"User {chat_id} not existing, autosend disabled.")
+            logging.getLogger("bot.py").warning(
+                f"User {chat_id} not existing, autosend disabled."
+            )
 
     async def __callback_loop(self, context: CallbackContext) -> None:
         """
@@ -1353,7 +1369,7 @@ class the_unibot:
                 data=context.job.data,
             )
             self.jobs[str(e.new_chat_id)].enabled = True
-            logging.warning(
+            logging.getLogger("bot.py").warning(
                 f"Chat migrated from {context.job.chat_id} to {e.new_chat_id}"
             )
 
