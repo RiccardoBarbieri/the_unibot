@@ -1286,7 +1286,8 @@ class the_unibot:
                             "Network error, retrying in 5 seconds..."
                         )
                         time.sleep(5)
-                    sent_message = sent_message.text
+                    if sent_message is not None:
+                        sent_message = sent_message.text
             logging.getLogger("bot.py").debug(
                 f"Sent autosend to {chat_id} with options {self.db.query_by_ids(chat_id)}"
             )

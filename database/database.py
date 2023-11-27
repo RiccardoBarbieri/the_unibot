@@ -383,7 +383,19 @@ class Database:
                 json.dump(dump, f)
 
     def restore_backup(self, table: str):
-        with open(Path("./database/backup_{table}.json".format(table=table))) as f:
+        '''
+        This function restores the backup of the table.
+
+        Parameters
+        ----------
+        table : str
+            the table to restore
+
+        Returns
+        -------
+        None
+        '''
+        with open(Path(f"./database/backup_{table}.json"), encoding='utf-8') as f:
             data = json.load(f)
 
         for i in data:
