@@ -67,7 +67,7 @@ class the_unibot:
         Contains the updater instance.
     """
 
-    __version__ = "2023.11.15"
+    __version__ = "2023.11.27"
     __author__ = "Riccardo Barbieri, Gregorio Berselli"
     __link__ = "https://github.com/RiccardoBarbieri/the_unibot"
     __langs__ = {"English": "en", "Italiano": "it"}
@@ -196,6 +196,7 @@ class the_unibot:
         dispatcher.add_handler(reset_handler)
         dispatcher.add_handler(hide_handler)
         dispatcher.add_handler(show_handler)
+        dispatcher.add_error_handler(self.error_handler)
 
         dispatcher.run_polling()
 
@@ -1824,6 +1825,22 @@ class the_unibot:
                     ]
                 ],
             )
+
+    async def error_handler(self, update: Update, context: CallbackContext) -> None:
+        """
+        This method is called when an error occurs.
+        It writes the error using the logger.
+
+        Parameters
+        ----------
+        update : telegram.Update
+            Contains the update object.
+        context : telegram.ext.CallbackContext
+            Contains the context object.
+        """
+        logging.getLogger("bot.py").error(
+            f"Exception while handling the update {update}: {context.error}"
+        )
 
 
 if __name__ == "__main__":
